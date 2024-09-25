@@ -266,13 +266,31 @@
                 text-align: center;
                 width: 100%;
             }
-            .contact-info {
+          .contact-info {
+              font-size: 0.6rem;
             flex: 1;
             padding: 5rem;
             padding-right: 1rem;
-            padding-left:10rem;
+            padding-left:2rem;
             line-height: 0rem; /* Контроль расстояния между строками внутри абзаца */
+        
         }
+            .contact-image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+                align-items: center;
+            }
+        }
+
+        .contact-image img {
+            max-width: 100%;
+            padding: 0rem 1rem; /* Уменьшен верхний отступ */
+            height: auto;
+            object-fit: cover;
+            
+        }
+
             .hamburger {
                 display: flex;
             }
