@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikita Kotrelev</title>
+    <!-- Добавляем favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Подключение Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+       
+        html, body {
+            overflow-x: hidden; /* Скрыть горизонтальную прокрутку */
+            overflow-y: auto;   /* Позволить вертикальную прокрутку */
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Stolzl Book', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 2rem;
+        }
+
+        header {
+            width: 100%;
+            text-align: center; /* Центрирование заголовка и подзаголовков */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+            font-family: 'Galey', Modern Sans Serif Font;
+        }
+
+        header .subheading {
+            font-size: 1.1rem;
+            font-family: 'Stolzl', Light;
+            margin-top: 0.5rem;
+        }
+
+        .header-nav {
+            margin-top: 1rem;
+        }
+
+        .header-nav nav {
+            display: flex;
+            justify-content: flex-end; /* Выравнивание кнопок справа */
+        margin-right: 200px; /* Добавим отступ от правого края */
+            gap: 3rem;
+        }
+
+        .header-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: 'Stolzl', Light;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 22vh;
+            left: 0;
+            width: 100%;
+            height: 60vh;
+            object-fit: cover;
+            z-index: 4;
+        }
+
+        .text-below-video {
+            margin-top: 70vh;
+            padding: 2rem;
+            color: #ffffff;
+            text-align: center;
+            font-size: 1.5rem;
+            line-height: 1.6;
+            font-family: 'Galey', Modern Sans Serif Font;
+        }
+
+        .gallery-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px; /* Расстояние между фотографиями */
+            justify-content: flex-start; /* Выравнивание фотографий по левому краю */
+            width: 100%;
+        }
+
+        .gallery-item {
+       flex-basis: calc(33.33% - 4px); /* Ширина каждого элемента равна 1/3 от родительского контейнера */
+            max-width: calc(33.33% - 4px);  /* Ограничение ширины для каждого элемента */
+            height: 400px; /* Фиксированная высота для всех фотографий */
+        }
+
+        .gallery-item img {
+            width: 100%; /* Чтобы изображения заполняли свои контейнеры */
+            height: 100%; /* Фиксированная высота для всех фотографий */
+            object-fit: cover; /* Обеспечивает заполнение контейнера изображением, сохраняя его пропорции */
+            cursor: pointer; /* Курсор меняется на указатель при наведении */
+        }
+
+        .modal {
+    display: none; /* Модальное окно скрыто по умолчанию */
+    position: fixed; 
+    z-index: 999; 
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%; 
+    max-height: 90%; 
+    background-color: rgba(0, 0, 0, 0); /* Прозрачный черный фон */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal img {
+    max-width: 100%; 
+    max-height: 80vh; 
+    object-fit: contain; 
+    background-color: transparent; /* Убираем белый фон */
+}
+
+        .modal.active {
+            display: flex;
+        }
+
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px 0;
+            transition: 0.4s;
+        }
+
+        .change .bar1 {
+            transform: rotate(-45deg) translate(-5px, 5px);
+        }
+
+        .change .bar2 {
+            opacity: 0;
+        }
+
+        .change .bar3 {
+            transform: rotate(45deg) translate(-5px, -5px);
+        }
+
+        .menu-mobile {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background-color: white;
+            transition: right 0.3s ease-in-out;
+            padding-top: 200px;
+        }
+
+        .menu-mobile a {
+            padding: 20px;
+            font-size: 15px;
+            color: black;
+            text-decoration: none;
+            width: 100%;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 30px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 45px;
+            color: black;
+            background-color: transparent;
+            border: none;
+            z-index: 100;
+        }
+
+        .menu-mobile.active .close-button {
+            display: block;
+        }
+
+        .menu-mobile.active {
+            right: 0;
+            display: flex;
+        }
+
+        @media (min-width: 961px) and (max-width: 1700px) {
+          .header-nav nav {
+        display: flex;
+        justify-content: flex-end; /* Выравнивание кнопок справа */
+        margin-right: 200px; /* Добавим отступ от правого края */
+        gap: 2rem; /* Расстояние между кнопками */
+      
+    }
+
+     header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        transform: translateY(-57%);
+        transform: translateX(-9%);
+        letter-spacing: 1px;
+        transition: color 0.1s ease-in-out;
+        font-family: 'Galey', Modern Sans Serif Font;
+      }
+
+      header .subheading {
+        font-size: 1.1rem; /* Размер шрифта для Cinematographer */
+        transform: translateY(0%);
+        transform: translateX(-5%);
+        font-family: 'Stolzl', Light;
+        color: #ffffff; /* Цвет шрифта */
+        margin-top: 0.5rem; /* Отступ сверху между заголовком и подзаголовком */
+      }
+      .header-nav a {
+            color: #ffffff; /* Белый цвет для кнопок */
+            
+            text-decoration: none; /* Убираем подчеркивание */
+            font-size: 0.9rem; /* Размер шрифта для кнопок */
+            font-family: 'Stolzl', Light; /* Шрифт для кнопок */
+        }
+
+        .header-nav nav {
+            display: flex;
+            
+            gap: 1rem; /* Расстояние между кнопками, измените по необходимости */
+        }
+
+    .hamburger {
+        display: none; /* Скрываем гамбургер меню на больших экранах */
+    }
+}
+
+
+
+        @media screen and (max-width: 960px) {
+            .header-nav nav {
+                display: none;
+
+            }
+
+            header h1, .subheading {
+                text-align: center;
+                width: 100%;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .gallery-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .gallery-item {
+                flex-basis: 100%; /* При меньших экранах фотография будет занимать 100% ширины */
+                max-width: 100%;
+                height: auto; /* Автоматическая высота для изображений */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Видео на фоне -->
+    <video autoplay muted class="video-background" id="background-video">
+        <source src="img/сима в автобусе 1.mp4" type="video/mp4">
+    </video>
+
+    <!-- Заголовок и навигация -->
+    <header>
+        <h1><a href="index.html" style="color: inherit; text-decoration: none;">Nikita Kotrelev</a></h1>
+        <div class="subheading">Cinematographer</div> <!-- Новый элемент для подзаголовка -->
+        <div class="subheading">Photographer</div> <!-- Новый элемент для подзаголовка -->
+        <div class="header-nav"> <!-- Новый контейнер для навигации -->
+            <nav>
+                <a href="Video.html">VIDEO</a>
+                <a href="photos.html">PHOTOS</a>
+                <a href="about.html">ABOUT ME</a>
+                <a href="CONTACT.html">CONTACT</a>
+            </nav>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </header>
+
+    <!-- Скрытое мобильное меню -->
+    <div class="menu-mobile" id="menu-mobile">
+        <button class="close-button" id="close-button">✖</button>
+        <a href="Video.html">VIDEO</a>
+        <a href="photos.html">PHOTOS</a>
+        <a href="about.html">ABOUT ME</a>
+        <a href="CONTACT.html">CONTACT</a>
+    </div>
+
+    <!-- Контент страницы -->
+    <div class="text-below-video">
+        <p>New Works</p>
+       
+    </div>
+    <div class="gallery-section">
+    <div class="gallery-item">
+        <img src="img/грузия деревня_5.PNG" alt="Photo 1">
+    </div>
+    <div class="gallery-item">
+        <img src="img/грузия первые дни _8.PNG" alt="Photo 2">
+    </div>
+    <div class="gallery-item">
+        <img src="img/IMG_8190.JPG" alt="Photo 3">
+    </div>
+    <div class="gallery-item">
+      <img src="img/DSCF2510.png" alt="Photo 3">
+  </div>
+    <!-- Добавьте столько фотографий, сколько необходимо -->
+</div>
+
+<!-- Модальное окно -->
+<div class="modal" id="myModal">
+    <img src="" alt="Image" id="modalImage">
+</div>
+    
+
+    <script>
+
+        
+        // Видео смена
+      const videos = [
+        'img/сима в автобусе 1.mp4',
+        'img/тима в автобусе 2 copy.mp4',
+      ];
+
+      let currentVideoIndex = 0;
+      const backgroundVideo = document.getElementById('background-video');
+
+      backgroundVideo.addEventListener('ended', () => {
+          currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+          backgroundVideo.src = videos[currentVideoIndex];
+          backgroundVideo.play();
+      });
+
+
+     // Логика для модального окна
+const modal = document.getElementById('myModal');
+const modalImg = document.getElementById('modalImage');
+
+// Функция для открытия модального окна
+function openModal(imageSrc) {
+    modal.style.display = "flex";
+    modalImg.src = imageSrc;
+}
+
+// Добавляем обработчик события для изображений в галерее
+const galleryItems = document.querySelectorAll('.gallery-item img');
+galleryItems.forEach(item => {
+    item.addEventListener('click', () => {
+        openModal(item.src); // Открываем модальное окно с изображением
+    });
+});
+
+modal.addEventListener('click', function(event) {
+    if (event.target !== modalImg) {
+        modal.style.display = "none"; // Закрываем модальное окно при клике вне изображения
+    }
+});
+
+
+        // Скрипт для открытия и закрытия мобильного меню
+        const hamburger = document.getElementById('hamburger');
+        const menuMobile = document.getElementById('menu-mobile');
+        const closeButton = document.getElementById('close-button');
+
+        hamburger.addEventListener('click', () => {
+            menuMobile.classList.toggle('active');
+            hamburger.classList.toggle('change'); // Добавление класса для анимации гамбургера
+        });
+
+        closeButton.addEventListener('click', () => {
+            menuMobile.classList.remove('active');
+            hamburger.classList.remove('change'); // Удаление класса для анимации гамбургера
+        });
+
+        
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

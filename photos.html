@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikita Kotrelev</title>
+    <link rel="icon" href="Скан 38 (1).png" type="image/png" sizes="64x64">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        html, body {
+            overflow-x: hidden; /* Скрыть горизонтальную прокрутку */
+            overflow-y: auto;   /* Позволить вертикальную прокрутку */
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Stolzl Book', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 2rem;
+        }
+
+        header {
+            width: 100%;
+            text-align: center; /* Центрирование заголовка и подзаголовков */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+            font-family: 'Galey', Modern Sans Serif Font;
+        }
+
+        header .subheading {
+            font-size: 1.1rem;
+            font-family: 'Stolzl', Light;
+            margin-top: 0.5rem;
+        }
+
+        .header-nav {
+            margin-top: 1rem;
+        }
+
+        .header-nav nav {
+            display: flex;
+            justify-content: flex-end; /* Выравнивание кнопок справа */
+        margin-right: 200px; /* Добавим отступ от правого края */
+            gap: 3rem;
+        }
+
+        .header-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: 'Stolzl', Light;
+        }
+
+        .photos-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px; /* Расстояние между фотографиями */
+            justify-content: flex-start; /* Выравнивание фотографий по левому краю */
+            width: 100%;
+        }
+
+        .photo-item {
+            flex-basis: calc(33.33% - 4px); /* Ширина каждого элемента равна 1/3 от родительского контейнера */
+            max-width: calc(33.33% - 4px);
+            height: 400px;
+        }
+
+        .photos-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 10vh;
+        }
+
+        .modal-content {
+            max-width: 60%;
+            max-height: 60%;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px 0;
+            transition: 0.4s;
+        }
+
+        .change .bar1 {
+            transform: rotate(-45deg) translate(-5px, 5px);
+        }
+
+        .change .bar2 {
+            opacity: 0;
+        }
+
+        .change .bar3 {
+            transform: rotate(45deg) translate(-5px, -5px);
+        }
+
+        .menu-mobile {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background-color: white;
+            transition: right 0.3s ease-in-out;
+            padding-top: 200px;
+        }
+
+        .menu-mobile a {
+            padding: 20px;
+            font-size: 15px;
+            color: black;
+            text-decoration: none;
+            width: 100%;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 30px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 45px;
+            color: black;
+            background-color: transparent;
+            border: none;
+            z-index: 100;
+        }
+
+        .menu-mobile.active .close-button {
+            display: block;
+        }
+
+        .menu-mobile.active {
+            right: 0;
+            display: flex;
+        }
+
+        @media (min-width: 961px) and (max-width: 1700px) {
+          .header-nav nav {
+        display: flex;
+        justify-content: flex-end; /* Выравнивание кнопок справа */
+        margin-right: 200px; /* Добавим отступ от правого края */
+        gap: 2rem; /* Расстояние между кнопками */
+      
+    }
+
+     header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        transform: translateY(-57%);
+        transform: translateX(-9%);
+        letter-spacing: 1px;
+        transition: color 0.1s ease-in-out;
+        font-family: 'Galey', Modern Sans Serif Font;
+      }
+
+      header .subheading {
+        font-size: 1.1rem; /* Размер шрифта для Cinematographer */
+        transform: translateY(0%);
+        transform: translateX(-5%);
+        font-family: 'Stolzl', Light;
+        color: #ffffff; /* Цвет шрифта */
+        margin-top: 0.5rem; /* Отступ сверху между заголовком и подзаголовком */
+      }
+      .header-nav a {
+            color: #ffffff; /* Белый цвет для кнопок */
+            
+            text-decoration: none; /* Убираем подчеркивание */
+            font-size: 0.9rem; /* Размер шрифта для кнопок */
+            font-family: 'Stolzl', Light; /* Шрифт для кнопок */
+        }
+
+        .header-nav nav {
+            display: flex;
+            
+            gap: 1rem; /* Расстояние между кнопками, измените по необходимости */
+        }
+
+    .hamburger {
+        display: none; /* Скрываем гамбургер меню на больших экранах */
+    }
+}
+
+
+
+        @media screen and (max-width: 960px) {
+            .header-nav nav {
+                display: none;
+
+            }
+
+            header h1, .subheading {
+                text-align: center;
+                width: 100%;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .photos-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .photo-item {
+                flex-basis: 100%;
+                max-width: 100%;
+                height: auto; /* Автоматическая высота для изображений */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" style="color: inherit; text-decoration: none;">Nikita Kotrelev</a></h1>
+        <div class="subheading">Cinematographer</div>
+        <div class="subheading">Photographer</div>
+        <div class="header-nav">
+            <nav>
+                <a href="Video.html">VIDEO</a>
+                <a href="photos.html">PHOTOS</a>
+                <a href="about.html">ABOUT ME</a>
+                <a href="CONTACT.html">CONTACT</a>
+            </nav>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </header>
+
+    <div class="menu-mobile" id="menu-mobile">
+        <button class="close-button" id="close-button">✖</button>
+        <a href="Video.html">VIDEO</a>
+        <a href="photos.html">PHOTOS</a>
+        <a href="about.html">ABOUT ME</a>
+        <a href="CONTACT.html">CONTACT</a>
+    </div>
+
+    <div class="photos-container">
+      <div class="photo-item">
+        <img src="img/FullSizeRender.jpeg" alt="Photo 1">
+    </div>
+    <div class="photo-item">
+        <img src="img/DSC07474.jpg" alt="Photo 2">
+    </div>
+    <div class="photo-item">
+        <img src="img/IMG_1969.jpeg" alt="Photo 3">
+    </div>
+    <div class="photo-item">
+      <img src="img/Имя документа hf_29.jpg" alt="Photo 4">
+  </div>
+   
+    <div class="photo-item">
+        <img src="img/Kotrelev_Ganr_2.jpeg.jpg" alt="Photo 5">
+    </div>
+    <div class="photo-item">
+      <img src="img/IMG_5322[1].jpg" alt="Photo 6">
+  </div>
+  
+  <div class="photo-item">
+    <img src="img/IMG_8328.jpeg" alt="Photo 7">
+</div>
+    <div class="photo-item">
+        <img src="img/Kotrelev_Ganr_3.jpeg.jpg" alt="Photo 8">
+    </div>
+
+   
+    <div class="photo-item">
+        <img src="img/Kotrelev_Ganr_15.jpeg.jpg" alt="Photo 9">
+    </div>
+    <div class="photo-item">
+      <img src="img/Kotrelev_Pejzazh_23.jpeg.jpg" alt="Photo 10">
+  </div>
+  <div class="photo-item">
+    <img src="img/Kotrelev_Ganr_7.jpeg.jpg" alt="Photo 11">
+</div>
+<div class="photo-item">
+  <img src="img/Kotrelev_Portret_27. jpeg.jpg" alt="Photo 12">
+</div>
+<div class="photo-item">
+  <img src="img/Kotrelev_Portret_25. jpeg.jpg" alt="Photo 14">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Portret_26. jpeg.jpg" alt="Photo 15">
+</div>
+<div class="photo-item">
+<img src="img/FullSizeRender (1).jpeg" alt="Photo 16">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Pejzazh_24.jpeg.jpg" alt="Photo 17">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Ganr_16.jpeg.JPG" alt="Photo 18">
+</div>
+<div class="photo-item">
+<img src="img/IMG_1889.jpg" alt="Photo 19">
+</div>
+<div class="photo-item">
+<img src="img/IMG_4058.jpeg" alt="Photo 20">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Ganr_14.jpeg.jpg" alt="Photo 21">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Ganr_13.jpeg.jpg" alt="Photo 22">
+</div>
+    
+ <!-- Модальное окно для галереи -->
+ <div id="photoModal" class="modal">
+  <div class="modal-content">
+      <img id="modalImage" src="" alt="Modal Photo">
+  </div>
+</div>
+
+    <script>
+        document.getElementById('hamburger').addEventListener('click', function () {
+            this.classList.toggle('change');
+            document.getElementById('menu-mobile').classList.toggle('active');
+        });
+
+        document.getElementById('close-button').addEventListener('click', function () {
+            document.getElementById('menu-mobile').classList.remove('active');
+            document.getElementById('hamburger').classList.remove('change');
+        });
+        // Получаем модальное окно и изображение внутри него
+      const modal = document.getElementById("photoModal");
+      const modalImg = document.getElementById("modalImage");
+
+      // Функция для открытия модального окна
+      document.querySelectorAll('.photos-container img').forEach(img => {
+          img.addEventListener('click', function() {
+              modal.style.display = "flex";
+              modalImg.src = this.src;
+          });
+      });
+
+      // Функция для закрытия модального окна при нажатии за его пределами
+      modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+              modal.style.display = "none";
+          }
+      });
+    </script>
+</body>
+</html>

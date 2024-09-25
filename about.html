@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikita Kotrelev</title>
+    <link rel="icon" href="Скан 38 (1).png" type="image/png" sizes="64x64">
+    <!-- Используйте 'favicon.png', если используете PNG -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+           html, body {
+        overflow-x: hidden; /* Скрыть горизонтальную прокрутку */
+        overflow-y: auto;   /* Позволить вертикальную прокрутку */
+        margin: 0;          /* Убрать отступы */
+        padding: 0;         /* Убрать отступы */
+      }
+
+      body {
+        font-family: 'Stolzl Book', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #000000;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 2rem;
+      }
+
+      header {
+            width: 100%;
+            text-align: center; /* Центрирование заголовка и подзаголовков */
+            color: #ffffff
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+            font-family: 'Galey', Modern Sans Serif Font;
+        }
+
+        header .subheading {
+            font-size: 1.1rem;
+            font-family: 'Stolzl', Light;
+            margin-top: 0.5rem;
+        }
+
+        .header-nav {
+            margin-top: 1rem;
+        }
+        .header-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: 'Stolzl', Light;
+        }
+
+        .header-nav nav {
+            display: flex;
+            justify-content: flex-end; /* Выравнивание кнопок справа */
+            margin-right: 200px; /* Добавим отступ от правого края */
+            gap: 3rem;
+        }
+
+       
+
+      .about-me {
+            margin-top: 10vh; /* Отступ сверху для текста "Обо мне" */
+            padding: 1rem;
+            max-width: 1200px;
+            transform: translateY(0%);
+            transform: translateX(0%);
+            text-align: left;
+            color: #ffffff; /* Цвет текста */
+            font-size: 1.2rem;
+            font-family: 'Stolzl', Light;
+            display: flex; /* Используем Flexbox для создания столбцов */
+            flex-wrap: wrap;
+            gap: 0.1rem; /* Расстояние между столбцами */
+        }
+
+        .about-me p {
+            flex: 1; /* Каждый параграф занимает равное место */
+            min-width: 400px; /* Минимальная ширина для колонок */
+        }
+         .about-me h2 {
+            width: 100%;
+            font-size: 1rem;
+            flex-basis: 100%; /* Обеспечивает, что заголовок занимает всю ширину контейнера */
+            margin-top: 0.1rem; /* Отступ сверху для заголовков */
+            margin-bottom: 1rem; /* Отступ снизу для заголовков */
+            font-family: 'Galey', Modern Sans Serif Font; /* Шрифт для заголовков */
+        }
+            .about-me h3 {
+            width: 100%;
+            font-size: 1rem;
+            flex-basis: 100%; /* Обеспечивает, что заголовок занимает всю ширину контейнера */
+            margin-top: 2rem; /* Отступ сверху для заголовков */
+            margin-bottom: 1rem; /* Отступ снизу для заголовков */
+            font-family: 'Galey', Modern Sans Serif Font; /* Шрифт для заголовков */
+        }
+      
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px 0;
+            transition: 0.4s;
+        }
+
+        .change .bar1 {
+            transform: rotate(-45deg) translate(-5px, 5px);
+        }
+
+        .change .bar2 {
+            opacity: 0;
+        }
+
+        .change .bar3 {
+            transform: rotate(45deg) translate(-5px, -5px);
+        }
+
+        .menu-mobile {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background-color: white;
+            transition: right 0.3s ease-in-out;
+            padding-top: 200px;
+            z-index: 1000;
+        }
+
+        .menu-mobile a {
+            padding: 20px;
+            font-size: 15px;
+            color: black;
+            text-decoration: none;
+            width: 100%;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 30px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 45px;
+            color: black;
+            background-color: transparent;
+            border: none;
+            z-index: 100;
+        }
+
+        .menu-mobile.active .close-button {
+            display: block;
+        }
+
+        .menu-mobile.active {
+            right: 0;
+            display: flex;
+        }
+
+        @media (min-width: 961px) and (max-width: 1700px) {
+          .header-nav nav {
+        display: flex;
+        justify-content: flex-end; /* Выравнивание кнопок справа */
+        margin-right: 200px; /* Добавим отступ от правого края */
+        gap: 2rem; /* Расстояние между кнопками */
+      
+    }
+
+     header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        transform: translateY(-57%);
+        transform: translateX(-9%);
+        letter-spacing: 1px;
+        transition: color 0.1s ease-in-out;
+        font-family: 'Galey', Modern Sans Serif Font;
+      }
+
+      header .subheading {
+        font-size: 1.1rem; /* Размер шрифта для Cinematographer */
+        transform: translateY(0%);
+        transform: translateX(-5%);
+        font-family: 'Stolzl', Light;
+        color: #ffffff; /* Цвет шрифта */
+        margin-top: 0.5rem; /* Отступ сверху между заголовком и подзаголовком */
+      }
+      .header-nav a {
+            color: #ffffff; /* Белый цвет для кнопок */
+            
+            text-decoration: none; /* Убираем подчеркивание */
+            font-size: 0.9rem; /* Размер шрифта для кнопок */
+            font-family: 'Stolzl', Light; /* Шрифт для кнопок */
+        }
+
+        .header-nav nav {
+            display: flex;
+            
+            gap: 1rem; /* Расстояние между кнопками, измените по необходимости */
+        }
+
+    .hamburger {
+        display: none; /* Скрываем гамбургер меню на больших экранах */
+    }
+}
+
+
+
+        @media screen and (max-width: 960px) {
+            .header-nav nav {
+                display: none;
+
+            }
+
+            header h1, .subheading {
+                text-align: center;
+                width: 100%;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+          }
+            </style>
+  
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" style="color: inherit; text-decoration: none;">Nikita Kotrelev</a></h1>
+        <div class="subheading">Cinematographer</div> <!-- Новый элемент для подзаголовка -->
+        <div class="subheading">Photographer</div> <!-- Новый элемент для подзаголовка -->
+        <div class="header-nav"> <!-- Новый контейнер для навигации -->
+            <nav>
+                <a href="Video.html" id="clothing-btn">VIDEO</a>
+                <a href="photos.html" id="looks-btn">PHOTOS</a>
+                <a href="about.html" id="about-btn">ABOUT ME</a>
+                <a href="CONTACT.html" id="about-btn">CONTACT</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Мобильное меню -->
+    <div class="hamburger" id="hamburger">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </div>
+    <div class="menu-mobile" id="menu-mobile">
+        <button class="close-button" id="close-button">&times;</button>
+        <a href="Video.html">VIDEO</a>
+        <a href="photos.html">PHOTOS</a>
+        <a href="about.html">ABOUT ME</a>
+        <a href="CONTACT.html">CONTACT</a>
+    </div>
+
+    <!-- Блок с текстом "Обо мне" -->
+    <div class="about-me">
+        <h2>VIDEOS</h2>
+        <p>● Lighter  || Voland (Воланд), (2022 -, Russia) a film directed by Mikhail
+            Lokshin</p>
+        <p>● Camera mechanic || Les voix d’Oléron/The voices of Oleron/Голоса
+            олерона(2022,Russia/France)</p>
+            <p>● Grafic Designer || "BM production" || (2023</p>
+            <p>● Camera mechanic || Sketches about Freedom (Этюды о свободе), second
+                season (2021-2022, Russia) - a mini-series directed by Vladimir Mirzoev</p>
+                <p>● Cameraman and Sound engineer|| Saugotuvė Paberžėje (2021-2022, Lithuania)</p>
+                <p>● Focus puller || While Rome Burns (2021, Russia),
+                    a short film directed by Max
+                   Scherr</p>
+                </p>● Cameraman || I AM DYING (Я ПОДЫХАЮ) || (2022, Russia) a music video by MAZERDARK  </p>
+                <h3>CONTEST</h3>
+                <p>I am a professional photographer, my specialization is genre photography. Recently I became a prize-winner of the Street Photo Russia contest - http://streetphotorussia.ru/ . </p>
+              </div>
+
+<script>
+    document.getElementById('hamburger').addEventListener('click', function () {
+        this.classList.toggle('change');
+        document.getElementById('menu-mobile').classList.toggle('active');
+    });
+
+    document.getElementById('close-button').addEventListener('click', function () {
+        document.getElementById('menu-mobile').classList.remove('active');
+        document.getElementById('hamburger').classList.remove('change');
+    });    
+    </script> 
+    </body>
+    </html>
