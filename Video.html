@@ -4,30 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nikita Kotrelev</title>
-   <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="pag 5.png" type="image/png">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-     
         html, body {
-            overflow-x: hidden; /* Скрыть горизонтальную прокрутку */
-            overflow-y: auto;   /* Позволить вертикальную прокрутку */
             margin: 0;
             padding: 0;
-        }
-
-        body {
+            height: 100%;
             font-family: 'Stolzl Book', sans-serif;
             background-color: #000000;
             color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 2rem;
+        }
+
+        body {
+            display: grid;
+            grid-template-areas: 
+                "header"
+                "video"
+                "text"
+                "gallery";
+            grid-template-rows: auto 60vh auto 1fr;
+            grid-template-columns: 1fr;
+            gap: 1rem;
         }
 
         header {
-            width: 100%;
-            text-align: center; /* Центрирование заголовка и подзаголовков */
+            grid-area: header;
+            text-align: center;
+            padding: 2rem;
         }
 
         header h1 {
@@ -49,9 +53,11 @@
 
         .header-nav nav {
             display: flex;
-            justify-content: flex-end; /* Выравнивание кнопок справа */
-        margin-right: 200px; /* Добавим отступ от правого края */
-            gap: 3rem;
+            justify-content: flex-end; /* Выравниваем кнопки вправо */
+            gap: 2rem; /* Расстояние между кнопками */
+            position: absolute; /* Позволяет управлять точной позицией */
+            top: 12%; /* Поднимаем вверх, ближе к фоновому видео (значение можно корректировать для точного позиционирования) */
+            right: 5rem; /* Отступ от правого края экрана */
         }
 
         .header-nav a {
@@ -62,20 +68,15 @@
         }
 
         .video-container {
+            grid-area: video;
             position: relative;
             width: 100%;
-            max-width: 1500px;
             cursor: pointer;
             overflow: hidden;
-            aspect-ratio: 16 / 9; 
-            margin-bottom: 30px; 
+            aspect-ratio: 16 / 9;
+            margin-bottom: 30px;
             display: flex;
             justify-content: center;
-        }
-
-        .video-thumbnail {
-            width: 100%;
-            height: auto;
         }
 
         .video-title {
@@ -90,300 +91,155 @@
             letter-spacing: 1px;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-        }
+        @media screen and (max-width: 960px) {
+           
+        @media screen and (max-width: 960px) {
+            body {
+                padding: 1rem;
+                grid-template-areas: 
+                    "header"
+                    "text"; /* Убираем video и gallery для мобильной версии */
+                grid-template-rows: auto 1fr;
+            }
 
-        .modal-content {
-            position: relative;
-            width: 80%;
-            max-width: 800px;
-        }
+            header {
+                padding: 1.5rem;
+            }
 
-        .modal-content iframe {
-            width: 100%;
-            height: 450px;
-        }
+            header h1 {
+                font-size: 2rem; /* Уменьшаем размер шрифта заголовка для мобильных */
+            }
 
-        .close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            font-size: 30px;
-            color: #fff;
-            cursor: pointer;
-        }
+            header .subheading {
+                font-size: 1rem; /* Уменьшаем размер подзаголовка для мобильных */
+            }
 
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
 
-        .hamburger div {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            margin: 4px 0;
-            transition: 0.4s;
-        }
+            .header-nav nav {
+                display: flex;
+        justify-content: center; /* Центрируем кнопки */
+        gap: 1rem; /* Уменьшаем расстояние между кнопками для мобильных устройств */
+        position: relative; /* Убираем абсолютное позиционирование для мобильных устройств */
+        top: auto; /* Сбрасываем значение top */
+        right: auto; /* Сбрасываем значение right */
+        margin-top: 1rem; /* Добавляем отступ сверху */
+            }
 
-        .change .bar1 {
-            transform: rotate(-45deg) translate(-5px, 5px);
-        }
-
-        .change .bar2 {
-            opacity: 0;
-        }
-
-        .change .bar3 {
-            transform: rotate(45deg) translate(-5px, -5px);
-        }
-
-        .menu-mobile {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 80%;
-            height: 100vh;
-            background-color: white;
-            transition: right 0.3s ease-in-out;
-            padding-top: 200px;
-            z-index: 1000;
-        }
-
-        .menu-mobile a {
-            padding: 20px;
-            font-size: 15px;
-            color: black;
-            text-decoration: none;
-            width: 100%;
-            text-align: center;
-            margin: 15px 0;
-        }
-
-        .close-button {
-            position: absolute;
-            top: 30px;
-            right: 20px;
-            cursor: pointer;
-            font-size: 45px;
-            color: black;
-            background-color: transparent;
-            border: none;
-            z-index: 100;
-        }
-
-        .menu-mobile.active .close-button {
-            display: block;
-        }
-
-        .menu-mobile.active {
-            right: 0;
-            display: flex;
-        }
-
-        @media (min-width: 961px) and (max-width: 1700px) {
-          .header-nav nav {
-        display: flex;
-        justify-content: flex-end; /* Выравнивание кнопок справа */
-        margin-right: 200px; /* Добавим отступ от правого края */
-        gap: 2rem; /* Расстояние между кнопками */
-      
-    }
-
-     header h1 {
-        margin: 0;
-        font-size: 2.5rem;
-        transform: translateY(-57%);
-        transform: translateX(-9%);
-        letter-spacing: 1px;
-        transition: color 0.1s ease-in-out;
-        font-family: 'Galey', Modern Sans Serif Font;
-      }
-
-      header .subheading {
-        font-size: 1.1rem; /* Размер шрифта для Cinematographer */
-        transform: translateY(0%);
-        transform: translateX(-5%);
-        font-family: 'Stolzl', Light;
-        color: #ffffff; /* Цвет шрифта */
-        margin-top: 0.5rem; /* Отступ сверху между заголовком и подзаголовком */
-      }
-      .header-nav a {
-            color: #ffffff; /* Белый цвет для кнопок */
-            
-            text-decoration: none; /* Убираем подчеркивание */
-            font-size: 0.9rem; /* Размер шрифта для кнопок */
-            font-family: 'Stolzl', Light; /* Шрифт для кнопок */
-        }
-
-        .header-nav nav {
-            display: flex;
-            
-            gap: 1rem; /* Расстояние между кнопками, измените по необходимости */
-        }
-
-    .hamburger {
-        display: none; /* Скрываем гамбургер меню на больших экранах */
-    }
+            .video-container {
+    grid-area: video; /* добавлено для совместимости с grid */
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    aspect-ratio: 16 / 9; /* сохраняем соотношение сторон */
+    margin-bottom: 20px; /* Уменьшаем отступ снизу для мобильных устройств */
+    display: flex;
+    justify-content: center;
+    height: auto; /* Убираем фиксированную высоту */
 }
 
+.video-placeholder {
+    width: 100%; /* Задаем ширину 100% */
+    height: 100%; /* Высота 100% для обеспечения правильного соотношения сторон */
+    object-fit: cover; /* Обеспечивает обрезку видео по размеру контейнера */
+}
 
-
-        @media screen and (max-width: 960px) {
-            .header-nav nav {
-                display: none;
-
+            header h1 {
+                font-size: 1.5rem; /* Уменьшаем размер шрифта для заголовка */
             }
 
-            header h1, .subheading {
-                text-align: center;
+            .video-title {
+                font-size: 1.2rem; /* Уменьшаем размер шрифта для названий видео */
+            }
+
+            /* Настройки для модальных окон */
+            .modal-content {
                 width: 100%;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .photos-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .photo-item {
-                flex-basis: 100%;
-                max-width: 100%;
-                height: auto; /* Автоматическая высота для изображений */
+                max-width: 200px;
+                margin: auto;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1><a href="index.html" style="color: inherit; text-decoration: none;">Nikita Kotrelev</a></h1>
-        <div class="subheading">Cinematographer</div>
-        <div class="subheading">Photographer</div>
-        <div class="header-nav">
-            <nav>
-                <a href="Video.html" id="clothing-btn">VIDEO</a>
-                <a href="photos.html" id="looks-btn">PHOTOS</a>
-                <a href="about.html" id="about-btn">ABOUT ME</a>
-                <a href="CONTACT.html" id="about-btn">CONTACT</a>
-            </nav>
+
+    <div class="grid-container">
+        <header>
+            <h1><a href="index.html" style="color: inherit; text-decoration: none;">Nikita Kotrelev</a></h1>
+            <div class="subheading">Cinematographer</div>
+            <div class="subheading">Photographer</div>
+            <div class="header-nav">
+                <nav>
+                    <a href="Video.html" id="clothing-btn">VIDEO</a>
+                    <a href="photos.html" id="looks-btn">PHOTOS</a>
+                    <a href="about.html" id="about-btn">ABOUT ME</a>
+                    <a href="CONTACT.html" id="contact-btn">CONTACT</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="video-container">
+            <video class="video-placeholder" autoplay muted loop playsinline>
+                <source src="img/GEORGIAN.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-title">GEORGIAN FILM (camera crew)</div>
         </div>
 
-        <div class="hamburger" id="hamburger">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
+        <div id="videoModal1" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <iframe 
+                    src="https://www.youtube.com/embed/XaXN2IjR-Bw" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
-    </header>
 
-    <div class="menu-mobile" id="menu-mobile">
-        <button class="close-button" id="close-button">✖</button>
-        <a href="Video.html">VIDEO</a>
-        <a href="photos.html">PHOTOS</a>
-        <a href="about.html">ABOUT ME</a>
-        <a href="CONTACT.html">CONTACT</a>
-    </div>
-</header>
-    <div class="video-container">
-        <video class="video-placeholder" autoplay muted loop playsinline>
-            <source src="img/GEORGIAN.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="video-title">GEORGIAN FILM (camera crew)</div>
-    </div>
-
-    <div id="videoModal1" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <iframe 
-                src="https://www.youtube.com/embed/XaXN2IjR-Bw" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
+        <div class="video-container">
+            <video class="video-placeholder" autoplay muted loop playsinline>
+                <source src="img/SHOWREEL1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-title">SHOWREEL (DOP)</div>
         </div>
-    </div>
 
-    <div class="video-container">
-        <!-- Видео-заглушка с автоплеем и без звука -->
-        <video class="video-placeholder" autoplay muted loop playsinline>
-            <source src="img/SHOWREEL1.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="video-title">SHOWREEL (DOP)</div> <!-- Текст поверх видео -->
-    </div>
+        <div id="videoModal2" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <iframe 
+                    src="https://www.youtube.com/embed/iUvJYz0X3eo" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
 
-    <!-- Модальное окно для второго видео -->
-    <div id="videoModal2" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <iframe 
-                src="https://www.youtube.com/embed/iUvJYz0X3eo" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
+        <div class="video-container">
+            <video class="video-placeholder" autoplay muted loop playsinline>
+                <source src="img/Georgian Clip.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-title">GEO CLIP (DOP)</div>
+        </div>
+
+        <div id="videoModal3" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <iframe 
+                    src="https://www.youtube.com/embed/-4lZoy0oRRU" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
     </div>
-    <div class="video-container">
-        <!-- Видео-заглушка с автоплеем и без звука -->
-        <video class="video-placeholder" autoplay muted loop playsinline>
-            <source src="img/Georgian Clip.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="video-title">GEO CLIP (DOP)</div> <!-- Текст поверх видео -->
-    </div>
-
-    <!-- Модальное окно для первого видео -->
-    <div id="videoModal3" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <iframe 
-                src="https://www.youtube.com/embed/-4lZoy0oRRU" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-        </div>
-    </div>
-
-
-
 
     <script>
-        const hamburger = document.getElementById("hamburger");
-        const menuMobile = document.getElementById("menu-mobile");
-        const closeButton = document.getElementById("close-button");
-
-        hamburger.addEventListener("click", function() {
-            menuMobile.classList.toggle("active");
-            hamburger.classList.toggle("change");
-        });
-
-        closeButton.addEventListener("click", function() {
-            menuMobile.classList.remove("active");
-            hamburger.classList.remove("change");
-        });
-
         const videoContainers = document.querySelectorAll(".video-container");
         const modals = document.querySelectorAll(".modal");
 
@@ -402,8 +258,5 @@
             });
         });
     </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
