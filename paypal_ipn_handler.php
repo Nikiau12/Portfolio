@@ -22,8 +22,8 @@ foreach ($myPost as $key => $value) {
     $req .= "&$key=$value";
 }
 
-// Настройка запроса к PayPal
-$ch = curl_init('https://kotrelevnikita.com/paypal_ipn_handler.php');
+// Настройка запроса к PayPal для верификации
+$ch = curl_init('https://www.paypal.com/cgi-bin/webscr');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
