@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikita Kotrelev</title>
+    <link rel="icon" href="Скан 38 (1).png" type="image/png" sizes="64x64">
+    <style>
+    html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Stolzl Book', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        body {
+            display: grid;
+            grid-template-areas: 
+                "header"
+                "video"
+                "text"
+                "gallery";
+            grid-template-rows: auto 60vh auto 1fr;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        header {
+            grid-area: header;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+            font-family: 'Galey', Modern Sans Serif Font;
+        }
+
+        header .subheading {
+            font-size: 1.1rem;
+            font-family: 'Stolzl', Light;
+            margin-top: 0.5rem;
+        }
+
+        .header-nav {
+            margin-top: 1rem;
+        }
+
+        .header-nav nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 2rem;
+            position: absolute;
+            top: 12%;
+            right: 5rem;
+        }
+
+        .header-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: 'Stolzl', Light;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            padding: 2rem 2rem; /* Уменьшен верхний отступ */
+            font-family: 'Galey', Modern Sans Serif Font; /* Шрифт для заголовков */
+        }
+
+        .contact-info {
+            flex: 1;
+            padding: 3rem;
+            padding-right: 1rem;
+            padding-left:20rem;
+            line-height: 0rem; /* Контроль расстояния между строками внутри абзаца */
+        }
+        
+
+        .contact-info h3 {
+            color: #ffffff;
+            margin-top: 0;
+            font-size: 1.5rem;
+            line-height: 0.001rem; /* Контроль расстояния между заголовками и содержимым */
+        }
+       
+        .contact-info p {
+            color: #ffffff;
+            margin: 2rem 0;
+            font-family: 'Stolzl', Light; /* Шрифт для кнопок */
+      line-height: 2rem; /* Контроль расстояния между строками внутри абзаца */
+        }
+        
+        .contact-info a {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .contact-image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .contact-image img {
+            max-width: 100%;
+            padding: 0rem 1rem; /* Уменьшен верхний отступ */
+            height: auto;
+            object-fit: cover;
+        }
+
+
+        
+           
+        @media screen and (max-width: 960px) {
+            body {
+                padding: 1rem;
+                grid-template-areas: 
+                    "header"
+                    "text"; /* Убираем video и gallery для мобильной версии */
+                grid-template-rows: auto 1fr;
+            }
+
+            header {
+                padding: 1.5rem;
+            }
+
+            header h1 {
+                font-size: 2rem; /* Уменьшаем размер шрифта заголовка для мобильных */
+            }
+
+            header .subheading {
+                font-size: 1rem; /* Уменьшаем размер подзаголовка для мобильных */
+            }
+
+            .header-nav nav {
+                display: flex;
+        justify-content: center; /* Центрируем кнопки */
+        gap: 1rem; /* Уменьшаем расстояние между кнопками для мобильных устройств */
+        position: relative; /* Убираем абсолютное позиционирование для мобильных устройств */
+        top: auto; /* Сбрасываем значение top */
+        right: auto; /* Сбрасываем значение right */
+        margin-top: 1rem; /* Добавляем отступ сверху */
+            }
+
+            .container {
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
+            }
+
+            .contact-info {
+                text-align: center;
+                padding: 0;
+            }
+
+            .contact-image {
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            .contact-image img {
+                max-width: 80%;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            header .subheading {
+                font-size: 0.9rem;
+            }
+
+            .header-nav a {
+                font-size: 0.9rem;
+            }
+
+            .contact-info h3 {
+                font-size: 1.2rem;
+            }
+
+            .contact-image img {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" style="color: inherit; text-decoration: none;">Nikita Kotrelev</a></h1>
+        <div class="subheading">Cinematographer</div>
+        <div class="subheading">Photographer</div>
+        <div class="header-nav">
+            <nav>
+                <a href="Video.html" id="clothing-btn">VIDEO</a>
+                <a href="photos.html" id="looks-btn">PHOTOS</a>
+                <a href="about.html" id="about-btn">ABOUT ME</a>
+                <a href="CONTACT.html" id="contact-btn">CONTACT</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="contact-info">
+            <h3>Personal:</h3>
+            <p><a href="mailto:Kotrelevnikita@gmail.com">Kotrelevnikita@gmail.com</a><br>
+               <a href="tel:+33766525039">+33766525039</a></p>
+            <h3>Instagram:</h3>
+            <p><a href="https://www.instagram.com/stojal_znachit?igsh=dTcxdncxbmM2MGdw">Stojal_Znachit</a></p>
+        </div>
+        <div class="contact-image">
+            <img src="img/IMG_2215.jpeg" alt="Nikita Kotrelev">
+        </div>
+    </div>
+</body>
+</html>
