@@ -1,11 +1,11 @@
 <?php
 session_start();
-if (!isset($_SESSION['shipping_info'])) {
-    header("Location: shipping_info.php");
+if (!isset($_SESSION['process_form'])) {
+    header("Location: process_form.php");
     exit();
 }
 
-$shipping_info = $_SESSION['shipping_info'];
+$shipping_info = $_SESSION['process_form'];
 ?>
 
 <!DOCTYPE html>
