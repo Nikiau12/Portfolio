@@ -23,7 +23,7 @@ foreach ($myPost as $key => $value) {
 }
 
 // Настройка запроса к PayPal
-$ch = curl_init('https://www.paypal.com/cgi-bin/webscr');
+$ch = curl_init('https://nikiau12.github.io/Portfolio/paypal_ipn_handler.php');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
