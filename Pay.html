@@ -6,7 +6,7 @@
     <title>Nikita Kotrelev</title>
     <link rel="icon" href="Скан 38 (1).png" type="image/png" sizes="64x64">
     <link rel="stylesheet" href="fonts.css">
-    <script src="https://www.paypal.com/sdk/js?client-id=ARt042pqq3nQh8ENi2eqXS013tzKqrkRRsPsn4lJIPrAGcdoXh0GuxS1Zmyj0V7Kdf1AdY_uHfPNUK5K&components=buttons"></script>
+    <script src="https://js.stripe.com/v3/"></script>
     <style>
         /* Общие стили */
         body {
@@ -88,7 +88,7 @@
             color: #fff;
         }
 
-        #paypal-section {
+        #stripe-section {
             flex: 1;
             display: flex;
             justify-content: center;
@@ -98,7 +98,7 @@
             padding: 1rem;
         }
 
-        #paypal-button-container {
+        #stripe-button-container {
             width: 100%;
         }
 
@@ -156,13 +156,15 @@
 <body>
 <header>
     <h1><a href="index.html" style="color: inherit; text-decoration: none;">Nikita Kotrelev</a></h1>
-    
 </header>
 
 <main>
     <h2>Корзина и Оплата</h2>
-    <div class="content">
-        <div id="shipping-info">
+    <div id="payment-element">
+        <!-- Здесь будет монтироваться платежный элемент Stripe -->
+    </div>
+    <button id="submit-button">Оплатить</button>
+
             <h3>Информация о доставке</h3>
             <form id="shipping-form">
                 <label for="first-name">Имя:</label>
@@ -187,27 +189,64 @@
                 <input type="text" id="phone" name="phone" required>
             </form>
         </div>
-        <div id="paypal-section">
-            <div id="paypal-button-container"></div>
+        <div id="stripe-section">
+            <button id="pay-button">Оплатить через Stripe</button>
+
         </div>
     </div>
 </main>
 
 <script>
-    paypal.Buttons({
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: { value: '0.20' }
-                }]
+    // Получаем clientSecret с вашего сервера (нужно заменить на реальный запрос)
+    async function fetchClientSecret() {
+        const response = await fetch('/create-payment-intent', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data = await response.json();
+        return data.clientSecret;
+    }
+
+    (async () => {
+        const clientSecret = await fetchClientSecret();
+        const stripe = Stripe('pk_live_51QRkF2KyBkrHk1Msu8mbuDjzBQq1q1cPnkfzTerh6xkCkEgvt0hf13n6Qqg0BHKPvO9aRXr94eA3wTLejT9lEWca00fBl7Ag6V'); // Ваш публичный ключ Stripe
+
+        // Настройки внешнего вида
+        const appearance = {
+            theme: 'flat',
+            variables: { colorPrimaryText: '#262626' },
+        };
+
+        // Опции для paymentElement
+        const options = {
+            layout: 'accordion',
+        };
+
+        // Инициализация Stripe Elements
+        const elements = stripe.elements({ clientSecret, appearance });
+        const paymentElement = elements.create('payment', options);
+
+        // Монтируем элемент
+        paymentElement.mount('#payment-element');
+
+        // Обработчик кнопки для оформления платежа
+        const submitButton = document.getElementById('submit-button');
+        submitButton.addEventListener('click', async () => {
+            const { error } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    return_url: 'https://kotrelevnikita.com/success', // URL для успешной транзакции
+                },
             });
-        },
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                alert('Оплата завершена! Спасибо, ' + details.payer.name.given_name);
-            });
-        }
-    }).render('#paypal-button-container');
+
+            if (error) {
+                // Обработка ошибки, например, вывод сообщения пользователю
+                console.error(error.message);
+            }
+        });
+    })();
 </script>
 </body>
 </html>
