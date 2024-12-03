@@ -1,11 +1,11 @@
 <?php
 session_start();
-if (!isset($_SESSION['process_form'])) {
+if (!isset($_SESSION['shipping_info'])) {
     header("Location: process_form.php");
     exit();
 }
 
-$shipping_info = $_SESSION['process_form'];
+$shipping_info = $_SESSION['shipping_info'];
 ?>
 
 <!DOCTYPE html>
@@ -18,9 +18,9 @@ $shipping_info = $_SESSION['process_form'];
 </head>
 <body>
     <h1>Подтверждение данных</h1>
-    <p><strong>Имя:</strong> <?php echo $shipping_info['name']; ?></p>
-    <p><strong>Адрес:</strong> <?php echo $shipping_info['address']; ?></p>
-    <p><strong>Телефон:</strong> <?php echo $shipping_info['phone']; ?></p>
+    <p><strong>Имя:</strong> <?php echo htmlspecialchars($shipping_info['name']); ?></p>
+    <p><strong>Адрес:</strong> <?php echo htmlspecialchars($shipping_info['address']); ?></p>
+    <p><strong>Телефон:</strong> <?php echo htmlspecialchars($shipping_info['phone']); ?></p>
 
     <h2>Перейдите к оплате</h2>
     <div id="paypal-button-container"></div>
