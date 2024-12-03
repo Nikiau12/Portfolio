@@ -1,98 +1,112 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оплата и доставка через PayPal</title>
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&components=buttons&currency=USD"></script> <!-- Замените YOUR_PAYPAL_CLIENT_ID на ваш настоящий ID -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-        }
-        .form-section {
-            margin-top: 30px;
-        }
-        .form-section input,
-        .form-section select,
-        .form-section button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .form-section button {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-        .form-section button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Оплата через PayPal</title>
+    <script src="https://www.paypal.com/sdk/js?client-id=ATYmbHH_ubSpF5CpUphPmFDnv6miJa0CndrOAWti2-7Lom5i-WRv3zoFroVgDEgmxWvrJ1ceXzRpvDmj&currency=USD"></script>  
 </head>
 <body>
+    <h1>Оплата через PayPal</h1>
 
-    <h1>Оплата через PayPal и форма для доставки</h1>
+    <!-- Форма для сбора данных доставки -->
+    <form id="delivery-form">
+        <label for="address">Адрес доставки:</label>
+        <input type="text" id="address" name="address" placeholder="Введите ваш адрес" required>
 
+        <label for="zip">Почтовый индекс:</label>
+        <input type="text" id="zip" name="zip" placeholder="Введите почтовый индекс" required>
+
+        <button type="submit">Подтвердить адрес</button>
+    </form>
+
+    <!-- Контейнер для кнопки PayPal -->
     <div id="paypal-button-container"></div>
 
-    <div class="form-section">
-        <h2>Данные для доставки</h2>
-        <form id="delivery-form">
-            <label for="name">ФИО:</label>
-            <input type="text" id="name" name="name" placeholder="Введите ваше имя" required>
-
-            <label for="address">Адрес доставки:</label>
-            <input type="text" id="address" name="address" placeholder="Введите ваш адрес" required>
-
-            <label for="city">Город:</label>
-            <input type="text" id="city" name="city" placeholder="Введите город" required>
-
-            <label for="zipcode">Почтовый индекс:</label>
-            <input type="text" id="zipcode" name="zipcode" placeholder="Введите почтовый индекс" required>
-
-            <label for="country">Страна:</label>
-            <select id="country" name="country" required>
-                <option value="ru">Россия</option>
-                <option value="us">США</option>
-                <option value="ua">Украина</option>
-                <!-- Добавьте другие страны по необходимости -->
-            </select>
-
-            <button type="submit">Отправить данные</button>
-        </form>
-    </div>
-
     <script>
-        // Функция для создания кнопки PayPal
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: '100.00' // Сумма для оплаты, измените на нужную
-                        }
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    alert('Спасибо за покупку, ' + details.payer.name.given_name);
-                    // Здесь можно выполнить дополнительные действия после успешной оплаты
-                    // Например, сохранить данные о заказе или отправить форму с данными доставки
-                    document.getElementById('delivery-form').submit(); // Отправка формы с данными доставки
-                });
+        window.onload = () => {
+            // Печатаем сообщение, если скрипт PayPal не загружен
+            if (typeof paypal === 'undefined') {
+                console.error('PayPal SDK не загружен!');
+            } else {
+                console.log('PayPal SDK успешно загружен!');
             }
-        }).render('#paypal-button-container'); // Рендер кнопки PayPal
 
+            paypal.Buttons({
+                style: {
+                    shape: "rect",
+                    layout: "vertical",
+                    color: "black",
+                    label: "paypal",
+                },
+
+                // Асинхронное создание заказа
+                async createOrder(data, actions) {
+                    try {
+                        const cart = [
+                            { id: "product-1", name: "Product 1", price: 100, quantity: 2 },
+                            { id: "product-2", name: "Product 2", price: 200, quantity: 1 }
+                        ];
+
+                        // Отправляем данные на сервер для создания заказа
+                        const response = await fetch("/api/orders", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ cart }),
+                        });
+
+                        const orderData = await response.json();
+                        if (orderData.id) {
+                            return orderData.id;  // Возвращаем ID созданного заказа
+                        }
+
+                        throw new Error("Ошибка при создании заказа");
+                    } catch (error) {
+                        console.error("Ошибка при создании заказа:", error);
+                        window.location.assign("/your-error-page-here");
+                    }
+                },
+
+                // Подтверждение и завершение оплаты
+                async onApprove(data, actions) {
+                    try {
+                        const response = await fetch(`/api/orders/execute`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                paymentId: data.orderID, // Исправлено: используем 'orderID' как paymentId
+                                payerID: data.payerID
+                            })
+                        });
+
+                        const orderData = await response.json();
+                        if (orderData.status === "success") {
+                            window.location.assign("/thank-you-page"); // Страница успеха
+                        } else {
+                            window.location.assign("/your-error-page-here"); // Страница ошибки
+                        }
+                    } catch (error) {
+                        console.error("Ошибка при захвате платежа:", error);
+                        window.location.assign("/your-error-page-here");
+                    }
+                },
+
+                // Отмена операции
+                onCancel(data) {
+                    window.location.assign("/cart-page"); // Страница корзины
+                },
+
+                // Обработка ошибок
+                onError(err) {
+                    console.error("Ошибка PayPal:", err);
+                    window.location.assign("/your-error-page-here"); // Страница ошибки
+                }
+            }).render("#paypal-button-container");  // Рендерим кнопку в контейнер
+        };
     </script>
-
 </body>
 </html>
