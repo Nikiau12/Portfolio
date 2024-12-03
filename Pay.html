@@ -1,252 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikita Kotrelev</title>
-    <link rel="icon" href="Скан 38 (1).png" type="image/png" sizes="64x64">
-    <link rel="stylesheet" href="fonts.css">
-    <script src="https://js.stripe.com/v3/"></script>
+    <title>Оплата и доставка через PayPal</title>
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&components=buttons&currency=USD"></script> <!-- Замените YOUR_PAYPAL_CLIENT_ID на ваш настоящий ID -->
     <style>
-        /* Общие стили */
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'AoboshiOne-Regular', sans-serif;
-            background-color: #000;
-            color: #fff;
-        }
-
-        header {
-            text-align: center;
-            padding: 1rem;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2rem;
-        }
-
-        nav {
-            margin-top: 1rem;
-        }
-
-        nav a {
-            margin: 0 1rem;
-            color: #fff;
-            text-decoration: none;
-            font-size: 1rem;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        main {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        .content {
-            display: flex;
-            justify-content: space-between;
-            gap: 2rem;
-            width: 100%;
+            font-family: Arial, sans-serif;
             max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
         }
-
-        #shipping-info {
-            flex: 1;
-            background-color: #333;
-            border-radius: 8px;
-            padding: 1rem;
-        }
-
-        #shipping-info h3 {
+        h1 {
             text-align: center;
-            margin-bottom: 1rem;
         }
-
-        #shipping-form {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
+        .form-section {
+            margin-top: 30px;
         }
-
-        #shipping-form label {
-            font-size: 0.9rem;
-        }
-
-        #shipping-form input {
-            padding: 0.5rem;
-            font-size: 0.9rem;
-            border: none;
-            border-radius: 4px;
-            background-color: #555;
-            color: #fff;
-        }
-
-        #stripe-section {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #333;
-            border-radius: 8px;
-            padding: 1rem;
-        }
-
-        #stripe-button-container {
+        .form-section input,
+        .form-section select,
+        .form-section button {
             width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-
-        @media screen and (max-width: 960px) {
-            body {
-                padding: 1rem;
-                grid-template-areas:
-                    "header"
-                    "text"; 
-                grid-template-rows: auto 1fr;
-            }
-
-            header {
-                padding: 1.5rem;
-            }
-
-            header h1 {
-                font-size: 2rem;
-            }
-
-            header .subheading {
-                font-size: 1rem;
-            }
-
-            .header-nav nav {
-                display: flex;
-                justify-content: center;
-                gap: 1rem;
-            }
+        .form-section button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
         }
-
-        @media screen and (max-width: 600px) {
-            header h1 {
-                font-size: 1.5rem;
-            }
-
-            header .subheading {
-                font-size: 0.9rem;
-            }
-
-            .header-nav a {
-                font-size: 0.9rem;
-            }
-
-            .contact-info h3 {
-                font-size: 1.2rem;
-            }
-
-            .contact-image img {
-                max-width: 100%;
-            }
+        .form-section button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-<header>
-    <h1><a href="index.html" style="color: inherit; text-decoration: none;">Nikita Kotrelev</a></h1>
-</header>
 
-<main>
-    <h2>Корзина и Оплата</h2>
-    <div id="payment-element">
-        <!-- Здесь будет монтироваться платежный элемент Stripe -->
+    <h1>Оплата через PayPal и форма для доставки</h1>
+
+    <div id="paypal-button-container"></div>
+
+    <div class="form-section">
+        <h2>Данные для доставки</h2>
+        <form id="delivery-form">
+            <label for="name">ФИО:</label>
+            <input type="text" id="name" name="name" placeholder="Введите ваше имя" required>
+
+            <label for="address">Адрес доставки:</label>
+            <input type="text" id="address" name="address" placeholder="Введите ваш адрес" required>
+
+            <label for="city">Город:</label>
+            <input type="text" id="city" name="city" placeholder="Введите город" required>
+
+            <label for="zipcode">Почтовый индекс:</label>
+            <input type="text" id="zipcode" name="zipcode" placeholder="Введите почтовый индекс" required>
+
+            <label for="country">Страна:</label>
+            <select id="country" name="country" required>
+                <option value="ru">Россия</option>
+                <option value="us">США</option>
+                <option value="ua">Украина</option>
+                <!-- Добавьте другие страны по необходимости -->
+            </select>
+
+            <button type="submit">Отправить данные</button>
+        </form>
     </div>
-    <button id="submit-button">Оплатить</button>
 
-            <h3>Информация о доставке</h3>
-            <form id="shipping-form">
-                <label for="first-name">Имя:</label>
-                <input type="text" id="first-name" name="first-name" required>
-
-                <label for="last-name">Фамилия:</label>
-                <input type="text" id="last-name" name="last-name" required>
-
-                <label for="address">Адрес:</label>
-                <input type="text" id="address" name="address" required>
-
-                <label for="city">Город:</label>
-                <input type="text" id="city" name="city" required>
-
-                <label for="zip">ZIP код:</label>
-                <input type="text" id="zip" name="zip" required>
-
-                <label for="email">Электронная почта:</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="phone">Телефон:</label>
-                <input type="text" id="phone" name="phone" required>
-            </form>
-        </div>
-        <div id="stripe-section">
-            <button id="pay-button">Оплатить через Stripe</button>
-
-        </div>
-    </div>
-</main>
-
-<script>
-    // Получаем clientSecret с вашего сервера (нужно заменить на реальный запрос)
-    async function fetchClientSecret() {
-        const response = await fetch('/create-payment-intent', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
+    <script>
+        // Функция для создания кнопки PayPal
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '100.00' // Сумма для оплаты, измените на нужную
+                        }
+                    }]
+                });
             },
-        });
-        const data = await response.json();
-        return data.clientSecret;
-    }
-
-    (async () => {
-        const clientSecret = await fetchClientSecret();
-        const stripe = Stripe('pk_live_51QRkF2KyBkrHk1Msu8mbuDjzBQq1q1cPnkfzTerh6xkCkEgvt0hf13n6Qqg0BHKPvO9aRXr94eA3wTLejT9lEWca00fBl7Ag6V'); // Ваш публичный ключ Stripe
-
-        // Настройки внешнего вида
-        const appearance = {
-            theme: 'flat',
-            variables: { colorPrimaryText: '#262626' },
-        };
-
-        // Опции для paymentElement
-        const options = {
-            layout: 'accordion',
-        };
-
-        // Инициализация Stripe Elements
-        const elements = stripe.elements({ clientSecret, appearance });
-        const paymentElement = elements.create('payment', options);
-
-        // Монтируем элемент
-        paymentElement.mount('#payment-element');
-
-        // Обработчик кнопки для оформления платежа
-        const submitButton = document.getElementById('submit-button');
-        submitButton.addEventListener('click', async () => {
-            const { error } = await stripe.confirmPayment({
-                elements,
-                confirmParams: {
-                    return_url: 'https://kotrelevnikita.com/success', // URL для успешной транзакции
-                },
-            });
-
-            if (error) {
-                // Обработка ошибки, например, вывод сообщения пользователю
-                console.error(error.message);
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Спасибо за покупку, ' + details.payer.name.given_name);
+                    // Здесь можно выполнить дополнительные действия после успешной оплаты
+                    // Например, сохранить данные о заказе или отправить форму с данными доставки
+                    document.getElementById('delivery-form').submit(); // Отправка формы с данными доставки
+                });
             }
-        });
-    })();
-</script>
+        }).render('#paypal-button-container'); // Рендер кнопки PayPal
+
+    </script>
+
 </body>
 </html>
