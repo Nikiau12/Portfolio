@@ -3,110 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оплата через PayPal</title>
-    <script src="https://www.paypal.com/sdk/js?client-id=ATYmbHH_ubSpF5CpUphPmFDnv6miJa0CndrOAWti2-7Lom5i-WRv3zoFroVgDEgmxWvrJ1ceXzRpvDmj&currency=USD"></script>  
+    <title>Оформление заказа</title>
+    <script src="https://www.paypal.com/sdk/js?client-id=ATYmbHH_ubSpF5CpUphPmFDnv6miJa0CndrOAWti2-7Lom5i-WRv3zoFroVgDEgmxWvrJ1ceXzRpvDmj&currency=EUR"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 50px;
+        }
+
+        .cart-summary {
+            margin: 20px;
+            font-size: 1.5rem;
+        }
+
+        .total-price {
+            font-weight: bold;
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+
+        .paypal-button-container {
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Оплата через PayPal</h1>
 
-    <!-- Форма для сбора данных доставки -->
-    <form id="delivery-form">
-        <label for="address">Адрес доставки:</label>
-        <input type="text" id="address" name="address" placeholder="Введите ваш адрес" required>
+    <header>
+        <h1>Оформление заказа</h1>
+    </header>
 
-        <label for="zip">Почтовый индекс:</label>
-        <input type="text" id="zip" name="zip" placeholder="Введите почтовый индекс" required>
+    <div class="cart-summary">
+        <h2>Ваш заказ:</h2>
+        <div id="cart-items"></div>
+        <div class="total-price">
+            <h3>Общая сумма: €<span id="total-price">0</span></h3>
+        </div>
+    </div>
 
-        <button type="submit">Подтвердить адрес</button>
-    </form>
-
-    <!-- Контейнер для кнопки PayPal -->
-    <div id="paypal-button-container"></div>
+    <!-- Кнопка PayPal -->
+    <div class="paypal-button-container" id="paypal-button-container"></div>
 
     <script>
-        window.onload = () => {
-            // Печатаем сообщение, если скрипт PayPal не загружен
-            if (typeof paypal === 'undefined') {
-                console.error('PayPal SDK не загружен!');
-            } else {
-                console.log('PayPal SDK успешно загружен!');
+        // Получаем корзину из localStorage
+        const cart = JSON.parse(localStorage.getItem('cartForPayment')) || [];
+        let totalPrice = 0;
+
+        // Функция для отображения товаров в корзине и расчета общей суммы
+        function displayCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = ''; // Очищаем корзину перед добавлением
+
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.innerHTML = `<p>${item.name} - €${item.price}</p>`;
+                cartItemsContainer.appendChild(itemElement);
+                totalPrice += parseFloat(item.price);
+            });
+
+            // Обновляем сумму
+            document.getElementById('total-price').textContent = totalPrice.toFixed(2);
+        }
+
+        // Инициализация кнопки PayPal
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                // Создаем заказ с параметрами
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: totalPrice.toFixed(2) // Передаем сумму заказа
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                // Завершаем оплату
+                return actions.order.capture().then(function(details) {
+                    alert('Спасибо за покупку, ' + details.payer.name.given_name);
+                    localStorage.removeItem('cartForPayment'); // Очищаем корзину после успешной оплаты
+                    window.location.href = 'index.html'; // Переходим на главную страницу
+                });
+            },
+            onCancel: function(data) {
+                alert('Оплата отменена!');
+                window.location.href = 'index.html'; // Переход на главную страницу в случае отмены
             }
+        }).render('#paypal-button-container'); // Отображаем кнопку PayPal
 
-            paypal.Buttons({
-                style: {
-                    shape: "rect",
-                    layout: "vertical",
-                    color: "black",
-                    label: "paypal",
-                },
-
-                // Асинхронное создание заказа
-                async createOrder(data, actions) {
-                    try {
-                        const cart = [
-                            { id: "product-1", name: "Product 1", price: 100, quantity: 2 },
-                            { id: "product-2", name: "Product 2", price: 200, quantity: 1 }
-                        ];
-
-                        // Отправляем данные на сервер для создания заказа
-                        const response = await fetch("/api/orders", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({ cart }),
-                        });
-
-                        const orderData = await response.json();
-                        if (orderData.id) {
-                            return orderData.id;  // Возвращаем ID созданного заказа
-                        }
-
-                        throw new Error("Ошибка при создании заказа");
-                    } catch (error) {
-                        console.error("Ошибка при создании заказа:", error);
-                        window.location.assign("/your-error-page-here");
-                    }
-                },
-
-                // Подтверждение и завершение оплаты
-                async onApprove(data, actions) {
-                    try {
-                        const response = await fetch(`/api/orders/execute`, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                paymentId: data.orderID, // Исправлено: используем 'orderID' как paymentId
-                                payerID: data.payerID
-                            })
-                        });
-
-                        const orderData = await response.json();
-                        if (orderData.status === "success") {
-                            window.location.assign("/thank-you-page"); // Страница успеха
-                        } else {
-                            window.location.assign("/your-error-page-here"); // Страница ошибки
-                        }
-                    } catch (error) {
-                        console.error("Ошибка при захвате платежа:", error);
-                        window.location.assign("/your-error-page-here");
-                    }
-                },
-
-                // Отмена операции
-                onCancel(data) {
-                    window.location.assign("/cart-page"); // Страница корзины
-                },
-
-                // Обработка ошибок
-                onError(err) {
-                    console.error("Ошибка PayPal:", err);
-                    window.location.assign("/your-error-page-here"); // Страница ошибки
-                }
-            }).render("#paypal-button-container");  // Рендерим кнопку в контейнер
-        };
+        // Вызываем функцию для отображения товаров в корзине
+        displayCart();
     </script>
 </body>
 </html>
