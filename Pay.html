@@ -162,10 +162,9 @@
 <main>
     <h2>Корзина и Оплата</h2>
     <div class="content">
-        <!-- Секция с формой -->
         <div id="shipping-info">
             <h3>Информация о доставке</h3>
-            <form id="shipping-form" method="POST" action="process_form.php">
+            <form id="shipping-form">
                 <label for="first-name">Имя:</label>
                 <input type="text" id="first-name" name="first-name" required>
 
@@ -186,12 +185,8 @@
 
                 <label for="phone">Телефон:</label>
                 <input type="text" id="phone" name="phone" required>
-
-                <button type="submit" style="display:none;">Подтвердить</button>
             </form>
         </div>
-
-        <!-- Секция с кнопкой PayPal -->
         <div id="paypal-section">
             <div id="paypal-button-container"></div>
         </div>
@@ -203,7 +198,7 @@
         createOrder: function(data, actions) {
             return actions.order.create({
                 purchase_units: [{
-                    amount: { value: '0.20' } // Цена фиксирована
+                    amount: { value: '0.20' }
                 }]
             });
         },
