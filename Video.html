@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            font-family: 'Stolzl Book', sans-serif;
+            font-family: Roboto, Ubuntu, Arial, sans-serif;
             background-color: #000000;
             color: #ffffff;
         }
@@ -32,41 +32,85 @@
             grid-area: header;
             text-align: center;
             padding: 2rem;
+            position: relative;
+        }
+
+        .header-text-container {
+            position: relative; 
+            z-index: 2; /* Текст Nikita Kotrelev поверх видео */
+            padding: 2rem; /* Отступы вокруг текста */
+    font-size: 10rem; /* Размер шрифта */
+    line-height: 10; /* Высота строки */
+    font-family: Roboto, Ubuntu, Arial, sans-serif; /* Шрифт */
+    position: relative; /* Для использования с top, left и т.д. */
+    top: 1%; /* Начальная вертикальная позиция */
+    right: -20%; /* Начальная горизонтальная позиция */
+    transform: translateX(-50%); /* Центрируем по горизонтали */
+}
+
+/* Белая полоса */
+.underline {
+    width: 100%; /* Ты можешь изменить ширину полосы по своему усмотрению */
+    height: 2px; /* Высота полосы */
+    background-color: white; /* Белый цвет полосы */
+    margin: 1rem auto; /* Центрируем полосу по горизонтали */
+    top: 10%; /* Начальная вертикальная позиция */
+}
+
+
+
+
+
+        .subheading-container {
+            display: flex;
+            gap: 3rem; /* Расстояние между элементами */
+            position: relative; 
+            z-index: 2; /* Для подзаголовков */
+            padding: 2rem; /* Отступы вокруг текста */
+    font-size: 1.5rem; /* Размер шрифта */
+    line-height: 1.6; /* Высота строки */
+    font-family: Roboto, Ubuntu, Arial, sans-serif; /* Шрифт */
+    position: relative; /* Для использования с top, left и т.д. */
+    top: -10%; /* Начальная вертикальная позиция */
+    right: -51%;
+    transform: translateX(-50%); /* Центрируем по горизонтали */
+    
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.5rem;
+            font-size: 4rem;
             letter-spacing: 1px;
-            font-family: 'Galey', Modern Sans Serif Font;
+            font-family: Roboto, Ubuntu, Arial, sans-serif;
         }
 
-        header .subheading {
-            font-size: 1.1rem;
-            font-family: 'Stolzl', Light;
+        .subheading-container .subheading {
+            
+            font-size: 2rem;
+            font-family: Roboto, Ubuntu, Arial, sans-serif;
             margin-top: 0.5rem;
         }
 
         .header-nav {
             margin-top: 1rem;
         }
-
-        .header-nav nav {
-            display: flex;
-            justify-content: flex-end; /* Выравниваем кнопки вправо */
-            gap: 2rem; /* Расстояние между кнопками */
-            position: absolute; /* Позволяет управлять точной позицией */
-            top: 12%; /* Поднимаем вверх, ближе к фоновому видео (значение можно корректировать для точного позиционирования) */
-            right: 5rem; /* Отступ от правого края экрана */
-        }
+        .header-nav a {
+    padding: 2rem; /* Отступы вокруг текста */
+    text-align: center; /* Выравнивание текста по центру */
+    font-size: 1.5rem; /* Размер шрифта */
+    line-height: 1.6; /* Высота строки */
+    position: relative; /* Для использования top, left */
+    top: 10%; /* Пример вертикальной позиции */
+    left: 5%; /* Пример горизонтальной позиции */
+    transform: translateX(0%); /* Центрирование кнопок по горизонтали */
+}
 
         .header-nav a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 0.9rem;
-            font-family: 'Stolzl', Light;
+            font-size: 2rem;
+            font-family: Roboto, Ubuntu, Arial, sans-serif;
         }
-
         .video-container {
             grid-area: video;
             position: relative;
@@ -85,7 +129,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: #ffffff;
-            font-family: 'Galey', Modern Sans Serif Font;
+            font-family: Roboto, Ubuntu, Arial, sans-serif;
             font-size: 2rem;
             text-align: center;
             letter-spacing: 1px;
@@ -197,21 +241,26 @@
 </head>
 <body>
 
-    <div class="grid-container">
-        <header>
-            <h1><a href="index.html" style="color: inherit; text-decoration: none;">Nikita Kotrelev</a></h1>
-            <div class="subheading">Cinematographer</div>
-            <div class="subheading">Photographer</div>
-            <div class="header-nav">
-                <nav>
-                    <a href="Video.html" id="clothing-btn">VIDEO</a>
-                    <a href="photos.html" id="looks-btn">PHOTOS</a>
-                    <a href="about.html" id="about-btn">ABOUT ME</a>
-                    <a href="CONTACT.html" id="contact-btn">CONTACT</a>
-                    <a href="shop.html">SHOP</a> <!-- Новая вкладка -->
-                </nav>
-            </div>
-        </header>
+    <header>
+        <div class="header-text-container">
+            <h1><a href="index.html" style="color: inherit; text-decoration: none;">NIKITA KOTRELEV</a></h1>
+        </div>
+        <div class="subheading-container">
+            <div class="subheading">CINEMATOGRAPHER</div> 
+            <div class="subheading">PHOTOGRAPHER</div> 
+         </div>
+         <div class="underline"></div> <!-- Белая полоса под подзаголовком -->
+     </div>
+        <div class="header-nav"> 
+            <nav>
+                <a href="Video.html">VIDEO</a>
+                <a href="photos.html">PHOTOS</a>
+                <a href="about.html">ABOUT ME</a>
+                <a href="CONTACT.html">CONTACT</a>
+                <a href="shop.html">SHOP</a> <!-- Новая вкладка -->
+            </nav>
+        </div>
+    </header>
 
         <div class="video-container">
             <video class="video-placeholder" autoplay muted loop playsinline>
