@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIKITA KOTRELEV</title>
-    <!-- Добавляем favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="stylesindex.css" rel="stylesheet">
-    
-    <!-- Подключение Bootstrap -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-       
-       html, body {
+  html, body {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -41,15 +27,17 @@
         }
 
         .header-text-container {
-    margin-top: 20px; /* Фиксированный отступ в пикселях */
-    right: -1%; /* Начальная горизонтальная позиция */
-    padding: 2rem; /* Отступы вокруг текста */
+            position: relative; 
+            z-index: 2; /* Текст Nikita Kotrelev поверх видео */
+            padding: 2rem; /* Отступы вокруг текста */
     font-size: 10rem; /* Размер шрифта */
-    line-height: 1; /* Высота строки */
+    line-height: 10; /* Высота строки */
     font-family: Roboto, Ubuntu, Arial, sans-serif; /* Шрифт */
     position: relative; /* Для использования с top, left и т.д. */
+    top: 1%; /* Начальная вертикальная позиция */
+    right: -20%; /* Начальная горизонтальная позиция */
+    transform: translateX(-50%); /* Центрируем по горизонтали */
 }
-
 
 /* Белая полоса */
 .underline {
@@ -58,8 +46,9 @@
     background-color: white; /* Белый цвет полосы */
     margin: 1rem auto; /* Центрируем полосу по горизонтали */
     top: 10%; /* Начальная вертикальная позиция */
-    z-index: 2;
 }
+
+
 
 
 
@@ -73,9 +62,10 @@
     line-height: 1.6; /* Высота строки */
     font-family: Roboto, Ubuntu, Arial, sans-serif; /* Шрифт */
     position: relative; /* Для использования с top, left и т.д. */
-    top: 0%; /* Начальная вертикальная позиция */
-    right: -5%;
-   
+    top: -10%; /* Начальная вертикальная позиция */
+    right: -51%;
+    transform: translateX(-50%); /* Центрируем по горизонтали */
+    
         }
 
         header h1 {
@@ -102,7 +92,7 @@
     line-height: 1.6; /* Высота строки */
     position: relative; /* Для использования top, left */
     top: 10%; /* Пример вертикальной позиции */
-    left: 15%; /* Пример горизонтальной позиции */
+    left: 5%; /* Пример горизонтальной позиции */
     transform: translateX(0%); /* Центрирование кнопок по горизонтали */
 }
 
@@ -112,173 +102,3 @@
             font-size: 2rem;
             font-family: Roboto, Ubuntu, Arial, sans-serif;
         }
-
-        .video-background {
-            position: absolute; /* Фиксируем видео сверху */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 90%;
-            object-fit: cover;
-            z-index: 0; /* Видео под текстом */
-        }
-
-        .text-below-video {
-            grid-area: text;
-            padding: 2rem;
-            text-align: center;
-            font-size: 1.5rem;
-            line-height: 1.6;
-            font-family: Roboto, Ubuntu, Arial, sans-serif;
-            z-index: 1;
-            margin-top: 30rem; /* Добавляем отступ сверху для видео */
-        }
-
-        .gallery-section {
-            grid-area: gallery;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 4px;
-            margin-top: 20rem; /* Добавляем отступ сверху для видео */
-        }
-
-        .gallery-item {
-            height: 400px;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Модальное окно */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 999;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 100%;
-            max-height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal img {
-            max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-    </style>
-</head>
-<body>
-   <!-- Видео на фоне -->
-   <video autoplay muted class="video-background" id="background-video">
-       <source src="img/SHOWREEL1.mp4" type="video/mp4">
-   </video>
-
-   <!-- Заголовок и навигация -->
-   <head</header>
-    <div class="header-text-container">
-        <h1><a href="index.html" style="color: inherit; text-decoration: none;">NIKITA KOTRELEV</a></h1>
-    </div>
-    <div class="subheading-container">
-        <div class="subheading">CINEMATOGRAPHER</div> 
-        <div class="subheading">PHOTOGRAPHER</div> 
-     </div>
-        <div class="underline"></div> <!-- Белая полоса под подзаголовком -->
-    </div>
-    <div class="header-nav">
-            <nav>
-                <a href="Video.html">VIDEO</a>
-                <a href="photos.html">PHOTOS</a>
-                <a href="about.html">ABOUT ME</a>
-                <a href="CONTACT.html">CONTACT</a>
-            </nav>
-        </div>
-      
-    </header>
-
-   <!-- Контент страницы -->
-   <div class="text-below-video">
-       <p>New Works</p>
-   </div>
-   <div class="gallery-section">
-       <div class="gallery-item">
-           <img src="img/грузия деревня_5.PNG" alt="Photo 1">
-       </div>
-       <div class="gallery-item">
-           <img src="img/грузия первые дни _8.PNG" alt="Photo 2">
-       </div>
-       <div class="gallery-item">
-           <img src="img/IMG_8190.JPG" alt="Photo 3">
-       </div>
-       <div class="gallery-item">
-           <img src="img/DSCF2510.png" alt="Photo 3">
-       </div>
-       <!-- Добавьте столько фотографий, сколько необходимо -->
-   </div>
-
-   <!-- Модальное окно -->
-   <div class="modal" id="myModal">
-       <img src="" alt="Image" id="modalImage">
-   </div>
-
-   <script>
-       // Видео смена
-       const videos = [
-           "img/SHOWREEL1.mp4",
-       ];
-
-       let currentVideoIndex = 0;
-       const backgroundVideo = document.getElementById('background-video');
-
-       backgroundVideo.addEventListener('ended', () => {
-           currentVideoIndex = (currentVideoIndex + 1) % videos.length;
-           backgroundVideo.src = videos[currentVideoIndex];
-           backgroundVideo.play();
-       });
-
-       // Логика для модального окна
-       const modal = document.getElementById('myModal');
-       const modalImg = document.getElementById('modalImage');
-
-       // Функция для открытия модального окна
-       function openModal(imageSrc) {
-           modal.style.display = "flex";
-           modalImg.src = imageSrc;
-       }
-
-       // Добавляем обработчик события для изображений в галерее
-       const galleryItems = document.querySelectorAll('.gallery-item img');
-       galleryItems.forEach(item => {
-           item.addEventListener('click', () => {
-               openModal(item.src); // Открываем модальное окно с изображением
-           });
-       });
-
-       modal.addEventListener('click', function(event) {
-           if (event.target !== modalImg) {
-               modal.style.display = "none"; // Закрываем модальное окно при клике вне изображения
-           }
-       });
-
-       // Скрипт для открытия и закрытия мобильного меню
-       const hamburger = document.getElementById('hamburger-menu');
-       const mobileMenu = document.getElementById('mobile-menu');
-
-       hamburger.addEventListener('click', () => {
-           mobileMenu.classList.toggle('active');
-           hamburger.classList.toggle('active');
-       });
-   </script>
-</body>
-</html>
