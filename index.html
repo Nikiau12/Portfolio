@@ -41,17 +41,15 @@
         }
 
         .header-text-container {
-            position: relative; 
-            z-index: 2; /* Текст Nikita Kotrelev поверх видео */
-            padding: 2rem; /* Отступы вокруг текста */
+    margin-top: 20px; /* Фиксированный отступ в пикселях */
+    right: -1%; /* Начальная горизонтальная позиция */
+    padding: 2rem; /* Отступы вокруг текста */
     font-size: 10rem; /* Размер шрифта */
-    line-height: 10; /* Высота строки */
+    line-height: 1; /* Высота строки */
     font-family: Roboto, Ubuntu, Arial, sans-serif; /* Шрифт */
     position: relative; /* Для использования с top, left и т.д. */
-    top: 1%; /* Начальная вертикальная позиция */
-    right: -20%; /* Начальная горизонтальная позиция */
-    transform: translateX(-50%); /* Центрируем по горизонтали */
 }
+
 
 /* Белая полоса */
 .underline {
@@ -60,9 +58,8 @@
     background-color: white; /* Белый цвет полосы */
     margin: 1rem auto; /* Центрируем полосу по горизонтали */
     top: 10%; /* Начальная вертикальная позиция */
+    z-index: 2;
 }
-
-
 
 
 
@@ -76,10 +73,9 @@
     line-height: 1.6; /* Высота строки */
     font-family: Roboto, Ubuntu, Arial, sans-serif; /* Шрифт */
     position: relative; /* Для использования с top, left и т.д. */
-    top: -10%; /* Начальная вертикальная позиция */
-    right: -51%;
-    transform: translateX(-50%); /* Центрируем по горизонтали */
-    
+    top: 0%; /* Начальная вертикальная позиция */
+    right: -5%;
+   
         }
 
         header h1 {
@@ -106,7 +102,7 @@
     line-height: 1.6; /* Высота строки */
     position: relative; /* Для использования top, left */
     top: 10%; /* Пример вертикальной позиции */
-    left: 5%; /* Пример горизонтальной позиции */
+    left: 15%; /* Пример горизонтальной позиции */
     transform: translateX(0%); /* Центрирование кнопок по горизонтали */
 }
 
@@ -135,6 +131,7 @@
             line-height: 1.6;
             font-family: Roboto, Ubuntu, Arial, sans-serif;
             z-index: 1;
+            margin-top: 30rem; /* Добавляем отступ сверху для видео */
         }
 
         .gallery-section {
@@ -142,6 +139,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 4px;
+            margin-top: 20rem; /* Добавляем отступ сверху для видео */
         }
 
         .gallery-item {
@@ -179,44 +177,6 @@
             display: flex;
         }
 
-        @media screen and (max-width: 960px) {
-            body {
-                grid-template-areas: 
-                    "header"
-                    "video"
-                    "text"
-                    "gallery";
-                grid-template-columns: 1fr;
-                grid-template-rows: auto 30vh auto auto;
-            }
-
-            .header-nav nav {
-                display: flex;
-                justify-content: center; /* Центрируем кнопки */
-                gap: 1rem; /* Уменьшаем расстояние между кнопками для мобильных устройств */
-                position: relative; /* Убираем абсолютное позиционирование для мобильных устройств */
-                top: auto; /* Сбрасываем значение top */
-                right: auto; /* Сбрасываем значение right */
-                margin-top: 1rem; /* Добавляем отступ сверху */
-            }
-
-            .gallery-section {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-item {
-                height: auto;
-            }
-
-            .text-below-video {
-                margin-top: 35vh;
-                padding: 1rem;
-            }
-
-            .video-background {
-                height: 30vh;
-            }
-        }
     </style>
 </head>
 <body>
@@ -226,26 +186,26 @@
    </video>
 
    <!-- Заголовок и навигация -->
-   <header>
-       <div class="header-text-container">
-           <h1><a href="index.html" style="color: inherit; text-decoration: none;">NIKITA KOTRELEV</a></h1>
-       </div>
-       <div class="subheading-container">
-           <div class="subheading">CINEMATOGRAPHER</div> 
-           <div class="subheading">PHOTOGRAPHER</div> 
-        </div>
+   <head</header>
+    <div class="header-text-container">
+        <h1><a href="index.html" style="color: inherit; text-decoration: none;">NIKITA KOTRELEV</a></h1>
+    </div>
+    <div class="subheading-container">
+        <div class="subheading">CINEMATOGRAPHER</div> 
+        <div class="subheading">PHOTOGRAPHER</div> 
+     </div>
         <div class="underline"></div> <!-- Белая полоса под подзаголовком -->
     </div>
-       <div class="header-nav"> 
-           <nav>
-               <a href="Video.html">VIDEO</a>
-               <a href="photos.html">PHOTOS</a>
-               <a href="about.html">ABOUT ME</a>
-               <a href="CONTACT.html">CONTACT</a>
-               <a href="shop.html">SHOP</a> <!-- Новая вкладка -->
-           </nav>
-       </div>
-   </header>
+    <div class="header-nav">
+            <nav>
+                <a href="Video.html">VIDEO</a>
+                <a href="photos.html">PHOTOS</a>
+                <a href="about.html">ABOUT ME</a>
+                <a href="CONTACT.html">CONTACT</a>
+            </nav>
+        </div>
+      
+    </header>
 
    <!-- Контент страницы -->
    <div class="text-below-video">
