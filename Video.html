@@ -36,17 +36,15 @@
         }
 
         .header-text-container {
-            position: relative; 
-            z-index: 2; /* Текст Nikita Kotrelev поверх видео */
-            padding: 2rem; /* Отступы вокруг текста */
+    margin-top: 20px; /* Фиксированный отступ в пикселях */
+    right: -1%; /* Начальная горизонтальная позиция */
+    padding: 2rem; /* Отступы вокруг текста */
     font-size: 10rem; /* Размер шрифта */
-    line-height: 10; /* Высота строки */
+    line-height: 1; /* Высота строки */
     font-family: Roboto, Ubuntu, Arial, sans-serif; /* Шрифт */
     position: relative; /* Для использования с top, left и т.д. */
-    top: 1%; /* Начальная вертикальная позиция */
-    right: -20%; /* Начальная горизонтальная позиция */
-    transform: translateX(-50%); /* Центрируем по горизонтали */
 }
+
 
 /* Белая полоса */
 .underline {
@@ -56,8 +54,6 @@
     margin: 1rem auto; /* Центрируем полосу по горизонтали */
     top: 10%; /* Начальная вертикальная позиция */
 }
-
-
 
 
 
@@ -71,10 +67,9 @@
     line-height: 1.6; /* Высота строки */
     font-family: Roboto, Ubuntu, Arial, sans-serif; /* Шрифт */
     position: relative; /* Для использования с top, left и т.д. */
-    top: -10%; /* Начальная вертикальная позиция */
-    right: -51%;
-    transform: translateX(-50%); /* Центрируем по горизонтали */
-    
+    top: 0%; /* Начальная вертикальная позиция */
+    right: -5%;
+   
         }
 
         header h1 {
@@ -101,7 +96,7 @@
     line-height: 1.6; /* Высота строки */
     position: relative; /* Для использования top, left */
     top: 10%; /* Пример вертикальной позиции */
-    left: 5%; /* Пример горизонтальной позиции */
+    left: 15%; /* Пример горизонтальной позиции */
     transform: translateX(0%); /* Центрирование кнопок по горизонтали */
 }
 
@@ -111,6 +106,7 @@
             font-size: 2rem;
             font-family: Roboto, Ubuntu, Arial, sans-serif;
         }
+
         .video-container {
             grid-area: video;
             position: relative;
@@ -121,6 +117,7 @@
             margin-bottom: 30px;
             display: flex;
             justify-content: center;
+            margin-top: 10rem; /* Добавляем отступ сверху для видео */
         }
 
         .video-title {
@@ -129,98 +126,89 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: #ffffff;
-            font-family: Roboto, Ubuntu, Arial, sans-serif;
+            font-family: 'Galey', Modern Sans Serif Font;
             font-size: 2rem;
             text-align: center;
             letter-spacing: 1px;
         }
-           /* Модальное окно */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
-    justify-content: center;
-    align-items: center;
-}
 
-/* Контейнер для видео в модальном окне */
-.modal-content {
-    position: relative;
-    width: 90%;
-    max-width: 800px;
-}
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
 
-.modal-content iframe {
-    width: 100%;
-    height: 450px;
-}
+        /* Контейнер для видео в модальном окне */
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+        }
 
-/* Кнопка закрытия модального окна */
-.close {
-    position: absolute;
-    top: -40px;
-    right: 0;
-    font-size: 30px;
-    color: #fff;
-    cursor: pointer;
-}
-      
-           
+        .modal-content iframe {
+            width: 100%;
+            height: 450px;
+        }
+
+        /* Кнопка закрытия модального окна */
+        .close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
         @media screen and (max-width: 960px) {
             body {
-                padding: 1rem;
-                grid-template-areas: 
+               grid-template-areas: 
                     "header"
-                    "text"; /* Убираем video и gallery для мобильной версии */
-                grid-template-rows: auto 1fr;
+                    "video"
+                    "text"
+                    "gallery";
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 30vh auto auto;
             }
-
-            header {
-                padding: 1.5rem;
-            }
-
-            header h1 {
-                font-size: 2rem; /* Уменьшаем размер шрифта заголовка для мобильных */
-            }
-
-            header .subheading {
-                font-size: 1rem; /* Уменьшаем размер подзаголовка для мобильных */
-            }
-
 
             .header-nav nav {
                 display: flex;
-        justify-content: center; /* Центрируем кнопки */
-        gap: 1rem; /* Уменьшаем расстояние между кнопками для мобильных устройств */
-        position: relative; /* Убираем абсолютное позиционирование для мобильных устройств */
-        top: auto; /* Сбрасываем значение top */
-        right: auto; /* Сбрасываем значение right */
-        margin-top: 1rem; /* Добавляем отступ сверху */
+                justify-content: center; /* Центрируем кнопки */
+                gap: 1rem; /* Уменьшаем расстояние между кнопками для мобильных устройств */
+                position: relative; /* Убираем абсолютное позиционирование для мобильных устройств */
+                top: auto; /* Сбрасываем значение top */
+                right: auto; /* Сбрасываем значение right */
+                margin-top: 1rem; /* Добавляем отступ сверху */
             }
 
-            .video-container {
-    grid-area: video; /* добавлено для совместимости с grid */
-    position: relative;
-    width: 100%;
-    cursor: pointer;
-    overflow: hidden;
-    aspect-ratio: 16 / 9; /* сохраняем соотношение сторон */
-    margin-bottom: 20px; /* Уменьшаем отступ снизу для мобильных устройств */
-    display: flex;
-    justify-content: center;
-    height: auto; /* Убираем фиксированную высоту */
-}
 
-.video-placeholder {
-    width: 100%; /* Задаем ширину 100% */
-    height: 100%; /* Высота 100% для обеспечения правильного соотношения сторон */
-    object-fit: cover; /* Обеспечивает обрезку видео по размеру контейнера */
-}
+            .video-container {
+                grid-area: video; /* добавлено для совместимости с grid */
+                position: relative;
+                width: 100%;
+                cursor: pointer;
+                overflow: hidden;
+                aspect-ratio: 16 / 9; /* сохраняем соотношение сторон */
+                margin-bottom: 20px; /* Уменьшаем отступ снизу для мобильных устройств */
+                display: flex;
+                justify-content: center;
+                height: auto; /* Убираем фиксированную высоту */
+                margin-top: 2rem; /* Добавляем отступ сверху для мобильных */
+            }
+
+            .video-placeholder {
+                width: 100%; /* Задаем ширину 100% */
+                height: 100%; /* Высота 100% для обеспечения правильного соотношения сторон */
+                object-fit: cover; /* Обеспечивает обрезку видео по размеру контейнера */
+            }
 
             header h1 {
                 font-size: 1.5rem; /* Уменьшаем размер шрифта для заголовка */
@@ -241,26 +229,25 @@
 </head>
 <body>
 
-    <header>
-        <div class="header-text-container">
-            <h1><a href="index.html" style="color: inherit; text-decoration: none;">NIKITA KOTRELEV</a></h1>
-        </div>
-        <div class="subheading-container">
-            <div class="subheading">CINEMATOGRAPHER</div> 
-            <div class="subheading">PHOTOGRAPHER</div> 
-         </div>
-         <div class="underline"></div> <!-- Белая полоса под подзаголовком -->
+    <head</header>
+    <div class="header-text-container">
+        <h1><a href="index.html" style="color: inherit; text-decoration: none;">NIKITA KOTRELEV</a></h1>
+    </div>
+    <div class="subheading-container">
+        <div class="subheading">CINEMATOGRAPHER</div> 
+        <div class="subheading">PHOTOGRAPHER</div> 
      </div>
-        <div class="header-nav"> 
-            <nav>
-                <a href="Video.html">VIDEO</a>
-                <a href="photos.html">PHOTOS</a>
-                <a href="about.html">ABOUT ME</a>
-                <a href="CONTACT.html">CONTACT</a>
-                <a href="shop.html">SHOP</a> <!-- Новая вкладка -->
-            </nav>
-        </div>
-    </header>
+        <div class="underline"></div> <!-- Белая полоса под подзаголовком -->
+    </div>
+            <div class="header-nav">
+                <nav>
+                    <a href="Video.html" id="clothing-btn">VIDEO</a>
+                    <a href="photos.html" id="looks-btn">PHOTOS</a>
+                    <a href="about.html" id="about-btn">ABOUT ME</a>
+                    <a href="CONTACT.html" id="contact-btn">CONTACT</a>
+                </nav>
+            </div>
+        </header>
 
         <div class="video-container">
             <video class="video-placeholder" autoplay muted loop playsinline>
@@ -307,14 +294,14 @@
                 <source src="img/Georgian Clip.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <div class="video-title">GEO CLIP (DOP)</div>
+            <div class="video-title">GEORGIAN FILM (Director)</div>
         </div>
 
         <div id="videoModal3" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <iframe 
-                    src="https://www.youtube.com/embed/-4lZoy0oRRU" 
+                    src="https://www.youtube.com/embed/XaXN2IjR-Bw" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     allowfullscreen>
@@ -323,24 +310,6 @@
         </div>
     </div>
 
-    <script>
-        const videoContainers = document.querySelectorAll(".video-container");
-        const modals = document.querySelectorAll(".modal");
-
-        videoContainers.forEach((container, index) => {
-            container.addEventListener("click", () => {
-                modals[index].style.display = "flex";
-            });
-        });
-
-        modals.forEach((modal) => {
-            modal.querySelector(".close").addEventListener("click", () => {
-                modal.style.display = "none";
-            });
-            modal.addEventListener("click", () => {
-                modal.style.display = "none";
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
