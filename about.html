@@ -4,189 +4,223 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nikita Kotrelev</title>
-    <link rel="icon" href="Скан 38 (1).png" type="image/png" sizes="64x64">
+    <link rel="icon" href="pag 5.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@400;700&family=Jost:wght@400&family=Jaturata:wght@400&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-     <style>
-    html, body {
+    <style>
+
+ /* Подключение шрифта */
+ @font-face {
+            font-family: 'Afacad Flux';
+            src: url('font/afacad-flux.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+
+
+        html, body {
             margin: 0;
             padding: 0;
             height: 100%;
-            font-family: Roboto, Ubuntu, Arial, sans-serif;
+            font-family: 'Afacad Flux', sans-serif;
             background-color: #000000;
             color: #ffffff;
+           
         }
+
+        
 
         body {
             display: grid;
             grid-template-areas: 
                 "header"
-                "video"
-                "text"
-                "gallery";
-            grid-template-rows: auto 60vh auto 1fr;
+                "content"
+                "footer";
+            grid-template-rows: auto 1fr auto;
             grid-template-columns: 1fr;
             gap: 1rem;
+            
         }
 
         header {
             grid-area: header;
             text-align: center;
             padding: 2rem;
-            position: relative;
+            position: relative; /* Для использования z-index */
+            z-index: 1; /* Заголовок и подзаголовок будут выше видео */
         }
 
         .header-text-container {
-    margin-top: 20px; /* Фиксированный отступ в пикселях */
-    right: -1%; /* Начальная горизонтальная позиция */
-    padding: 2rem; /* Отступы вокруг текста */
-    font-size: 10rem; /* Размер шрифта */
-    line-height: 1; /* Высота строки */
-    font-family: Roboto, Ubuntu, Arial, sans-serif; /* Шрифт */
-    position: relative; /* Для использования с top, left и т.д. */
+            margin-top: 20px;
+            padding: 2rem;
+            font-size: 2rem;
+            line-height: 1;
+            font-family: 'Afacad Flux', sans-serif;
+            
+        }
+        .header-text-container h1 {
+    font-size: 5rem; /* Установите размер шрифта, который вам нравится */
+    cursor: pointer;
+    text-decoration: none;
 }
-
-/* Белая полоса */
-.underline {
-    width: 100%; /* Ты можешь изменить ширину полосы по своему усмотрению */
-    height: 2px; /* Высота полосы */
-    background-color: white; /* Белый цвет полосы */
-    margin: 1rem auto; /* Центрируем полосу по горизонтали */
-    top: 10%; /* Начальная вертикальная позиция */
-}
-
 
 
         .subheading-container {
             display: flex;
-            gap: 3rem; /* Расстояние между элементами */
-            position: relative; 
-            z-index: 2; /* Для подзаголовков */
-            padding: 2rem; /* Отступы вокруг текста */
-    font-size: 1.5rem; /* Размер шрифта */
-    line-height: 1.6; /* Высота строки */
-    font-family: Roboto, Ubuntu, Arial, sans-serif; /* Шрифт */
-    position: relative; /* Для использования с top, left и т.д. */
-    top: 0%; /* Начальная вертикальная позиция */
-    right: -5%;
-   
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 4rem;
-            letter-spacing: 1px;
-            font-family: Roboto, Ubuntu, Arial, sans-serif;
-        }
-
-        .subheading-container .subheading {
-            
+            gap: 1rem;
+            justify-content: center;
+            padding: 2rem;
             font-size: 2rem;
-            font-family: Roboto, Ubuntu, Arial, sans-serif;
-            margin-top: 0.5rem;
         }
 
         .header-nav {
             margin-top: 1rem;
         }
-        .header-nav a {
-    padding: 2rem; /* Отступы вокруг текста */
-    text-align: center; /* Выравнивание текста по центру */
-    font-size: 1.5rem; /* Размер шрифта */
-    line-height: 1.6; /* Высота строки */
-    position: relative; /* Для использования top, left */
-    top: 10%; /* Пример вертикальной позиции */
-    left: 15%; /* Пример горизонтальной позиции */
-    transform: translateX(0%); /* Центрирование кнопок по горизонтали */
-}
 
         .header-nav a {
+            padding: 1rem;
+            font-size: 2rem;
             color: #ffffff;
             text-decoration: none;
+            text-align: center;
+        }
+
+        .header-nav a:hover {
+            color: #ff6347; /* Цвет при наведении */
+        }
+
+        .header-text-container h1 {
+            cursor: pointer;
+            /* Убираем нижнее подчеркивание */
+            text-decoration: none;
+        }
+
+
+        .content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            
+        }
+
+        h2 {
             font-size: 2rem;
-            font-family: Roboto, Ubuntu, Arial, sans-serif;
-        }
-
-         .about-me {
-            padding: 4rem;
-            align-items: center; /* Центрируем содержимое по горизонтали */
-            text-align: left; /* Выравнивание текста по центру */
-            color: #ffffff;
-            font-size: 1.2rem;
-            font-family: 'Stolzl', Light;
-            margin-top: 10rem; /* Добавляем отступ сверху для видео */
-        }
-
-        .about-me h2  {
-           
-            padding-left: 350px; /* Увеличьте значение по необходимости */
-            text-align: left; /* Текст по центру */
-            font-size: 1.2rem;  
-            margin-top: 5rem; /* Увеличенный отступ сверху для заголовка AWARDS */
-            font-family: 'Galey', Modern Sans Serif Font; /* Шрифт для заголовков */
-        }
-        .about-me h3{
-            padding-left: 350px; /* Увеличьте значение по необходимости */
-            font-size: 1.1rem;
-            margin-top: 5rem; /* Увеличенный отступ сверху для заголовка AWARDS */
-            font-family: 'Galey', Modern Sans Serif Font; /* Шрифт для заголовков */
-        }
-        .about-me h4 {
-            font-size: 1.5rem;
-           
-            margin-bottom: -2rem;
-        }
-
-
-        .about-me p {
             margin-bottom: 1rem;
-            font-size: 1.1rem;
-            max-width:1400px;
-            text-align: left; /* Текст по центру */
-            padding-left: 350px; /* Увеличьте значение по необходимости */
         }
-    
-    </style>  
+
+        p, ul {
+            font-size: 1.7rem;
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        
+        @media screen and (max-width: 960px) {
+            /* Для экранов шириной меньше 960px */
+            .video-background {
+                height: 40%; /* Видео будет занимать 40% высоты экрана на мобильных устройствах */
+            }
+
+            body {
+                grid-template-areas: 
+                    "header"
+                    "content"
+                    "footer";
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr auto;
+            }
+
+            .header-text-container h1 {
+                font-size: 2rem;
+            }
+
+            .subheading-container {
+                gap: 1rem;
+                font-size: 1.2rem;
+            }
+
+            .header-nav {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .header-nav a {
+                padding: 0.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        
+        @media screen and (max-width: 600px) {
+            /* Для экранов шириной меньше 600px */
+            .video-background {
+                height: 35%; /* Видео будет занимать 35% высоты экрана на очень маленьких экранах */
+            }
+
+            .header-text-container {
+                font-size: 1.5rem;
+            }
+
+            .subheading-container {
+                font-size: 1rem;
+                gap: 0.5rem;
+            }
+
+            .header-nav a {
+                font-size: 0.9rem;
+                padding: 0.4rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <head</header>
+<header>
     <div class="header-text-container">
-        <h1><a href="index.html" style="color: inherit; text-decoration: none;">NIKITA KOTRELEV</a></h1>
-    </div>
-    <div class="subheading-container">
-        <div class="subheading">CINEMATOGRAPHER</div> 
-        <div class="subheading">PHOTOGRAPHER</div> 
-     </div>
-        <div class="underline"></div> <!-- Белая полоса под подзаголовком -->
-    </div>
-    <div class="header-nav">
-            <nav>
-                <a href="Video.html">VIDEO</a>
-                <a href="photos.html">PHOTOS</a>
-                <a href="about.html">ABOUT ME</a>
-                <a href="CONTACT.html">CONTACT</a>
-            </nav>
+        <h1 onclick="window.location.href='index.html'">NIKITA KOTRELEV</h1>
+        <div class="underline"></div>
+        <div class="subheading-container">
+            <span>Cinematographer</span>
+            <span>Photographer</span>
         </div>
-      
-    </header>
-   
-    
-    <div class="about-me">
-
-        <h4></h4>
-        <p>My name is Nikita Kotrelev and I am a cameraman. I was born in Moscow. From 2018 to 2022, I studied at the University of Cinema at the Faculty of Cinematography. In the same year, 2022, I moved to Paris and studied for one year at the "Ecole Nationale Superieure Louis Lumiere".</p>
-
-        <h2>VIDEOS</h2>
-        <p>● Camera mechanic || Les voix d’Oléron/The voices of Oleron (2022, Russia/France)</p>
-        <p>● Grafic Designer || "BM production" || (2023)</p>
-        <p>● Camera mechanic || Sketches about Freedom (Этюды о свободе) (2021-2022, Russia)</p>
-        <p>● Cameraman and Sound engineer || Saugotuvė Paberžėje (2021-2022, Lithuania)</p>
-        <p>● Focus puller || While Rome Burns (2021, Russia)</p>
-        <p>● Cameraman || I AM DYING (2022, Russia) a music video by MAZERDARK</p>
-
-        <h3>AWARD</h3>
-        <p>I am a professional photographer, my specialization is genre photography. Recently I became a prize-winner of the Street Photo Russia contest.</p>
-
     </div>
+
+    <nav class="header-nav">
+        <a href="Video.html">VIDEO</a>
+        <a href="Photos.html">PHOTOS</a>
+        <a href="About me.html">ABOUT ME</a>
+        <a href="Contact.html">CONTACT</a>
+    </nav>
+</header>
+
+<div class="content">
+    
+    <p>My name is Nikita Kotrelev and I am a cameraman. I was born in Moscow. From 2018 to 2022, I studied at the University of Cinema at the Faculty of Cinematography. In the same year, 2022, I moved to Paris and studied for one year at the "Ecole Nationale Superieure Louis Lumiere".</p>
+    
+    <h2>Videos</h2>
+    <ul>
+        <li>Camera mechanic || Les voix d’Oléron/The voices of Oleron (2022, Russia/France)</li>
+        <li>Graphic Designer || "BM production" || (2023)</li>
+        <li>Camera mechanic || Sketches about Freedom (2021-2022, Russia)</li>
+        <li>Cameraman and Sound engineer || Saugotuvė Paberžėje (2021-2022, Lithuania)</li>
+        <li>Focus puller || While Rome Burns (2021, Russia)</li>
+        <li>Cameraman || I AM DYING (2022, Russia) a music video by MAZERDARK</li>
+    </ul>
+
+    <h2>Award</h2>
+    <p>I am a professional photographer, my specialization is genre photography. Recently I became a prize-winner of the Street Photo Russia contest.</p>
+</div>
+
 </body>
 </html>
