@@ -4,200 +4,233 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nikita Kotrelev</title>
-    <link rel="icon" href="Скан 38 (1).png" type="image/png" sizes="64x64">
+    <link rel="icon" href="pag 5.png" type="image/png">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-     <style>
-     html, body {
+    <style>
+        html, body {
             margin: 0;
             padding: 0;
             height: 100%;
-            font-family: Roboto, Ubuntu, Arial, sans-serif;
+            font-family: 'Afacad Flux', sans-serif;
             background-color: #000000;
             color: #ffffff;
+           
         }
+
+        
 
         body {
             display: grid;
             grid-template-areas: 
                 "header"
-                "video"
-                "text"
-                "gallery";
-            grid-template-rows: auto 60vh auto 1fr;
+                "content"
+                "footer";
+            grid-template-rows: auto 1fr auto;
             grid-template-columns: 1fr;
             gap: 1rem;
+            
         }
 
         header {
             grid-area: header;
             text-align: center;
             padding: 2rem;
-            position: relative;
+            position: relative; /* Для использования z-index */
+            z-index: 1; /* Заголовок и подзаголовок будут выше видео */
         }
 
-      .header-text-container {
-    margin-top: 20px; /* Фиксированный отступ в пикселях */
-    right: -1%; /* Начальная горизонтальная позиция */
-    padding: 2rem; /* Отступы вокруг текста */
-    font-size: 10rem; /* Размер шрифта */
-    line-height: 1; /* Высота строки */
-    font-family: Roboto, Ubuntu, Arial, sans-serif; /* Шрифт */
-    position: relative; /* Для использования с top, left и т.д. */
+        .header-text-container {
+            margin-top: 20px;
+            padding: 2rem;
+            font-size: 2rem;
+            line-height: 1;
+            font-family: 'Afacad Flux', sans-serif;
+            
+        }
+        .header-text-container h1 {
+    font-size: 5rem; /* Установите размер шрифта, который вам нравится */
+    cursor: pointer;
+    text-decoration: none;
 }
-
-/* Белая полоса */
-.underline {
-    width: 100%; /* Ты можешь изменить ширину полосы по своему усмотрению */
-    height: 2px; /* Высота полосы */
-    background-color: white; /* Белый цвет полосы */
-    margin: 1rem auto; /* Центрируем полосу по горизонтали */
-    top: 10%; /* Начальная вертикальная позиция */
-}
-
 
 
         .subheading-container {
             display: flex;
-            gap: 3rem; /* Расстояние между элементами */
-            position: relative; 
-            z-index: 2; /* Для подзаголовков */
-            padding: 2rem; /* Отступы вокруг текста */
-    font-size: 1.5rem; /* Размер шрифта */
-    line-height: 1.6; /* Высота строки */
-    font-family: Roboto, Ubuntu, Arial, sans-serif; /* Шрифт */
-    position: relative; /* Для использования с top, left и т.д. */
-    top: 0%; /* Начальная вертикальная позиция */
-    right: -5%;
-   
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 4rem;
-            letter-spacing: 1px;
-            font-family: Roboto, Ubuntu, Arial, sans-serif;
-        }
-
-        .subheading-container .subheading {
-            
+            gap: 1rem;
+            justify-content: center;
+            padding: 2rem;
             font-size: 2rem;
-            font-family: Roboto, Ubuntu, Arial, sans-serif;
-            margin-top: 0.5rem;
         }
 
         .header-nav {
             margin-top: 1rem;
         }
-        .header-nav a {
-    padding: 2rem; /* Отступы вокруг текста */
-    text-align: center; /* Выравнивание текста по центру */
-    font-size: 1.5rem; /* Размер шрифта */
-    line-height: 1.6; /* Высота строки */
-    position: relative; /* Для использования top, left */
-    top: 10%; /* Пример вертикальной позиции */
-    left: 15%; /* Пример горизонтальной позиции */
-    transform: translateX(0%); /* Центрирование кнопок по горизонтали */
-}
 
         .header-nav a {
+            padding: 1rem;
+            font-size: 2rem;
             color: #ffffff;
             text-decoration: none;
-            font-size: 2rem;
-            font-family: Roboto, Ubuntu, Arial, sans-serif;
+            text-align: center;
         }
 
-        .container {
+        .header-nav a:hover {
+            color: #ff6347; /* Цвет при наведении */
+        }
+
+        .header-text-container h1 {
+            cursor: pointer;
+            /* Убираем нижнее подчеркивание */
+            text-decoration: none;
+        }
+        .contact-container {
             display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
             max-width: 1200px;
-            padding: 2rem; /* Отступы вокруг текста */
-            width: 100%;
-            padding: 2rem 2rem; /* Уменьшен верхний отступ */
-            font-family: 'Galey', Modern Sans Serif Font; /* Шрифт для заголовков */
-            margin-top: 10rem; /* Добавляем отступ сверху для видео */
+            margin: 0 auto;
         }
 
         .contact-info {
             flex: 1;
-            padding: 3rem;
-            padding-right: 1rem;
-            padding-left:20rem;
-            line-height: 0rem; /* Контроль расстояния между строками внутри абзаца */
+            padding-right: 2rem;
         }
-        
 
         .contact-info h3 {
-            color: #ffffff;
-            margin-top: 0;
-            font-size: 1.5rem;
-            line-height: 0.001rem; /* Контроль расстояния между заголовками и содержимым */
+            margin-bottom: 0.5rem;
         }
-       
-        .contact-info p {
-            color: #ffffff;
-            margin: 2rem 0;
-            font-family: 'Stolzl', Light; /* Шрифт для кнопок */
-      line-height: 2rem; /* Контроль расстояния между строками внутри абзаца */
-        }
-        
+
         .contact-info a {
             color: #ffffff;
-            text-decoration: underline;
+            text-decoration: none;
+            font-size: 2rem;
         }
 
-        .contact-image {
+        .contact-info a:hover {
+            color: #ff6347;
+        }
+
+        .contact-photo {
             flex: 1;
-            display: flex;
-            justify-content: flex-end;
-            
+            text-align: center;
         }
 
-        .contact-image img {
+        .contact-photo img {
             max-width: 100%;
-            padding: 0rem 4rem; /* Уменьшен верхний отступ */
             height: auto;
-            object-fit: cover;
-            margin-top: 4rem; /* Добавляем отступ сверху для видео */
+            border-radius: 10px;
         }
 
+        @media screen and (max-width: 960px) {
+            /* Для экранов шириной меньше 960px */
+            .video-background {
+                height: 40%; /* Видео будет занимать 40% высоты экрана на мобильных устройствах */
+            }
 
-        
-           
+            body {
+                grid-template-areas: 
+                    "header"
+                    "content"
+                    "footer";
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr auto;
+            }
+
+            .header-text-container h1 {
+                font-size: 2rem;
+            }
+
+            .subheading-container {
+                gap: 1rem;
+                font-size: 1.2rem;
+            }
+
+            .header-nav {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .header-nav a {
+                padding: 0.5rem;
+                font-size: 1rem;
+            }
+        }
+        .container {
+                flex-direction: column;
+            }
+
+            .contact-info {
+                text-align: center;
+            }
         
 
+        @media screen and (max-width: 600px) {
+            /* Для экранов шириной меньше 600px */
+            .video-background {
+                height: 35%; /* Видео будет занимать 35% высоты экрана на очень маленьких экранах */
+            }
+
+            .header-text-container {
+                font-size: 1.5rem;
+            }
+
+            .subheading-container {
+                font-size: 1rem;
+                gap: 0.5rem;
+            }
+
+            .header-nav a {
+                font-size: 0.9rem;
+                padding: 0.4rem;
+            }
+            .contact-info h3 {
+                font-size: 1.2rem;
+            }
+
+            .photo {
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
-    <head</header>
-    <div class="header-text-container">
-        <h1><a href="index.html" style="color: inherit; text-decoration: none;">NIKITA KOTRELEV</a></h1>
-    </div>
-    <div class="subheading-container">
-        <div class="subheading">CINEMATOGRAPHER</div> 
-        <div class="subheading">PHOTOGRAPHER</div> 
-     </div>
-        <div class="underline"></div> <!-- Белая полоса под подзаголовком -->
-    </div>
-    <div class="header-nav">
-                <a href="Video.html" id="clothing-btn">VIDEO</a>
-                <a href="photos.html" id="looks-btn">PHOTOS</a>
-                <a href="about.html" id="about-btn">ABOUT ME</a>
-                <a href="CONTACT.html" id="about-btn">CONTACT</a>
-            </nav>
+
+    <header>
+        <div class="header-text-container">
+            <h1 onclick="window.location.href='index.html'">NIKITA KOTRELEV</h1>
+            <div class="underline"></div>
+            <div class="subheading-container">
+                <span>Cinematographer</span>
+                <span>Photographer</span>
+            </div>
         </div>
+    
+        <nav class="header-nav">
+            <a href="Video.html">VIDEO</a>
+            <a href="Photos.html">PHOTOS</a>
+            <a href="About me.html">ABOUT ME</a>
+            <a href="Contact.html">CONTACT</a>
+        </nav>
     </header>
-
-
-    <div class="container">
-        <div class="contact-info">
-            <h3>Personal:</h3>
-            <p><a href="mailto:Kotrelevnikita@gmail.com">Kotrelevnikita@gmail.com</a><br>
-               <a href="tel:+33766525039">+33766525039</a></p>
-            <h3>Instagram:</h3>
-            <p><a href="https://www.instagram.com/stojal_znachit?igsh=dTcxdncxbmM2MGdw">Stojal_Znachit</a></p>
+    
+    <main>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>PERSONAL:</h3>
+                <p><a href="mailto:Kotrelevnikita@gmail.com">Kotrelevnikita@gmail.com</a><br>
+                   <a href="tel:+33766525039">+33766525039</a></p>
+                <h3>INSTAGRAM:</h3>
+                <p><a href="https://www.instagram.com/stojal_znachit?igsh=dTcxdncxbmM2MGdw">Stojal_Znachit</a></p>
+            </div>
+            <div class="contact-photo">
+                <img src="img/IMG_2215.jpeg" alt="Photo of Nikita Kotrelev">
+            </div>
         </div>
-        <div class="contact-image">
-            <img src="img/IMG_2215.jpeg" alt="Nikita Kotrelev">
-        </div>
-    </div>
-</body>
-</html>
+    </main>
+    
+    </body>
+    </html>
