@@ -7,9 +7,7 @@
     <link rel="icon" href="img/pag 5.png" type="image/png">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-
-
- @font-face {
+        @font-face {
             font-family: 'Afacad Flux';
             src: url('fonts/Afacad-Flux.woff2') format('woff2'),
                  url('fonts/Afacad-Flux.woff') format('woff');
@@ -17,20 +15,15 @@
             font-style: normal;
         }
 
-
-        
         html, body {
-            html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-}
             margin: 0;
             padding: 0;
             height: 100%;
             font-family: 'Afacad Flux', sans-serif;
             background-color: #000000;
             color: #ffffff;
-           
+            max-width: 100%; /* Отключаем горизонтальную прокрутку */
+            overflow-x: hidden; /* Убираем горизонтальную прокрутку */
         }
 
         /* Стили для фона */
@@ -39,9 +32,9 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 90%; /* Видео будет занимать 50% высоты экрана на десктопе */
-            object-fit: cover; /* Чтобы видео заполнило пространство без искажений */
-            z-index: 0; /* Видео будет на заднем плане */
+            height: 90%;
+            object-fit: cover;
+            z-index: 0;
         }
 
         body {
@@ -53,15 +46,14 @@
             grid-template-rows: auto 1fr auto;
             grid-template-columns: 1fr;
             gap: 1rem;
-            
         }
 
         header {
             grid-area: header;
             text-align: center;
             padding: 2rem;
-            position: relative; /* Для использования z-index */
-            z-index: 1; /* Заголовок и подзаголовок будут выше видео */
+            position: relative;
+            z-index: 1;
         }
 
         .header-text-container {
@@ -70,14 +62,13 @@
             font-size: 2rem;
             line-height: 1;
             font-family: 'Afacad Flux', sans-serif;
-            
         }
-        .header-text-container h1 {
-    font-size: 5rem; /* Установите размер шрифта, который вам нравится */
-    cursor: pointer;
-    text-decoration: none;
-}
 
+        .header-text-container h1 {
+            font-size: 5rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
 
         .subheading-container {
             display: flex;
@@ -100,13 +91,7 @@
         }
 
         .header-nav a:hover {
-            color: #ff6347; /* Цвет при наведении */
-        }
-
-        .header-text-container h1 {
-            cursor: pointer;
-            /* Убираем нижнее подчеркивание */
-            text-decoration: none;
+            color: #ff6347;
         }
 
         footer {
@@ -123,13 +108,12 @@
         }
 
         footer a:hover {
-            color: #ff6347; /* Цвет при наведении */
+            color: #ff6347;
         }
 
         @media screen and (max-width: 960px) {
-            /* Для экранов шириной меньше 960px */
             .video-background {
-                height: 50%; /* Видео будет занимать 40% высоты экрана на мобильных устройствах */
+                height: 50%;
             }
 
             body {
@@ -139,6 +123,7 @@
                     "footer";
                 grid-template-columns: 1fr;
                 grid-template-rows: auto 1fr auto;
+                width: 100%;
             }
 
             .header-text-container h1 {
@@ -164,9 +149,8 @@
         }
 
         @media screen and (max-width: 600px) {
-            /* Для экранов шириной меньше 600px */
             .video-background {
-                height: 60%; /* Видео будет занимать 35% высоты экрана на очень маленьких экранах */
+                height: 60%;
             }
 
             .header-text-container {
@@ -188,8 +172,7 @@
 <body>
 
 <!-- Фоновое видео -->
- <!-- Видео на фоне -->
- <video autoplay muted playsinline class="video-background" id="background-video">
+<video autoplay muted playsinline class="video-background" id="background-video">
     <source src="img/SHOWREEL1.mp4" type="video/mp4">
 </video>
 
@@ -215,20 +198,20 @@
 </div>
 
 <script>
-       // Видео смена
-       const videos = [
-           "img/SHOWREEL1.mp4",
-       ];
+    // Видео смена
+    const videos = [
+        "img/SHOWREEL1.mp4",
+    ];
 
-       let currentVideoIndex = 0;
-       const backgroundVideo = document.getElementById('background-video');
+    let currentVideoIndex = 0;
+    const backgroundVideo = document.getElementById('background-video');
 
-       backgroundVideo.addEventListener('ended', () => {
-           currentVideoIndex = (currentVideoIndex + 1) % videos.length;
-           backgroundVideo.src = videos[currentVideoIndex];
-           backgroundVideo.play();
-       });
-
+    backgroundVideo.addEventListener('ended', () => {
+        currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+        backgroundVideo.src = videos[currentVideoIndex];
+        backgroundVideo.play();
+    });
 </script>
+
 </body>
 </html>
