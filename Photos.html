@@ -177,10 +177,18 @@
                 padding: 0.5rem;
                 font-size: 1rem;
             }
-            .photo-container .photo-item {
-            width: calc((100% - 16px) / 2); /* Две фотографии в ряд */
-        }
-        }
+           .photo-item {
+        flex-basis: 100%; /* Фотография занимает всю ширину контейнера */
+        max-width: 100%;
+        height: auto; /* Сохраняем пропорции */
+    }
+
+    .photos-container img {
+        width: 100%;
+        height: auto; /* Сохраняем пропорции, изображение не будет растягиваться */
+        object-fit: contain; /* Сохраняем соотношение сторон */
+    }
+}
 
         @media screen and (max-width: 600px) {
             .header-text-container {
@@ -196,10 +204,18 @@
                 font-size: 0.9rem;
                 padding: 0.4rem;
             }
-            .photo-container .photo-item {
-            width: 100%; /* Одна фотография в ряд */
-        }
-        }
+          .photo-item {
+        flex-basis: 100%; /* Фотография занимает всю ширину контейнера */
+        max-width: 100%;
+        height: auto; /* Сохраняем пропорции */
+    }
+
+    .photos-container img {
+        width: 100%;
+        height: auto; /* Сохраняем пропорции, изображение не будет растягиваться */
+        object-fit: contain; /* Сохраняем соотношение сторон */
+    }
+}
     </style>
 </head>
 <body>
