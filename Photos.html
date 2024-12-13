@@ -10,13 +10,15 @@
 
 
 
-@font-face {
-            font-family: 'Afacad Flux';
-            src: url('fonts:/AfacadFlux-Regular.woff') format('woff2'),
-                 url('fonts:/AfacadFlux-Regular.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
+    @font-face {
+    font-family: 'Afacad Flux';
+    src: local('Afacad Flux Regular'), local('Afacad-Flux-Regular'),
+        url('AfacadFlux-Regular.woff2') format('woff2'),
+        url('AfacadFlux-Regular.woff') format('woff'),
+        url('AfacadFlux-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
 
 
         html, body {
