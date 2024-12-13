@@ -6,18 +6,11 @@
     <title>Nikita Kotrelev</title>
     <link rel="icon" href="img/pag 5.png" type="image/png">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
     <style>
 
 
-  @font-face {
-    font-family: 'Afacad Flux';
-    src: local('fonts/Afacad Flux Regular'), local('Afacad-Flux-Regular'),
-        url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
-        url('fonts/AfacadFlux-Regular.woff') format('woff'),
-        url('fonts/AfacadFlux-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-  }
+
 
 
         html, body {
@@ -27,8 +20,6 @@
             font-family: 'Afacad Flux', sans-serif;
             background-color: #000000;
             color: #ffffff;
-            max-width: 100%; /* Отключаем горизонтальную прокрутку */
-            overflow-x: hidden; /* Убираем горизонтальную прокрутку */
            
         }
 
@@ -98,30 +89,78 @@
             /* Убираем нижнее подчеркивание */
             text-decoration: none;
         }
+       /* Модальное окно */
 
-        .photos-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px; /* Расстояние между фотографиями */
-            justify-content: flex-start; /* Выравнивание фотографий по левому краю */
-            width: 100%;
-            margin-top: 10rem; /* Добавляем отступ сверху для видео */
-        }
 
-        .photo-item {
-            flex-basis: calc(33.33% - 4px); /* Ширина каждого элемента равна 1/3 от родительского контейнера */
-            max-width: calc(33.33% - 4px);
-            height: 400px;
-        }
+.close {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+        
+        /* Контейнер для слайдера и фотографий */
+.container {
+    display: flex;
+    justify-content: space-between; /* Распределяем элементы */
+    flex-wrap: wrap; /* Разрешаем перенос на новый ряд */
+    gap: 20px; /* Расстояние между слайдером и фотографиями */
+}
 
-        .photos-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            cursor: pointer;
-        }
+/* Стили для слайдера */
+.image-slider {
+    position: relative;
+    width: 100%; /* Слайдер занимает 60% ширины */
+    margin: 0 auto; 
+    height: 700px;
+    overflow: hidden;
+}
 
-        .modal {
+.slider-images {
+    display: flex;
+    transition: transform 1s ease-in-out;
+    justify-content: center;
+   
+}
+
+.slide {
+    min-width: 100%;
+    height: 40%;
+}
+
+.slide img {
+    width: 100%;
+    height: 40%;
+    object-fit: cover;
+}
+
+
+
+/* Контейнер для фотографий */
+.photos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: flex-start;
+    width: 100%; /* Фотографии занимают 35% ширины */
+}
+
+.photo-item {
+    flex-basis: calc(33.33% - 4px);
+    max-width: calc(33.33% - 4px);
+    height: 400px;
+}
+
+.photos-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+.modal {
             display: none;
             position: fixed;
             z-index: 1000;
@@ -204,7 +243,7 @@
                 font-size: 0.9rem;
                 padding: 0.4rem;
             }
-          .photo-item {
+            .photo-item {
         flex-basis: 100%; /* Фотография занимает всю ширину контейнера */
         max-width: 100%;
         height: auto; /* Сохраняем пропорции */
@@ -240,106 +279,176 @@
 
 
    
+<div class="image-slider">
+    <div class="slider-images">
+        <div class="slide">
+            <img src="" alt="Image 4" >
+        </div>
+        <div class="slide">
+            <img src="img/DSC07474.jpg" alt="Image 2" >
+        </div>
+        
+        <div class="slide">
+            <img src="img/Имя документа hf_29.jpg" alt="Image 4" >
+        </div>
+        
+    </div>
+</div>
+</div>
+</div>
+
+<!-- Модальное окно -->
+<div id="modal" class="modal" onclick="closeModal()">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-img">
+</div>
+
 <div class="photos-container">
     <div class="photo-item">
-      <img src="img/FullSizeRender.jpeg" alt="Photo 1">
+      <img src="img/FullSizeRender.jpeg" onclick="openPhotoModal(this)">
   </div>
-  <div class="photo-item">
-      <img src="img/DSC07474.jpg" alt="Photo 2">
-  </div>
-  <div class="photo-item">
-      <img src="img/IMG_1969.jpeg" alt="Photo 3">
-  </div>
-  <div class="photo-item">
-    <img src="img/Имя документа hf_29.jpg" alt="Photo 4">
-</div>
- 
-  <div class="photo-item">
-      <img src="img/Kotrelev_Ganr_2.jpeg.jpg" alt="Photo 5">
-  </div>
-  <div class="photo-item">
-    <img src="img/IMG_5322[1].jpg" alt="Photo 6">
-</div>
-
-<div class="photo-item">
-  <img src="img/IMG_8328.jpeg" alt="Photo 7">
-</div>
-  <div class="photo-item">
-      <img src="img/Kotrelev_Ganr_3.jpeg.jpg" alt="Photo 8">
-  </div>
-
- 
-  <div class="photo-item">
-      <img src="img/Kotrelev_Ganr_15.jpeg.jpg" alt="Photo 9">
-  </div>
-  <div class="photo-item">
-    <img src="img/Kotrelev_Pejzazh_23.jpeg.jpg" alt="Photo 10">
-</div>
-<div class="photo-item">
-  <img src="img/Kotrelev_Ganr_7.jpeg.jpg" alt="Photo 11">
-</div>
-<div class="photo-item">
-<img src="img/Kotrelev_Portret_27. jpeg.jpg" alt="Photo 12">
-</div>
-<div class="photo-item">
-<img src="img/Kotrelev_Portret_25. jpeg.jpg" alt="Photo 14">
-</div>
-<div class="photo-item">
-<img src="img/Kotrelev_Portret_26. jpeg.jpg" alt="Photo 15">
-</div>
-<div class="photo-item">
-<img src="img/FullSizeRender (1).jpeg" alt="Photo 16">
-</div>
-<div class="photo-item">
-<img src="img/Kotrelev_Pejzazh_24.jpeg.jpg" alt="Photo 17">
-</div>
-<div class="photo-item">
-<img src="img/Kotrelev_Ganr_16.jpeg.JPG" alt="Photo 18">
-</div>
-<div class="photo-item">
-<img src="img/IMG_1889.jpg" alt="Photo 19">
-</div>
-<div class="photo-item">
-<img src="img/IMG_4058.jpeg" alt="Photo 20">
-</div>
-<div class="photo-item">
-<img src="img/Kotrelev_Ganr_14.jpeg.jpg" alt="Photo 21">
-</div>
-<div class="photo-item">
-<img src="img/Kotrelev_Ganr_13.jpeg.jpg" alt="Photo 22">
-</div>
   
+  <div class="photo-item">
+      <img src="img/IMG_1969.jpeg" onclick="openPhotoModal(this)">
+  </div>
+  
+  <div class="photo-item">
+      <img src="img/Kotrelev_Ganr_2.jpeg.jpg" onclick="openPhotoModal(this)">
+  </div>
+  <div class="photo-item">
+    <img src="img/IMG_5322[1].jpg" onclick="openPhotoModal(this)">
+</div>
+
+<div class="photo-item">
+  <img src="img/IMG_8328.jpeg" onclick="openPhotoModal(this)">
+</div>
+  <div class="photo-item">
+      <img src="img/Kotrelev_Ganr_3.jpeg.jpg" onclick="openPhotoModal(this)">
+  </div>
+
+ 
+  <div class="photo-item">
+      <img src="img/Kotrelev_Ganr_15.jpeg.jpg" onclick="openPhotoModal(this)">
+  </div>
+  <div class="photo-item">
+    <img src="img/Kotrelev_Pejzazh_23.jpeg.jpg" onclick="openPhotoModal(this)">
+</div>
+<div class="photo-item">
+  <img src="img/Kotrelev_Ganr_7.jpeg.jpg" onclick="openPhotoModal(this)">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Portret_27. jpeg.jpg" onclick="openPhotoModal(this)">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Portret_25. jpeg.jpg" onclick="openPhotoModal(this)">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Portret_26. jpeg.jpg" onclick="openPhotoModal(this)">
+</div>
+<div class="photo-item">
+<img src="img/FullSizeRender (1).jpeg" onclick="openPhotoModal(this)">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Pejzazh_24.jpeg.jpg" onclick="openPhotoModal(this)">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Ganr_16.jpeg.JPG" onclick="openPhotoModal(this)">
+</div>
+<div class="photo-item">
+<img src="img/IMG_1889.jpg" onclick="openPhotoModal(this)">
+</div>
+<div class="photo-item">
+<img src="img/IMG_4058.jpeg" onclick="openPhotoModal(this)">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Ganr_14.jpeg.jpg" onclick="openPhotoModal(this)">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Ganr_13.jpeg.jpg" onclick="openPhotoModal(this)">
+</div>
+
+
+
 <!-- Модальное окно для галереи -->
 <div id="photoModal" class="modal">
-<div class="modal-content">
-    <img id="modalImage" src="" alt="Modal Photo">
-</div>
-</div>
-
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="Modal Photo">
+    </div>
+    </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+
+
 <script>
-   // Получаем модальное окно и изображение внутри него
-   const modal = document.getElementById("photoModal");
-      const modalImg = document.getElementById("modalImage");
 
-      // Функция для открытия модального окна
-      document.querySelectorAll('.photos-container img').forEach(img => {
-          img.addEventListener('click', function() {
-              modal.style.display = "flex";
-              modalImg.src = this.src;
-          });
-      });
+// Открытие модального окна для слайдера
+function openModal(imageElement) {
+    var modal = document.getElementById("modal");
+    var modalImg = document.getElementById("modal-img");
+    modal.style.display = "flex";  // Показываем модальное окно
+    modalImg.src = imageElement.src;  // Устанавливаем изображение в модальное окно
+}
 
-      // Функция для закрытия модального окна при нажатии за его пределами
-      modal.addEventListener('click', function(e) {
-          if (e.target === modal) {
-              modal.style.display = "none";
-          }
-      });
+// Открытие модального окна для фотографий
+function openPhotoModal(imageElement) {
+    var photoModal = document.getElementById("photoModal");
+    var modalImage = document.getElementById("modalImage");
+    photoModal.style.display = "flex";  // Показываем модальное окно для фотографий
+    modalImage.src = imageElement.src;  // Устанавливаем изображение в модальное окно
+}
+
+// Закрытие модального окна
+function closeModal() {
+    var modal = document.getElementById("modal");
+    var photoModal = document.getElementById("photoModal");
+    modal.style.display = "none";  // Скрываем модальное окно слайдера
+    photoModal.style.display = "none";  // Скрываем модальное окно галереи
+}
+
+// Закрытие модального окна при клике на фон
+document.getElementById("modal").onclick = function(event) {
+    if (event.target === this) {
+        closeModal();
+    }
+};
+
+document.getElementById("photoModal").onclick = function(event) {
+    if (event.target === this) {
+        closeModal();
+    }
+};
+
+// Инициализация слайдера
+document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.slide');
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+
+    // Функция для переключения слайдов
+    function showNextSlide() {
+        gsap.to('.slider-images', {
+            x: `-${100 * (currentIndex + 1)}%`, // Перемещаем слайды на 100% влево
+            duration: 1,
+            ease: 'power2.inOut',
+            onComplete: () => {
+                currentIndex = (currentIndex + 1) % totalSlides; // Переходим к следующему слайду
+                if (currentIndex === 0) {
+                    // Когда мы дошли до последнего слайда, возвращаемся к первому
+                    gsap.set('.slider-images', { x: 0 });
+                }
+            }
+        });
+    }
+
+    // Запуск слайдера каждые 3 секунды
+    setInterval(showNextSlide, 3000);
+});
+
+
 </script>
 
 </body>
