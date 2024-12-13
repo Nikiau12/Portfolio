@@ -92,49 +92,45 @@
        /* Модальное окно */
 
 
-.close {
-    position: absolute;
-    top: 10px;
-    right: 25px;
-    color: white;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-}
         
-        /* Контейнер для слайдера и фотографий */
+   
+/* Контейнер для слайдера и фотографий */
 .container {
     display: flex;
-    justify-content: space-between; /* Распределяем элементы */
-    flex-wrap: wrap; /* Разрешаем перенос на новый ряд */
-    gap: 20px; /* Расстояние между слайдером и фотографиями */
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-/* Стили для слайдера */
+/* Слайдер */
 .image-slider {
     position: relative;
-    width: 100%; /* Слайдер занимает 60% ширины */
-    margin: 0 auto; 
-    height: 700px;
+    width: 100%;
+    height: 800px;
     overflow: hidden;
+    margin: 0 auto;
 }
 
 .slider-images {
     display: flex;
     transition: transform 1s ease-in-out;
     justify-content: center;
-   
 }
 
 .slide {
     min-width: 100%;
-    height: 40%;
+    height: 100%; /* Устанавливаем 100% высоты контейнера */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover; /* Обрезка для сохранения пропорций */
 }
 
 .slide img {
     width: 100%;
-    height: 40%;
-    object-fit: cover;
+    height: 800px; /* Занимает всю высоту */
+    object-fit: cover; /* Обрезка для сохранения пропорций */
+    
 }
 
 
@@ -216,6 +212,15 @@
                 padding: 0.5rem;
                 font-size: 1rem;
             }
+            .image-slider {
+        height: 600px; /* Средний размер для планшетов */
+    }
+
+    .slide img {
+        height: 600px;
+    }
+
+
            .photo-item {
         flex-basis: 100%; /* Фотография занимает всю ширину контейнера */
         max-width: 100%;
@@ -228,6 +233,9 @@
         object-fit: contain; /* Сохраняем соотношение сторон */
     }
 }
+
+
+
 
         @media screen and (max-width: 600px) {
             .header-text-container {
@@ -243,6 +251,17 @@
                 font-size: 0.9rem;
                 padding: 0.4rem;
             }
+
+            .image-slider {
+        height: 300px; /* Уменьшение высоты для мобильных устройств */
+    }
+
+    .slide img {
+        height: 300px; /* Соответствующая высота изображения */
+    }
+
+
+
             .photo-item {
         flex-basis: 100%; /* Фотография занимает всю ширину контейнера */
         max-width: 100%;
@@ -254,6 +273,7 @@
         height: auto; /* Сохраняем пропорции, изображение не будет растягиваться */
         object-fit: contain; /* Сохраняем соотношение сторон */
     }
+    
 }
     </style>
 </head>
