@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikita Kotrelev</title>
+    <link rel="icon" href="img/pag 5.png" type="image/png">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+
+
+
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Afacad Flux', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+           
+        }
+
+        
+
+        body {
+            display: grid;
+            grid-template-areas: 
+                "header"
+                "content"
+                "footer";
+            grid-template-rows: auto 1fr auto;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            
+        }
+
+        header {
+            grid-area: header;
+            text-align: center;
+            padding: 2rem;
+            position: relative; /* Для использования z-index */
+            z-index: 1; /* Заголовок и подзаголовок будут выше видео */
+        }
+
+        .header-text-container {
+            margin-top: 20px;
+            padding: 2rem;
+            font-size: 2rem;
+            line-height: 1;
+            font-family: 'Afacad Flux', sans-serif;
+            
+        }
+        .header-text-container h1 {
+    font-size: 5rem; /* Установите размер шрифта, который вам нравится */
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+        .subheading-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            padding: 2rem;
+            font-size: 2rem;
+        }
+
+        .header-nav {
+            margin-top: 1rem;
+        }
+
+        .header-nav a {
+            padding: 1rem;
+            font-size: 2rem;
+            color: #ffffff;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .header-nav a:hover {
+            color: #ff6347; /* Цвет при наведении */
+        }
+
+        .header-text-container h1 {
+            cursor: pointer;
+            /* Убираем нижнее подчеркивание */
+            text-decoration: none;
+        }
+
+        .photos-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px; /* Расстояние между фотографиями */
+            justify-content: flex-start; /* Выравнивание фотографий по левому краю */
+            width: 100%;
+            margin-top: 10rem; /* Добавляем отступ сверху для видео */
+        }
+
+        .photo-item {
+            flex-basis: calc(33.33% - 4px); /* Ширина каждого элемента равна 1/3 от родительского контейнера */
+            max-width: calc(33.33% - 4px);
+            height: 400px;
+        }
+
+        .photos-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 10vh;
+        }
+
+        .modal-content {
+            max-width: 60%;
+            max-height: 60%;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+        }
+
+        
+        @media screen and (max-width: 960px) {
+            body {
+                grid-template-areas: 
+                    "header"
+                    "content"
+                    "footer";
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr auto;
+            }
+
+            .header-text-container h1 {
+                font-size: 2rem;
+            }
+
+            .subheading-container {
+                gap: 1rem;
+                font-size: 1.2rem;
+            }
+
+            .header-nav {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .header-nav a {
+                padding: 0.5rem;
+                font-size: 1rem;
+            }
+            .photo-container .photo-item {
+            width: calc((100% - 16px) / 2); /* Две фотографии в ряд */
+        }
+        }
+
+        @media screen and (max-width: 600px) {
+            .header-text-container {
+                font-size: 1.5rem;
+            }
+
+            .subheading-container {
+                font-size: 1rem;
+                gap: 0.5rem;
+            }
+
+            .header-nav a {
+                font-size: 0.9rem;
+                padding: 0.4rem;
+            }
+            .photo-container .photo-item {
+            width: 100%; /* Одна фотография в ряд */
+        }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-text-container">
+        <h1 onclick="window.location.href='index.html'">NIKITA KOTRELEV</h1>
+        <div class="underline"></div>
+        <div class="subheading-container">
+            <span>Cinematographer</span>
+            <span>Photographer</span>
+        </div>
+    </div>
+
+    <nav class="header-nav">
+        <a href="Video.html">VIDEO</a>
+        <a href="Photos.html">PHOTOS</a>
+        <a href="About me.html">ABOUT ME</a>
+        <a href="Contact.html">CONTACT</a>
+    </nav>
+</header>
+
+
+   
+<div class="photos-container">
+    <div class="photo-item">
+      <img src="img/FullSizeRender.jpeg" alt="Photo 1">
+  </div>
+  <div class="photo-item">
+      <img src="img/DSC07474.jpg" alt="Photo 2">
+  </div>
+  <div class="photo-item">
+      <img src="img/IMG_1969.jpeg" alt="Photo 3">
+  </div>
+  <div class="photo-item">
+    <img src="img/Имя документа hf_29.jpg" alt="Photo 4">
+</div>
+ 
+  <div class="photo-item">
+      <img src="img/Kotrelev_Ganr_2.jpeg.jpg" alt="Photo 5">
+  </div>
+  <div class="photo-item">
+    <img src="img/IMG_5322[1].jpg" alt="Photo 6">
+</div>
+
+<div class="photo-item">
+  <img src="img/IMG_8328.jpeg" alt="Photo 7">
+</div>
+  <div class="photo-item">
+      <img src="img/Kotrelev_Ganr_3.jpeg.jpg" alt="Photo 8">
+  </div>
+
+ 
+  <div class="photo-item">
+      <img src="img/Kotrelev_Ganr_15.jpeg.jpg" alt="Photo 9">
+  </div>
+  <div class="photo-item">
+    <img src="img/Kotrelev_Pejzazh_23.jpeg.jpg" alt="Photo 10">
+</div>
+<div class="photo-item">
+  <img src="img/Kotrelev_Ganr_7.jpeg.jpg" alt="Photo 11">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Portret_27. jpeg.jpg" alt="Photo 12">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Portret_25. jpeg.jpg" alt="Photo 14">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Portret_26. jpeg.jpg" alt="Photo 15">
+</div>
+<div class="photo-item">
+<img src="img/FullSizeRender (1).jpeg" alt="Photo 16">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Pejzazh_24.jpeg.jpg" alt="Photo 17">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Ganr_16.jpeg.JPG" alt="Photo 18">
+</div>
+<div class="photo-item">
+<img src="img/IMG_1889.jpg" alt="Photo 19">
+</div>
+<div class="photo-item">
+<img src="img/IMG_4058.jpeg" alt="Photo 20">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Ganr_14.jpeg.jpg" alt="Photo 21">
+</div>
+<div class="photo-item">
+<img src="img/Kotrelev_Ganr_13.jpeg.jpg" alt="Photo 22">
+</div>
+  
+<!-- Модальное окно для галереи -->
+<div id="photoModal" class="modal">
+<div class="modal-content">
+    <img id="modalImage" src="" alt="Modal Photo">
+</div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+   // Получаем модальное окно и изображение внутри него
+   const modal = document.getElementById("photoModal");
+      const modalImg = document.getElementById("modalImage");
+
+      // Функция для открытия модального окна
+      document.querySelectorAll('.photos-container img').forEach(img => {
+          img.addEventListener('click', function() {
+              modal.style.display = "flex";
+              modalImg.src = this.src;
+          });
+      });
+
+      // Функция для закрытия модального окна при нажатии за его пределами
+      modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+              modal.style.display = "none";
+          }
+      });
+</script>
+
+</body>
+</html>

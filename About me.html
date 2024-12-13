@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikita Kotrelev</title>
+    <link rel="icon" href="img/pag 5.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@400;700&family=Jost:wght@400&family=Jaturata:wght@400&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Afacad Flux', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+           
+        }
+
+        
+
+        body {
+            display: grid;
+            grid-template-areas: 
+                "header"
+                "content"
+                "footer";
+            grid-template-rows: auto 1fr auto;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            
+        }
+
+        header {
+            grid-area: header;
+            text-align: center;
+            padding: 2rem;
+            position: relative; /* Для использования z-index */
+            z-index: 1; /* Заголовок и подзаголовок будут выше видео */
+        }
+
+        .header-text-container {
+            margin-top: 20px;
+            padding: 2rem;
+            font-size: 2rem;
+            line-height: 1;
+            font-family: 'Afacad Flux', sans-serif;
+            
+        }
+        .header-text-container h1 {
+    font-size: 5rem; /* Установите размер шрифта, который вам нравится */
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+        .subheading-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            padding: 2rem;
+            font-size: 2rem;
+        }
+
+        .header-nav {
+            margin-top: 1rem;
+        }
+
+        .header-nav a {
+            padding: 1rem;
+            font-size: 2rem;
+            color: #ffffff;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .header-nav a:hover {
+            color: #ff6347; /* Цвет при наведении */
+        }
+
+        .header-text-container h1 {
+            cursor: pointer;
+            /* Убираем нижнее подчеркивание */
+            text-decoration: none;
+        }
+
+
+        .content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p, ul {
+            font-size: 1.7rem;
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        
+        @media screen and (max-width: 960px) {
+            /* Для экранов шириной меньше 960px */
+            .video-background {
+                height: 40%; /* Видео будет занимать 40% высоты экрана на мобильных устройствах */
+            }
+
+            body {
+                grid-template-areas: 
+                    "header"
+                    "content"
+                    "footer";
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr auto;
+            }
+
+            .header-text-container h1 {
+                font-size: 2rem;
+            }
+
+            .subheading-container {
+                gap: 1rem;
+                font-size: 1.2rem;
+            }
+
+            .header-nav {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .header-nav a {
+                padding: 0.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        
+        @media screen and (max-width: 600px) {
+            /* Для экранов шириной меньше 600px */
+            .video-background {
+                height: 35%; /* Видео будет занимать 35% высоты экрана на очень маленьких экранах */
+            }
+
+            .header-text-container {
+                font-size: 1.5rem;
+            }
+
+            .subheading-container {
+                font-size: 1rem;
+                gap: 0.5rem;
+            }
+
+            .header-nav a {
+                font-size: 0.9rem;
+                padding: 0.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-text-container">
+        <h1 onclick="window.location.href='index.html'">NIKITA KOTRELEV</h1>
+        <div class="underline"></div>
+        <div class="subheading-container">
+            <span>Cinematographer</span>
+            <span>Photographer</span>
+        </div>
+    </div>
+
+    <nav class="header-nav">
+        <a href="Video.html">VIDEO</a>
+        <a href="Photos.html">PHOTOS</a>
+        <a href="About me.html">ABOUT ME</a>
+        <a href="Contact.html">CONTACT</a>
+    </nav>
+</header>
+
+<div class="content">
+    
+    <p>My name is Nikita Kotrelev and I am a cameraman. I was born in Moscow. From 2018 to 2022, I studied at the University of Cinema at the Faculty of Cinematography. In the same year, 2022, I moved to Paris and studied for one year at the "Ecole Nationale Superieure Louis Lumiere".</p>
+    
+    <h2>Videos</h2>
+    <ul>
+        <li>Camera mechanic || Les voix d’Oléron/The voices of Oleron (2022, Russia/France)</li>
+        <li>Graphic Designer || "BM production" || (2023)</li>
+        <li>Camera mechanic || Sketches about Freedom (2021-2022, Russia)</li>
+        <li>Cameraman and Sound engineer || Saugotuvė Paberžėje (2021-2022, Lithuania)</li>
+        <li>Focus puller || While Rome Burns (2021, Russia)</li>
+        <li>Cameraman || I AM DYING (2022, Russia) a music video by MAZERDARK</li>
+    </ul>
+
+    <h2>Award</h2>
+    <p>I am a professional photographer, my specialization is genre photography. Recently I became a prize-winner of the Street Photo Russia contest.</p>
+</div>
+
+</body>
+</html>
