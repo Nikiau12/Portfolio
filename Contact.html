@@ -7,17 +7,6 @@
     <link rel="icon" href="img/pag 5.png" type="image/png">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-
-     @font-face {
-    font-family: 'Afacad Flux';
-    src: local('fonts/Afacad Flux Regular'), local('Afacad-Flux-Regular'),
-        url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
-        url('fonts/AfacadFlux-Regular.woff') format('woff'),
-        url('fonts/AfacadFlux-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-  }
-        
         html, body {
             margin: 0;
             padding: 0;
@@ -25,13 +14,8 @@
             font-family: 'Afacad Flux', sans-serif;
             background-color: #000000;
             color: #ffffff;
-            max-width: 100%; /* Отключаем горизонтальную прокрутку */
-            overflow-x: hidden; /* Убираем горизонтальную прокрутку */
            
         }
-
-        
-
         body {
             display: grid;
             grid-template-areas: 
@@ -43,7 +27,6 @@
             gap: 1rem;
             
         }
-
         header {
             grid-area: header;
             text-align: center;
@@ -65,7 +48,6 @@
     cursor: pointer;
     text-decoration: none;
 }
-
 
         .subheading-container {
             display: flex;
@@ -131,9 +113,9 @@
         }
 
         .contact-photo img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
+            max-width: 400px;
+            height: 500px;
+            border-radius: 0px;
         }
 
         @media screen and (max-width: 960px) {
@@ -174,12 +156,10 @@
         }
         .container {
                 flex-direction: column;
-             justify-content: center;
             }
 
             .contact-info {
                 text-align: center;
-                justify-content: center;
             }
         
 
@@ -201,18 +181,27 @@
             .header-nav a {
                 font-size: 0.9rem;
                 padding: 0.4rem;
-                
             }
-            .contact-info h3 {
-                font-size: 1.2rem;
-                justify-content: center;
-            }
-            .contact-info {
-                text-align: center;
-                justify-content: center;
-            }
-        
+           
+            .container {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
 
+    .contact-info {
+        display: flex;
+        flex-direction: column;  /* Контакты вертикально */
+        align-items: center; /* Центрируем по горизонтали */
+        text-align: center;  /* Центрируем текст */
+        gap: 1rem; /* Отступ между контактами */
+    }
+
+            .contact-photo img {
+            max-width: 0px;
+            height: 0px;
+            border-radius: 0px;
+        }
         }
     </style>
 </head>
@@ -246,7 +235,7 @@
                 <p><a href="https://www.instagram.com/stojal_znachit?igsh=dTcxdncxbmM2MGdw">Stojal_Znachit</a></p>
             </div>
             <div class="contact-photo">
-                <img src="img/IMG_2215.jpeg" alt="Photo of Nikita Kotrelev">
+                <img src="img/photo_2024-07-31 13.37.52.jpeg" alt="Photo of Nikita Kotrelev">
             </div>
         </div>
     </main>
