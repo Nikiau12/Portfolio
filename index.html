@@ -7,25 +7,40 @@
     <link rel="icon" href="img/pag 5.png" type="image/png">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-      @font-face {
-    font-family: 'Afacad Flux';
-    src: local('fonts/Afacad Flux Regular'), local('Afacad-Flux-Regular'),
-        url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
-        url('fonts/AfacadFlux-Regular.woff') format('woff'),
-        url('fonts/AfacadFlux-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-  }
+        @font-face {
+            font-family: 'Afacad Flux';
+            src: url('fonts:/AfacadFlux-Regular.woff') format('woff2'),
+                 url('fonts:/AfacadFlux-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
 
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
             font-family: 'Afacad Flux', sans-serif;
-            background-color: #000000;
+            background-color: #ffffff;
             color: #ffffff;
             max-width: 100%; /* Отключаем горизонтальную прокрутку */
             overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+        }
+        body {
+            display: grid;
+            grid-template-areas: 
+                "header"
+                "content"
+                "footer";
+            grid-template-rows: auto 1fr auto;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 90vh;
+            overflow: hidden;
         }
 
         /* Стили для фона */
@@ -38,18 +53,8 @@
             object-fit: cover;
             z-index: 0;
         }
-
-        body {
-            display: grid;
-            grid-template-areas: 
-                "header"
-                "content"
-                "footer";
-            grid-template-rows: auto 1fr auto;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-
+       
+        
         header {
             grid-area: header;
             text-align: center;
@@ -95,116 +100,220 @@
         .header-nav a:hover {
             color: #ff6347;
         }
+        .sale-heading {
+    font-size: 2rem;  /* Размер шрифта */
+    font-weight: bold; /* Жирный текст */
+    text-align: center; /* Выравнивание по центру */
+    margin: 2rem 0 2rem 0; /* Отступы: сверху, снизу, слева, справа */
+    color: #333333; /* Цвет текста */
+}
+        .gallery-container {
+            background-color: #ffffff;
+            padding: 1rem;
+            margin-top: 3rem; /* Поднятие галереи ближе к видео */
+            z-index: 1;
+        }
 
-        footer {
-            grid-area: footer;
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
+            gap: 2rem;
+        }
+
+        .photo-frame {
+            border: 15px solid #000000;
+            padding: 1rem;
+            background-color: #ffffff;
             text-align: center;
-            padding: 2rem;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6); /* Внутренняя тень */
+            border-radius: 0px;
         }
 
-        footer a {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 1rem;
-            padding: 0.5rem;
+        .photo-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 0px;
         }
 
-        footer a:hover {
-            color: #ff6347;
-        }
-
+       
         @media screen and (max-width: 960px) {
-            .video-background {
-                height: 50%;
-            }
+    .video-container {
+        height: 50%;
+    }
+    .video-background {
+        height: 50%;
+    }
 
-            body {
-                grid-template-areas: 
-                    "header"
-                    "content"
-                    "footer";
-                grid-template-columns: 1fr;
-                grid-template-rows: auto 1fr auto;
-                width: 100%;
-            }
+    body {
+        grid-template-areas: 
+            "header"
+            "content"
+            "footer";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+        width: 100%;
+    }
 
-            .header-text-container h1 {
-                font-size: 2rem;
-            }
+    .header-text-container h1 {
+        font-size: 2rem;
+    }
 
-            .subheading-container {
-                gap: 1rem;
-                font-size: 1.2rem;
-            }
+    .subheading-container {
+        gap: 1rem;
+        font-size: 1.2rem;
+    }
 
-            .header-nav {
-                display: flex;
-                justify-content: center;
-                gap: 1rem;
-                padding: 1rem;
-            }
+    .header-nav {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1rem;
+    }
 
-            .header-nav a {
-                padding: 0.5rem;
-                font-size: 1rem;
-            }
-        }
+    .header-nav a {
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
 
-        @media screen and (max-width: 600px) {
-            .video-background {
-                height: 50%;
-            }
+    .photo-gallery {
+        grid-template-columns: 1fr;
+    }
 
-            .header-text-container {
-                font-size: 1.5rem;
-            }
+    .gallery-container {
+        margin-top: 50%;
+    }
+}
 
-            .subheading-container {
-                font-size: 1rem;
-                gap: 0.5rem;
-            }
+@media screen and (max-width: 600px) {
+    .video-container {
+        padding: 1rem;
+        min-height: 70vh; /* Устанавливаем минимальную высоту */
+        height: auto; /* Делаем высоту гибкой */
+    }
 
-            .header-nav a {
-                font-size: 0.9rem;
-                padding: 0.4rem;
-            }
-        }
+    .video-background {
+        height: 60%;
+    }
+
+    .header-text-container {
+        font-size: 1.5rem;
+    }
+
+    .subheading-container {
+        font-size: 1rem;
+        gap: 0.5rem;
+    }
+
+    .header-nav a {
+        font-size: 0.9rem;
+        padding: 0.4rem;
+    }
+
+    .gallery-container {
+        margin-top: -2rem;
+    }
+
+    /* Уменьшаем отступы для фотографий */
+    .photo-frame {
+        padding: 0.5rem;
+    }
+    .sale-heading {
+        margin-top: -7rem
+    }
+}
     </style>
 </head>
 <body>
 
 <!-- Фоновое видео -->
+<!-- Контейнер для фонового видео и кнопок -->
 <div class="video-container">
     <video autoplay muted playsinline class="video-background" id="background-video">
-   <source src="https://drive.google.com/uc?export=download&id=1iyeibjgZ4PT6EYqiWWK6GhmVHYNtA1Mg" type="video/mp4">
+        <source src="img/Showreel 1.mp4" type="video/mp4">
     </video>
-</div>
 
-<header>
-    <div class="header-text-container">
-        <h1 onclick="window.location.href='index.html'">NIKITA KOTRELEV</h1>
-        <div class="subheading-container">
-            <span>Cinematographer</span>
-            <span>Photographer</span>
+    <header>
+        <div class="header-text-container">
+            <h1 onclick="window.location.href='index.html'">NIKITA KOTRELEV</h1>
+            <div class="subheading-container">
+                <span>Cinematographer</span>
+                <span>Photographer</span>
+            </div>
         </div>
-    </div>
 
-    <nav class="header-nav">
-        <a href="Video.html">VIDEO</a>
-        <a href="Photos.html">PHOTOS</a>
-        <a href="About me.html">ABOUT ME</a>
-        <a href="Contact.html">CONTACT</a>
-    </nav>
-</header>
-
-<div class="content">
-    <!-- Content for each page will go here -->
+        <nav class="header-nav">
+            <a href="Video.html">VIDEO</a>
+            <a href="Photos.html">PHOTOS</a>
+            <a href="About me.html">ABOUT ME</a>
+            <a href="Contact.html">CONTACT</a>
+        </nav>
+    </header>
 </div>
+
+
+<!-- Добавим заголовок "Для продажи" перед галереей -->
+<div class="gallery-container">
+    <h2 class="sale-heading">FOR SALE </h2> <!-- Заголовок -->
+
+<!-- Галерея фотографий -->
+<div class="gallery-container">
+    
+    <section class="photo-gallery">
+        <div class="photo-frame" onclick="openModal('img/Франция 2022 500 евро.jpeg', 'Nikita Kotrelev: France, Beach Brittany, 2022', 'Size: 36x24 cm ', '500 Euros')">
+            <img src="img/Франция 2022 500 евро.jpeg" alt="Photo 1">
+        </div>
+        <div class="photo-frame" onclick="openModal('img/Имя документа hf_29.jpg', 'Nikita Kotrelev: France, Oléron  Island, 2022', 'Size: 36x24 cm ', '500 Euros')">
+            <img src="img/Имя документа hf_29.jpg" alt="Photo 2">
+        </div>
+        <div class="photo-frame" onclick="openModal('img/грузия 2023 500.jpg', 'Nikita Kotrelev: Georgia, Tbilisi Sea, 2023','Size: 30x15,2cm', '500 Euros')">
+            <img src="img/грузия 2023 500.jpg" alt="Photo 3">
+        </div>
+        <div class="photo-frame" onclick="openModal('img/грузия военная дорога 2024IMG_0285 54.jpg', 'Nikita Kotrelev: Georgia, Military Road, 2023', 'Size:26×12,7cm', '300 Euros')">
+            <img src="img/грузия военная дорога 2024IMG_0285 54.jpg" alt="Photo 4">
+        </div>
+    </section>
+</div>
+
+<!-- Модальное окно -->
+<div id="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 10; justify-content: center; align-items: center;">
+    <div style="position: relative; background: rgba(0, 0, 0, 0.3); padding: 2rem; border-radius: 0px; display: flex; gap: 2rem; width: 1600px; height: 650px; overflow: auto;">
+        <img id="modal-img" src="" style="width: 60%; height: auto; border-radius: 0px; object-fit: cover;">
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+            <h3 id="modal-title" style="margin: 0 0 1rem; text-align: left; font-size: 2rem; color: #ffffff; transform: translateY(-10%);"></h3>
+            <p id="modal-description" style="font-size: 1.8rem; color: #ffffff; text-align: left; line-height: 1.5;  transform: translateY(-10%);"></p>
+            <p id="modal-history" style="font-size: 1.8rem; color: #ffffff; text-align: left; line-height: 1.5;  transform: translateY(10%);"></p>
+        </div>
+        <span style="position: absolute; top: 10px; right: 10px; cursor: pointer; font-size: 3rem;" onclick="closeModal()">&times;</span>
+    </div>
+</div>
+
+<script>
+    function openModal(imageSrc, title, description, history) {
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modal-img");
+    const modalTitle = document.getElementById("modal-title");
+    const modalDescription = document.getElementById("modal-description");
+    const modalHistory = document.getElementById("modal-history");
+
+    modal.style.display = "flex";
+    modalImg.src = imageSrc;
+    modalTitle.textContent = title;
+    modalDescription.textContent = description;
+    modalHistory.textContent = history;
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+    }
+</script>
+
+
 
 <script>
     // Видео смена
     const videos = [
-        "https://drive.google.com/uc?export=download&id=1iyeibjgZ4PT6EYqiWWK6GhmVHYNtA1Mg",
+        "img/Showreel 1.mp4",
     ];
 
     let currentVideoIndex = 0;
