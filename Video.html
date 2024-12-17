@@ -4,23 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nikita Kotrelev</title>
-    <link rel="icon" href="img/pag 5.png" type="image/png">
+    <link rel="icon" href="pag 5.png" type="image/png">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-
-
-   @font-face {
-    font-family: 'Afacad Flux';
-    src: local('fonts/Afacad Flux Regular'), local('Afacad-Flux-Regular'),
-        url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
-        url('fonts/AfacadFlux-Regular.woff') format('woff'),
-        url('fonts/AfacadFlux-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-  }
-
-
-        
         html, body {
             margin: 0;
             padding: 0;
@@ -28,8 +14,6 @@
             font-family: 'Afacad Flux', sans-serif;
             background-color: #000000;
             color: #ffffff;
-            max-width: 100%; /* Отключаем горизонтальную прокрутку */
-            overflow-x: hidden; /* Убираем горизонтальную прокрутку */
            
         }
 
@@ -101,22 +85,34 @@
         }
 
 /* Контейнер для видео с соотношением сторон 16:9 */
-.video-container-wrapper {
-            display: flex;
-            justify-content: center; /* Центрируем видео контейнеры */
-            align-items: center;
-            width: 100%;
-            margin-bottom: 1rem;
-        }
 
-        .video-container {
-            position: relative;
-            justify-content: center;
-            width: 80%;
-            height: 0;
-            padding-bottom: 40%; /* Соотношение сторон 16:9 */
-            background-color: #000; /* Черный фон, чтобы видео было заметно */
-        }
+.video-container-wrapper {
+    display: flex;
+    justify-content: center; /* Центрируем по горизонтали */
+    align-items: center; /* Центрируем по вертикали */
+    height: 60vh; /* Задаем высоту, чтобы видео не занимало слишком много места */
+    width: 100%; /* Ширина контейнера по всей ширине экрана */
+    margin-top: 250px; /* Добавляем отступ сверху, чтобы опустить видео ниже заголовка */
+}
+
+
+.video-container {
+    position: relative;
+    justify-content: center;
+    width: 70%; /* Ширина контейнера - 100% */
+    padding-bottom: 56.25%; /* Соотношение сторон 16:9 (100 / 16 * 9 = 56.25%) */
+    background-color: #000; /* Черный фон для видео */
+    overflow: hidden; /* Скрываем лишнее */
+}
+
+iframe {
+    position: absolute; /* Абсолютное позиционирование для iframe */
+    top: 0;
+    left: 0;
+    width: 100%; /* И делаем iframe растягивающимся на всю ширину */
+    height: 100%; /* Высота iframe будет равна высоте контейнера */
+}
+
 
         .video-container video {
             justify-content: center;
@@ -220,31 +216,12 @@
     <!-- Контейнеры для видео -->
     <div class="video-container-wrapper">
         <div class="video-container">
-            <video autoplay muted playsinline loop>
-                <source src="img/Showreel 1.mp4" type="video/mp4">
-                Ваш браузер не поддерживает видео.
-            </video>
-        </div>
-    </div>
-
-    <div class="video-container-wrapper">
-        <div class="video-container">
-            <video autoplay muted playsinline loop>
-                <source src="img/Georgian Clip.mp4" type="video/mp4">
-                Ваш браузер не поддерживает видео.
-            </video>
-        </div>
-    </div>
-
-    <div class="video-container-wrapper">
-        <div class="video-container">
-            <video autoplay muted playsinline loop>
-                <source src="img/GEORGIAN.mp4" type="video/mp4">
-                Ваш браузер не поддерживает видео.
-            </video>
+            <iframe src="https://www.youtube.com/embed/Ht9TyFItu58?autoplay=1&mute=1&playsinline=1" frameborder="0" allow="autoplay; fullscreen"></iframe>
         </div>
     </div>
 </div>
+
+    
 
 
 </body>
