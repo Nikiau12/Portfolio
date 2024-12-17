@@ -178,12 +178,10 @@ iframe {
             }
         
 
-        @media screen and (max-width: 600px) {
+         @media screen and (max-width: 600px) {
             /* Для экранов шириной меньше 600px */
-            .video-background {
-                height: 35%; /* Видео будет занимать 35% высоты экрана на очень маленьких экранах */
-            }
-
+            
+            
             .header-text-container {
                 font-size: 1.5rem;
             }
@@ -197,9 +195,22 @@ iframe {
                 font-size: 0.9rem;
                 padding: 0.4rem;
             }
-            .video-container {
-                height: 20vh; /* Уменьшаем высоту видео на мобильных устройствах */
-            }
+            .video-container-wrapper {
+        margin-top: -2rem; /* Видео будет ближе к заголовку */
+    }
+
+    .video-container {
+        width: 90%; /* Увеличиваем ширину видео */
+        padding-bottom: 50%; /* Изменяем пропорции, если нужно */
+        height: auto; /* Делаем высоту адаптивной */
+    }
+
+    iframe {
+        width: 100%; /* Растягиваем iframe на всю ширину контейнера */
+        height: 100%; /* Высота подстраивается под контейнер */
+    
+    }
+            
         }
     </style>
 </head>
