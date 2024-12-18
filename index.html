@@ -190,9 +190,11 @@
 }
 
 @media screen and (max-width: 600px) {
-    .video-background {
-                height: 35%; /* Видео будет занимать 35% высоты экрана на очень маленьких экранах */
-            }
+       .video-container {
+        
+        min-height: 90vh; /* Устанавливаем минимальную высоту */
+        height: auto; /* Делаем высоту гибкой */
+    }
     .video-background {
         height: 60%;
     }
