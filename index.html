@@ -141,7 +141,7 @@
         }
 
        
-        @media screen and (max-width: 960px) {
+          @media screen and (max-width: 960px) {
     .video-container {
         height: 50%;
     }
@@ -187,18 +187,48 @@
     .gallery-container {
         margin-top: 50%;
     }
+    #modal {
+        padding: 1rem; /* Добавляем внутренний отступ */
+    }
+
+    #modal div {
+        flex-direction: column; /* Элементы располагаются вертикально */
+        width: 95%; /* Используем почти весь экран */
+        height: auto; /* Высота автоматически подстраивается */
+        padding: 1rem; /* Отступы */
+        gap: 1rem; /* Расстояние между элементами */
+    }
+
+    #modal-img {
+        width: 100%; /* Изображение занимает всю ширину */
+        height: auto; /* Автоматическая высота */
+        justify-content: center;
+        border-radius: 0; /* Без скруглений */
+    }
+
+    #modal-title {
+        font-size: 1.5rem; /* Уменьшенный размер заголовка */
+    }
+
+    #modal-description,
+    #modal-history {
+        font-size: 1.2rem; /* Уменьшенный размер текста */
+    }
+
+    #modal span {
+        font-size: 2rem; /* Меньший размер кнопки закрытия */
+    }
 }
 
 @media screen and (max-width: 600px) {
     .video-container {
-        position: relative;
-        min-height: 60vh; /* Устанавливаем минимальную высоту 100% */
-        height: 100%; /* Делаем высоту видео 100% */
-        margin-top: 0; /* Убираем отступ сверху */
+        padding: 1rem;
+        min-height: 90vh; /* Устанавливаем минимальную высоту */
+        height: auto; /* Делаем высоту гибкой */
     }
 
     .video-background {
-        height: 100%; /* Видео растягивается по высоте контейнера */
+        height: 60%;
     }
 
     .header-text-container {
@@ -216,7 +246,7 @@
     }
 
     .gallery-container {
-        margin-top: 8rem;
+        margin-top: -2rem;
     }
 
     /* Уменьшаем отступы для фотографий */
@@ -224,7 +254,29 @@
         padding: 0.5rem;
     }
     .sale-heading {
-        margin-top: -7rem;
+        margin-top: -7rem
+    }
+     #modal div {
+        padding: 1rem; /* Меньше отступы */
+        gap: 0.5rem; /* Уменьшенный отступ между элементами */
+    }
+    #modal-img {
+        width: 100%; /* Изображение занимает всю ширину */
+        height: auto; /* Автоматическая высота */
+        justify-content: center;
+        border-radius: 0; /* Без скруглений */
+    }
+    #modal-title {
+        font-size: 1.2rem; /* Ещё меньше заголовок */
+    }
+
+    #modal-description,
+    #modal-history {
+        font-size: 1rem; /* Меньше текст */
+    }
+
+    #modal span {
+        font-size: 1.5rem; /* Уменьшаем кнопку закрытия */
     }
 }
     </style>
