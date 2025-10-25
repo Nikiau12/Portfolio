@@ -1,387 +1,238 @@
-
-
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikita Kotrelev</title>
-    <link rel="icon" href="img/pag 5.png" type="image/png">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-       @font-face {
-    font-family: 'Afacad Flux';
-    src: local('fonts/Afacad Flux Regular'), local('Afacad-Flux-Regular'),
-        url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
-        url('fonts/AfacadFlux-Regular.woff') format('woff'),
-        url('fonts/AfacadFlux-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-  }
-
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: 'Afacad Flux', sans-serif;
-            background-color: #ffffff;
-            color: #ffffff;
-            max-width: 100%; /* Отключаем горизонтальную прокрутку */
-            overflow-x: hidden; /* Убираем горизонтальную прокрутку */
-        }
-        body {
-            display: grid;
-            grid-template-areas: 
-                "header"
-                "content"
-                "footer";
-            grid-template-rows: auto 1fr auto;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 90vh;
-            overflow: hidden;
-        }
-
-        /* Стили для фона */
-        .video-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 90%;
-            object-fit: cover;
-            z-index: 0;
-        }
-       
-        
-        header {
-            grid-area: header;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .header-text-container {
-            margin-top: 20px;
-            padding: 2rem;
-            font-size: 2rem;
-            line-height: 1;
-            font-family: 'Afacad Flux', sans-serif;
-        }
-
-        .header-text-container h1 {
-            font-size: 5rem;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .subheading-container {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            padding: 2rem;
-            font-size: 2rem;
-        }
-
-        .header-nav {
-            margin-top: 1rem;
-        }
-
-        .header-nav a {
-            padding: 1rem;
-            font-size: 3rem;
-            color: #ffffff;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .header-nav a:hover {
-            color: ##3d40f9;
-        }
-        .sale-heading {
-    font-size: 2rem;  /* Размер шрифта */
-    font-weight: bold; /* Жирный текст */
-    text-align: center; /* Выравнивание по центру */
-    margin: 2rem 0 2rem 0; /* Отступы: сверху, снизу, слева, справа */
-    color: #333333; /* Цвет текста */
-}
-        .gallery-container {
-            background-color: #ffffff;
-            padding: 1rem;
-            margin-top: 3rem; /* Поднятие галереи ближе к видео */
-            z-index: 1;
-        }
-
-        .photo-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
-            gap: 2rem;
-        }
-
-        .photo-frame {
-            border: 15px solid #000000;
-            padding: 1rem;
-            background-color: #ffffff;
-            text-align: center;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6); /* Внутренняя тень */
-            border-radius: 0px;
-        }
-
-        .photo-frame img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 0px;
-        }
-
-       
-          @media screen and (max-width: 960px) {
-    .video-container {
-        height: 50%;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nikita Kotrelev — Cinematographer & Photographer</title>
+  <meta name="description" content="Cinematographer & photographer. Selected works, projects, and fine-art prints for sale." />
+  <meta property="og:title" content="Nikita Kotrelev — Portfolio" />
+  <meta property="og:description" content="Cinematographer & photographer. Selected works, projects, and fine-art prints for sale." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="img/pag-5.png" type="image/png">
+  <style>
+    :root {
+      --bg: #0b0b0b;
+      --fg: #fafafa;
+      --muted: #a1a1aa;
+      --card: #111113;
+      --border: #242428;
+      --accent: #3d40f9;
+      --radius: 16px;
+      --space: 24px;
     }
-    .video-background {
-        height: 50%;
+    @font-face {
+      font-family: 'Afacad Flux';
+      src: local('Afacad Flux Regular'),
+           url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
+           url('fonts/AfacadFlux-Regular.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
     }
-
+    html, body { height: 100%; }
+    html { color-scheme: dark; }
     body {
-        grid-template-areas: 
-            "header"
-            "content"
-            "footer";
-        grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr auto;
-        width: 100%;
+      margin: 0;
+      font-family: 'Afacad Flux', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100dvh;
     }
-
-    .header-text-container h1 {
-        font-size: 2rem;
+    /* HERO */
+    .hero { position: relative; height: 92dvh; min-height: 560px; overflow: hidden; isolation: isolate; }
+    .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 35%, rgba(0,0,0,.6) 100%); z-index: 0; }
+    header { position: absolute; inset: 0; z-index: 1; display: grid; grid-template-rows: auto 1fr; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 1200px; margin: 0 auto; gap: 16px; }
+    .brand { font-weight: 600; letter-spacing: 0.08em; }
+    .nav a { color: var(--fg); text-decoration: none; opacity: .85; padding: 10px 12px; border-radius: 999px; }
+    .nav a:hover { opacity: 1; background: rgba(255,255,255,.06); }
+    .hero-copy { display: grid; place-items: end start; padding: 24px; max-width: 1200px; margin: 0 auto; }
+    .hero h1 { font-size: clamp(40px, 7vw, 80px); line-height: .95; margin: 0 0 12px; }
+    .hero p { font-size: clamp(16px, 2.2vw, 22px); color: var(--muted); margin: 0 0 20px; }
+    .cta { display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 999px; background: var(--fg); color: #0a0a0a; text-decoration: none; font-weight: 600; }
+    .cta:hover { transform: translateY(-1px); }
+    /* Sections */
+    .section { padding: 56px 24px; }
+    .container { max-width: 1320px; margin: 0 auto; }
+    .section h2 { font-size: clamp(28px, 3.2vw, 42px); margin: 0 0 8px; }
+    .section .lead { color: var(--muted); margin: 0 0 24px; font-size: 18px; }
+    /* Bigger Gallery */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 24px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: zoom-in; }
+    .card img { width: 100%; height: auto; display: block; }
+    .card .meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px; flex-wrap: wrap; }
+    .meta .title { font-weight: 600; font-size: 17px; }
+    .meta .price { color: var(--muted); font-size: 15px; }
+    /* Fullscreen Lightbox (same page) */
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: none; z-index: 60; }
+    .lightbox[aria-hidden="false"] { display: grid; }
+    .lightbox__inner { display: grid; grid-template-rows: 1fr auto; width: 100%; height: 100%; }
+    .lightbox__image-wrap { display: grid; place-items: center; padding: 24px; }
+    .lightbox__img { max-width: 96vw; max-height: 86vh; width: auto; height: auto; object-fit: contain; }
+    .lightbox__caption { padding: 12px 24px 24px; display: flex; gap: 16px; align-items: center; justify-content: space-between; }
+    .lightbox__title { font-size: clamp(18px, 2vw, 22px); margin: 0; }
+    .lightbox__meta { color: var(--muted); }
+    .lightbox__close { position: fixed; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.1); border: 1px solid var(--border); display: grid; place-items: center; cursor: pointer; }
+    .lightbox__close:hover { background: rgba(255,255,255,.18); }
+    /* Footer */
+    footer { border-top: 1px solid var(--border); color: var(--muted); padding: 24px; }
+    footer .row { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    @media (max-width: 920px) {
+      .grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+      .hero { height: 82dvh; }
     }
-
-    .subheading-container {
-        gap: 1rem;
-        font-size: 1.2rem;
-    }
-
-    .header-nav {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        padding: 1rem;
-    }
-
-    .header-nav a {
-        padding: 0.5rem;
-        font-size: 1rem;
-    }
-
-    .photo-gallery {
-        grid-template-columns: 1fr;
-    }
-
-    .gallery-container {
-        margin-top: 50%;
-    }
-    #modal {
-        padding: 1rem; /* Добавляем внутренний отступ */
-    }
-
-    #modal div {
-        flex-direction: column; /* Элементы располагаются вертикально */
-        width: 95%; /* Используем почти весь экран */
-        height: auto; /* Высота автоматически подстраивается */
-        padding: 1rem; /* Отступы */
-        gap: 1rem; /* Расстояние между элементами */
-    }
-
-    #modal-img {
-        width: 100%; /* Изображение занимает всю ширину */
-        height: auto; /* Автоматическая высота */
-        justify-content: center;
-        border-radius: 0; /* Без скруглений */
-    }
-
-    #modal-title {
-        font-size: 1.5rem; /* Уменьшенный размер заголовка */
-    }
-
-    #modal-description,
-    #modal-history {
-        font-size: 1.2rem; /* Уменьшенный размер текста */
-    }
-
-    #modal span {
-        font-size: 2rem; /* Меньший размер кнопки закрытия */
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .video-container {
-        padding: 1rem;
-        min-height: 90vh; /* Устанавливаем минимальную высоту */
-        height: auto; /* Делаем высоту гибкой */
-    }
-
-    .video-background {
-        height: 60%;
-    }
-
-    .header-text-container {
-        font-size: 1.5rem;
-    }
-
-    .subheading-container {
-        font-size: 1rem;
-        gap: 0.5rem;
-    }
-
-    .header-nav a {
-        font-size: 0.9rem;
-        padding: 0.4rem;
-    }
-
-    .gallery-container {
-        margin-top: -2rem;
-    }
-
-    /* Уменьшаем отступы для фотографий */
-    .photo-frame {
-        padding: 0.5rem;
-    }
-    .sale-heading {
-        margin-top: -7rem
-    }
-     #modal div {
-        padding: 1rem; /* Меньше отступы */
-        gap: 0.5rem; /* Уменьшенный отступ между элементами */
-    }
-    #modal-img {
-        width: 100%; /* Изображение занимает всю ширину */
-        height: auto; /* Автоматическая высота */
-        justify-content: center;
-        border-radius: 0; /* Без скруглений */
-    }
-    #modal-title {
-        font-size: 1.2rem; /* Ещё меньше заголовок */
-    }
-
-    #modal-description,
-    #modal-history {
-        font-size: 1rem; /* Меньше текст */
-    }
-
-    #modal span {
-        font-size: 1.5rem; /* Уменьшаем кнопку закрытия */
-    }
-}
-    </style>
+  </style>
 </head>
 <body>
-
-<!-- Фоновое видео -->
-<!-- Контейнер для фонового видео и кнопок -->
-<div class="video-container">
-    <video autoplay muted playsinline class="video-background" id="background-video">
-        <source src="img/Showreel 21.mp4" type="video/mp4">
+  <!-- HERO -->
+  <section class="hero" aria-label="Showreel">
+    <video id="bg-video" autoplay muted loop playsinline preload="auto" poster="img/Showreel-21.jpg" fetchpriority="high">
+      <source src="img/Showreel%2021.mp4" type="video/mp4" />
     </video>
-
+    <div class="scrim" aria-hidden="true"></div>
     <header>
-        <div class="header-text-container">
-            <h1 onclick="window.location.href='index.html'">NIKITA KOTRELEV</h1>
-            <div class="subheading-container">
-                <span>Cinematographer</span>
-                <span>Photographer</span>
-            </div>
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="/">NIKITA KOTRELEV</a>
+        <div class="links">
+          <a href="/video.html">Video</a>
+          <a href="/photos.html">Photos</a>
+          <a href="/projects.html">Projects</a>
+          <a href="/About me.html">About</a>
+         
         </div>
-
-        <nav class="header-nav">
-            <a href="Video.html">VIDEO</a>
-            <a href="Photos.html">PHOTOS</a>
-            <a href="About me.html">ABOUT ME</a>
-            <a href="Contact.html">CONTACT</a>
-        </nav>
+      </nav>
+      <div class="hero-copy">
+        <div>
+          <h1>Strong visuals for brands & stories</h1>
+          <p>Cinematographer · Photographer — narrative, commercials, music videos.</p>
+          <a class="cta" href="mailto:hello@site.com?subject=Project%20inquiry">Let’s talk</a>
+        </div>
+      </div>
     </header>
-</div>
+  </section>
 
+  <!-- FOR SALE -->
+  <section class="section" id="for-sale">
+    <div class="container">
+      <h2>Fine‑art prints — for sale</h2>
+      <p class="lead">Museum‑grade prints, numbered & signed. Worldwide shipping.</p>
+      <div class="grid" id="gallery">
+        <!-- Card template items (click anywhere on card) -->
+        <article class="card" data-src="img/Франция 2022 500 евро.jpeg" data-title="France, Beach Brittany (2022)" data-size="36×24 cm" data-price="€500">
+          <img loading="lazy" decoding="async" src="img/Франция 2022 500 евро.jpeg" alt="France, Beach Brittany, 2022" />
+          <div class="meta">
+            <span class="title">France, Brittany · 2022 · 36×24 cm</span>
+            <span class="price">€500</span>
+          </div>
+        </article>
 
-<!-- Добавим заголовок "Для продажи" перед галереей -->
-<div class="gallery-container">
-    <h2 class="sale-heading">FOR SALE </h2> <!-- Заголовок -->
+        <article class="card" data-src="img/Имя документа hf_29.jpg" data-title="Oléron Island (2022)" data-size="36×24 cm" data-price="€500">
+          <img loading="lazy" decoding="async" src="img/Имя документа hf_29.jpg" alt="France, Oléron Island, 2022" />
+          <div class="meta">
+            <span class="title">Oléron Island · 2022 · 36×24 cm</span>
+            <span class="price">€500</span>
+          </div>
+        </article>
 
-<!-- Галерея фотографий -->
-<div class="gallery-container">
-    
-    <section class="photo-gallery">
-        <div class="photo-frame" onclick="openModal('img/Франция 2022 500 евро.jpeg', 'Nikita Kotrelev: France, Beach Brittany, 2022', 'Size: 36x24 cm ', '500 Euros')">
-            <img src="img/Франция 2022 500 евро.jpeg" alt="Photo 1">
-        </div>
-        <div class="photo-frame" onclick="openModal('img/Имя документа hf_29.jpg', 'Nikita Kotrelev: France, Oléron  Island, 2022', 'Size: 36x24 cm ', '500 Euros')">
-            <img src="img/Имя документа hf_29.jpg" alt="Photo 2">
-        </div>
-        <div class="photo-frame" onclick="openModal('img/грузия 2023 500.jpg', 'Nikita Kotrelev: Georgia, Tbilisi Sea, 2023','Size: 30x15,2cm', '500 Euros')">
-            <img src="img/грузия 2023 500.jpg" alt="Photo 3">
-        </div>
-        <div class="photo-frame" onclick="openModal('img/грузия военная дорога 2024IMG_0285 54.jpg', 'Nikita Kotrelev: Georgia, Military Road, 2023', 'Size:26×12,7cm', '300 Euros')">
-            <img src="img/грузия военная дорога 2024IMG_0285 54.jpg" alt="Photo 4">
-        </div>
-    </section>
-</div>
+        <article class="card" data-src="img/грузия 2023 500.jpg" data-title="Tbilisi Sea (2023)" data-size="30×15.2 cm" data-price="€500">
+          <img loading="lazy" decoding="async" src="img/грузия 2023 500.jpg" alt="Georgia, Tbilisi Sea, 2023" />
+          <div class="meta">
+            <span class="title">Tbilisi Sea · 2023 · 30×15.2 cm</span>
+            <span class="price">€500</span>
+          </div>
+        </article>
 
-<!-- Модальное окно -->
-<div id="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 10; justify-content: center; align-items: center;">
-    <div style="position: relative; background: rgba(0, 0, 0, 0.3); padding: 2rem; border-radius: 0px; display: flex; gap: 2rem; width: 1600px; height: 650px; overflow: auto;">
-        <img id="modal-img" src="" style="width: 60%; height: auto; border-radius: 0px; object-fit: cover;">
-        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-            <h3 id="modal-title" style="margin: 0 0 1rem; text-align: left; font-size: 2rem; color: #ffffff; transform: translateY(-10%);"></h3>
-            <p id="modal-description" style="font-size: 1.8rem; color: #ffffff; text-align: left; line-height: 1.5;  transform: translateY(-10%);"></p>
-            <p id="modal-history" style="font-size: 1.8rem; color: #ffffff; text-align: left; line-height: 1.5;  transform: translateY(10%);"></p>
-        </div>
-        <span style="position: absolute; top: 10px; right: 10px; cursor: pointer; font-size: 3rem;" onclick="closeModal()">&times;</span>
+        <article class="card" data-src="img/грузия военная дорога 2024IMG_0285 54.jpg" data-title="Military Road (2023)" data-size="26×12.7 cm" data-price="€300">
+          <img loading="lazy" decoding="async" src="img/грузия военная дорога 2024IMG_0285 54.jpg" alt="Georgia, Military Road, 2023" />
+          <div class="meta">
+            <span class="title">Military Road · 2023 · 26×12.7 cm</span>
+            <span class="price">€300</span>
+          </div>
+        </article>
+      </div>
     </div>
-</div>
+  </section>
 
-<script>
-    function openModal(imageSrc, title, description, history) {
-    const modal = document.getElementById("modal");
-    const modalImg = document.getElementById("modal-img");
-    const modalTitle = document.getElementById("modal-title");
-    const modalDescription = document.getElementById("modal-description");
-    const modalHistory = document.getElementById("modal-history");
+  <!-- FULLSCREEN LIGHTBOX (same page) -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="lb-title">
+    <button class="lightbox__close" id="lb-close" aria-label="Close">✕</button>
+    <div class="lightbox__inner">
+      <div class="lightbox__image-wrap">
+        <img id="lb-img" class="lightbox__img" alt="" />
+      </div>
+      <div class="lightbox__caption">
+        <h3 id="lb-title" class="lightbox__title"></h3>
+        <div class="lightbox__meta">
+          <span id="lb-size"></span> · <span id="lb-price"></span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    modal.style.display = "flex";
-    modalImg.src = imageSrc;
-    modalTitle.textContent = title;
-    modalDescription.textContent = description;
-    modalHistory.textContent = history;
-    }
+  <footer>
+    <div class="row">
+      <span>© <span id="year"></span> Nikita Kotrelev</span>
+      <span>Instagram · Vimeo · Email</span>
+    </div>
+  </footer>
 
-    function closeModal() {
-        document.getElementById('modal').style.display = 'none';
-    }
-</script>
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-
-
-<script>
-    // Видео смена
-    const videos = [
-        "img/Showreel 21.mp4",
-    ];
-
-    let currentVideoIndex = 0;
-    const backgroundVideo = document.getElementById('background-video');
-
-    backgroundVideo.addEventListener('ended', () => {
-        currentVideoIndex = (currentVideoIndex + 1) % videos.length;
-        backgroundVideo.src = videos[currentVideoIndex];
-        backgroundVideo.play();
+    // Bigger card reveal
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach((entry)=>{
+        if(entry.isIntersecting){
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'none';
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.card').forEach((el)=>{
+      el.style.opacity = 0; el.style.transform = 'translateY(12px)'; el.style.transition = 'opacity .25s ease, transform .25s ease';
+      io.observe(el);
     });
-</script>
 
+    // Fullscreen Lightbox (same page)
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbTitle = document.getElementById('lb-title');
+    const lbSize = document.getElementById('lb-size');
+    const lbPrice = document.getElementById('lb-price');
+    const lbClose = document.getElementById('lb-close');
+
+    function openLightbox(data){
+      lbImg.src = data.src;
+      lbImg.alt = data.title;
+      lbTitle.textContent = data.title;
+      lbSize.textContent = data.size;
+      lbPrice.textContent = data.price;
+      lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    }
+    function closeLightbox(){
+      lb.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('gallery').addEventListener('click', (e)=>{
+      const card = e.target.closest('.card');
+      if(!card) return;
+      openLightbox({
+        src: card.dataset.src,
+        title: card.dataset.title,
+        size: card.dataset.size,
+        price: card.dataset.price,
+      });
+    });
+    lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLightbox(); });
+    lbClose.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLightbox(); });
+  </script>
 </body>
 </html>
