@@ -19,6 +19,7 @@
       --accent: #3d40f9;
       --radius: 16px;
       --space: 24px;
+      --safe-top: max(env(safe-area-inset-top), 0px);
     }
     @font-face {
       font-family: 'Afacad Flux';
@@ -39,15 +40,18 @@
       display: grid;
       grid-template-rows: auto 1fr auto;
       min-height: 100dvh;
+      -webkit-tap-highlight-color: transparent;
     }
     /* HERO */
     .hero { position: relative; height: 92dvh; min-height: 560px; overflow: hidden; isolation: isolate; }
     .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 35%, rgba(0,0,0,.6) 100%); z-index: 0; }
-    header { position: absolute; inset: 0; z-index: 1; display: grid; grid-template-rows: auto 1fr; }
+    header { position: absolute; inset: 0; z-index: 1; display: grid; grid-template-rows: auto 1fr; padding-top: var(--safe-top); }
     .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 1200px; margin: 0 auto; gap: 16px; }
     .brand { font-weight: 600; letter-spacing: 0.08em; }
-    .nav a { color: var(--fg); text-decoration: none; opacity: .85; padding: 10px 12px; border-radius: 999px; }
+    .links { display: flex; gap: 8px; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; }
+    .links::-webkit-scrollbar { display: none; }
+    .nav a { color: var(--fg); text-decoration: none; opacity: .85; padding: 10px 12px; border-radius: 999px; white-space: nowrap; }
     .nav a:hover { opacity: 1; background: rgba(255,255,255,.06); }
     .hero-copy { display: grid; place-items: end start; padding: 24px; max-width: 1200px; margin: 0 auto; }
     .hero h1 { font-size: clamp(40px, 7vw, 80px); line-height: .95; margin: 0 0 12px; }
@@ -80,9 +84,29 @@
     /* Footer */
     footer { border-top: 1px solid var(--border); color: var(--muted); padding: 24px; }
     footer .row { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+
+    /* ======= Responsive polish ======= */
+    @media (max-width: 1200px){
+      .container{ padding-inline: 8px; }
+    }
     @media (max-width: 920px) {
       .grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
-      .hero { height: 82dvh; }
+      .hero { height: 82dvh; min-height: 480px; }
+      .nav { padding-inline: 16px; }
+      .section { padding: 44px 16px; }
+    }
+    @media (max-width: 640px){
+      .hero { height: 70dvh; min-height: 380px; }
+      .hero-copy { padding: 16px; }
+      .hero h1 { font-size: clamp(28px, 8vw, 44px); }
+      .hero p { font-size: 15px; margin-bottom: 16px; }
+      .grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+      .lightbox__img{ max-width: 96vw; max-height: 82vh; }
+      .lightbox__close{ width: 48px; height: 48px; }
+      .section { padding: 36px 12px; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .cta:hover { transform: none; }
     }
   </style>
 </head>
@@ -101,7 +125,6 @@
           <a href="/photos.html">Photos</a>
           <a href="/projects.html">Projects</a>
           <a href="/About me.html">About</a>
-         
         </div>
       </nav>
       <div class="hero-copy">
@@ -117,8 +140,8 @@
   <!-- FOR SALE -->
   <section class="section" id="for-sale">
     <div class="container">
-      <h2>Fine‑art prints — for sale</h2>
-      <p class="lead">Museum‑grade prints, numbered & signed. Worldwide shipping.</p>
+      <h2>Fine-art prints — for sale</h2>
+      <p class="lead">Museum-grade prints, numbered & signed. Worldwide shipping.</p>
       <div class="grid" id="gallery">
         <!-- Card template items (click anywhere on card) -->
         <article class="card" data-src="img/Франция 2022 500 евро.jpeg" data-title="France, Beach Brittany (2022)" data-size="36×24 cm" data-price="€500">
@@ -182,6 +205,16 @@
   <script>
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Pause hero video for reduced motion users
+    (function(){
+      const v = document.getElementById('bg-video');
+      if (!v) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        v.removeAttribute('autoplay');
+        v.pause();
+      }
+    })();
 
     // Bigger card reveal
     const io = new IntersectionObserver((entries)=>{
