@@ -2,7 +2,6 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <!-- важно для iOS safe-area -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Nikita Kotrelev — Cinematographer & Photographer</title>
   <meta name="description" content="Cinematographer & photographer. Selected works, projects, and fine-art prints for sale." />
@@ -69,21 +68,52 @@
     .nav {
       display: flex; align-items: center; justify-content: space-between;
       padding: 16px 24px; max-width: 1200px; margin: 0 auto; gap: 16px;
+      flex-wrap: nowrap;
     }
-    .brand { font-weight: 600; letter-spacing: .08em; text-decoration: none; color: var(--fg); }
+    .brand { font-weight: 600; letter-spacing: .08em; text-decoration: none; color: var(--fg); white-space: nowrap; }
     .links { display: flex; gap: 8px; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; }
     .links::-webkit-scrollbar { display: none; }
-    .nav a { color: var(--fg); text-decoration: none; opacity: .85; padding: 10px 12px; border-radius: 999px; white-space: nowrap; }
+    .nav a { color: var(--fg); text-decoration: none; opacity: .85; padding: 10px 12px; border-radius: 999px; white-space: nowrap; font-size: 15px; }
     .nav a:hover { opacity: 1; background: rgba(255,255,255,.06); }
-    @media (max-width: 640px){
-      .nav { padding: 12px 16px; }
-      .nav a { padding: 12px 14px; font-size: 15px; }
+
+    /* === адаптация меню === */
+    @media (max-width: 780px){
+      .links{
+        display:flex;
+        gap:8px;
+        overflow-x:auto;
+        overflow-y:hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 2px;
+      }
+      .links a{
+        scroll-snap-align: start;
+        white-space: nowrap;
+      }
+    }
+    @media (max-width: 420px){
+      .nav{ 
+        padding: 12px 16px; 
+        align-items: flex-start;
+      }
+      .links{
+        overflow: visible;
+        flex-wrap: wrap;
+        row-gap: 8px;
+        column-gap: 8px;
+        max-width: 100%;
+      }
+      .nav a{
+        padding: 8px 10px;
+        font-size: 14px;
+      }
     }
 
     .hero-copy {
       display: grid; place-items: end start;
       padding: 24px; max-width: 1200px; margin: 0 auto;
-      will-change: transform, opacity; /* для параллакса на десктопе */
+      will-change: transform, opacity;
     }
     .hero h1 { font-size: clamp(36px, 7vw, 80px); line-height: .95; margin: 0 0 12px; }
     .hero p  { font-size: clamp(15px, 2.5vw, 20px); color: var(--muted); margin: 0 0 18px; }
@@ -233,161 +263,6 @@
   </footer>
 
   <script>
-    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ===== Reduced motion: стопим autoplay
-    (function(){
-      const v = document.getElementById('bg-video');
-      if (!v) return;
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        v.removeAttribute('autoplay');
-        v.pause();
-      }
-    })();
-
-    // ===== Card reveal
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach((entry)=>{
-        if(entry.isIntersecting){
-          entry.target.style.opacity = 1;
-          entry.target.style.transform = 'none';
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.card').forEach((el)=>{
-      el.style.opacity = 0; el.style.transform = 'translateY(12px)'; el.style.transition = 'opacity .25s ease, transform .25s ease';
-      io.observe(el);
-    });
-
-    // ===== Lightbox
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lb-img');
-    const lbTitle = document.getElementById('lb-title');
-    const lbSize = document.getElementById('lb-size');
-    const lbPrice = document.getElementById('lb-price');
-    const lbClose = document.getElementById('lb-close');
-
-    function openLightbox(data){
-      lbImg.src = data.src;
-      lbImg.alt = data.title;
-      lbTitle.textContent = data.title;
-      lbSize.textContent = data.size;
-      lbPrice.textContent = data.price;
-      lb.setAttribute('aria-hidden','false');
-      document.body.style.overflow = 'hidden';
-      lbClose.focus();
-    }
-    function closeLightbox(){
-      lb.setAttribute('aria-hidden','true');
-      document.body.style.overflow = '';
-      // reset drag transforms, если был свайп
-      lbImg.style.transform = '';
-      lbImg.style.opacity = '';
-    }
-    document.getElementById('gallery').addEventListener('click', (e)=>{
-      const card = e.target.closest('.card');
-      if(!card) return;
-      openLightbox({
-        src: card.dataset.src,
-        title: card.dataset.title,
-        size: card.dataset.size,
-        price: card.dataset.price,
-      });
-    });
-    lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLightbox(); });
-    lbClose.addEventListener('click', closeLightbox);
-    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLightbox(); });
-
-    // ===== (NEW) Swipe-to-close для лайтбокса (мобильные)
-    (function(){
-      let startY = null, dragging = false;
-      const THRESHOLD = 60; // пикселей вниз
-      function onStart(ev){
-        const t = ev.touches ? ev.touches[0] : ev;
-        startY = t.clientY;
-        dragging = true;
-      }
-      function onMove(ev){
-        if(!dragging || startY==null) return;
-        const t = ev.touches ? ev.touches[0] : ev;
-        const dy = t.clientY - startY;
-        if(dy > 0){ // тянем вниз
-          const damp = Math.min(dy, 160);
-          lbImg.style.transform = `translateY(${damp}px)`;
-          lbImg.style.opacity = String(1 - Math.min(damp/200, .5));
-        }
-      }
-      function onEnd(ev){
-        if(!dragging || startY==null) return;
-        const t = ev.changedTouches ? ev.changedTouches[0] : ev;
-        const dy = t.clientY - startY;
-        if(dy > THRESHOLD){ closeLightbox(); }
-        else { // откат
-          lbImg.style.transition = 'transform .18s ease, opacity .18s ease';
-          lbImg.style.transform = 'translateY(0)';
-          lbImg.style.opacity = '1';
-          setTimeout(()=>{ lbImg.style.transition = ''; }, 200);
-        }
-        startY = null; dragging = false;
-      }
-      lbImg.addEventListener('touchstart', onStart, {passive:true});
-      lbImg.addEventListener('touchmove', onMove, {passive:true});
-      lbImg.addEventListener('touchend', onEnd, {passive:true});
-      // на всякий — поддержим мышь
-      lbImg.addEventListener('mousedown', onStart);
-      lbImg.addEventListener('mousemove', onMove);
-      lbImg.addEventListener('mouseup', onEnd);
-      lbImg.addEventListener('mouseleave', ()=>{ startY=null; dragging=false; });
-    })();
-
-    // ===== (NEW) Авто-пауза/продолжение видео по видимости/фокусу
-    (function(){
-      const v = document.getElementById('bg-video');
-      if(!v) return;
-
-      let userPaused = false; // если пользователь сам нажал паузу (на будущее)
-      function pauseIfPossible(){ try{ if(!v.paused) v.pause(); }catch{} }
-      function playIfPossible(){ 
-        if(userPaused) return;
-        try{ v.play().catch(()=>{}); }catch{} 
-      }
-
-      document.addEventListener('visibilitychange', ()=>{
-        if(document.hidden) pauseIfPossible();
-        else playIfPossible();
-      });
-      window.addEventListener('blur', pauseIfPossible);
-      window.addEventListener('focus', playIfPossible);
-      // если вкладку выгружают (iOS safari back/forward cache)
-      window.addEventListener('pagehide', pauseIfPossible);
-      window.addEventListener('pageshow', playIfPossible);
-    })();
-
-    // ===== (NEW) Desktop parallax для hero текста
-    (function(){
-      const copy = document.getElementById('heroCopy');
-      if(!copy) return;
-      const isDesktop = window.matchMedia('(min-width: 921px)').matches;
-      if(!isDesktop) return;
-
-      let ticking = false;
-      function onScroll(){
-        if(ticking) return;
-        ticking = true;
-        requestAnimationFrame(()=>{
-          const y = window.scrollY || 0;
-          const shift = Math.min(y * 0.12, 28);  // максимум 28px
-          const fade  = Math.max(1 - y / 600, 0.85);
-          copy.style.transform = `translateY(${shift}px)`;
-          copy.style.opacity = fade.toFixed(3);
-          ticking = false;
-        });
-      }
-      window.addEventListener('scroll', onScroll, {passive:true});
-      onScroll(); // стартовая позиция
-    })();
-  </script>
-</body>
-</html>
+    // видео: авто-пауза при потере фокуса
