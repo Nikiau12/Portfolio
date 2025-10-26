@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paris — 2024 · Nikita Kotrelev</title>
+  <meta name="description" content="Paris 2024 — urban cinematography study by Nikita Kotrelev." />
+  <link rel="icon" href="img/pag-5.png" type="image/png" />
+  <style>
+    :root{
+      --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428;
+      --radius:16px; --space:24px; --safe-top:max(env(safe-area-inset-top),0px); --header-h:64px;
+    }
+    @font-face{
+      font-family:'Afacad Flux';
+      src: local('Afacad Flux Regular'),
+           url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
+           url('fonts/AfacadFlux-Regular.woff') format('woff');
+      font-weight:400; font-style:normal; font-display:swap;
+    }
+    html,body{height:100%}
+    html{color-scheme:dark}
+    body{
+      margin:0;
+      font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
+      background:var(--bg); color:var(--fg);
+      min-height:100dvh; display:grid; grid-template-rows:auto 1fr auto;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    /* ===== Header ===== */
+    header{
+      position:fixed; top:0; left:0; right:0; z-index:60;
+      padding-top:var(--safe-top); height:var(--header-h);
+      backdrop-filter:saturate(180%) blur(8px);
+      background:linear-gradient(180deg, rgba(11,11,11,.76), rgba(11,11,11,.3) 60%, rgba(11,11,11,0));
+      border-bottom:1px solid var(--border);
+    }
+    .nav{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+    .brand{font-weight:600;letter-spacing:.08em;text-decoration:none;color:var(--fg);}
+    .links{display:flex;gap:10px;align-items:center;overflow-x:auto;}
+    .links a{color:var(--fg);text-decoration:none;opacity:.9;padding:8px 12px;border-radius:999px;white-space:nowrap;font-size:14px;}
+    .links a:hover{opacity:1;background:rgba(255,255,255,.04);}
+    .links a[aria-current="page"]{background:rgba(255,255,255,.06);}
+
+    /* ===== Hero ===== */
+    .hero{
+      padding-top:calc(var(--header-h) + 70px);
+      padding-bottom:30px;
+      text-align:center;
+      max-width:900px;margin:0 auto;padding-inline:24px;
+    }
+    .hero h1{font-size:clamp(30px,6vw,56px);margin:0 0 10px;line-height:1.05;}
+    .hero .meta{color:var(--muted);font-size:14px;margin-bottom:10px;}
+    .hero p{color:var(--muted);font-size:clamp(14px,2.2vw,18px);margin:0;}
+
+    /* ===== About block ===== */
+    .about{
+      max-width:800px;
+      margin:40px auto;
+      padding:24px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      text-align:center;
+    }
+    .about h3{margin-top:0;margin-bottom:10px;font-size:20px;}
+    .about p{color:var(--muted);font-size:16px;line-height:1.7;margin:0 auto;max-width:600px;}
+
+    /* ===== Gallery ===== */
+    .masonry{column-count:3;column-gap:16px;max-width:1320px;margin:0 auto 70px;padding:0 24px;}
+    .masonry figure{break-inside:avoid;margin:0 0 16px;border-radius:12px;overflow:hidden;background:#000;border:1px solid var(--border);cursor:pointer;transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;}
+    .masonry figure:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.5);border-color:rgba(255,255,255,.06);}
+    .masonry img{width:100%;height:auto;display:block;}
+
+    /* ===== Lightbox ===== */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;z-index:80;}
+    .lightbox[aria-hidden="false"]{display:grid;}
+    .lightbox__inner{display:grid;grid-template-rows:1fr auto;width:100%;height:100%;}
+    .lightbox__image-wrap{display:grid;place-items:center;padding:24px;}
+    .lightbox__img{max-width:96vw;max-height:86vh;width:auto;height:auto;object-fit:contain;}
+    .lightbox__close{position:fixed;top:16px;right:16px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid var(--border);display:grid;place-items:center;cursor:pointer;}
+    .lightbox__close:hover{background:rgba(255,255,255,.18);}
+
+    /* ===== Footer ===== */
+    footer{border-top:1px solid var(--border);color:var(--muted);padding:24px;}
+    footer .row{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 24px;}
+
+    /* ===== Responsive ===== */
+    @media(max-width:880px){.masonry{column-count:2;column-gap:12px;}}
+    @media(max-width:560px){:root{--header-h:56px;}.hero{padding-top:calc(var(--header-h) + 50px);}
+      .masonry{column-count:1;column-gap:0;padding:0 12px;}
+      .about{margin:24px 12px;padding:18px;}
+      .nav{padding:10px 12px;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">NIKITA KOTRELEV</a>
+      <div class="links" role="navigation" aria-label="Primary links">
+        <a href="Video.html">Video</a>
+        <a href="Photos.html">Photos</a>
+        <a href="Projects.html" aria-current="page">Projects</a>
+        <a href="About me.html">About</a>
+       
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Fashion
+    </h1>
+    <div class="meta">Urban cinematography study</div>
+    <p>
+      A visual exploration of Paris through dynamic, mobile setups and genre photography —
+      movement, texture, and rhythm of the city captured in situ.
+    </p>
+  </section>
+
+  <!-- About -->
+  <section class="about">
+    <h3>About the project</h3>
+    <p>
+      The series blends street photography and cinematic movement. I focus on how the city
+      shapes frames: light gradients, narrow passages, and transient action. Mobility setups
+      let me pass through tight streets and changing crowds while preserving clean composition
+      and consistency of motion.
+    </p>
+  </section>
+
+  <!-- Gallery -->
+  <section class="masonry" id="gallery">
+    <figure><img src="img/IMG_1465.JPG" alt="Paris frame" loading="lazy" decoding="async"></figure>
+    <figure><img src="img/FullSizeRender(2).jpg" alt="Oléron / Paris series" loading="lazy" decoding="async"></figure>
+    <figure><img src="img/FullSizeRender(3).jpg" alt="France coast" loading="lazy" decoding="async"></figure>
+     <figure><img src="img/фотки с айфона 202532FullSizeRender 3-2.png" alt="France coast" loading="lazy" decoding="async"></figure>
+      <figure><img src="img/IMG_1601.JPG" alt="France coast" loading="lazy" decoding="async"></figure>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="lightbox__close" id="lb-close" aria-label="Close">✕</button>
+    <div class="lightbox__inner">
+      <div class="lightbox__image-wrap">
+        <img id="lb-img" class="lightbox__img" alt="">
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="row">
+      <span>© <span id="year"></span> Nikita Kotrelev</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Lightbox
+    (function(){
+      const lb=document.getElementById('lightbox');
+      const lbImg=document.getElementById('lb-img');
+      const lbClose=document.getElementById('lb-close');
+      document.getElementById('gallery').addEventListener('click',e=>{
+        const img=e.target.closest('img');
+        if(!img)return;
+        lbImg.src=img.src;
+        lb.setAttribute('aria-hidden','false');
+        document.body.style.overflow='hidden';
+      });
+      lbClose.onclick=()=>{lb.setAttribute('aria-hidden','true');document.body.style.overflow='';};
+      lb.onclick=e=>{if(e.target===lb){lb.setAttribute('aria-hidden','true');document.body.style.overflow='';}};
+      document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.setAttribute('aria-hidden','true');document.body.style.overflow='';}});
+    })();
+  </script>
+</body>
+</html>
