@@ -108,14 +108,44 @@
     .meta .title { font-weight: 600; font-size: 17px; }
     .meta .price { color: var(--muted); font-size: 15px; }
 
-    @media (max-width: 920px){
-      .grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-      .section { padding: 44px 16px; }
-    }
-    @media (max-width: 640px){
-      .grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
-      .section { padding: 36px 12px; }
-    }
+    /* === Навигация: планшеты — скролл, телефоны — перенос === */
+
+/* базово оставляем как есть; планшеты: горизонтальный скролл с фиксацией элементов */
+@media (max-width: 780px){
+  .links{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 2px;            /* чтобы палец не цеплял скроллбар */
+  }
+  .links a{
+    scroll-snap-align: start;
+    white-space: nowrap;
+  }
+  .nav a{ padding: 10px 12px; }     /* чуть компактнее пилюли */
+}
+
+/* маленькие айфоны: перенос на 2 строки, без горизонтального скролла */
+@media (max-width: 420px){
+  .nav{ 
+    padding: 12px 16px; 
+    align-items: flex-start;        /* чтобы второй ряд не “тянул” вниз бренд */
+  }
+  .links{
+    overflow: visible;              /* убираем скролл */
+    flex-wrap: wrap;                /* переносим на 2 строки */
+    row-gap: 8px;
+    column-gap: 8px;
+    max-width: 100%;
+  }
+  .nav a{
+    padding: 10px 10px;             /* ещё компактнее */
+    font-size: 14px;                /* уменьшили шрифт для влезания всех пунктов */
+  }
+}
 
     /* ===== Lightbox ===== */
     .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: none; z-index: 60; }
