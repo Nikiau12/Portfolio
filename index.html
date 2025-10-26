@@ -2,33 +2,25 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- важно для iOS safe-area -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Nikita Kotrelev — Cinematographer & Photographer</title>
   <meta name="description" content="Cinematographer & photographer. Selected works, projects, and fine-art prints for sale." />
   <meta property="og:title" content="Nikita Kotrelev — Portfolio" />
   <meta property="og:description" content="Cinematographer & photographer. Selected works, projects, and fine-art prints for sale." />
   <meta property="og:type" content="website" />
-  <link rel="icon" href="img/pag 5.png" type="image/png">
+  <link rel="icon" href="img/pag-5.png" type="image/png">
   <style>
     :root {
-      --bg: #0b0b0b;
-      --fg: #fafafa;
-      --muted: #a1a1aa;
-      --card: #111113;
-      --border: #242428;
-      --accent: #3d40f9;
-      --radius: 16px;
-      --space: 24px;
-      --safe-top: max(env(safe-area-inset-top), 0px);
+      --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428; --accent:#3d40f9;
+      --radius:16px; --space:24px; --safe-top:max(env(safe-area-inset-top),0px); --safe-bot:max(env(safe-area-inset-bottom),0px);
     }
     @font-face {
       font-family: 'Afacad Flux';
       src: local('Afacad Flux Regular'),
            url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
            url('fonts/AfacadFlux-Regular.woff') format('woff');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
+      font-weight: 400; font-style: normal; font-display: swap;
     }
     html, body { height: 100%; }
     html { color-scheme: dark; }
@@ -42,69 +34,109 @@
       min-height: 100dvh;
       -webkit-tap-highlight-color: transparent;
     }
-    /* HERO */
-    .hero { position: relative; height: 92dvh; min-height: 560px; overflow: hidden; isolation: isolate; }
-    .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 35%, rgba(0,0,0,.6) 100%); z-index: 0; }
-    header { position: absolute; inset: 0; z-index: 1; display: grid; grid-template-rows: auto 1fr; padding-top: var(--safe-top); }
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 1200px; margin: 0 auto; gap: 16px; }
-    .brand { font-weight: 600; letter-spacing: 0.08em; }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      height: 92dvh;
+      min-height: 560px;
+      overflow: clip;
+      isolation: isolate;
+    }
+    @supports (height: 100svh) { .hero { height: 88svh; min-height: 68svh; } }
+    @supports (height: 100lvh) { .hero { height: 88lvh; } }
+
+    .hero video {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    @media (max-width: 640px){
+      .hero video { object-position: 50% 40%; }
+    }
+
+    .scrim {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 35%, rgba(0,0,0,.6) 100%);
+      z-index: 0; pointer-events: none;
+    }
+
+    /* ===== HEADER внутри hero ===== */
+    header {
+      position: absolute; inset: 0; z-index: 1;
+      display: grid; grid-template-rows: auto 1fr;
+      padding-top: var(--safe-top);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px; max-width: 1200px; margin: 0 auto; gap: 16px;
+    }
+    .brand { font-weight: 600; letter-spacing: .08em; text-decoration: none; color: var(--fg); }
     .links { display: flex; gap: 8px; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; }
     .links::-webkit-scrollbar { display: none; }
     .nav a { color: var(--fg); text-decoration: none; opacity: .85; padding: 10px 12px; border-radius: 999px; white-space: nowrap; }
     .nav a:hover { opacity: 1; background: rgba(255,255,255,.06); }
-    .hero-copy { display: grid; place-items: end start; padding: 24px; max-width: 1200px; margin: 0 auto; }
-    .hero h1 { font-size: clamp(40px, 7vw, 80px); line-height: .95; margin: 0 0 12px; }
-    .hero p { font-size: clamp(16px, 2.2vw, 22px); color: var(--muted); margin: 0 0 20px; }
-    .cta { display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 999px; background: var(--fg); color: #0a0a0a; text-decoration: none; font-weight: 600; }
+    @media (max-width: 640px){
+      .nav { padding: 12px 16px; }
+      .nav a { padding: 12px 14px; font-size: 15px; }
+    }
+
+    .hero-copy {
+      display: grid; place-items: end start;
+      padding: 24px; max-width: 1200px; margin: 0 auto;
+      will-change: transform, opacity; /* для параллакса на десктопе */
+    }
+    .hero h1 { font-size: clamp(36px, 7vw, 80px); line-height: .95; margin: 0 0 12px; }
+    .hero p  { font-size: clamp(15px, 2.5vw, 20px); color: var(--muted); margin: 0 0 18px; }
+    .cta { display: inline-flex; align-items: center; gap: 10px; padding: 14px 18px; border-radius: 999px; background: var(--fg); color: #0a0a0a; text-decoration: none; font-weight: 600; }
     .cta:hover { transform: translateY(-1px); }
-    /* Sections */
+    @media (max-width: 640px){
+      .hero-copy { padding: 16px; }
+      .cta{ padding: 14px 18px; margin-bottom: calc(8px + var(--safe-bot)); }
+    }
+
+    /* ===== Sections ===== */
     .section { padding: 56px 24px; }
     .container { max-width: 1320px; margin: 0 auto; }
-    .section h2 { font-size: clamp(28px, 3.2vw, 42px); margin: 0 0 8px; }
+    .section h2 { font-size: clamp(26px, 3.6vw, 42px); margin: 0 0 8px; }
     .section .lead { color: var(--muted); margin: 0 0 24px; font-size: 18px; }
-    /* Bigger Gallery */
+
+    /* ===== Gallery grid ===== */
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 24px; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor:pointer; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; }
     .card img { width: 100%; height: auto; display: block; }
     .card .meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px; flex-wrap: wrap; }
     .meta .title { font-weight: 600; font-size: 17px; }
     .meta .price { color: var(--muted); font-size: 15px; }
-    /* Fullscreen Lightbox (same page) */
+
+    @media (max-width: 920px){
+      .grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+      .section { padding: 44px 16px; }
+    }
+    @media (max-width: 640px){
+      .grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+      .section { padding: 36px 12px; }
+    }
+
+    /* ===== Lightbox ===== */
     .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: none; z-index: 60; }
     .lightbox[aria-hidden="false"] { display: grid; }
     .lightbox__inner { display: grid; grid-template-rows: 1fr auto; width: 100%; height: 100%; }
     .lightbox__image-wrap { display: grid; place-items: center; padding: 24px; }
-    .lightbox__img { max-width: 96vw; max-height: 86vh; width: auto; height: auto; object-fit: contain; }
+    .lightbox__img { max-width: 96vw; max-height: 86vh; width: auto; height: auto; object-fit: contain; transition: transform .2s ease, opacity .2s ease; }
     .lightbox__caption { padding: 12px 24px 24px; display: flex; gap: 16px; align-items: center; justify-content: space-between; }
     .lightbox__title { font-size: clamp(18px, 2vw, 22px); margin: 0; }
     .lightbox__meta { color: var(--muted); }
-    .lightbox__close { position: fixed; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.1); border: 1px solid var(--border); display: grid; place-items: center; cursor: pointer; }
+    .lightbox__close { position: fixed; top: 16px; right: 16px; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.1); border: 1px solid var(--border); display: grid; place-items: center; cursor: pointer; }
     .lightbox__close:hover { background: rgba(255,255,255,.18); }
-    /* Footer */
+    @media (max-width: 640px){
+      .lightbox__img { max-height: 82vh; }
+      .lightbox__close { width: 54px; height: 54px; }
+    }
+
+    /* ===== Footer ===== */
     footer { border-top: 1px solid var(--border); color: var(--muted); padding: 24px; }
     footer .row { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 
-    /* ======= Responsive polish ======= */
-    @media (max-width: 1200px){
-      .container{ padding-inline: 8px; }
-    }
-    @media (max-width: 920px) {
-      .grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
-      .hero { height: 82dvh; min-height: 480px; }
-      .nav { padding-inline: 16px; }
-      .section { padding: 44px 16px; }
-    }
-    @media (max-width: 640px){
-      .hero { height: 70dvh; min-height: 380px; }
-      .hero-copy { padding: 16px; }
-      .hero h1 { font-size: clamp(28px, 8vw, 44px); }
-      .hero p { font-size: 15px; margin-bottom: 16px; }
-      .grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-      .lightbox__img{ max-width: 96vw; max-height: 82vh; }
-      .lightbox__close{ width: 48px; height: 48px; }
-      .section { padding: 36px 12px; }
-    }
     @media (prefers-reduced-motion: reduce){
       .cta:hover { transform: none; }
     }
@@ -113,7 +145,7 @@
 <body>
   <!-- HERO -->
   <section class="hero" aria-label="Showreel">
-    <video id="bg-video" autoplay muted loop playsinline preload="auto" poster="img/Showreel-21.jpg" fetchpriority="high">
+    <video id="bg-video" autoplay muted loop playsinline preload="auto" poster="img/Showreel-21.jpg">
       <source src="img/Showreel%2021.mp4" type="video/mp4" />
     </video>
     <div class="scrim" aria-hidden="true"></div>
@@ -121,13 +153,13 @@
       <nav class="nav" aria-label="Primary">
         <a class="brand" href="/">NIKITA KOTRELEV</a>
         <div class="links">
-         <a href="/Video.html">Video</a>
+          <a href="/Video.html">Video</a>
           <a href="/Photos.html">Photos</a>
-        <a href="/Projects.html">Projects</a>
+          <a href="/Projects.html">Projects</a>
           <a href="/About me.html">About</a>
         </div>
       </nav>
-      <div class="hero-copy">
+      <div class="hero-copy" id="heroCopy">
         <div>
           <h1>Strong visuals for brands & stories</h1>
           <p>Cinematographer · Photographer — narrative, commercials, music videos.</p>
@@ -143,7 +175,6 @@
       <h2>Fine-art prints — for sale</h2>
       <p class="lead">Museum-grade prints, numbered & signed. Worldwide shipping.</p>
       <div class="grid" id="gallery">
-        <!-- Card template items (click anywhere on card) -->
         <article class="card" data-src="img/Франция 2022 500 евро.jpeg" data-title="France, Beach Brittany (2022)" data-size="36×24 cm" data-price="€500">
           <img loading="lazy" decoding="async" src="img/Франция 2022 500 евро.jpeg" alt="France, Beach Brittany, 2022" />
           <div class="meta">
@@ -179,7 +210,7 @@
     </div>
   </section>
 
-  <!-- FULLSCREEN LIGHTBOX (same page) -->
+  <!-- FULLSCREEN LIGHTBOX -->
   <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="lb-title">
     <button class="lightbox__close" id="lb-close" aria-label="Close">✕</button>
     <div class="lightbox__inner">
@@ -198,7 +229,6 @@
   <footer>
     <div class="row">
       <span>© <span id="year"></span> Nikita Kotrelev</span>
-     
     </div>
   </footer>
 
@@ -206,7 +236,7 @@
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Pause hero video for reduced motion users
+    // ===== Reduced motion: стопим autoplay
     (function(){
       const v = document.getElementById('bg-video');
       if (!v) return;
@@ -216,7 +246,7 @@
       }
     })();
 
-    // Bigger card reveal
+    // ===== Card reveal
     const io = new IntersectionObserver((entries)=>{
       entries.forEach((entry)=>{
         if(entry.isIntersecting){
@@ -231,7 +261,7 @@
       io.observe(el);
     });
 
-    // Fullscreen Lightbox (same page)
+    // ===== Lightbox
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lb-img');
     const lbTitle = document.getElementById('lb-title');
@@ -252,6 +282,9 @@
     function closeLightbox(){
       lb.setAttribute('aria-hidden','true');
       document.body.style.overflow = '';
+      // reset drag transforms, если был свайп
+      lbImg.style.transform = '';
+      lbImg.style.opacity = '';
     }
     document.getElementById('gallery').addEventListener('click', (e)=>{
       const card = e.target.closest('.card');
@@ -266,6 +299,95 @@
     lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLightbox(); });
     lbClose.addEventListener('click', closeLightbox);
     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLightbox(); });
+
+    // ===== (NEW) Swipe-to-close для лайтбокса (мобильные)
+    (function(){
+      let startY = null, dragging = false;
+      const THRESHOLD = 60; // пикселей вниз
+      function onStart(ev){
+        const t = ev.touches ? ev.touches[0] : ev;
+        startY = t.clientY;
+        dragging = true;
+      }
+      function onMove(ev){
+        if(!dragging || startY==null) return;
+        const t = ev.touches ? ev.touches[0] : ev;
+        const dy = t.clientY - startY;
+        if(dy > 0){ // тянем вниз
+          const damp = Math.min(dy, 160);
+          lbImg.style.transform = `translateY(${damp}px)`;
+          lbImg.style.opacity = String(1 - Math.min(damp/200, .5));
+        }
+      }
+      function onEnd(ev){
+        if(!dragging || startY==null) return;
+        const t = ev.changedTouches ? ev.changedTouches[0] : ev;
+        const dy = t.clientY - startY;
+        if(dy > THRESHOLD){ closeLightbox(); }
+        else { // откат
+          lbImg.style.transition = 'transform .18s ease, opacity .18s ease';
+          lbImg.style.transform = 'translateY(0)';
+          lbImg.style.opacity = '1';
+          setTimeout(()=>{ lbImg.style.transition = ''; }, 200);
+        }
+        startY = null; dragging = false;
+      }
+      lbImg.addEventListener('touchstart', onStart, {passive:true});
+      lbImg.addEventListener('touchmove', onMove, {passive:true});
+      lbImg.addEventListener('touchend', onEnd, {passive:true});
+      // на всякий — поддержим мышь
+      lbImg.addEventListener('mousedown', onStart);
+      lbImg.addEventListener('mousemove', onMove);
+      lbImg.addEventListener('mouseup', onEnd);
+      lbImg.addEventListener('mouseleave', ()=>{ startY=null; dragging=false; });
+    })();
+
+    // ===== (NEW) Авто-пауза/продолжение видео по видимости/фокусу
+    (function(){
+      const v = document.getElementById('bg-video');
+      if(!v) return;
+
+      let userPaused = false; // если пользователь сам нажал паузу (на будущее)
+      function pauseIfPossible(){ try{ if(!v.paused) v.pause(); }catch{} }
+      function playIfPossible(){ 
+        if(userPaused) return;
+        try{ v.play().catch(()=>{}); }catch{} 
+      }
+
+      document.addEventListener('visibilitychange', ()=>{
+        if(document.hidden) pauseIfPossible();
+        else playIfPossible();
+      });
+      window.addEventListener('blur', pauseIfPossible);
+      window.addEventListener('focus', playIfPossible);
+      // если вкладку выгружают (iOS safari back/forward cache)
+      window.addEventListener('pagehide', pauseIfPossible);
+      window.addEventListener('pageshow', playIfPossible);
+    })();
+
+    // ===== (NEW) Desktop parallax для hero текста
+    (function(){
+      const copy = document.getElementById('heroCopy');
+      if(!copy) return;
+      const isDesktop = window.matchMedia('(min-width: 921px)').matches;
+      if(!isDesktop) return;
+
+      let ticking = false;
+      function onScroll(){
+        if(ticking) return;
+        ticking = true;
+        requestAnimationFrame(()=>{
+          const y = window.scrollY || 0;
+          const shift = Math.min(y * 0.12, 28);  // максимум 28px
+          const fade  = Math.max(1 - y / 600, 0.85);
+          copy.style.transform = `translateY(${shift}px)`;
+          copy.style.opacity = fade.toFixed(3);
+          ticking = false;
+        });
+      }
+      window.addEventListener('scroll', onScroll, {passive:true});
+      onScroll(); // стартовая позиция
+    })();
   </script>
 </body>
 </html>
