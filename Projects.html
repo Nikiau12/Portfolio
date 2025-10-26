@@ -8,23 +8,28 @@
   <link rel="icon" href="img/pag-5.png" type="image/png">
   <style>
     :root{
-      --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428; --accent:#3d40f9;
-      --radius:16px; --space:24px; --safe-top:max(env(safe-area-inset-top),0px); --header-h:64px;
+      --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428;
+      --radius:16px; --safe-top:max(env(safe-area-inset-top),0px); --header-h:64px;
     }
     @font-face{
       font-family:'Afacad Flux';
-      src: local('Afacad Flux Regular'), url('fonts/AfacadFlux-Regular.woff2') format('woff2'), url('fonts/AfacadFlux-Regular.woff') format('woff');
+      src:local('Afacad Flux Regular'),
+           url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
+           url('fonts/AfacadFlux-Regular.woff') format('woff');
       font-weight:400; font-style:normal; font-display:swap;
     }
     html,body{height:100%}
     html{color-scheme:dark}
     body{
-      margin:0; font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
-      background:var(--bg); color:var(--fg); display:grid; grid-template-rows:auto 1fr auto; min-height:100dvh;
+      margin:0;
+      font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
+      background:var(--bg); color:var(--fg);
+      display:grid; grid-template-rows:auto 1fr auto;
+      min-height:100dvh;
       -webkit-tap-highlight-color:transparent;
     }
 
-    /* ===== Header (fixed navigation) ===== */
+    /* ===== Header ===== */
     header{
       position:fixed; top:0; left:0; right:0; z-index:60;
       padding-top:var(--safe-top);
@@ -34,14 +39,14 @@
       background:linear-gradient(180deg, rgba(11,11,11,.76), rgba(11,11,11,.3) 60%, rgba(11,11,11,0));
       border-bottom:1px solid var(--border);
     }
-    .nav{max-width:1200px; margin:0 auto; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; gap:12px;}
-    .brand{font-weight:600; letter-spacing:.08em; text-decoration:none; color:var(--fg);}
-    .links{display:flex; gap:10px; align-items:center; overflow-x:auto;}
-    .links a{color:var(--fg); text-decoration:none; opacity:.9; padding:8px 12px; border-radius:999px; white-space:nowrap; font-size:14px;}
-    .links a:hover{opacity:1; background:rgba(255,255,255,.04);}
+    .nav{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+    .brand{font-weight:600;letter-spacing:.08em;text-decoration:none;color:var(--fg);}
+    .links{display:flex;gap:10px;align-items:center;overflow-x:auto;}
+    .links a{color:var(--fg);text-decoration:none;opacity:.9;padding:8px 12px;border-radius:999px;white-space:nowrap;font-size:14px;}
+    .links a:hover{opacity:1;background:rgba(255,255,255,.04);}
     .links a[aria-current="page"]{background:rgba(255,255,255,.06);}
 
-    /* ===== Page Hero ===== */
+    /* ===== Hero ===== */
     .page-hero{
       padding-top:calc(var(--header-h) + 80px);
       padding-bottom:40px;
@@ -68,7 +73,7 @@
       padding:0 24px;
       display:grid;
       gap:20px;
-      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
       align-items:start;
     }
     .card{
@@ -81,16 +86,45 @@
       transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
       cursor:pointer;
     }
-    .card:hover{transform:translateY(-6px); box-shadow:0 14px 40px rgba(0,0,0,.6); border-color:rgba(255,255,255,.06);}
-    .card__thumb{width:100%; aspect-ratio:4/3; overflow:hidden; background:#000;}
-    .card__thumb img{width:100%; height:100%; object-fit:cover; display:block;}
-    .card__meta{padding:12px 14px; display:flex; align-items:center; justify-content:space-between; gap:12px;}
-    .card__title{font-size:16px; font-weight:600; margin:0;}
-    .card__year{color:var(--muted); font-size:13px; white-space:nowrap;}
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 14px 40px rgba(0,0,0,.6);
+      border-color:rgba(255,255,255,.06);
+    }
+
+    .card__thumb{width:100%;aspect-ratio:4/3;overflow:hidden;background:#000;}
+    .card__thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease;}
+    .card:hover .card__thumb img{transform:scale(1.05);}
+
+    .card__meta{
+      position:relative;
+      padding:14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      overflow:hidden;
+    }
+
+    /* gradient hover background under title */
+    .card__meta::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg,rgba(255,255,255,.08),rgba(255,255,255,0));
+      opacity:0;
+      transition:opacity .35s ease;
+      z-index:0;
+    }
+    .card:hover .card__meta::before{opacity:1;}
+
+    .card a{color:var(--fg);text-decoration:none;display:block;height:100%;position:relative;z-index:1;}
+    .card__title{font-size:16px;font-weight:600;margin:0;color:var(--fg);}
+    .card__year{color:var(--muted);font-size:13px;white-space:nowrap;}
 
     /* ===== Footer ===== */
-    footer{border-top:1px solid var(--border); color:var(--muted); padding:24px;}
-    footer .row{max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 24px;}
+    footer{border-top:1px solid var(--border);color:var(--muted);padding:24px;}
+    footer .row{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 24px;}
 
     /* ===== Responsive ===== */
     @media(max-width:920px){
@@ -106,7 +140,6 @@
   </style>
 </head>
 <body>
-  <!-- ===== Fixed Nav ===== -->
   <header>
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="index.html">NIKITA KOTRELEV</a>
@@ -114,18 +147,14 @@
         <a href="Video.html">Video</a>
         <a href="Photos.html">Photos</a>
         <a href="About me.html">About</a>
-       
       </div>
     </nav>
   </header>
 
-  <!-- ===== Hero Section (centered title) ===== -->
   <div class="page-hero">
     <h2>Projects</h2>
-    
   </div>
 
-  <!-- ===== Projects Grid ===== -->
   <section class="projects" aria-label="Projects list">
     <article class="card">
       <a href="project2024_robotdog.html">
@@ -134,7 +163,7 @@
         </div>
         <div class="card__meta">
           <h3 class="card__title">France</h3>
-         
+          
         </div>
       </a>
     </article>
@@ -142,11 +171,11 @@
     <article class="card">
       <a href="island.html">
         <div class="card__thumb">
-          <img src="img/исландлия маша.png" alt="AI Light Tracking Rig — thumbnail" loading="lazy" decoding="async">
+          <img src="img/исландлия маша.png" alt="Island 2025 — thumbnail" loading="lazy" decoding="async">
         </div>
         <div class="card__meta">
           <h3 class="card__title">Island 2025</h3>
-          
+        
         </div>
       </a>
     </article>
@@ -154,21 +183,19 @@
     <article class="card">
       <a href="fashion.html">
         <div class="card__thumb">
-          <img src="img/IMG_1601.JPG" alt="Fasion" loading="lazy" decoding="async">
+          <img src="img/IMG_1601.JPG" alt="Fashion — thumbnail" loading="lazy" decoding="async">
         </div>
         <div class="card__meta">
           <h3 class="card__title">Fashion</h3>
-         
+          
         </div>
       </a>
     </article>
   </section>
 
-  <!-- ===== Footer ===== -->
   <footer>
     <div class="row">
       <span>© <span id="year"></span> Nikita Kotrelev</span>
-      
     </div>
   </footer>
 
