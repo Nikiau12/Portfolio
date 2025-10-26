@@ -2,14 +2,18 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Paris — 2024 · Nikita Kotrelev</title>
   <meta name="description" content="Paris 2024 — urban cinematography study by Nikita Kotrelev." />
   <link rel="icon" href="img/pag-5.png" type="image/png" />
   <style>
     :root{
       --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428;
-      --radius:16px; --space:24px; --safe-top:max(env(safe-area-inset-top),0px); --header-h:64px;
+      --radius:16px; --space:24px;
+      --safe-top:max(env(safe-area-inset-top),0px);
+      --safe-left:max(env(safe-area-inset-left),0px);
+      --safe-right:max(env(safe-area-inset-right),0px);
+      --header-h:64px;
     }
     @font-face{
       font-family:'Afacad Flux';
@@ -35,13 +39,30 @@
       backdrop-filter:saturate(180%) blur(8px);
       background:linear-gradient(180deg, rgba(11,11,11,.76), rgba(11,11,11,.3) 60%, rgba(11,11,11,0));
       border-bottom:1px solid var(--border);
+      box-sizing:border-box;
     }
     .nav{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
-    .brand{font-weight:600;letter-spacing:.08em;text-decoration:none;color:var(--fg);}
-    .links{display:flex;gap:10px;align-items:center;overflow-x:auto;}
+    .brand{font-weight:600;letter-spacing:.08em;text-decoration:none;color:var(--fg);white-space:nowrap;}
+    .links{display:flex;gap:10px;align-items:center;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:none;}
+    .links::-webkit-scrollbar{display:none;}
     .links a{color:var(--fg);text-decoration:none;opacity:.9;padding:8px 12px;border-radius:999px;white-space:nowrap;font-size:14px;}
     .links a:hover{opacity:1;background:rgba(255,255,255,.04);}
     .links a[aria-current="page"]{background:rgba(255,255,255,.06);}
+
+    /* === Навигация на мобильных: всё влезает === */
+    @media (max-width: 780px){
+      .links{ scroll-snap-type:x mandatory; }
+      .links a{ scroll-snap-align:start; }
+    }
+    @media (max-width: 420px){
+      :root{ --header-h:56px; }
+      .nav{ padding:10px 12px; align-items:flex-start; }
+      .links{
+        overflow:visible; flex-wrap:wrap;
+        row-gap:8px; column-gap:8px; max-width:100%;
+      }
+      .links a{ padding:8px 10px; font-size:14px; }
+    }
 
     /* ===== Hero ===== */
     .hero{
@@ -73,13 +94,37 @@
     .masonry figure:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.5);border-color:rgba(255,255,255,.06);}
     .masonry img{width:100%;height:auto;display:block;}
 
-    /* ===== Lightbox ===== */
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;z-index:80;}
-    .lightbox[aria-hidden="false"]{display:grid;}
-    .lightbox__inner{display:grid;grid-template-rows:1fr auto;width:100%;height:100%;}
-    .lightbox__image-wrap{display:grid;place-items:center;padding:24px;}
-    .lightbox__img{max-width:96vw;max-height:86vh;width:auto;height:auto;object-fit:contain;}
-    .lightbox__close{position:fixed;top:16px;right:16px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid var(--border);display:grid;place-items:center;cursor:pointer;}
+    /* ===== Lightbox (строго по центру) ===== */
+    .lightbox{
+      position:fixed; inset:0;
+      display:none; z-index:80;
+      background:rgba(0,0,0,.92);
+      padding-left:var(--safe-left);
+      padding-right:var(--safe-right);
+    }
+    .lightbox[aria-hidden="false"]{
+      display:flex; align-items:center; justify-content:center;
+    }
+    .lightbox__inner{
+      width:100%; height:100%;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .lightbox__image-wrap{
+      width:100%; height:100%;
+      display:flex; align-items:center; justify-content:center;
+      padding:24px; box-sizing:border-box;
+    }
+    .lightbox__img{
+      max-width:96vw; max-height:86vh;
+      width:auto; height:auto; object-fit:contain;
+      display:block; margin:0 auto;
+    }
+    .lightbox__close{
+      position:fixed; top:16px; right:16px;
+      width:44px; height:44px; border-radius:50%;
+      background:rgba(255,255,255,.1); border:1px solid var(--border);
+      display:grid; place-items:center; cursor:pointer;
+    }
     .lightbox__close:hover{background:rgba(255,255,255,.18);}
 
     /* ===== Footer ===== */
@@ -88,10 +133,10 @@
 
     /* ===== Responsive ===== */
     @media(max-width:880px){.masonry{column-count:2;column-gap:12px;}}
-    @media(max-width:560px){:root{--header-h:56px;}.hero{padding-top:calc(var(--header-h) + 50px);}
+    @media(max-width:560px){
+      .hero{padding-top:calc(var(--header-h) + 50px);}
       .masonry{column-count:1;column-gap:0;padding:0 12px;}
       .about{margin:24px 12px;padding:18px;}
-      .nav{padding:10px 12px;}
     }
   </style>
 </head>
@@ -104,7 +149,6 @@
         <a href="Photos.html">Photos</a>
         <a href="Projects.html" aria-current="page">Projects</a>
         <a href="About me.html">About</a>
-       
       </div>
     </nav>
   </header>
@@ -135,8 +179,7 @@
     <figure><img src="img/FullSizeRender.jpg" alt="Paris frame" loading="lazy" decoding="async"></figure>
     <figure><img src="img/Имя документа hf_29.jpg" alt="Oléron / Paris series" loading="lazy" decoding="async"></figure>
     <figure><img src="img/Франция 2022 500 евро.jpeg" alt="France coast" loading="lazy" decoding="async"></figure>
-     <figure><img src="img/Имя документа hf_26.jpg" alt="France coast" loading="lazy" decoding="async"></figure>
-     
+    <figure><img src="img/Имя документа hf_26.jpg" alt="France coast" loading="lazy" decoding="async"></figure>
   </section>
 
   <!-- Lightbox -->
@@ -163,16 +206,25 @@
       const lb=document.getElementById('lightbox');
       const lbImg=document.getElementById('lb-img');
       const lbClose=document.getElementById('lb-close');
-      document.getElementById('gallery').addEventListener('click',e=>{
+      const gallery=document.getElementById('gallery');
+
+      gallery.addEventListener('click',e=>{
         const img=e.target.closest('img');
         if(!img)return;
         lbImg.src=img.src;
         lb.setAttribute('aria-hidden','false');
         document.body.style.overflow='hidden';
       });
-      lbClose.onclick=()=>{lb.setAttribute('aria-hidden','true');document.body.style.overflow='';};
-      lb.onclick=e=>{if(e.target===lb){lb.setAttribute('aria-hidden','true');document.body.style.overflow='';}};
-      document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.setAttribute('aria-hidden','true');document.body.style.overflow='';}});
+
+      function closeLB(){
+        lb.setAttribute('aria-hidden','true');
+        document.body.style.overflow='';
+        lbImg.removeAttribute('style');
+      }
+
+      lbClose.onclick=closeLB;
+      lb.onclick=e=>{ if(e.target===lb) closeLB(); };
+      document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLB(); });
     })();
   </script>
 </body>
