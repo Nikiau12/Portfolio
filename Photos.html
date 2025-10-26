@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nikita Kotrelev — Photos</title>
   <meta name="description" content="Selected photography: series, travel, portraits. Fine-art prints available." />
-  <meta property="og:title" content="Nikita Kotrelev — Photos" />
-  <meta property="og:description" content="Selected photography: series, travel, portraits. Fine-art prints available." />
-  <meta property="og:type" content="website" />
   <link rel="icon" href="img/pag-5.png" type="image/png" />
   <style>
     :root{
@@ -43,12 +40,13 @@
     .links{display:flex; gap:8px; overflow-x:auto; overscroll-behavior-inline:contain; scrollbar-width:none}
     .links::-webkit-scrollbar{display:none}
 
-    /* Hero / Carousel */
-    .hero{position:relative; height:88dvh; min-height:520px; overflow:clip; isolation:isolate}
+    /* Hero / Carousel - DESKTOP default (unchanged) */
+    .hero{position:relative; height:88dvh; min-height:520px; overflow:hidden; isolation:isolate}
     .scrim{position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 35%, rgba(0,0,0,.6) 100%); z-index:0; pointer-events:none}
     .slides{position:absolute; inset:0;}
-    .slide{position:absolute; inset:0; opacity:0; transition:opacity var(--fadeDur) ease; will-change:opacity;}
+    .slide{position:absolute; inset:0; opacity:0; transition:opacity var(--fadeDur) ease; will-change:opacity; display:block;}
     .slide[aria-hidden="false"]{opacity:1}
+    /* desktop images keep cover + ken burns */
     .slide img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:scale(1); will-change:transform;}
     .slide[aria-hidden="false"] img{animation:kenBurns 12s ease-in-out forwards;}
     @keyframes kenBurns{0%{transform:scale(1)}100%{transform:scale(var(--kenBurnsScale))}}
@@ -81,24 +79,49 @@
     footer{border-top:1px solid var(--border); color:var(--muted); padding:24px}
     footer .row{max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px}
 
-    /* ======= Responsive tweaks ======= */
+    /* ======= Responsive tweaks: MOBILE & TABLET improvements ======= */
     @media (max-width: 1200px){
       .container{ padding-inline:8px; }
     }
+
+    /* TABLET: make hero shorter so slides fit */
     @media (max-width: 920px){
-      .hero{ height:72dvh; min-height:420px; }
-      .grid{ grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:16px; }
+      .hero{ height:auto; min-height:0; padding-top:12px; padding-bottom:12px; }
+      .slides{position:relative; height:auto;}
+      .slide{position:relative; inset:auto; display:grid; place-items:center; opacity:0; transition:opacity .5s ease;}
+      .slide[aria-hidden="false"]{opacity:1}
+      /* show full image without cropping using frame */
+      .slide img{ position:relative; width:auto; height:auto; max-width:96%; max-height:56vh; object-fit:contain; transform:none; animation:none; }
+      .controls{ bottom:14px; gap:8px; }
+      .grid{ grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:16px; }
       .section{ padding:44px 16px; }
+
+      /* frame styles (tablet) */
+      .frame{ display:inline-block; padding:12px; border-radius:10px; background:rgba(0,0,0,0.55); box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+      .frame.is-portrait img{ max-height:56vh; width:auto; height:auto; display:block; }
+      .frame.is-landscape img{ max-width:96%; width:auto; height:auto; display:block; }
     }
+
+    /* MOBILE: force image contain and smaller hero */
     @media (max-width: 640px){
-      .hero{ height:58dvh; min-height:360px; }
-      .controls{ bottom:16px; gap:8px; }
-      .dot{ --w:22px; height:5px; }
+      .hero{ height:auto; min-height:0; padding-top:10px; padding-bottom:10px; }
+      .slides{position:relative; height:auto;}
+      .slide{position:relative; inset:auto; display:grid; place-items:center; opacity:0; transition:opacity .45s ease;}
+      .slide[aria-hidden="false"]{opacity:1}
+      .slide img{ position:relative; width:auto; height:auto; max-width:94%; max-height:48vh; object-fit:contain; transform:none; animation:none; border-radius:6px; }
+      .controls{ bottom:12px; gap:8px; }
+      .dot{ --w:20px; height:5px; }
       .grid{ grid-template-columns:repeat(2, 1fr); gap:8px; }
       .lightbox__img{ max-width:96vw; max-height:82vh; }
       .lightbox__close{ width:48px; height:48px; }
       .nav{ padding-inline:16px; }
+
+      /* frame styles (mobile) */
+      .frame{ display:inline-block; padding:10px; border-radius:10px; background:rgba(0,0,0,0.6); box-shadow: 0 8px 30px rgba(0,0,0,0.55); }
+      .frame.is-portrait img{ max-height:48vh; width:auto; height:auto; display:block; }
+      .frame.is-landscape img{ max-width:94%; width:auto; height:auto; display:block; }
     }
+
     @media (prefers-reduced-motion: reduce){
       .slide{ transition:none; }
       .slide img{ animation:none !important; }
@@ -111,9 +134,8 @@
       <a class="brand" href="/">NIKITA KOTRELEV</a>
       <div class="links">
         <a href="/Video.html">Video</a>
-          <a href="/Photos.html">Photos</a>
-        
-          <a href="/About me.html">About</a>
+        <a href="/Photos.html" aria-current="page">Photos</a>
+        <a href="/About me.html">About</a>
       </div>
     </nav>
   </header>
@@ -121,7 +143,7 @@
   <section class="hero" aria-label="Featured photos">
     <div class="slides" id="slides">
       <figure class="slide" aria-hidden="false">
-        <img src="img/Франция 2022 500 евро.jpeg" alt="Brittany coast, France">
+        <img src="img/Франция 2022 500 евро.jpeg" alt="Brittany coast, France" loading="eager" decoding="async">
       </figure>
       <figure class="slide" aria-hidden="true">
         <img src="img/грузия 2023 500.jpg" loading="lazy" decoding="async" alt="Tbilisi Sea, Georgia">
@@ -133,6 +155,7 @@
         <img src="img/грузия военная дорога 2024IMG_0285 54.jpg" loading="lazy" decoding="async" alt="Military Road, Georgia">
       </figure>
     </div>
+
     <div class="controls" id="dots" aria-label="Slides navigation"></div>
     <div class="scrim" aria-hidden="true"></div>
     <div class="hero-copy"></div>
@@ -174,8 +197,36 @@
   const slides = Array.from(document.querySelectorAll('.slide'));
   const dotsWrap = document.getElementById('dots');
   const prefersReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.matchMedia && window.matchMedia('(max-width: 920px)').matches;
 
-  let idx = 0, timer = null, AUTOPLAY_MS = 5000, PROG_MS = AUTOPLAY_MS - 200;
+  let idx = 0, timer = null;
+  let AUTOPLAY_MS = isMobile ? 3500 : 5000;
+  let PROG_MS = AUTOPLAY_MS - 200;
+
+  // Wrap images into frame (for mobile / tablet visual)
+  slides.forEach(slide => {
+    const img = slide.querySelector('img');
+    if (!img) return;
+    // wrap only if not already wrapped
+    if (!img.parentElement.classList || !img.parentElement.classList.contains('frame')) {
+      const wrap = document.createElement('div');
+      wrap.className = 'frame';
+      // move image into wrap
+      slide.replaceChild(wrap, img);
+      wrap.appendChild(img);
+      // check orientation when image loads
+      function orient(){
+        const w = img.naturalWidth || img.width;
+        const h = img.naturalHeight || img.height;
+        if (w && h) {
+          if (h > w) { wrap.classList.add('is-portrait'); wrap.classList.remove('is-landscape'); }
+          else { wrap.classList.add('is-landscape'); wrap.classList.remove('is-portrait'); }
+        }
+      }
+      if (img.complete) orient(); // already loaded
+      else img.addEventListener('load', orient, {once:true});
+    }
+  });
 
   // Dots
   slides.forEach((_, i) => {
@@ -194,10 +245,11 @@
     dots.forEach((d, k)=>{
       d.setAttribute('aria-current', String(k === i));
       const bar = d.querySelector('.dot__bar');
-      if (bar) bar.style.transition = 'none', bar.style.width = '0%';
-      // trigger reflow then animate
+      if (!bar) return;
+      bar.style.transition = 'none';
+      bar.style.width = '0%';
       requestAnimationFrame(()=>{
-        if (bar && !pausedByUser) {
+        if (!pausedByUser && !prefersReduce) {
           bar.style.transition = 'width ' + (PROG_MS/1000) + 's linear';
           bar.style.width = (k === i ? '100%' : '0%');
         }
@@ -214,7 +266,7 @@
   function next(){ go(idx+1); }
 
   function start(){
-    if (prefersReduce) return; // no autoplay if reduced motion
+    if (prefersReduce) return;
     stop();
     timer = setInterval(next, AUTOPLAY_MS);
   }
@@ -242,7 +294,7 @@
     if(!dragging||x0===null) return;
     const x1 = (e.changedTouches?e.changedTouches[0].clientX:e.clientX);
     const dx = x1 - x0;
-    if (Math.abs(dx) > 50) go(idx + (dx < 0 ? 1 : -1), true);
+    if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1), true);
     x0=null; dragging=false;
   }
   const slidesEl = document.getElementById('slides');
@@ -270,8 +322,8 @@
     document.body.style.overflow = 'hidden';
   });
 
-  lbClose.onclick=()=>{ lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
-  lb.onclick=e=>{ if(e.target===lb){ lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; } };
+  lbClose && (lbClose.onclick = ()=>{ lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; });
+  lb && lb.addEventListener('click',e=>{ if(e.target===lb){ lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; } });
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; } });
 </script>
 </body>
