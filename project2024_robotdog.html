@@ -2,80 +2,115 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Paris — 2024 · Nikita Kotrelev</title>
-  <meta name="description" content="Paris 2024 — urban cinematography study by Nikita Kotrelev." />
-  <link rel="icon" href="img/pag 5.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>France — 2024 · Nikita Kotrelev</title>
+  <meta name="description" content="France 2024 — urban cinematography study by Nikita Kotrelev." />
+  <link rel="icon" href="img/pag-5.png" type="image/png" />
   <style>
     :root{
-      --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428;
-      --radius:16px; --space:24px;
+      --bg:#0b0b0b;
+      --fg:#fafafa;
+      --muted:#a1a1aa;
+      --card:#111113;
+      --border:#242428;
+      --radius:16px;
+      --space:24px;
       --safe-top:max(env(safe-area-inset-top),0px);
-      --safe-left:max(env(safe-area-inset-left),0px);
-      --safe-right:max(env(safe-area-inset-right),0px);
       --header-h:64px;
     }
+
     @font-face{
       font-family:'Afacad Flux';
       src: local('Afacad Flux Regular'),
            url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
            url('fonts/AfacadFlux-Regular.woff') format('woff');
-      font-weight:400; font-style:normal; font-display:swap;
+      font-weight:400;
+      font-display:swap;
     }
+
     html,body{height:100%}
     html{color-scheme:dark}
+
     body{
       margin:0;
-      font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
-      background:var(--bg); color:var(--fg);
-      min-height:100dvh; display:grid; grid-template-rows:auto 1fr auto;
-      -webkit-tap-highlight-color:transparent;
+      font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,sans-serif;
+      background:var(--bg);
+      color:var(--fg);
+      min-height:100dvh;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
     }
 
     /* ===== Header ===== */
     header{
-      position:fixed; top:0; left:0; right:0; z-index:60;
-      padding-top:var(--safe-top); height:var(--header-h);
+      position:fixed;
+      top:0; left:0; right:0;
+      z-index:60;
+      padding-top:var(--safe-top);
+      height:var(--header-h);
       backdrop-filter:saturate(180%) blur(8px);
-      background:linear-gradient(180deg, rgba(11,11,11,.76), rgba(11,11,11,.3) 60%, rgba(11,11,11,0));
+      background:linear-gradient(180deg, rgba(11,11,11,.76), rgba(11,11,11,.3), rgba(11,11,11,0));
       border-bottom:1px solid var(--border);
-      box-sizing:border-box;
     }
-    .nav{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
-    .brand{font-weight:600;letter-spacing:.08em;text-decoration:none;color:var(--fg);white-space:nowrap;}
-    .links{display:flex;gap:10px;align-items:center;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:none;}
-    .links::-webkit-scrollbar{display:none;}
-    .links a{color:var(--fg);text-decoration:none;opacity:.9;padding:8px 12px;border-radius:999px;white-space:nowrap;font-size:14px;}
-    .links a:hover{opacity:1;background:rgba(255,255,255,.04);}
-    .links a[aria-current="page"]{background:rgba(255,255,255,.06);}
 
-    /* === Навигация на мобильных: всё влезает === */
-    @media (max-width: 780px){
-      .links{ scroll-snap-type:x mandatory; }
-      .links a{ scroll-snap-align:start; }
+    .nav{
+      max-width:1200px;
+      margin:0 auto;
+      padding:12px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
     }
-    @media (max-width: 420px){
-      :root{ --header-h:56px; }
-      .nav{ padding:10px 12px; align-items:flex-start; }
-      .links{
-        overflow:visible; flex-wrap:wrap;
-        row-gap:8px; column-gap:8px; max-width:100%;
-      }
-      .links a{ padding:8px 10px; font-size:14px; }
+
+    .brand{
+      color:var(--fg);
+      font-weight:600;
+      text-decoration:none;
+      letter-spacing:.08em;
     }
+
+    .links{
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+      white-space:nowrap;
+    }
+
+    .links a{
+      color:var(--fg);
+      text-decoration:none;
+      opacity:.9;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    .links a:hover{opacity:1;background:rgba(255,255,255,.05);}
+    .links a[aria-current="page"]{background:rgba(255,255,255,.12);}
 
     /* ===== Hero ===== */
     .hero{
-      padding-top:calc(var(--header-h) + 70px);
-      padding-bottom:30px;
+      padding-top:calc(var(--header-h) + 60px);
+      padding-bottom:20px;
       text-align:center;
-      max-width:900px;margin:0 auto;padding-inline:24px;
+      max-width:900px;
+      margin:0 auto;
+      padding-inline:24px;
     }
-    .hero h1{font-size:clamp(30px,6vw,56px);margin:0 0 10px;line-height:1.05;}
-    .hero .meta{color:var(--muted);font-size:14px;margin-bottom:10px;}
-    .hero p{color:var(--muted);font-size:clamp(14px,2.2vw,18px);margin:0;}
 
-    /* ===== About block ===== */
+    .hero h1{
+      font-size:clamp(32px,6vw,56px);
+      margin:0 0 12px;
+      font-weight:700;
+    }
+
+    .hero p{
+      color:var(--muted);
+      font-size:18px;
+    }
+
+    /* ===== About ===== */
     .about{
       max-width:800px;
       margin:40px auto;
@@ -85,144 +120,211 @@
       border-radius:var(--radius);
       text-align:center;
     }
-    .about h3{margin-top:0;margin-bottom:10px;font-size:20px;}
-    .about p{color:var(--muted);font-size:16px;line-height:1.7;margin:0 auto;max-width:600px;}
 
-    /* ===== Gallery ===== */
-    .masonry{column-count:3;column-gap:16px;max-width:1320px;margin:0 auto 70px;padding:0 24px;}
-    .masonry figure{break-inside:avoid;margin:0 0 16px;border-radius:12px;overflow:hidden;background:#000;border:1px solid var(--border);cursor:pointer;transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;}
-    .masonry figure:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.5);border-color:rgba(255,255,255,.06);}
-    .masonry img{width:100%;height:auto;display:block;}
+    .about h3{
+      margin:0 0 12px;
+      font-size:22px;
+    }
 
-    /* ===== Lightbox (строго по центру) ===== */
+    .about p{
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.7;
+      margin:0 auto;
+      max-width:600px;
+    }
+
+    /* ===== Masonry Gallery ===== */
+    .masonry{
+      column-count:3;
+      column-gap:18px;
+      max-width:1320px;
+      margin:0 auto 80px;
+      padding:0 24px;
+    }
+
+    figure{
+      break-inside:avoid;
+      margin:0 0 18px;
+      border-radius:0; /* remove round corners */
+      overflow:hidden;
+      cursor:pointer;
+      border:1px solid var(--border);
+      background:#000;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+
+    figure:hover{
+      transform:translateY(-4px);
+      box-shadow:0 12px 32px rgba(0,0,0,.55);
+    }
+
+    img{
+      width:100%;
+      display:block;
+      height:auto;
+    }
+
+    figcaption{
+      padding:10px 12px;
+      font-weight:700;
+      font-size:16px;
+      color:var(--fg);
+      letter-spacing:0.02em;
+    }
+
+    /* DIFFERENT HEIGHTS FOR ORIENTATION */
+    figure.portrait img{
+      height:auto;
+    }
+
+    figure.landscape img{
+      height:auto;
+    }
+
+    figure.portrait{
+      /* vertical images taller = magazine feeling */
+      margin-bottom:26px;
+    }
+
+    figure.landscape{
+      /* horizontal images slightly shorter */
+      margin-bottom:18px;
+    }
+
+    /* ===== Lightbox ===== */
     .lightbox{
-      position:fixed; inset:0;
-      display:none; z-index:80;
-      background:rgba(0,0,0,.92);
-      padding-left:var(--safe-left);
-      padding-right:var(--safe-right);
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.9);
+      display:none;
+      z-index:200;
     }
-    .lightbox[aria-hidden="false"]{
-      display:flex; align-items:center; justify-content:center;
-    }
+
+    .lightbox[aria-hidden="false"]{display:grid;}
+
     .lightbox__inner{
-      width:100%; height:100%;
-      display:flex; align-items:center; justify-content:center;
+      display:grid;
+      place-items:center;
+      padding:24px;
     }
-    .lightbox__image-wrap{
-      width:100%; height:100%;
-      display:flex; align-items:center; justify-content:center;
-      padding:24px; box-sizing:border-box;
-    }
+
     .lightbox__img{
-      max-width:96vw; max-height:86vh;
-      width:auto; height:auto; object-fit:contain;
-      display:block; margin:0 auto;
+      max-width:94vw;
+      max-height:88vh;
+      object-fit:contain;
     }
+
     .lightbox__close{
-      position:fixed; top:16px; right:16px;
-      width:44px; height:44px; border-radius:50%;
-      background:rgba(255,255,255,.1); border:1px solid var(--border);
-      display:grid; place-items:center; cursor:pointer;
+      position:fixed;
+      top:16px;
+      right:16px;
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      background:rgba(255,255,255,.1);
+      border:1px solid var(--border);
+      font-size:22px;
+      cursor:pointer;
     }
-    .lightbox__close:hover{background:rgba(255,255,255,.18);}
 
-    /* ===== Footer ===== */
-    footer{border-top:1px solid var(--border);color:var(--muted);padding:24px;}
-    footer .row{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 24px;}
-
-    /* ===== Responsive ===== */
-    @media(max-width:880px){.masonry{column-count:2;column-gap:12px;}}
+    @media(max-width:880px){
+      .masonry{column-count:2;}
+    }
     @media(max-width:560px){
-      .hero{padding-top:calc(var(--header-h) + 50px);}
-      .masonry{column-count:1;column-gap:0;padding:0 12px;}
-      .about{margin:24px 12px;padding:18px;}
+      .masonry{column-count:1;}
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <nav class="nav" aria-label="Primary">
-      <a class="brand" href="index.html">NIKITA KOTRELEV</a>
-      <div class="links" role="navigation" aria-label="Primary links">
-        <a href="Video.html">Video</a>
-        <a href="Photos.html">Photos</a>
-        <a href="Projects.html" aria-current="page">Projects</a>
-        <a href="About me.html">About</a>
-      </div>
-    </nav>
-  </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <h1>France</h1>
-    <div class="meta">Urban cinematography study</div>
-    <p>
-      A visual exploration of Paris through dynamic, mobile setups and genre photography —
-      movement, texture, and rhythm of the city captured in situ.
-    </p>
-  </section>
-
-  <!-- About -->
-  <section class="about">
-    <h3>About the project</h3>
-    <p>
-      This project brings together photographs I took during my four years living in France. It includes different genres of photography. My goal is to share my photos with you. Through the use of colour, light and other photographic techniques, I convey what I see around me and how I feel about it. 
-    </p>
-  </section>
-
-  <!-- Gallery -->
-  <section class="masonry" id="gallery">
-    <figure><img src="img/FullSizeRender.jpg" alt="Paris frame" loading="lazy" decoding="async"></figure>
-    <figure><img src="img/Имя документа hf_29.jpg" alt="Oléron / Paris series" loading="lazy" decoding="async"></figure>
-    <figure><img src="img/Франция 2022 500 евро.jpeg" alt="France coast" loading="lazy" decoding="async"></figure>
-    <figure><img src="img/Имя документа hf_26.jpg" alt="France coast" loading="lazy" decoding="async"></figure>
-  </section>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
-    <button class="lightbox__close" id="lb-close" aria-label="Close">✕</button>
-    <div class="lightbox__inner">
-      <div class="lightbox__image-wrap">
-        <img id="lb-img" class="lightbox__img" alt="">
-      </div>
+<header>
+  <nav class="nav">
+    <a class="brand" href="index.html">NIKITA KOTRELEV</a>
+    <div class="links">
+      <a href="Video.html">Video</a>
+      <a href="Photos.html">Photos</a>
+      <a href="Projects.html" aria-current="page">Projects</a>
+      <a href="About me.html">About</a>
     </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>France</h1>
+  <p>Urban cinematography and photography study</p>
+</section>
+
+<section class="about">
+  <h3>About the project</h3>
+  <p>
+    The series blends street photography and cinematic dynamics. A study of light, geometry, and motion.
+  </p>
+</section>
+
+<!-- ===== Gallery ===== -->
+<section class="masonry" id="gallery">
+  <figure><img src="img/FullSizeRender.jpg"><figcaption>Paris 2023</figcaption></figure>
+  <figure><img src="img/Имя документа hf_29.jpg"><figcaption>Oléron Island 2022</figcaption></figure>
+  <figure><img src="img/Франция 2022 500 евро.jpeg"><figcaption>Brittany 2023</figcaption></figure>
+  <figure><img src="img/Имя документа hf_26.jpg"><figcaption>Oléron Island 2022</figcaption></figure>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lb-close">✕</button>
+  <div class="lightbox__inner">
+    <img id="lb-img" class="lightbox__img">
   </div>
+</div>
 
-  <footer>
-    <div class="row">
-      <span>© <span id="year"></span> Nikita Kotrelev</span>
-    </div>
-  </footer>
+<footer>
+  <div class="row">
+    <span>© <span id="year"></span> Nikita Kotrelev</span>
+  </div>
+</footer>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Lightbox
-    (function(){
-      const lb=document.getElementById('lightbox');
-      const lbImg=document.getElementById('lb-img');
-      const lbClose=document.getElementById('lb-close');
-      const gallery=document.getElementById('gallery');
-
-      gallery.addEventListener('click',e=>{
-        const img=e.target.closest('img');
-        if(!img)return;
-        lbImg.src=img.src;
-        lb.setAttribute('aria-hidden','false');
-        document.body.style.overflow='hidden';
-      });
-
-      function closeLB(){
-        lb.setAttribute('aria-hidden','true');
-        document.body.style.overflow='';
-        lbImg.removeAttribute('style');
+  // AUTO ORIENTATION DETECTION
+  document.querySelectorAll(".masonry figure img").forEach(img => {
+    img.onload = () => {
+      const fig = img.closest("figure");
+      if (img.naturalWidth > img.naturalHeight){
+        fig.classList.add("landscape");
+      } else {
+        fig.classList.add("portrait");
       }
+    };
+  });
 
-      lbClose.onclick=closeLB;
-      lb.onclick=e=>{ if(e.target===lb) closeLB(); };
-      document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLB(); });
-    })();
-  </script>
+  // LIGHTBOX
+  const lb = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lb-img");
+  const lbClose = document.getElementById("lb-close");
+
+  document.getElementById("gallery").addEventListener("click", e => {
+    const img = e.target.closest("img");
+    if (!img) return;
+    lbImg.src = img.src;
+    lb.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  });
+
+  lbClose.onclick = () => {
+    lb.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  };
+
+  lb.onclick = e => {
+    if (e.target === lb){
+      lb.setAttribute("aria-hidden","true");
+      document.body.style.overflow = "";
+    }
+  };
+</script>
+
 </body>
 </html>
