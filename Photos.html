@@ -4,292 +4,266 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nikita Kotrelev — Photos</title>
-  <meta name="description" content="Selected photography: series, travel, portraits. Fine-art prints available." />
-  <meta property="og:title" content="Nikita Kotrelev — Photos" />
-  <meta property="og:description" content="Selected photography: series, travel, portraits. Fine-art prints available." />
-  <meta property="og:type" content="website" />
-  <link rel="icon" href="img/pag 5.png" type="image/png" />
+
   <style>
     :root{
-      --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428; --accent:#3d40f9;
-      --radius:16px; --space:24px;
-      --fadeDur:.9s; --kenBurnsScale:1.04;
-      --arrowBg: rgba(17,17,19,.45);
+      --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --border:#242428;
       --safe-top:max(env(safe-area-inset-top),0px);
       --header-h:64px;
     }
 
     @font-face{
       font-family:'Afacad Flux';
-      src:local('Afacad Flux Regular'), url('fonts/AfacadFlux-Regular.woff2') format('woff2'), url('fonts/AfacadFlux-Regular.woff') format('woff');
-      font-weight:400; font-style:normal; font-display:swap;
+      src:url('fonts/AfacadFlux-Regular.woff2') format('woff2');
     }
 
-    html,body{height:100%}
-    html{color-scheme:dark}
     body{
       margin:0;
-      font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
       background:var(--bg);
       color:var(--fg);
+      font-family:'Afacad Flux',sans-serif;
+      min-height:100vh;
       display:grid;
       grid-template-rows:auto 1fr auto;
-      min-height:100dvh;
-      -webkit-tap-highlight-color:transparent;
     }
 
-    /* Header */
+    /* HEADER */
     header{
-      position:fixed; inset:0 0 auto 0; z-index:20;
-      backdrop-filter:saturate(120%) blur(6px);
-      background:linear-gradient(180deg, rgba(11,11,11,.72), rgba(11,11,11,.32) 60%, rgba(11,11,11,0));
-      padding-top:var(--safe-top);
-      border-bottom:1px solid rgba(36,36,40,.35);
+      position:fixed; top:0; left:0; right:0;
       height:var(--header-h);
-      box-sizing:border-box;
+      padding-top:var(--safe-top);
+      backdrop-filter:blur(8px);
+      background:rgba(10,10,10,.65);
+      border-bottom:1px solid var(--border);
+      z-index:20;
+    }
+    .nav{
+      max-width:1200px;
+      margin:0 auto;
+      padding:14px 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .brand{
+      color:var(--fg);
+      text-decoration:none;
+      font-weight:600;
+      letter-spacing:.08em;
+    }
+    .links{display:flex; gap:10px;}
+    .links a{
+      color:var(--fg);
+      text-decoration:none;
+      padding:8px 12px;
+      opacity:.85;
+      border-radius:8px;
+    }
+    .links a:hover{
+      opacity:1;
+      background:rgba(255,255,255,.1);
     }
 
-    .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; max-width:1200px; margin:0 auto; gap:16px}
-    .brand{font-weight:600; letter-spacing:.08em}
-    .nav a{color:var(--fg); text-decoration:none; opacity:.85; padding:10px 12px; border-radius:999px; white-space:nowrap}
-    .nav a:hover{opacity:1; background:rgba(255,255,255,.06)}
-    .links{display:flex; gap:8px; overflow-x:auto; overscroll-behavior-inline:contain; scrollbar-width:none}
-    .links::-webkit-scrollbar{display:none}
-
-    /* Hero / Carousel */
-    .hero{
-      position:relative;
-      height:88dvh;
-      min-height:520px;
-      overflow:hidden;
-      isolation:isolate;
-      padding-top:calc(var(--header-h) + 8px);
-      scroll-margin-top:calc(var(--header-h) + 8px);
+    /* CLEAN CENTERED GRID — ORDER EXACTLY AS IN HTML */
+    #aw-grid{
+      padding-top:120px;
+      width:90%;
+      max-width:1500px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fill, 180px);
+      gap:20px;
+      justify-content:center;
     }
 
-    .scrim{position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 35%, rgba(0,0,0,.6) 100%); z-index:0; pointer-events:none}
-    .slides{position:absolute; inset:0;}
-    .slide{position:absolute; inset:0; opacity:0; transition:opacity var(--fadeDur) ease; will-change:opacity;}
-    .slide[aria-hidden="false"]{opacity:1}
-    .slide img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:scale(1); will-change:transform;}
-    .slide[aria-hidden="false"] img{animation:kenBurns 12s ease-in-out forwards;}
-    @keyframes kenBurns{0%{transform:scale(1)}100%{transform:scale(var(--kenBurnsScale))}}
-
-    .controls{position:absolute; inset:auto 0 24px 0; display:flex; align-items:center; justify-content:center; gap:10px; z-index:5}
-    .dot{--w:28px; position:relative; width:var(--w); height:6px; border-radius:999px; background:rgba(255,255,255,.22); overflow:hidden; border:1px solid var(--border)}
-    .dot__bar{position:absolute; inset:0; width:0%; background:rgba(255,255,255,.85)}
-    .dot[aria-current="true"] .dot__bar{width:100%; transition:width var(--progDur) linear}
-
-    /* Gallery */
-    .section{padding:56px 24px}
-    .container{max-width:1320px; margin:0 auto}
-    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:24px; margin-top:16px}
-    .card{overflow:hidden; cursor:pointer; aspect-ratio:4/3;}
-    .card img{width:100%; height:100%; object-fit:cover; display:block; border-radius:0}
-
-    /* Lightbox */
-    .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.92); display:none; z-index:60}
-    .lightbox[aria-hidden="false"]{display:grid}
-    .lightbox__inner{display:grid; grid-template-rows:1fr auto; width:100%; height:100%}
-    .lightbox__image-wrap{display:grid; place-items:center; padding:24px}
-    .lightbox__img{max-width:96vw; max-height:86vh; width:auto; height:auto; object-fit:contain}
-    .lightbox__close{position:fixed; top:16px; right:16px; width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,.1); border:1px solid var(--border); display:grid; place-items:center; cursor:pointer}
-    .lightbox__close:hover{background:rgba(255,255,255,.18)}
-
-    footer{border-top:1px solid var(--border); color:var(--muted); padding:24px}
-    footer .row{max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px}
-
-    /* Responsive */
-    @media (max-width: 1200px){
-      .container{ padding-inline:8px; }
+    .aw-item{
+      width:180px;
+      height:180px;
+      cursor:pointer;
     }
-    @media (max-width: 920px){
-      :root{ --header-h:60px; }
-      .hero{ height:72dvh; min-height:420px; padding-top:calc(var(--header-h) + 8px);}
-      .grid{ grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:16px; }
-      .section{ padding:44px 16px; }
+    .aw-item img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:0;
     }
-    @media (max-width: 640px){
-      :root{ --header-h:56px; }
-      .hero{ height:58dvh; min-height:360px; padding-top:calc(var(--header-h) + 6px); }
-      .controls{ bottom:16px; gap:8px; }
-      .dot{ --w:22px; height:5px; }
-      .grid{ grid-template-columns:repeat(2, 1fr); gap:8px; }
-      .lightbox__img{ max-width:96vw; max-height:82vh; }
-      .lightbox__close{ width:48px; height:48px; }
-      .nav{ padding-inline:16px; }
+
+    /* LIGHTBOX — показывает вертикальные фото полностью */
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.92);
+      display:none;
+      z-index:200;
+      align-items:center;
+      justify-content:center;
     }
-    @media (prefers-reduced-motion: reduce){
-      .slide{ transition:none; }
-      .slide img{ animation:none !important; }
+    .lightbox[aria-hidden="false"]{display:flex;}
+
+    .lightbox__inner{
+      max-width:90vw;
+      max-height:90vh;
+    }
+
+    .lightbox__img{
+      width:auto;
+      height:auto;
+      max-width:90vw;
+      max-height:90vh;
+      object-fit:contain;
+      border-radius:0;
+    }
+
+    .lightbox__close{
+      position:absolute;
+      top:20px; right:20px;
+      width:42px; height:42px;
+      border-radius:50%;
+      background:rgba(255,255,255,.2);
+      border:none;
+      color:white;
+      font-size:22px;
+      cursor:pointer;
+    }
+
+    footer{
+      color:var(--muted);
+      text-align:center;
+      padding:20px 0;
+      border-top:1px solid var(--border);
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <nav class="nav" aria-label="Primary">
-      <a class="brand" href="/">NIKITA KOTRELEV</a>
-      <div class="links">
-        <a href="/Video.html">Video</a>
-        <a href="/Projects.html">Projects</a>
-          <a href="/About me.html">About</a>
-      </div>
-    </nav>
-  </header>
 
-  <section class="hero" aria-label="Featured photos">
-    <div class="slides" id="slides">
-      <figure class="slide" aria-hidden="false">
-        <img src="img/Франция 2022 500 евро.jpeg" alt="Brittany coast, France">
-      </figure>
-      <figure class="slide" aria-hidden="true">
-        <img src="img/грузия 2023 500.jpg" loading="lazy" decoding="async" alt="Tbilisi Sea, Georgia">
-      </figure>
-      <figure class="slide" aria-hidden="true">
-        <img src="img/Имя документа hf_29.jpg" loading="lazy" decoding="async" alt="Oléron Island, France">
-      </figure>
-      <figure class="slide" aria-hidden="true">
-        <img src="img/грузия военная дорога 2024IMG_0285 54.jpg" loading="lazy" decoding="async" alt="Military Road, Georgia">
-      </figure>
+<header>
+  <nav class="nav">
+    <a class="brand" href="/">NIKITA KOTRELEV</a>
+    <div class="links">
+      <a href="/Video.html">Video</a>
+      <a href="/Photos.html" aria-current="page">Photos</a>
+      <a href="/Projects.html">Projects</a>
+      <a href="/About me.html">About</a>
     </div>
-    <div class="controls" id="dots" aria-label="Slides navigation"></div>
-    <div class="scrim" aria-hidden="true"></div>
-    <div class="hero-copy"></div>
-  </section>
+  </nav>
+</header>
 
-  <section class="section" id="photos">
-    <div class="container">
-      <div class="grid" id="gallery">
-        <article class="card"><img src="img/FullSizeRender.jpeg" loading="lazy" decoding="async" alt="Photo"></article>
-        <article class="card"><img src="img/IMG_1969.jpeg" loading="lazy" decoding="async" alt="Photo"></article>
-        <article class="card"><img src="img/Kotrelev_Ganr_2.jpeg.jpg" loading="lazy" decoding="async" alt="Photo"></article>
-        <article class="card"><img src="img/Kotrelev_Pejzazh_23.jpeg.jpg" loading="lazy" decoding="async" alt="Photo"></article>
-        <article class="card"><img src="img/Kotrelev_Portret_25. jpeg.jpg" loading="lazy" decoding="async" alt="Photo"></article>
-        <article class="card"><img src="img/IMG_4058.jpeg" loading="lazy" decoding="async" alt="Photo"></article>
-      </div>
-    </div>
-  </section>
+<section>
+  <div id="aw-grid">
 
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
-    <button class="lightbox__close" id="lb-close" aria-label="Close">✕</button>
-    <div class="lightbox__inner">
-      <div class="lightbox__image-wrap">
-        <img id="lb-img" class="lightbox__img" alt="" />
-      </div>
-    </div>
+    <!-- 🔥 ВСЕ ФОТО — ПО ПОРЯДКУ, КАК ТЫ НАПИСАЛ -->
+
+    <div class="aw-item"><img src="img/FullSizeRender.jpeg"></div>
+    <div class="aw-item"><img src="img/Kotrelev_Ganr_2.jpeg.jpg"></div>
+    <div class="aw-item"><img src="img/Kotrelev_Pejzazh_23.jpeg.jpg"></div>
+    <div class="aw-item"><img src="img/Kotrelev_Portret_25. jpeg.jpg"></div>
+    <div class="aw-item"><img src="img/IMG_4058.jpeg"></div>
+    <div class="aw-item"><img src="img/1.png"></div>
+    <div class="aw-item"><img src="img/2.png"></div>
+    <div class="aw-item"><img src="img/3.png"></div>
+    <div class="aw-item"><img src="img/4.png"></div>
+
+    <div class="aw-item"><img src="img/грузия первые дни _5.PNG"></div>
+    <div class="aw-item"><img src="img/грузия первые дни _8.PNG"></div>
+
+    <div class="aw-item"><img src="img/Имя документа hf_26.jpg"></div>
+    <div class="aw-item"><img src="img/Имя документа hf_29.jpg"></div>
+
+    <div class="aw-item"><img src="img/исландия маша.png"></div>
+
+    <div class="aw-item"><img src="img/Франция 2022 500 евро.jpeg"></div>
+    <div class="aw-item"><img src="img/франция 2023 350 евро.JPG"></div>
+    
+    <div class="aw-item"><img src="img/черногория 2024 300 е.JPG"></div>
+
+   
+
+    <div class="aw-item"><img src="img/DSC07474.jpg"></div>
+    <div class="aw-item"><img src="img/DSCF2510.png"></div>
+
+    <div class="aw-item"><img src="img/FullSizeRender (1).jpeg"></div>
+    
+    <div class="aw-item"><img src="img/FullSizeRender_4__1.jpg"></div>
+    <div class="aw-item"><img src="img/FullSizeRender.jpg"></div>
+
+
+    <div class="aw-item"><img src="img/IMG_1097.JPG"></div>
+    <div class="aw-item"><img src="img/IMG_1465.JPG"></div>
+    <div class="aw-item"><img src="img/IMG_1601.JPG"></div>
+    <div class="aw-item"><img src="img/IMG_1889.jpg"></div>
+    <div class="aw-item"><img src="img/IMG_1969.jpeg"></div>
+    <div class="aw-item"><img src="img/IMG_2215.jpeg"></div>
+    <div class="aw-item"><img src="img/IMG_3194.JPG"></div>
+    <div class="aw-item"><img src="img/IMG_4058.jpeg"></div>
+  
+
+    <div class="aw-item"><img src="img/IMG_5192 2.jpg"></div>
+    <div class="aw-item"><img src="img/IMG_5206.jpg"></div>
+
+    <div class="aw-item"><img src="img/IMG_5352.png"></div>
+   
+
+    <div class="aw-item"><img src="img/IMG_5376 4.jpg"></div>
+
+    
+    <div class="aw-item"><img src="img/IMG_6038.jpg"></div>
+
+    <div class="aw-item"><img src="img/IMG_8190.JPG"></div>
+    <div class="aw-item"><img src="img/IMG_8328.jpeg"></div>
+
+    <div class="aw-item"><img src="img/Kotrelev_Ganr_13.jpeg.jpg"></div>
+    <div class="aw-item"><img src="img/Kotrelev_Ganr_14.jpeg.jpg"></div>
+
+    <div class="aw-item"><img src="img/Kotrelev_Pejzazh_23.jpeg.jpg"></div>
+    <div class="aw-item"><img src="img/Kotrelev_Pejzazh_24.jpeg.jpg"></div>
+
+    
+
+    <div class="aw-item"><img src="img/MagnoliaFilmLab287040.PNG"></div>
+    
+
   </div>
+</section>
 
-  <footer>
-    <div class="row">
-      <span>© <span id="year"></span> Nikita Kotrelev</span>
-    </div>
-  </footer>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lb-close">✕</button>
+  <div class="lightbox__inner">
+    <img id="lb-img" class="lightbox__img">
+  </div>
+</div>
+
+<footer>
+  © <span id="year"></span> Nikita Kotrelev
+</footer>
 
 <script>
-  // Footer year
-  document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById("year").textContent = new Date().getFullYear();
 
-  // ===== Carousel (autoplay + dots + swipe) =====
-  const slides = Array.from(document.querySelectorAll('.slide'));
-  const dotsWrap = document.getElementById('dots');
-  const prefersReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let idx = 0, timer = null, AUTOPLAY_MS = 5000, PROG_MS = AUTOPLAY_MS - 200;
+/* LIGHTBOX */
+const gridEl = document.getElementById("aw-grid");
+const lb = document.getElementById("lightbox");
+const lbImg = document.getElementById("lb-img");
+const lbClose = document.getElementById("lb-close");
 
-  slides.forEach((_, i) => {
-    const d = document.createElement('button');
-    d.className = 'dot';
-    d.type = 'button';
-    d.setAttribute('aria-label', 'Go to slide ' + (i+1));
-    d.innerHTML = '<span class="dot__bar" aria-hidden="true"></span>';
-    d.addEventListener('click', () => go(i, true));
-    dotsWrap.appendChild(d);
-  });
-  const dots = Array.from(dotsWrap.children);
+gridEl.addEventListener("click", e=>{
+  const img = e.target.closest("img");
+  if(!img) return;
+  lbImg.src = img.src;
+  lb.setAttribute("aria-hidden","false");
+  document.body.style.overflow = "hidden";
+});
 
-  function setActive(i){
-    slides.forEach((s, k)=> s.setAttribute('aria-hidden', String(k !== i)));
-    dots.forEach((d, k)=>{
-      d.setAttribute('aria-current', String(k === i));
-      const bar = d.querySelector('.dot__bar');
-      if (bar) bar.style.transition = 'none', bar.style.width = '0%';
-      requestAnimationFrame(()=>{
-        if (bar && !pausedByUser) {
-          bar.style.transition = 'width ' + (PROG_MS/1000) + 's linear';
-          bar.style.width = (k === i ? '100%' : '0%');
-        }
-      });
-    });
-  }
-  function go(next, user=false){ idx = (next + slides.length) % slides.length; setActive(idx); if (user) restart(); }
-  function next(){ go(idx+1); }
-  function start(){ if (prefersReduce) return; stop(); timer = setInterval(next, AUTOPLAY_MS); }
-  function stop(){ if (timer) clearInterval(timer), timer=null; }
-  function restart(){ stop(); start(); }
+lbClose.onclick = ()=> closeLB();
+lb.onclick = e=>{ if(e.target === lb) closeLB(); };
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeLB(); });
 
-  document.addEventListener('visibilitychange', ()=> document.hidden ? stop() : start());
-
-  let pausedByUser = false;
-  const hero = document.querySelector('.hero');
-  hero.addEventListener('mouseenter', ()=>{ pausedByUser=true; stop(); }, {passive:true});
-  hero.addEventListener('mouseleave', ()=>{ pausedByUser=false; start(); }, {passive:true});
-  hero.addEventListener('touchstart', ()=>{ pausedByUser=true; stop(); }, {passive:true});
-  hero.addEventListener('touchend', ()=>{ pausedByUser=false; start(); }, {passive:true});
-
-  let x0=null, dragging=false;
-  function onStart(e){ x0 = (e.touches?e.touches[0].clientX:e.clientX); dragging=true; }
-  function onEnd(e){
-    if(!dragging||x0===null) return;
-    const x1 = (e.changedTouches?e.changedTouches[0].clientX:e.clientX);
-    const dx = x1 - x0;
-    if (Math.abs(dx) > 50) go(idx + (dx < 0 ? 1 : -1), true);
-    x0=null; dragging=false;
-  }
-  const slidesEl = document.getElementById('slides');
-  slidesEl.addEventListener('touchstart', onStart, {passive:true});
-  slidesEl.addEventListener('touchend', onEnd, {passive:true});
-  slidesEl.addEventListener('mousedown', onStart);
-  slidesEl.addEventListener('mouseup', onEnd);
-  slidesEl.addEventListener('mouseleave', ()=>{ x0=null; dragging=false; });
-
-  setActive(0); start();
-
-  // ===== Lightbox =====
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lb-img');
-  const lbClose = document.getElementById('lb-close');
-  document.getElementById('gallery').addEventListener('click',e=>{
-    const img=e.target.closest('img');
-    if(!img) return;
-    lbImg.src=img.src;
-    lb.setAttribute('aria-hidden','false');
-    document.body.style.overflow = 'hidden';
-  });
-  lbClose.onclick=()=>{ lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
-  lb.onclick=e=>{ if(e.target===lb){ lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; } };
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; } });
-
-  // ===== Header height auto-fix (for iPhone safe-area) =====
-  (function(){
-    function updateHeaderHeight(){
-      const header = document.querySelector('header');
-      if (!header) return;
-      const h = Math.ceil(header.getBoundingClientRect().height) || 64;
-      document.documentElement.style.setProperty('--header-h', h + 'px');
-      const hero = document.querySelector('.hero');
-      if (hero) {
-        const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-        hero.style.minHeight = Math.max(Math.round(vh - h - 10), 120) + 'px';
-      }
-    }
-    window.addEventListener('load', updateHeaderHeight, {passive:true});
-    window.addEventListener('resize', updateHeaderHeight, {passive:true});
-    window.addEventListener('orientationchange', ()=>setTimeout(updateHeaderHeight,250), {passive:true});
-    if (window.ResizeObserver){
-      const header=document.querySelector('header');
-      if (header){ new ResizeObserver(updateHeaderHeight).observe(header); }
-    }
-  })();
+function closeLB(){
+  lb.setAttribute("aria-hidden","true");
+  document.body.style.overflow = "";
+}
 </script>
+
 </body>
 </html>
