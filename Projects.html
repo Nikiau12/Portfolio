@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects — Nikita Kotrelev</title>
   <meta name="description" content="Selected projects by Nikita Kotrelev — cinematography, installations, experimental rigs." />
-  <link rel="icon" href="img/pag 5.png" type="image/png">
+  <link rel="icon" href="img/pag-5.png" type="image/png">
   <style>
     :root{
       --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428;
@@ -39,10 +39,16 @@
       background:linear-gradient(180deg, rgba(11,11,11,.76), rgba(11,11,11,.3) 60%, rgba(11,11,11,0));
       border-bottom:1px solid var(--border);
     }
-    .nav{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+    .nav{
+      max-width:1200px;margin:0 auto;padding:12px 24px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
     .brand{font-weight:600;letter-spacing:.08em;text-decoration:none;color:var(--fg);}
     .links{display:flex;gap:10px;align-items:center;overflow-x:auto;}
-    .links a{color:var(--fg);text-decoration:none;opacity:.9;padding:8px 12px;border-radius:999px;white-space:nowrap;font-size:14px;}
+    .links a{
+      color:var(--fg);text-decoration:none;opacity:.9;
+      padding:8px 12px;border-radius:999px;white-space:nowrap;font-size:14px;
+    }
     .links a:hover{opacity:1;background:rgba(255,255,255,.04);}
     .links a[aria-current="page"]{background:rgba(255,255,255,.06);}
 
@@ -71,11 +77,16 @@
       max-width:1320px;
       margin:0 auto 64px;
       padding:0 24px;
+
       display:grid;
       gap:20px;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+      /* ✅ РОВНО 3 В РЯД НА ДЕСКТОПЕ */
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+
       align-items:start;
     }
+
     .card{
       background:var(--card);
       border:1px solid var(--border);
@@ -106,7 +117,6 @@
       overflow:hidden;
     }
 
-    /* gradient hover background under title */
     .card__meta::before{
       content:"";
       position:absolute;
@@ -118,7 +128,15 @@
     }
     .card:hover .card__meta::before{opacity:1;}
 
-    .card a{color:var(--fg);text-decoration:none;display:block;height:100%;position:relative;z-index:1;}
+    .card a{
+      color:var(--fg);
+      text-decoration:none;
+      display:block;
+      height:100%;
+      position:relative;
+      z-index:1;
+    }
+
     .card__title{font-size:16px;font-weight:600;margin:0;color:var(--fg);}
     .card__year{color:var(--muted);font-size:13px;white-space:nowrap;}
 
@@ -127,18 +145,24 @@
     footer .row{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 24px;}
 
     /* ===== Responsive ===== */
-    @media(max-width:920px){
+    @media(max-width:1100px){
       :root{--header-h:60px;}
-      .projects{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+      /* ✅ на планшетах 2 в ряд */
+      .projects{grid-template-columns:repeat(2, minmax(0, 1fr));gap:16px;}
     }
     @media(max-width:640px){
       :root{--header-h:56px;}
       .page-hero{padding-top:calc(var(--header-h) + 60px);}
-      .projects{grid-template-columns:repeat(2,1fr);gap:10px;padding:0 12px;}
+      .projects{grid-template-columns:repeat(2, minmax(0, 1fr));gap:10px;padding:0 12px;}
       .nav{padding:10px 12px;}
+    }
+    @media(max-width:420px){
+      /* ✅ на очень маленьких экранах 1 в ряд (чтобы карточки не давились) */
+      .projects{grid-template-columns:1fr;}
     }
   </style>
 </head>
+
 <body>
   <header>
     <nav class="nav" aria-label="Primary">
@@ -155,15 +179,16 @@
     <h2>Projects</h2>
   </div>
 
+  <!-- ✅ Один контейнер projects. Порядок = порядок в коде -->
   <section class="projects" aria-label="Projects list">
+
     <article class="card">
       <a href="project2024_robotdog.html">
         <div class="card__thumb">
-          <img src="img/FullSizeRender_1_.jpg" alt="Paris — project thumbnail" loading="lazy" decoding="async">
+          <img src="img/FullSizeRender_1_.jpg" alt="France — project thumbnail" loading="lazy" decoding="async">
         </div>
         <div class="card__meta">
           <h3 class="card__title">France</h3>
-          
         </div>
       </a>
     </article>
@@ -175,7 +200,17 @@
         </div>
         <div class="card__meta">
           <h3 class="card__title">Island 2025</h3>
-        
+        </div>
+      </a>
+    </article>
+
+    <article class="card">
+      <a href="Morocco.html">
+        <div class="card__thumb">
+          <img src="img/marocco 11.png" alt="Morocco — project thumbnail" loading="lazy" decoding="async">
+        </div>
+        <div class="card__meta">
+          <h3 class="card__title">Morocco</h3>
         </div>
       </a>
     </article>
@@ -187,10 +222,13 @@
         </div>
         <div class="card__meta">
           <h3 class="card__title">Fashion</h3>
-          
         </div>
       </a>
     </article>
+
+    <!-- 👇 сюда просто добавляй новые проекты ниже —
+         они будут идти в том порядке, как ты вставил в HTML -->
+
   </section>
 
   <footer>
