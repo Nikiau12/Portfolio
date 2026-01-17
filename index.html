@@ -15,6 +15,7 @@
       --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428; --accent:#3d40f9;
       --radius:16px; --space:24px; --safe-top:max(env(safe-area-inset-top),0px); --safe-bot:max(env(safe-area-inset-bottom),0px);
     }
+
     @font-face {
       font-family: 'Afacad Flux';
       src: local('Afacad Flux Regular'),
@@ -22,6 +23,7 @@
            url('fonts/AfacadFlux-Regular.woff') format('woff');
       font-weight: 400; font-style: normal; font-display: swap;
     }
+
     html, body { height: 100%; }
     html { color-scheme: dark; }
     body {
@@ -50,9 +52,6 @@
       position: absolute; inset: 0; width: 100%; height: 100%;
       object-fit: cover;
     }
-    @media (max-width: 640px){
-      .hero video { object-position: 50% 40%; }
-    }
 
     .scrim {
       position: absolute; inset: 0;
@@ -65,30 +64,76 @@
       position: absolute; inset: 0; z-index: 1;
       display: grid; grid-template-rows: auto 1fr;
       padding-top: var(--safe-top);
+      padding-bottom: var(--safe-bot);
+      min-height: 100%;
+      box-sizing: border-box;
     }
+
     .nav {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 24px; max-width: 1200px; margin: 0 auto; gap: 16px;
+      padding: 16px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 16px;
+      width: 100%;
+      box-sizing: border-box;
     }
-    .brand { font-weight: 600; letter-spacing: .08em; text-decoration: none; color: var(--fg); white-space:nowrap; }
-    .links { display: flex; gap: 8px; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; }
+    .brand {
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-decoration: none;
+      color: var(--fg);
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+    .links {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      scrollbar-width: none;
+      max-width: 100%;
+    }
     .links::-webkit-scrollbar { display: none; }
-    .nav a { color: var(--fg); text-decoration: none; opacity: .85; padding: 10px 12px; border-radius: 999px; white-space: nowrap; }
+    .nav a {
+      color: var(--fg);
+      text-decoration: none;
+      opacity: .85;
+      padding: 10px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
     .nav a:hover { opacity: 1; background: rgba(255,255,255,.06); }
 
-    @media (max-width: 640px){
-      .nav { padding: 12px 16px; }
-      .nav a { padding: 12px 14px; font-size: 15px; }
-    }
-
     .hero-copy {
-      display: grid; place-items: end start;
-      padding: 24px; max-width: 1200px; margin: 0 auto;
+      display: grid;
+      place-items: end start;
+      padding: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+      padding-bottom: calc(24px + var(--safe-bot));
       will-change: transform, opacity;
     }
-    .hero h1 { font-size: clamp(36px, 7vw, 80px); line-height: .95; margin: 0 0 12px; }
-    .hero p  { font-size: clamp(15px, 2.5vw, 20px); color: var(--muted); margin: 0 0 18px; }
-    @media (max-width: 640px){ .hero-copy { padding: 16px; } }
+    .hero h1 {
+      font-size: clamp(36px, 7vw, 80px);
+      line-height: .98;
+      margin: 0 0 12px;
+      max-width: 22ch;
+    }
+    .hero p  {
+      font-size: clamp(15px, 2.5vw, 20px);
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.4;
+      max-width: 60ch;
+    }
 
     /* ===== Sections ===== */
     .section { padding: 56px 24px; }
@@ -205,6 +250,73 @@
     }
 
     /* =========================================================
+       ✅ MOBILE: make everything readable, no cropping
+       ========================================================= */
+    @media (max-width: 640px){
+      /* hero becomes flexible height */
+      .hero{
+        height: auto;
+        min-height: 100svh;
+        overflow: hidden;
+      }
+
+      /* header not absolute on mobile (prevents cropping) */
+      header{
+        position: relative;
+        inset: auto;
+        min-height: 100svh;
+        padding-bottom: calc(20px + var(--safe-bot));
+      }
+
+      /* nav stacks: brand top, buttons below */
+      .nav{
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 12px 12px;
+        gap: 10px;
+      }
+
+      /* links wrap, no horizontal cutting */
+      .links{
+        width: 100%;
+        flex-wrap: wrap;
+        overflow: visible;
+        justify-content: flex-start;
+      }
+
+      .nav a{
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+      .brand{
+        font-size: 14px;
+      }
+
+      /* hero copy smaller and always visible */
+      .hero-copy{
+        padding: 14px 12px 0;
+        place-items: end start;
+      }
+      .hero h1{
+        font-size: 34px;
+        line-height: 1.05;
+        margin: 0 0 10px;
+        max-width: 22ch;
+      }
+      .hero p{
+        font-size: 14px;
+        line-height: 1.38;
+        margin: 0;
+        max-width: 46ch;
+      }
+
+      .hero video{
+        object-position: 50% 28%;
+      }
+    }
+
+    /* =========================================================
        ===== Updates Lightbox (text + photos) =====
        ========================================================= */
     .u-lb{
@@ -259,7 +371,6 @@
       line-height:1.2;
     }
 
-    /* ✅ NEW: Action button */
     .u-lb__action{
       appearance:none;
       border:1px solid rgba(255,255,255,.14);
@@ -332,7 +443,6 @@
       .u-lb__h{font-size:18px;}
     }
 
-    /* optional: zoom inside the same lightbox */
     .u-lb__zoom{
       position:fixed;
       inset:0;
@@ -371,7 +481,7 @@
           <a href="/Photos.html">Photos</a>
           <a href="/Projects.html">Projects</a>
           <a href="/About me.html">About</a>
-          <a href="Store.html" >Store</a>
+          <a href="Store.html" aria-current="page">Store</a>
         </div>
       </nav>
 
@@ -390,18 +500,15 @@
       <h2>Updates</h2>
       <p class="lead">Exhibitions, nominations, releases, and announcements.</p>
 
-      <!-- ✅ оставили только одну вкладку -->
       <div class="tabs-head" role="tablist" aria-label="Updates tabs">
         <button class="tabbtn" role="tab" id="tab-exh" aria-controls="panel-exh" aria-selected="true" type="button">
           Exhibitions
         </button>
       </div>
 
-      <!-- ✅ оставили только одну панель -->
       <div id="panel-exh" class="tabpanel" role="tabpanel" aria-labelledby="tab-exh" aria-hidden="false">
         <div class="news-grid" id="news-exh"></div>
       </div>
-
     </div>
   </section>
 
@@ -415,7 +522,6 @@
             <h3 class="u-lb__h" id="uLbTitle"></h3>
           </div>
 
-          <!-- ✅ NEW: Action button + Close -->
           <div style="display:flex; gap:10px; align-items:center;">
             <a class="u-lb__action" id="uLbAction" href="#" target="_self" rel="noopener" hidden>Open</a>
             <button class="u-lb__close" id="uLbClose" type="button" aria-label="Close">✕ Close</button>
@@ -472,7 +578,7 @@
     const UPDATES = [
       {
         id: "site-store-launch",
-        type: "exhibition", // важно: иначе не покажется из-за filter(...)
+        type: "exhibition",
         title: "Store is live — prints available",
         date: "Jan 2026",
         location: "Online",
@@ -486,7 +592,6 @@
         text: "My store is now live on the website — you can browse and buy my prints directly. Open Store in the menu to explore the collection.",
         action: { label: "Open Store", href: "Store.html", target: "_self" }
       },
-
       {
         id: "exh-city-rhythm",
         type: "exhibition",
@@ -512,10 +617,9 @@
     ];
 
     // =========================================================
-    // Generate Updates HTML (теперь только Exhibitions)
+    // Generate Updates HTML
     // =========================================================
     const GRID_EXH = document.getElementById('news-exh');
-
     const TYPE_LABEL = { exhibition: "Exhibition", nomination: "Nomination", release: "Release" };
 
     function escapeHtml(s){
@@ -560,7 +664,6 @@
           GRID_EXH.insertAdjacentHTML('beforeend', cardHTML(u));
         });
 
-      // reveal animation for generated cards
       document.querySelectorAll('.news-card').forEach((el)=>{
         el.style.opacity = 0;
         el.style.transform = 'translateY(12px)';
@@ -579,8 +682,6 @@
     const uLbKicker = document.getElementById('uLbKicker');
     const uLbText = document.getElementById('uLbText');
     const uLbGallery = document.getElementById('uLbGallery');
-
-    // ✅ NEW: action button ref
     const uLbAction = document.getElementById('uLbAction');
 
     const uZoom = document.getElementById('uZoom');
@@ -605,7 +706,6 @@
         return `<img src="${escapeHtml(src)}" alt="${escapeHtml(item.title)} — photo ${idx+1}" data-zoom-src="${escapeHtml(src)}" loading="lazy" decoding="async">`;
       }).join("");
 
-      // ✅ NEW: action button logic (only if item.action exists)
       if (uLbAction){
         if (item.action && item.action.href){
           uLbAction.hidden = false;
@@ -633,7 +733,6 @@
       uLbText.textContent = "";
       uLbKicker.innerHTML = "";
 
-      // ✅ NEW: reset action button
       if (uLbAction){
         uLbAction.hidden = true;
         uLbAction.textContent = "Open";
@@ -682,7 +781,6 @@
     uLbClose.addEventListener('click', closeUpdate);
     uLb.addEventListener('click', (e)=>{ if(e.target === uLb) closeUpdate(); });
 
-    // Click on zoom overlay to close
     uZoom.addEventListener('click', closeZoom);
     uZoomImg.addEventListener('click', closeZoom);
 
