@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Store — Nikita Kotrelev</title>
+  <meta name="description" content="Fine-art prints by Nikita Kotrelev. Ships worldwide." />
+  <link rel="icon" href="img/pag 5.png" type="image/png">
+
+  <style>
+    :root{
+      --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428; --accent:#3d40f9;
+      --radius:16px; --space:24px; --safe-top:max(env(safe-area-inset-top),0px); --header-h:64px;
+    }
+    @font-face{
+      font-family:'Afacad Flux';
+      src: local('Afacad Flux Regular'),
+           url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
+           url('fonts/AfacadFlux-Regular.woff') format('woff');
+      font-weight:400; font-style:normal; font-display:swap;
+    }
+    html,body{height:100%}
+    html{color-scheme:dark}
+    body{
+      margin:0;
+      font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
+      background:var(--bg); color:var(--fg);
+      min-height:100dvh; display:grid; grid-template-rows:auto 1fr auto;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    /* ===== Header ===== */
+    header{
+      position:fixed; top:0; left:0; right:0; z-index:60;
+      padding-top:var(--safe-top); height:var(--header-h);
+      backdrop-filter:saturate(180%) blur(8px);
+      background:linear-gradient(180deg, rgba(11,11,11,.76), rgba(11,11,11,.3) 60%, rgba(11,11,11,0));
+      border-bottom:1px solid var(--border);
+      box-sizing:border-box;
+    }
+    .nav{
+      max-width:1200px; margin:0 auto; padding:12px 24px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .brand{font-weight:600; letter-spacing:.08em; text-decoration:none; color:var(--fg); white-space:nowrap;}
+    .links{display:flex; gap:10px; align-items:center; overflow-x:auto; scrollbar-width:none;}
+    .links::-webkit-scrollbar{display:none}
+    .links a{
+      color:var(--fg); text-decoration:none; opacity:.9;
+      padding:8px 12px; border-radius:999px; white-space:nowrap; font-size:14px;
+    }
+    .links a:hover{opacity:1;background:rgba(255,255,255,.04)}
+    .links a[aria-current="page"]{background:rgba(255,255,255,.06)}
+
+    /* ===== Hero ===== */
+    .page-hero{
+      padding-top:calc(var(--header-h) + 80px);
+      padding-bottom:18px;
+      text-align:center;
+      max-width:900px;
+      margin:0 auto;
+      padding-inline:24px;
+    }
+    .page-hero h1{
+      font-size:clamp(32px,5vw,60px);
+      margin:0 0 10px;
+      line-height:1.1;
+    }
+    .page-hero p{
+      color:var(--muted);
+      font-size:clamp(14px,2vw,18px);
+      margin:0;
+    }
+
+    /* ===== Info bar ===== */
+    .info{
+      max-width:1200px;
+      margin:0 auto 22px;
+      padding:0 24px;
+      display:grid;
+      gap:10px;
+    }
+    .pillrow{
+      display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+    }
+    .pill{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      padding:10px 12px;
+      border-radius:999px;
+      font-size:14px;
+      line-height:1;
+    }
+
+    /* ===== Store grid ===== */
+    .store{
+      max-width:1320px;
+      margin:0 auto 64px;
+      padding:0 24px;
+      display:grid;
+      gap:18px;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      align-items:start;
+    }
+
+    .product{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:5px;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+    }
+    .product:hover{
+      transform:translateY(-6px);
+      box-shadow:0 14px 40px rgba(0,0,0,.6);
+      border-color:rgba(255,255,255,.06);
+    }
+
+    .thumb{
+      width:100%;
+      aspect-ratio:4/3;
+      overflow:hidden;
+      background:#000;
+      cursor:pointer;
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:transform .6s ease;
+    }
+    .product:hover .thumb img{transform:scale(1.05)}
+
+    .content{
+      padding:14px 16px 16px;
+      display:grid;
+      gap:12px;
+    }
+    .titleline{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+    }
+    .title{
+      margin:0;
+      font-size:16px;
+      font-weight:600;
+      line-height:1.15;
+    }
+    .sku{
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+      margin-top:2px;
+    }
+    .desc{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.55;
+      margin:0;
+    }
+
+    .options{
+      display:grid;
+      gap:10px;
+      border-top:1px solid rgba(36,36,40,.65);
+      padding-top:12px;
+    }
+
+    .buyrow{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    }
+    .price{
+      font-size:16px;
+      font-weight:600;
+      letter-spacing:.01em;
+    }
+    .price small{
+      display:block;
+      font-size:13px;
+      font-weight:400;
+      color:var(--muted);
+      margin-top:2px;
+    }
+    .buy{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.14);
+      background:var(--fg);
+      color:#0a0a0a;
+      border-radius:999px;
+      padding:12px 14px;
+      font-weight:600;
+      cursor:pointer;
+      transition:transform .15s ease, opacity .15s ease;
+      white-space:nowrap;
+    }
+    .buy:hover{transform:translateY(-1px)}
+    .buy:disabled{
+      opacity:.55;
+      cursor:pointer;
+      transform:none;
+    }
+
+    /* ===== Lightbox ===== */
+    .lightbox{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.92);
+      display:none; z-index:80;
+    }
+    .lightbox[aria-hidden="false"]{display:grid}
+    .lightbox__inner{display:grid; grid-template-rows:1fr auto; width:100%; height:100%;}
+    .lightbox__image-wrap{display:grid; place-items:center; padding:24px;}
+    .lightbox__img{max-width:96vw; max-height:86vh; width:auto; height:auto; object-fit:contain;}
+    .lightbox__caption{
+      padding:12px 24px 24px;
+      display:flex; gap:16px; align-items:center; justify-content:space-between;
+      color:var(--muted);
+    }
+    .lightbox__caption strong{color:var(--fg); font-weight:600}
+    .lightbox__close{
+      position:fixed; top:16px; right:16px;
+      width:48px; height:48px;
+      border-radius:50%;
+      background:rgba(255,255,255,.1);
+      border:1px solid var(--border);
+      display:grid; place-items:center;
+      cursor:pointer;
+      color:var(--fg);
+      font-size:20px;
+    }
+    .lightbox__close:hover{background:rgba(255,255,255,.18)}
+
+    /* ===== Footer ===== */
+    footer{border-top:1px solid var(--border); color:var(--muted); padding:24px;}
+    footer .row{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 24px;}
+
+    /* ===== Responsive ===== */
+    @media(max-width:1100px){
+      .store{grid-template-columns:repeat(2, minmax(0,1fr));}
+    }
+    @media(max-width:640px){
+      :root{--header-h:56px;}
+      .nav{padding:10px 12px;}
+      .page-hero{padding-top:calc(var(--header-h) + 60px); padding-inline:12px;}
+      .info{padding:0 12px;}
+      .store{grid-template-columns:1fr; padding:0 12px; gap:12px;}
+      .lightbox__img{max-height:82vh}
+      .lightbox__close{width:54px;height:54px}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">NIKITA KOTRELEV</a>
+      <div class="links" role="navigation" aria-label="Primary links">
+        <a href="Video.html">Video</a>
+        <a href="Photos.html">Photos</a>
+        <a href="Projects.html">Projects</a>
+        <a href="About me.html">About</a>
+        <a href="Store.html" aria-current="page">Store</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <h1>Store</h1>
+    <p>Fine-art prints — printed by me, signed & numbered. Worldwide shipping.</p>
+  </div>
+
+  
+
+  <!-- ===== PRODUCTS ===== -->
+  <section class="store" id="store" aria-label="Store products">
+
+    <!-- PRODUCT 1 -->
+    <article class="product" data-product="brittany">
+      <div class="thumb" data-lightbox="img/HrGgGNYNVDo (1).png" data-caption="France, Brittany">
+        <img src="img/HrGgGNYNVDo (1).png" alt="France, Brittany print" loading="lazy" decoding="async">
+      </div>
+
+      <div class="content">
+        <div class="titleline">
+          <h3 class="title">France, Brittany</h3>
+          <div class="sku"></div>
+        </div>
+        
+
+        <div class="options">
+          <div class="buyrow">
+            <div class="price" data-price>
+              €— <small>With thick, reinforced, acid-free white cardboard mat, 30 x 40 cm. The mat has an inner window with beveled edges to beautifully display your 36 × 26 cm print.</small>
+            </div>
+            <button class="buy" type="button" data-buy>Buy</button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- PRODUCT 2 -->
+    <article class="product" data-product="oleron">
+      <div class="thumb" data-lightbox="img/Копия HrGgGNYNVDo (1).png" data-caption="Oléron Island">
+        <img src="img/Копия HrGgGNYNVDo (1).png" alt="Oléron Island print" loading="lazy" decoding="async">
+      </div>
+
+      <div class="content">
+        <div class="titleline">
+          <h3 class="title">Oléron, Island</h3>
+          <div class="sku"></div>
+        </div>
+        <p class="desc"></p>
+
+        <div class="options">
+          <div class="buyrow">
+            <div class="price" data-price>
+              €— <small>
+With thick, reinforced, acid-free white cardboard mat, 30 x 40 cm. The mat has an inner window with beveled edges to beautifully display your 36 × 26 cm print.</small>
+            </div>
+            <button class="buy" type="button" data-buy>Buy</button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- PRODUCT 3 -->
+    <article class="product" data-product="Morocco">
+      <div class="thumb" data-lightbox="img/HrGgGNYNVDo (3).png" data-caption="Morocco, Road">
+        <img src="img/HrGgGNYNVDo (3).png" alt="Morocco, Road print" loading="lazy" decoding="async">
+      </div>
+
+      <div class="content">
+        <div class="titleline">
+          <h3 class="title">Morocco, Road </h3>
+          <div class="sku"></div>
+        </div>
+        <p class="desc"></p>
+
+        <div class="options">
+          <div class="buyrow">
+            <div class="price" data-price>
+              €— <small>With thick, reinforced, acid-free white cardboard mat, 30 x 40 cm. The mat has an inner window with beveled edges to beautifully display your 36 × 26 cm print.</small>
+            </div>
+            <button class="buy" type="button" data-buy>Buy</button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+
+  </section>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="lightbox__close" id="lb-close" aria-label="Close">✕</button>
+    <div class="lightbox__inner">
+      <div class="lightbox__image-wrap">
+        <img id="lb-img" class="lightbox__img" alt="">
+      </div>
+      <div class="lightbox__caption">
+        <span><strong id="lb-cap"></strong></span>
+        <span>Preview</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="row">
+      <span>© <span id="year"></span> Nikita Kotrelev</span>
+      <span>Payments powered by Stripe</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /**
+     * ВАЖНО:
+     * Вставь сюда реальные Stripe Payment Links (https://buy.stripe.com/...)
+     * Можно (по желанию) указать price, чтобы показывать цену на карточке.
+     */
+    const PAYMENT_LINKS = {
+      brittany: { price: 400, url: "https://buy.stripe.com/eVq4gsdvmcNfegR6ACasg01" },
+      oleron:   { price: 500, url: "https://buy.stripe.com/dRm3co76Y7sV3Cd1giasg03" },
+      Morocco:  { price: 500, url: "https://buy.stripe.com/aFabIUezq8wZegRaQSasg04" },
+    };
+
+    function euro(n){
+      if (typeof n !== "number") return "€—";
+      return "€" + n.toFixed(0);
+    }
+
+    // ===== Buy buttons + price UI (one size) =====
+    document.querySelectorAll('.product').forEach((card)=>{
+      const productId = card.dataset.product;
+      const data = PAYMENT_LINKS?.[productId];
+      const priceEl = card.querySelector('[data-price]');
+      const buyBtn = card.querySelector('[data-buy]');
+
+      if (priceEl){
+        // keep the small text, replace the main number part
+        priceEl.childNodes[0].nodeValue = (data?.price ? euro(data.price) : "€—") + " ";
+      }
+
+      if (buyBtn){
+        buyBtn.disabled = !data?.url || String(data.url).includes("PASTE_YOUR");
+        buyBtn.dataset.url = data?.url || "";
+      }
+
+      buyBtn?.addEventListener('click', ()=>{
+        const url = buyBtn.dataset.url;
+        if (!url) return;
+        window.location.href = url;
+      });
+    });
+
+    // ===== Lightbox preview =====
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbCap = document.getElementById('lb-cap');
+    const lbClose = document.getElementById('lb-close');
+
+    function openLb(src, cap){
+      lbImg.src = src;
+      lbImg.alt = cap || "Preview";
+      lbCap.textContent = cap || "";
+      lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    }
+    function closeLb(){
+      lb.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('click', (e)=>{
+      const t = e.target.closest('.thumb');
+      if(!t) return;
+      openLb(t.dataset.lightbox, t.dataset.caption || "");
+    });
+
+    lbClose.addEventListener('click', closeLb);
+    lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLb(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLb(); });
+  </script>
+</body>
+</html>
