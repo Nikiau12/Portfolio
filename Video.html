@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Video — Nikita Kotrelev</title>
   <meta name="description" content="Showreel by Nikita Kotrelev — cinematographer & photographer." />
   <meta name="theme-color" content="#0b0b0b" />
@@ -12,7 +12,7 @@
     :root{
       --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa;
       --card:#111113; --border:#242428; --accent:#3d40f9;
-      --radius:16px; --safe-top:max(env(safe-area-inset-top),0px);
+      --radius:16px; --safe-top:max(env(safe-area-inset-top),0px); --safe-bot:max(env(safe-area-inset-bottom),0px);
     }
     @font-face{
       font-family:'Afacad Flux';
@@ -39,12 +39,23 @@
     .nav{
       display:flex; align-items:center; justify-content:space-between; gap:16px;
       max-width:1200px; margin:0 auto; padding:16px 24px;
+      width:100%;
+      box-sizing:border-box;
     }
-    .brand{ font-weight:600; letter-spacing:.08em; text-decoration:none; color:var(--fg); }
-    .links{ display:flex; gap:8px; overflow-x:auto; overscroll-behavior-inline:contain; scrollbar-width:none; }
+    .brand{
+      font-weight:600; letter-spacing:.08em; text-decoration:none; color:var(--fg);
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
+    .links{
+      display:flex; gap:8px; overflow-x:auto; overscroll-behavior-inline:contain; scrollbar-width:none;
+      max-width:100%;
+    }
     .links::-webkit-scrollbar{ display:none; }
     .links a{
-      color:var(--fg); text-decoration:none; opacity:.85; padding:10px 12px; border-radius:999px; white-space:nowrap;
+      color:var(--fg); text-decoration:none; opacity:.85;
+      padding:10px 12px; border-radius:999px; white-space:nowrap;
+      flex:0 0 auto;
     }
     .links a:hover{ opacity:1; background:rgba(255,255,255,.06); }
     .links a[aria-current="page"]{ background:rgba(255,255,255,.08); }
@@ -63,6 +74,7 @@
     footer{ border-top:1px solid var(--border); color:var(--muted); padding:24px; }
     footer .row{
       max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px;
+      flex-wrap:wrap;
     }
 
     /* ===== responsive polish ===== */
@@ -70,11 +82,33 @@
       .nav{ padding-inline:16px; }
       .wrap{ padding:16px; }
     }
+
+    /* ✅ MOBILE: menu always visible + wraps, no cropping */
     @media (max-width: 640px){
+      .nav{
+        flex-direction:column;
+        align-items:flex-start;
+        justify-content:flex-start;
+        padding:12px 12px;
+        gap:10px;
+      }
+      .links{
+        width:100%;
+        flex-wrap:wrap;
+        overflow:visible;     /* важно: не режем ссылки */
+      }
+      .links a{
+        padding:10px 12px;
+        font-size:14px;
+      }
+      .brand{ font-size:14px; }
+
+      .wrap{ padding:14px 12px; }
       .player{ margin: 16px auto 32px; border-radius:12px; }
-      .links a{ padding:10px 12px; }
-      footer{ padding:20px 16px; }
+
+      footer{ padding:20px 12px; }
     }
+
     @media (prefers-reduced-motion: reduce){
       .links a:hover{ background:none; }
     }
@@ -85,11 +119,10 @@
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="index.html">NIKITA KOTRELEV</a>
       <div class="links">
-        
-          <a href="/Photos.html">Photos</a>
-        <a href="/Projects.html">Projects</a>
-          <a href="/About me.html">About</a>
-        <a href="Store.html" aria-current="page">Store</a>
+        <a href="Video.html" aria-current="page">Video</a>
+        <a href="Photos.html">Photos</a>
+        <a href="Projects.html">Projects</a>
+        <a href="About me.html">About</a>
       </div>
     </nav>
   </header>
@@ -98,7 +131,6 @@
     <div class="container">
       <div class="player" role="region" aria-label="Showreel player">
         <div class="ratio">
-          <!-- autoplay отключится для пользователей с reduced motion -->
           <iframe
             id="yt"
             src="https://www.youtube.com/embed/Ht9TyFItu58?autoplay=1&mute=1&playsinline=1"
@@ -116,7 +148,7 @@
   <footer>
     <div class="row">
       <span>© <span id="year"></span> Nikita Kotrelev</span>
-     
+      <span>Instagram · Vimeo · Email</span>
     </div>
   </footer>
 
