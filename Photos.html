@@ -2,36 +2,40 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Nikita Kotrelev — Photos</title>
-  <link rel="icon" href="img/pag 5.png" type="image/png">
-
+<link rel="icon" href="img/pag 5.png" type="image/png">
   <style>
     :root{
       --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --border:#242428;
       --safe-top:max(env(safe-area-inset-top),0px);
-      --header-h:64px;
+      --safe-bot:max(env(safe-area-inset-bottom),0px);
+      --header-h:64px; /* будет перезаписано JS на реальную высоту */
     }
 
     @font-face{
       font-family:'Afacad Flux';
       src:url('fonts/AfacadFlux-Regular.woff2') format('woff2');
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
     }
 
+    html,body{height:100%}
     body{
       margin:0;
       background:var(--bg);
       color:var(--fg);
-      font-family:'Afacad Flux',sans-serif;
-      min-height:100vh;
+      font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
+      min-height:100dvh;
       display:grid;
       grid-template-rows:auto 1fr auto;
+      -webkit-tap-highlight-color: transparent;
     }
 
     /* HEADER */
     header{
       position:fixed; top:0; left:0; right:0;
-      height:var(--header-h);
       padding-top:var(--safe-top);
       backdrop-filter:blur(8px);
       background:rgba(10,10,10,.65);
@@ -45,31 +49,49 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
+      gap:12px;
+      box-sizing:border-box;
     }
     .brand{
       color:var(--fg);
       text-decoration:none;
       font-weight:600;
       letter-spacing:.08em;
+      white-space:nowrap;
+      flex:0 0 auto;
     }
-    .links{display:flex; gap:10px;}
+    .links{
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+      overscroll-behavior-inline: contain;
+      scrollbar-width:none;
+      max-width:100%;
+    }
+    .links::-webkit-scrollbar{ display:none; }
     .links a{
       color:var(--fg);
       text-decoration:none;
       padding:8px 12px;
       opacity:.85;
-      border-radius:8px;
+      border-radius:999px;
+      white-space:nowrap;
+      flex:0 0 auto;
     }
     .links a:hover{
       opacity:1;
       background:rgba(255,255,255,.1);
     }
+    .links a[aria-current="page"]{
+      background:rgba(255,255,255,.12);
+      opacity:1;
+    }
 
     /* CLEAN CENTERED GRID — ORDER EXACTLY AS IN HTML */
     #aw-grid{
-      padding-top:120px;
-      width:90%;
-      max-width:1500px;
+      padding-top: calc(var(--header-h) + 24px);
+      padding-bottom: calc(24px + var(--safe-bot));
+      width:min(1500px, 92%);
       margin:0 auto;
       display:grid;
       grid-template-columns:repeat(auto-fill, 180px);
@@ -87,6 +109,7 @@
       height:100%;
       object-fit:cover;
       border-radius:0;
+      display:block;
     }
 
     /* LIGHTBOX — показывает вертикальные фото полностью */
@@ -98,6 +121,8 @@
       z-index:200;
       align-items:center;
       justify-content:center;
+      padding: calc(16px + var(--safe-top)) 16px calc(16px + var(--safe-bot));
+      box-sizing:border-box;
     }
     .lightbox[aria-hidden="false"]{display:flex;}
 
@@ -113,11 +138,13 @@
       max-height:90vh;
       object-fit:contain;
       border-radius:0;
+      display:block;
     }
 
     .lightbox__close{
       position:absolute;
-      top:20px; right:20px;
+      top: calc(14px + var(--safe-top));
+      right:14px;
       width:42px; height:42px;
       border-radius:50%;
       background:rgba(255,255,255,.2);
@@ -125,6 +152,8 @@
       color:white;
       font-size:22px;
       cursor:pointer;
+      display:grid;
+      place-items:center;
     }
 
     footer{
@@ -133,19 +162,59 @@
       padding:20px 0;
       border-top:1px solid var(--border);
     }
+
+    /* =========================
+       MOBILE: menu + grid
+       ========================= */
+    @media (max-width: 640px){
+      .nav{
+        padding:12px 12px;
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .brand{ font-size:14px; }
+      .links{
+        width:100%;
+        flex-wrap:wrap;   /* главное: перенос */
+        overflow:visible; /* главное: не уезжает */
+        gap:8px;
+      }
+      .links a{
+        padding:10px 12px;
+        font-size:14px;
+      }
+
+      #aw-grid{
+        width: calc(100% - 24px);
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap:12px;
+        justify-content:stretch;
+      }
+      .aw-item{
+        width:100%;
+        height:auto;
+        aspect-ratio:1/1;
+      }
+    }
+
+    @media (max-width: 380px){
+      #aw-grid{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
   </style>
 </head>
 
 <body>
 
-<header>
+<header id="siteHeader">
   <nav class="nav">
     <a class="brand" href="/">NIKITA KOTRELEV</a>
     <div class="links">
       <a href="/Video.html">Video</a>
+      <a href="/Photos.html" aria-current="page">Photos</a>
       <a href="/Projects.html">Projects</a>
       <a href="/About me.html">About</a>
-      <a href="Store.html" aria-current="page">Store</a>
     </div>
   </nav>
 </header>
@@ -153,85 +222,74 @@
 <section>
   <div id="aw-grid">
 
-    <!-- 🔥 ВСЕ ФОТО — ПО ПОРЯДКУ, КАК ТЫ НАПИСАЛ -->
+    <div class="aw-item"><img src="img/FullSizeRender.jpeg" alt=""></div>
+    <div class="aw-item"><img src="img/Kotrelev_Ganr_2.jpeg.jpg" alt=""></div>
+    <div class="aw-item"><img src="img/Kotrelev_Pejzazh_23.jpeg.jpg" alt=""></div>
+    <div class="aw-item"><img src="img/Kotrelev_Portret_25. jpeg.jpg" alt=""></div>
+    <div class="aw-item"><img src="img/IMG_4058.jpeg" alt=""></div>
+    <div class="aw-item"><img src="img/1.png" alt=""></div>
+    <div class="aw-item"><img src="img/2.png" alt=""></div>
+    <div class="aw-item"><img src="img/3.png" alt=""></div>
+    <div class="aw-item"><img src="img/4.png" alt=""></div>
 
-    <div class="aw-item"><img src="img/FullSizeRender.jpeg"></div>
-    <div class="aw-item"><img src="img/Kotrelev_Ganr_2.jpeg.jpg"></div>
-    <div class="aw-item"><img src="img/Kotrelev_Pejzazh_23.jpeg.jpg"></div>
-    <div class="aw-item"><img src="img/Kotrelev_Portret_25. jpeg.jpg"></div>
-    <div class="aw-item"><img src="img/IMG_4058.jpeg"></div>
-    <div class="aw-item"><img src="img/1.png"></div>
-    <div class="aw-item"><img src="img/2.png"></div>
-    <div class="aw-item"><img src="img/3.png"></div>
-    <div class="aw-item"><img src="img/4.png"></div>
+    <div class="aw-item"><img src="img/грузия первые дни _5.PNG" alt=""></div>
+    <div class="aw-item"><img src="img/грузия первые дни _8.PNG" alt=""></div>
 
-    <div class="aw-item"><img src="img/грузия 2024 400 .jpg"></div>
-    <div class="aw-item"><img src="img/грузия первые дни _8.PNG"></div>
+    <div class="aw-item"><img src="img/Имя документа hf_26.jpg" alt=""></div>
+    <div class="aw-item"><img src="img/Имя документа hf_29.jpg" alt=""></div>
 
-    <div class="aw-item"><img src="img/Имя документа hf_26.jpg"></div>
-    <div class="aw-item"><img src="img/Имя документа hf_29.jpg"></div>
+    <div class="aw-item"><img src="img/исландия маша.png" alt=""></div>
 
-    <div class="aw-item"><img src="img/исландия маша.png"></div>
+    <div class="aw-item"><img src="img/Франция 2022 500 евро.jpeg" alt=""></div>
+    <div class="aw-item"><img src="img/франция 2023 350 евро.JPG" alt=""></div>
 
-    <div class="aw-item"><img src="img/Франция 2022 500 евро.jpeg"></div>
-    <div class="aw-item"><img src="img/франция 2023 350 евро.JPG"></div>
-    
-    <div class="aw-item"><img src="img/черногория 2024 300 е.JPG"></div>
+    <div class="aw-item"><img src="img/черногория 2024 300 е.JPG" alt=""></div>
 
-   
+    <div class="aw-item"><img src="img/DSC07474.jpg" alt=""></div>
+    <div class="aw-item"><img src="img/DSCF2510.png" alt=""></div>
 
-    <div class="aw-item"><img src="img/DSC07474.jpg"></div>
-    <div class="aw-item"><img src="img/DSCF2510.png"></div>
+    <div class="aw-item"><img src="img/FullSizeRender (1).jpeg" alt=""></div>
 
-    <div class="aw-item"><img src="img/FullSizeRender (1).jpeg"></div>
-    
-    <div class="aw-item"><img src="img/FullSizeRender_4__1.jpg"></div>
-    <div class="aw-item"><img src="img/FullSizeRender.jpg"></div>
+    <div class="aw-item"><img src="img/FullSizeRender_4__1.jpg" alt=""></div>
+    <div class="aw-item"><img src="img/FullSizeRender.jpg" alt=""></div>
 
+    <div class="aw-item"><img src="img/IMG_1097.JPG" alt=""></div>
+    <div class="aw-item"><img src="img/IMG_1465.JPG" alt=""></div>
+    <div class="aw-item"><img src="img/IMG_1601.JPG" alt=""></div>
+    <div class="aw-item"><img src="img/IMG_1889.jpg" alt=""></div>
+    <div class="aw-item"><img src="img/IMG_1969.jpeg" alt=""></div>
+    <div class="aw-item"><img src="img/IMG_2215.jpeg" alt=""></div>
+    <div class="aw-item"><img src="img/IMG_3194.JPG" alt=""></div>
+    <div class="aw-item"><img src="img/IMG_4058.jpeg" alt=""></div>
 
-    <div class="aw-item"><img src="img/IMG_1097.JPG"></div>
-    <div class="aw-item"><img src="img/IMG_1465.JPG"></div>
-    <div class="aw-item"><img src="img/IMG_1601.JPG"></div>
-    <div class="aw-item"><img src="img/IMG_1889.jpg"></div>
-    <div class="aw-item"><img src="img/IMG_1969.jpeg"></div>
-    <div class="aw-item"><img src="img/IMG_2215.jpeg"></div>
-    <div class="aw-item"><img src="img/IMG_3194.JPG"></div>
-    <div class="aw-item"><img src="img/IMG_4058.jpeg"></div>
-  
+    <div class="aw-item"><img src="img/IMG_5192 2.jpg" alt=""></div>
+    <div class="aw-item"><img src="img/IMG_5206.jpg" alt=""></div>
 
-    <div class="aw-item"><img src="img/IMG_5192 2.jpg"></div>
-    <div class="aw-item"><img src="img/IMG_5206.jpg"></div>
+    <div class="aw-item"><img src="img/IMG_5352.png" alt=""></div>
 
-    <div class="aw-item"><img src="img/IMG_5352.png"></div>
-   
+    <div class="aw-item"><img src="img/IMG_5376 4.jpg" alt=""></div>
 
-    <div class="aw-item"><img src="img/IMG_5376 4.jpg"></div>
+    <div class="aw-item"><img src="img/IMG_6038.jpg" alt=""></div>
 
-    
-    <div class="aw-item"><img src="img/IMG_6038.jpg"></div>
+    <div class="aw-item"><img src="img/IMG_8190.JPG" alt=""></div>
+    <div class="aw-item"><img src="img/IMG_8328.jpeg" alt=""></div>
 
-    <div class="aw-item"><img src="img/IMG_8190.JPG"></div>
-    <div class="aw-item"><img src="img/IMG_8328.jpeg"></div>
+    <div class="aw-item"><img src="img/Kotrelev_Ganr_13.jpeg.jpg" alt=""></div>
+    <div class="aw-item"><img src="img/Kotrelev_Ganr_14.jpeg.jpg" alt=""></div>
 
-    <div class="aw-item"><img src="img/Kotrelev_Ganr_13.jpeg.jpg"></div>
-    <div class="aw-item"><img src="img/Kotrelev_Ganr_14.jpeg.jpg"></div>
+    <div class="aw-item"><img src="img/Kotrelev_Pejzazh_23.jpeg.jpg" alt=""></div>
+    <div class="aw-item"><img src="img/Kotrelev_Pejzazh_24.jpeg.jpg" alt=""></div>
 
-    <div class="aw-item"><img src="img/Kotrelev_Pejzazh_23.jpeg.jpg"></div>
-    <div class="aw-item"><img src="img/Kotrelev_Pejzazh_24.jpeg.jpg"></div>
-
-    
-
-   <div class="aw-item"><img src="img/MagnoliaFilmLab287040.png"></div>
-    
+    <div class="aw-item"><img src="img/MagnoliaFilmLab287040.PNG" alt=""></div>
 
   </div>
 </section>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" aria-hidden="true">
-  <button class="lightbox__close" id="lb-close">✕</button>
+  <button class="lightbox__close" id="lb-close" type="button" aria-label="Close">✕</button>
   <div class="lightbox__inner">
-    <img id="lb-img" class="lightbox__img">
+    <img id="lb-img" class="lightbox__img" alt="">
   </div>
 </div>
 
@@ -240,30 +298,48 @@
 </footer>
 
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-/* LIGHTBOX */
-const gridEl = document.getElementById("aw-grid");
-const lb = document.getElementById("lightbox");
-const lbImg = document.getElementById("lb-img");
-const lbClose = document.getElementById("lb-close");
+  // ✅ make grid offset always correct (header height can change on mobile)
+  (function(){
+    const header = document.getElementById("siteHeader");
+    if(!header) return;
 
-gridEl.addEventListener("click", e=>{
-  const img = e.target.closest("img");
-  if(!img) return;
-  lbImg.src = img.src;
-  lb.setAttribute("aria-hidden","false");
-  document.body.style.overflow = "hidden";
-});
+    function setHeaderH(){
+      const h = Math.ceil(header.getBoundingClientRect().height);
+      document.documentElement.style.setProperty("--header-h", h + "px");
+    }
+    setHeaderH();
 
-lbClose.onclick = ()=> closeLB();
-lb.onclick = e=>{ if(e.target === lb) closeLB(); };
-document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeLB(); });
+    // update on resize/orientation
+    window.addEventListener("resize", setHeaderH, { passive:true });
+    window.addEventListener("orientationchange", setHeaderH, { passive:true });
+  })();
 
-function closeLB(){
-  lb.setAttribute("aria-hidden","true");
-  document.body.style.overflow = "";
-}
+  /* LIGHTBOX */
+  const gridEl = document.getElementById("aw-grid");
+  const lb = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lb-img");
+  const lbClose = document.getElementById("lb-close");
+
+  gridEl.addEventListener("click", e=>{
+    const img = e.target.closest("img");
+    if(!img) return;
+    lbImg.src = img.src;
+    lb.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+    lbClose.focus();
+  });
+
+  lbClose.onclick = ()=> closeLB();
+  lb.onclick = e=>{ if(e.target === lb) closeLB(); };
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeLB(); });
+
+  function closeLB(){
+    lb.setAttribute("aria-hidden","true");
+    document.body.style.overflow = "";
+    lbImg.src = "";
+  }
 </script>
 
 </body>
