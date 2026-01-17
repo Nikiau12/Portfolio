@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>About — Nikita Kotrelev</title>
   <meta name="description" content="About Nikita Kotrelev — cinematographer & photographer based in Paris." />
   <link rel="icon" href="img/pag 5.png" type="image/png" />
@@ -17,6 +17,8 @@
       --radius: 16px;
       --space: 24px;
       --maxw: 1200px;
+      --safe-top:max(env(safe-area-inset-top),0px);
+      --safe-bot:max(env(safe-area-inset-bottom),0px);
     }
     @font-face {
       font-family: 'Afacad Flux';
@@ -37,18 +39,58 @@
       display: grid;
       grid-template-rows: auto 1fr auto;
       min-height: 100dvh;
+      -webkit-tap-highlight-color: transparent;
     }
 
     header {
       position: sticky; top: 0; z-index: 10;
+      padding-top: var(--safe-top);
       backdrop-filter: saturate(120%) blur(6px);
       background: linear-gradient(180deg, rgba(11,11,11,.78), rgba(11,11,11,.28) 60%, rgba(11,11,11,0));
       border-bottom: 1px solid rgba(36,36,40,.35);
     }
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: var(--maxw); margin: 0 auto; gap: 16px; }
-    .brand { font-weight: 600; letter-spacing: .08em; }
-    .nav a { color: var(--fg); text-decoration: none; opacity: .85; padding: 10px 12px; border-radius: 999px; }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      gap: 16px;
+      box-sizing: border-box;
+    }
+    .brand {
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-decoration: none;
+      color: var(--fg);
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    /* ✅ mobile-safe links */
+    .links{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      overflow-x:auto;
+      overscroll-behavior-inline:contain;
+      scrollbar-width:none;
+      max-width:100%;
+    }
+    .links::-webkit-scrollbar{ display:none; }
+
+    .nav a {
+      color: var(--fg);
+      text-decoration: none;
+      opacity: .85;
+      padding: 10px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
     .nav a:hover { opacity: 1; background: rgba(255,255,255,.06); }
+    .links a[aria-current="page"]{ background: rgba(255,255,255,.08); opacity:1; }
 
     .hero { padding: 80px 24px 28px; }
     .container { max-width: var(--maxw); margin: 0 auto; }
@@ -68,11 +110,56 @@
     li a { color: var(--accent); text-decoration: none; display: block; }
     li a:hover { opacity: 0.7; }
 
-    footer { border-top: 1px solid var(--border); color: var(--muted); padding: 24px; }
-    footer .row { max-width: var(--maxw); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    footer {
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      padding: 24px;
+      padding-bottom: calc(24px + var(--safe-bot));
+    }
+    footer .row {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-sizing: border-box;
+    }
 
     @media (max-width: 960px) {
       .grid { grid-template-columns: 1fr; }
+    }
+
+    /* ✅ extra mobile polish so nothing gets cut */
+    @media (max-width: 640px){
+      .nav{
+        padding: 12px 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .brand{ font-size: 14px; }
+      .links{
+        width:100%;
+        flex-wrap: wrap;      /* чтобы точно всё было видно */
+        overflow: visible;    /* и не резалось */
+        gap: 8px;
+      }
+      .nav a{
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+
+      .hero{ padding: 56px 12px 18px; }
+      .hero h1{ font-size: 34px; line-height: 1.02; }
+      .hero p.lead{ font-size: 14px; line-height: 1.35; }
+
+      .section{ padding: 18px 12px 40px; }
+      .card{ padding: 16px; }
+      .prose{ font-size: 15px; line-height: 1.65; }
+
+      footer{ padding: 20px 12px calc(20px + var(--safe-bot)); }
+      footer .row{ flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -81,10 +168,11 @@
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="/">NIKITA KOTRELEV</a>
       <div class="links">
-      <a href="/Video.html">Video</a>
-          <a href="/Photos.html">Photos</a>
-        <a href="/Projects.html">Projects</a>
-        <a href="Store.html" aria-current="page">Store</a>
+        <a href="/video.html">Video</a>
+        <a href="/photos.html">Photos</a>
+        <a href="/projects.html">Projects</a>
+        <a href="/about.html" aria-current="page">About</a>
+        <a href="Store.html">Store</a>
       </div>
     </nav>
   </header>
@@ -99,7 +187,6 @@
   <section class="section">
     <div class="container grid">
       <article class="card prose">
-
         <h2 class="h2">Videos</h2>
         <ul>
           <li>Camera mechanic || Les voix d’Oléron/The voices of Oleron (2022, Russia/France)</li>
@@ -110,7 +197,7 @@
           <li>Cameraman || I AM DYING (2022, Russia) a music video by MAZERDARK</li>
         </ul>
 
-        <h2 class="h2">Award</h2>
+        <h2 class="h2" style="margin-top:18px;">Award</h2>
         <p>I am a professional photographer, my specialization is genre photography. Recently I became a prize-winner of the Street Photo Russia contest.</p>
       </article>
 
@@ -119,7 +206,7 @@
         <p>Available for narrative, commercial and music projects worldwide.</p>
         <ul>
           <li><a href="mailto:kotrelevnikita@gmail.com">Email</a></li>
-          <li><a href="https://www.instagram.com/stojal_znachit/" target="_blank">Instagram</a></li>
+          <li><a href="https://www.instagram.com/stojal_znachit/" target="_blank" rel="noopener">Instagram</a></li>
           <li>Location: Paris, France</li>
         </ul>
       </aside>
@@ -129,7 +216,7 @@
   <footer>
     <div class="row">
       <span>© <span id="year"></span> Nikita Kotrelev</span>
-  
+      
     </div>
   </footer>
 
