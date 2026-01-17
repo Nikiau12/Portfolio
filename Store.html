@@ -10,7 +10,10 @@
   <style>
     :root{
       --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428; --accent:#3d40f9;
-      --radius:16px; --space:24px; --safe-top:max(env(safe-area-inset-top),0px); --header-h:64px;
+      --radius:16px; --space:24px;
+      --safe-top:max(env(safe-area-inset-top),0px);
+      --safe-bot:max(env(safe-area-inset-bottom),0px);
+      --header-h:64px;
     }
     @font-face{
       font-family:'Afacad Flux';
@@ -41,13 +44,25 @@
     .nav{
       max-width:1200px; margin:0 auto; padding:12px 24px;
       display:flex; align-items:center; justify-content:space-between; gap:12px;
+      box-sizing:border-box;
     }
-    .brand{font-weight:600; letter-spacing:.08em; text-decoration:none; color:var(--fg); white-space:nowrap;}
-    .links{display:flex; gap:10px; align-items:center; overflow-x:auto; scrollbar-width:none;}
+    .brand{
+      font-weight:600; letter-spacing:.08em;
+      text-decoration:none; color:var(--fg);
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
+    .links{
+      display:flex; gap:10px; align-items:center;
+      overflow-x:auto; overscroll-behavior-inline:contain;
+      scrollbar-width:none;
+      max-width:100%;
+    }
     .links::-webkit-scrollbar{display:none}
     .links a{
       color:var(--fg); text-decoration:none; opacity:.9;
       padding:8px 12px; border-radius:999px; white-space:nowrap; font-size:14px;
+      flex:0 0 auto;
     }
     .links a:hover{opacity:1;background:rgba(255,255,255,.04)}
     .links a[aria-current="page"]{background:rgba(255,255,255,.06)}
@@ -60,6 +75,7 @@
       max-width:900px;
       margin:0 auto;
       padding-inline:24px;
+      box-sizing:border-box;
     }
     .page-hero h1{
       font-size:clamp(32px,5vw,60px);
@@ -72,27 +88,6 @@
       margin:0;
     }
 
-    /* ===== Info bar ===== */
-    .info{
-      max-width:1200px;
-      margin:0 auto 22px;
-      padding:0 24px;
-      display:grid;
-      gap:10px;
-    }
-    .pillrow{
-      display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
-    }
-    .pill{
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.03);
-      color:var(--muted);
-      padding:10px 12px;
-      border-radius:999px;
-      font-size:14px;
-      line-height:1;
-    }
-
     /* ===== Store grid ===== */
     .store{
       max-width:1320px;
@@ -102,6 +97,7 @@
       gap:18px;
       grid-template-columns:repeat(3, minmax(0,1fr));
       align-items:start;
+      box-sizing:border-box;
     }
 
     .product{
@@ -155,12 +151,6 @@
       white-space:nowrap;
       margin-top:2px;
     }
-    .desc{
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.55;
-      margin:0;
-    }
 
     .options{
       display:grid;
@@ -183,6 +173,7 @@
       font-weight:400;
       color:var(--muted);
       margin-top:2px;
+      line-height:1.45;
     }
     .buy{
       appearance:none;
@@ -199,7 +190,7 @@
     .buy:hover{transform:translateY(-1px)}
     .buy:disabled{
       opacity:.55;
-      cursor:pointer;
+      cursor:not-allowed;
       transform:none;
     }
 
@@ -217,10 +208,14 @@
       padding:12px 24px 24px;
       display:flex; gap:16px; align-items:center; justify-content:space-between;
       color:var(--muted);
+      padding-bottom: calc(24px + var(--safe-bot));
+      box-sizing:border-box;
     }
     .lightbox__caption strong{color:var(--fg); font-weight:600}
     .lightbox__close{
-      position:fixed; top:16px; right:16px;
+      position:fixed;
+      top: calc(12px + var(--safe-top));
+      right: 12px;
       width:48px; height:48px;
       border-radius:50%;
       background:rgba(255,255,255,.1);
@@ -229,25 +224,87 @@
       cursor:pointer;
       color:var(--fg);
       font-size:20px;
+      z-index:81;
     }
     .lightbox__close:hover{background:rgba(255,255,255,.18)}
 
     /* ===== Footer ===== */
-    footer{border-top:1px solid var(--border); color:var(--muted); padding:24px;}
-    footer .row{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 24px;}
+    footer{
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      padding:24px;
+      padding-bottom: calc(24px + var(--safe-bot));
+      box-sizing:border-box;
+    }
+    footer .row{
+      max-width:1200px;margin:0 auto;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:0 24px;
+      box-sizing:border-box;
+    }
 
     /* ===== Responsive ===== */
     @media(max-width:1100px){
       .store{grid-template-columns:repeat(2, minmax(0,1fr));}
     }
+
+    /* ✅ MOBILE: ничего не режется, нав видно полностью */
     @media(max-width:640px){
-      :root{--header-h:56px;}
-      .nav{padding:10px 12px;}
-      .page-hero{padding-top:calc(var(--header-h) + 60px); padding-inline:12px;}
-      .info{padding:0 12px;}
-      .store{grid-template-columns:1fr; padding:0 12px; gap:12px;}
-      .lightbox__img{max-height:82vh}
+      :root{--header-h:auto;}
+
+      /* header не перекрывает контент */
+      header{
+        position: sticky;
+        height:auto;
+        padding-bottom: 10px;
+      }
+      .nav{
+        padding:12px 12px;
+        flex-direction: column;
+        align-items:flex-start;
+        gap:10px;
+      }
+      .brand{font-size:14px;}
+
+      /* меню переносится */
+      .links{
+        width:100%;
+        flex-wrap:wrap;
+        overflow:visible;
+        gap:8px;
+      }
+      .links a{font-size:14px; padding:10px 12px;}
+
+      .page-hero{
+        padding-top: 18px;
+        padding-inline:12px;
+        text-align:left;
+      }
+      .page-hero h1{font-size:34px; line-height:1.05;}
+      .page-hero p{font-size:14px; line-height:1.35;}
+
+      .store{
+        grid-template-columns:1fr;
+        padding:0 12px;
+        gap:12px;
+        margin-bottom: 40px;
+      }
+
+      /* кнопка Buy удобнее */
+      .buyrow{align-items:stretch;}
+      .buy{width:100%; text-align:center;}
+
+      .lightbox__image-wrap{padding:16px;}
+      .lightbox__img{max-height:78vh;}
       .lightbox__close{width:54px;height:54px}
+      footer .row{flex-direction:column; align-items:flex-start; padding:0 12px;}
+      footer{padding:20px 12px calc(20px + var(--safe-bot));}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .product:hover{transform:none}
+      .product:hover .thumb img{transform:none}
+      .buy:hover{transform:none}
     }
   </style>
 </head>
@@ -271,8 +328,6 @@
     <p>Fine-art prints — printed by me, signed & numbered. Worldwide shipping.</p>
   </div>
 
-  
-
   <!-- ===== PRODUCTS ===== -->
   <section class="store" id="store" aria-label="Store products">
 
@@ -287,7 +342,6 @@
           <h3 class="title">France, Brittany</h3>
           <div class="sku"></div>
         </div>
-        
 
         <div class="options">
           <div class="buyrow">
@@ -311,13 +365,11 @@
           <h3 class="title">Oléron, Island</h3>
           <div class="sku"></div>
         </div>
-        <p class="desc"></p>
 
         <div class="options">
           <div class="buyrow">
             <div class="price" data-price>
-              €— <small>
-With thick, reinforced, acid-free white cardboard mat, 30 x 40 cm. The mat has an inner window with beveled edges to beautifully display your 36 × 26 cm print.</small>
+              €— <small>With thick, reinforced, acid-free white cardboard mat, 30 x 40 cm. The mat has an inner window with beveled edges to beautifully display your 36 × 26 cm print.</small>
             </div>
             <button class="buy" type="button" data-buy>Buy</button>
           </div>
@@ -333,10 +385,9 @@ With thick, reinforced, acid-free white cardboard mat, 30 x 40 cm. The mat has a
 
       <div class="content">
         <div class="titleline">
-          <h3 class="title">Morocco, Road </h3>
+          <h3 class="title">Morocco, Road</h3>
           <div class="sku"></div>
         </div>
-        <p class="desc"></p>
 
         <div class="options">
           <div class="buyrow">
@@ -348,7 +399,6 @@ With thick, reinforced, acid-free white cardboard mat, 30 x 40 cm. The mat has a
         </div>
       </div>
     </article>
-
 
   </section>
 
@@ -401,7 +451,9 @@ With thick, reinforced, acid-free white cardboard mat, 30 x 40 cm. The mat has a
 
       if (priceEl){
         // keep the small text, replace the main number part
-        priceEl.childNodes[0].nodeValue = (data?.price ? euro(data.price) : "€—") + " ";
+        if (priceEl.childNodes && priceEl.childNodes[0]) {
+          priceEl.childNodes[0].nodeValue = (data?.price ? euro(data.price) : "€—") + " ";
+        }
       }
 
       if (buyBtn){
