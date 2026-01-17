@@ -2,14 +2,18 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Projects — Nikita Kotrelev</title>
   <meta name="description" content="Selected projects by Nikita Kotrelev — cinematography, installations, experimental rigs." />
   <link rel="icon" href="img/pag 5.png" type="image/png">
+
   <style>
     :root{
       --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428;
-      --radius:16px; --safe-top:max(env(safe-area-inset-top),0px); --header-h:64px;
+      --radius:16px;
+      --safe-top:max(env(safe-area-inset-top),0px);
+      --safe-bot:max(env(safe-area-inset-bottom),0px);
+      --header-h:72px; /* будет обновлено JS под реальную высоту */
     }
     @font-face{
       font-family:'Afacad Flux';
@@ -33,29 +37,43 @@
     header{
       position:fixed; top:0; left:0; right:0; z-index:60;
       padding-top:var(--safe-top);
-      height:var(--header-h);
+      /* ❗️важно: без фиксированной высоты, чтобы меню могло переноситься */
       box-sizing:border-box;
       backdrop-filter:saturate(180%) blur(8px);
       background:linear-gradient(180deg, rgba(11,11,11,.76), rgba(11,11,11,.3) 60%, rgba(11,11,11,0));
       border-bottom:1px solid var(--border);
     }
     .nav{
-      max-width:1200px;margin:0 auto;padding:12px 24px;
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      max-width:1200px; margin:0 auto;
+      padding:12px 24px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      box-sizing:border-box;
     }
-    .brand{font-weight:600;letter-spacing:.08em;text-decoration:none;color:var(--fg);}
-    .links{display:flex;gap:10px;align-items:center;overflow-x:auto;}
+    .brand{
+      font-weight:600; letter-spacing:.08em; text-decoration:none; color:var(--fg);
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
+    .links{
+      display:flex; gap:10px; align-items:center;
+      overflow-x:auto;
+      overscroll-behavior-inline:contain;
+      scrollbar-width:none;
+      max-width:100%;
+    }
+    .links::-webkit-scrollbar{ display:none; }
     .links a{
-      color:var(--fg);text-decoration:none;opacity:.9;
-      padding:8px 12px;border-radius:999px;white-space:nowrap;font-size:14px;
+      color:var(--fg); text-decoration:none; opacity:.9;
+      padding:8px 12px; border-radius:999px; white-space:nowrap; font-size:14px;
+      flex:0 0 auto;
     }
     .links a:hover{opacity:1;background:rgba(255,255,255,.04);}
-    .links a[aria-current="page"]{background:rgba(255,255,255,.06);}
+    .links a[aria-current="page"]{background:rgba(255,255,255,.06); opacity:1;}
 
     /* ===== Hero ===== */
     .page-hero{
-      padding-top:calc(var(--header-h) + 80px);
-      padding-bottom:40px;
+      padding-top: calc(var(--header-h) + 56px);
+      padding-bottom: 28px;
       text-align:center;
       max-width:800px;
       margin:0 auto;
@@ -76,14 +94,12 @@
     .projects{
       max-width:1320px;
       margin:0 auto 64px;
-      padding:0 24px;
-
+      padding:0 24px calc(24px + var(--safe-bot));
       display:grid;
       gap:20px;
 
-      /* ✅ РОВНО 3 В РЯД НА ДЕСКТОПЕ */
+      /* ✅ 3 в ряд на десктопе */
       grid-template-columns:repeat(3, minmax(0, 1fr));
-
       align-items:start;
     }
 
@@ -103,6 +119,13 @@
       border-color:rgba(255,255,255,.06);
     }
 
+    .card a{
+      color:var(--fg);
+      text-decoration:none;
+      display:block;
+      height:100%;
+    }
+
     .card__thumb{width:100%;aspect-ratio:4/3;overflow:hidden;background:#000;}
     .card__thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease;}
     .card:hover .card__thumb img{transform:scale(1.05);}
@@ -116,7 +139,6 @@
       gap:12px;
       overflow:hidden;
     }
-
     .card__meta::before{
       content:"";
       position:absolute;
@@ -128,50 +150,83 @@
     }
     .card:hover .card__meta::before{opacity:1;}
 
-    .card a{
+    .card__title{
+      font-size:16px;
+      font-weight:600;
+      margin:0;
       color:var(--fg);
-      text-decoration:none;
-      display:block;
-      height:100%;
       position:relative;
       z-index:1;
     }
 
-    .card__title{font-size:16px;font-weight:600;margin:0;color:var(--fg);}
-    .card__year{color:var(--muted);font-size:13px;white-space:nowrap;}
-
     /* ===== Footer ===== */
     footer{border-top:1px solid var(--border);color:var(--muted);padding:24px;}
-    footer .row{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 24px;}
+    footer .row{
+      max-width:1200px;margin:0 auto;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:0 24px;
+      box-sizing:border-box;
+    }
 
     /* ===== Responsive ===== */
     @media(max-width:1100px){
-      :root{--header-h:60px;}
-      /* ✅ на планшетах 2 в ряд */
       .projects{grid-template-columns:repeat(2, minmax(0, 1fr));gap:16px;}
+      .nav{ padding-inline:16px; }
+      .page-hero{ padding-inline:16px; }
     }
+
     @media(max-width:640px){
-      :root{--header-h:56px;}
-      .page-hero{padding-top:calc(var(--header-h) + 60px);}
-      .projects{grid-template-columns:repeat(2, minmax(0, 1fr));gap:10px;padding:0 12px;}
-      .nav{padding:10px 12px;}
+      .nav{
+        padding:12px 12px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+      }
+      .brand{ font-size:14px; }
+      .links{
+        width:100%;
+        flex-wrap:wrap;     /* ✅ ключ: переносим ссылки */
+        overflow:visible;   /* ✅ ключ: ничего не обрезаем */
+        gap:8px;
+      }
+      .links a{
+        padding:10px 12px;
+        font-size:14px;
+      }
+
+      .page-hero{
+        padding-top: calc(var(--header-h) + 28px);
+        padding-inline:12px;
+        text-align:left;
+      }
+
+      .projects{
+        padding:0 12px calc(20px + var(--safe-bot));
+        gap:12px;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* ✅ красиво на любых телефонах */
+      }
     }
+
     @media(max-width:420px){
-      /* ✅ на очень маленьких экранах 1 в ряд (чтобы карточки не давились) */
       .projects{grid-template-columns:1fr;}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .card:hover{ transform:none; }
+      .card:hover .card__thumb img{ transform:none; }
     }
   </style>
 </head>
 
 <body>
-  <header>
+  <header id="siteHeader">
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="index.html">NIKITA KOTRELEV</a>
       <div class="links" role="navigation" aria-label="Primary links">
         <a href="Video.html">Video</a>
         <a href="Photos.html">Photos</a>
+        <a href="Projects.html" aria-current="page">Projects</a>
         <a href="About me.html">About</a>
-        <a href="Store.html" >Store</a>
       </div>
     </nav>
   </header>
@@ -180,7 +235,6 @@
     <h2>Projects</h2>
   </div>
 
-  <!-- ✅ Один контейнер projects. Порядок = порядок в коде -->
   <section class="projects" aria-label="Projects list">
 
     <article class="card">
@@ -200,7 +254,7 @@
           <img src="img/исландлия маша.png" alt="Island 2025 — thumbnail" loading="lazy" decoding="async">
         </div>
         <div class="card__meta">
-          <h3 class="card__title">Island</h3>
+          <h3 class="card__title">Island 2025</h3>
         </div>
       </a>
     </article>
@@ -227,8 +281,7 @@
       </a>
     </article>
 
-    <!-- 👇 сюда просто добавляй новые проекты ниже —
-         они будут идти в том порядке, как ты вставил в HTML -->
+    <!-- add more projects below -->
 
   </section>
 
@@ -240,6 +293,21 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ✅ always keep content below the REAL header height (mobile header can wrap)
+    (function(){
+      const header = document.getElementById('siteHeader');
+      if(!header) return;
+
+      function setHeaderH(){
+        const h = Math.ceil(header.getBoundingClientRect().height);
+        document.documentElement.style.setProperty('--header-h', h + 'px');
+      }
+
+      setHeaderH();
+      window.addEventListener('resize', setHeaderH, { passive:true });
+      window.addEventListener('orientationchange', setHeaderH, { passive:true });
+    })();
   </script>
 </body>
 </html>
