@@ -4,11 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Nikita Kotrelev — Cinematographer & Photographer</title>
-  <meta name="description" content="Cinematographer & photographer. Selected works, projects, and fine-art prints for sale." />
+  <meta name="description" content="Cinematographer & photographer. Selected works, projects, and new releases." />
   <meta property="og:title" content="Nikita Kotrelev — Portfolio" />
-  <meta property="og:description" content="Cinematographer & photographer. Selected works, projects, and fine-art prints for sale." />
+  <meta property="og:description" content="Cinematographer & photographer. Selected works, projects, and new releases." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="img/pag 5.png" type="image/png">
+
   <style>
     :root {
       --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428; --accent:#3d40f9;
@@ -59,7 +60,7 @@
       z-index: 0; pointer-events: none;
     }
 
-    /* ===== HEADER внутри hero ===== */
+    /* ===== HEADER inside hero ===== */
     header {
       position: absolute; inset: 0; z-index: 1;
       display: grid; grid-template-rows: auto 1fr;
@@ -68,46 +69,16 @@
     .nav {
       display: flex; align-items: center; justify-content: space-between;
       padding: 16px 24px; max-width: 1200px; margin: 0 auto; gap: 16px;
-      flex-wrap: nowrap;
     }
-    .brand { font-weight: 600; letter-spacing: .08em; text-decoration: none; color: var(--fg); white-space: nowrap; }
+    .brand { font-weight: 600; letter-spacing: .08em; text-decoration: none; color: var(--fg); white-space:nowrap; }
     .links { display: flex; gap: 8px; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: none; }
     .links::-webkit-scrollbar { display: none; }
-    .nav a { color: var(--fg); text-decoration: none; opacity: .85; padding: 10px 12px; border-radius: 999px; white-space: nowrap; font-size: 15px; }
+    .nav a { color: var(--fg); text-decoration: none; opacity: .85; padding: 10px 12px; border-radius: 999px; white-space: nowrap; }
     .nav a:hover { opacity: 1; background: rgba(255,255,255,.06); }
 
-    /* === адаптация меню === */
-    @media (max-width: 780px){
-      .links{
-        display:flex;
-        gap:8px;
-        overflow-x:auto;
-        overflow-y:hidden;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
-        padding-bottom: 2px;
-      }
-      .links a{
-        scroll-snap-align: start;
-        white-space: nowrap;
-      }
-    }
-    @media (max-width: 420px){
-      .nav{ 
-        padding: 12px 16px; 
-        align-items: flex-start;
-      }
-      .links{
-        overflow: visible;
-        flex-wrap: wrap;
-        row-gap: 8px;
-        column-gap: 8px;
-        max-width: 100%;
-      }
-      .nav a{
-        padding: 8px 10px;
-        font-size: 14px;
-      }
+    @media (max-width: 640px){
+      .nav { padding: 12px 16px; }
+      .nav a { padding: 12px 14px; font-size: 15px; }
     }
 
     .hero-copy {
@@ -117,12 +88,7 @@
     }
     .hero h1 { font-size: clamp(36px, 7vw, 80px); line-height: .95; margin: 0 0 12px; }
     .hero p  { font-size: clamp(15px, 2.5vw, 20px); color: var(--muted); margin: 0 0 18px; }
-    .cta { display: inline-flex; align-items: center; gap: 10px; padding: 14px 18px; border-radius: 999px; background: var(--fg); color: #0a0a0a; text-decoration: none; font-weight: 600; }
-    .cta:hover { transform: translateY(-1px); }
-    @media (max-width: 640px){
-      .hero-copy { padding: 16px; }
-      .cta{ padding: 14px 18px; margin-bottom: calc(8px + var(--safe-bot)); }
-    }
+    @media (max-width: 640px){ .hero-copy { padding: 16px; } }
 
     /* ===== Sections ===== */
     .section { padding: 56px 24px; }
@@ -130,48 +96,265 @@
     .section h2 { font-size: clamp(26px, 3.6vw, 42px); margin: 0 0 8px; }
     .section .lead { color: var(--muted); margin: 0 0 24px; font-size: 18px; }
 
-    /* ===== Gallery grid ===== */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 24px; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; }
-    .card img { width: 100%; height: auto; display: block; }
-    .card .meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px; flex-wrap: wrap; }
-    .meta .title { font-weight: 600; font-size: 17px; }
-    .meta .price { color: var(--muted); font-size: 15px; }
-
-    @media (max-width: 920px){
-      .grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-      .section { padding: 44px 16px; }
-    }
-    @media (max-width: 640px){
-      .grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
-      .section { padding: 36px 12px; }
-    }
-
-    /* ===== Lightbox ===== */
-    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: none; z-index: 60; }
-    .lightbox[aria-hidden="false"] { display: grid; }
-    .lightbox__inner { display: grid; grid-template-rows: 1fr auto; width: 100%; height: 100%; }
-    .lightbox__image-wrap { display: grid; place-items: center; padding: 24px; }
-    .lightbox__img { max-width: 96vw; max-height: 86vh; width: auto; height: auto; object-fit: contain; transition: transform .2s ease, opacity .2s ease; }
-    .lightbox__caption { padding: 12px 24px 24px; display: flex; gap: 16px; align-items: center; justify-content: space-between; }
-    .lightbox__title { font-size: clamp(18px, 2vw, 22px); margin: 0; }
-    .lightbox__meta { color: var(--muted); }
-    .lightbox__close { position: fixed; top: 16px; right: 16px; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.1); border: 1px solid var(--border); display: grid; place-items: center; cursor: pointer; }
-    .lightbox__close:hover { background: rgba(255,255,255,.18); }
-    @media (max-width: 640px){
-      .lightbox__img { max-height: 82vh; }
-      .lightbox__close { width: 54px; height: 54px; }
-    }
-
     /* ===== Footer ===== */
     footer { border-top: 1px solid var(--border); color: var(--muted); padding: 24px; }
     footer .row { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 
-    @media (prefers-reduced-motion: reduce){
-      .cta:hover { transform: none; }
+    /* =========================================================
+       ===== Updates Tabs + Cards (generated) =====
+       ========================================================= */
+    .tabs-wrap{ max-width:1320px; margin:0 auto; }
+    .tabs-head{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin:16px 0 18px;
+    }
+    .tabbtn{
+      appearance:none;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+      color:var(--fg);
+      opacity:1;
+      padding:10px 14px;
+      border-radius:999px;
+      cursor:default;
+      font-family:inherit;
+      font-size:14px;
+      white-space:nowrap;
+    }
+
+    .news-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap:16px;
+    }
+    .news-card{
+      border:1px solid var(--border);
+      background:var(--card);
+      border-radius:var(--radius);
+      overflow:hidden;
+      display:grid;
+      grid-template-columns: 140px 1fr;
+      min-height:120px;
+      text-decoration:none;
+      color:inherit;
+      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      cursor:pointer;
+    }
+    .news-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 14px 40px rgba(0,0,0,.55);
+      border-color:rgba(255,255,255,.08);
+    }
+    .news-thumb{ background:#000; overflow:hidden; }
+    .news-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transform:scale(1);
+      transition:transform .6s ease;
+    }
+    .news-card:hover .news-thumb img{transform:scale(1.06);}
+
+    .news-body{
+      padding:14px 14px 14px 16px;
+      display:grid;
+      gap:8px;
+      align-content:start;
+    }
+    .news-top{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .chip{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:12px;
+      color:var(--muted);
+      line-height:1;
+    }
+    .news-title{
+      margin:0;
+      font-size:16px;
+      font-weight:600;
+      line-height:1.2;
+    }
+    .news-text{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    @media (max-width: 920px){
+      .news-grid{grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));}
+    }
+    @media (max-width: 640px){
+      .news-grid{grid-template-columns: 1fr;}
+      .news-card{grid-template-columns: 1fr;}
+      .news-thumb{aspect-ratio: 16/9;}
+    }
+
+    /* =========================================================
+       ===== Updates Lightbox (text + photos) =====
+       ========================================================= */
+    .u-lb{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.92);
+      display:none;
+      z-index:90;
+    }
+    .u-lb[aria-hidden="false"]{display:grid}
+    .u-lb__inner{
+      width:min(1100px, 100%);
+      margin:auto;
+      padding:24px;
+      box-sizing:border-box;
+    }
+    .u-lb__panel{
+      border:1px solid var(--border);
+      background:rgba(17,17,19,.92);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.65);
+      display:grid;
+      grid-template-rows:auto 1fr;
+      max-height:min(86vh, 900px);
+    }
+
+    .u-lb__top{
+      padding:16px 16px 14px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .u-lb__meta{
+      display:grid;
+      gap:8px;
+      min-width:0;
+    }
+    .u-lb__kicker{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .u-lb__h{
+      margin:0;
+      font-size:20px;
+      font-weight:600;
+      line-height:1.2;
+    }
+
+    /* ✅ NEW: Action button */
+    .u-lb__action{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.14);
+      background:var(--fg);
+      color:#0a0a0a;
+      border-radius:999px;
+      padding:10px 12px;
+      cursor:pointer;
+      font-size:14px;
+      line-height:1;
+      text-decoration:none;
+      white-space:nowrap;
+      transition:transform .15s ease, opacity .15s ease;
+    }
+    .u-lb__action:hover{transform:translateY(-1px)}
+    .u-lb__action[hidden]{display:none !important;}
+
+    .u-lb__close{
+      appearance:none;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.08);
+      color:var(--fg);
+      border-radius:999px;
+      padding:10px 12px;
+      cursor:pointer;
+      font-size:14px;
+      line-height:1;
+      white-space:nowrap;
+    }
+    .u-lb__close:hover{background:rgba(255,255,255,.12)}
+
+    .u-lb__content{
+      padding:16px;
+      display:grid;
+      gap:14px;
+      overflow:auto;
+    }
+    .u-lb__text{
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.55;
+      margin:0;
+    }
+
+    .u-lb__gallery{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:10px;
+    }
+    .u-lb__gallery img{
+      width:100%;
+      height:200px;
+      object-fit:cover;
+      display:block;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.06);
+      cursor:pointer;
+      background:#000;
+    }
+
+    @media (max-width: 980px){
+      .u-lb__gallery{grid-template-columns: repeat(2, minmax(0,1fr));}
+      .u-lb__gallery img{height:190px;}
+    }
+    @media (max-width: 640px){
+      .u-lb__inner{padding:12px;}
+      .u-lb__panel{max-height:88vh;}
+      .u-lb__gallery{grid-template-columns: 1fr;}
+      .u-lb__gallery img{height:auto; aspect-ratio: 4/3;}
+      .u-lb__h{font-size:18px;}
+    }
+
+    /* optional: zoom inside the same lightbox */
+    .u-lb__zoom{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.92);
+      display:none;
+      z-index:95;
+      padding:24px;
+      box-sizing:border-box;
+    }
+    .u-lb__zoom[aria-hidden="false"]{display:grid}
+    .u-lb__zoom img{
+      max-width:96vw;
+      max-height:86vh;
+      width:auto;
+      height:auto;
+      margin:auto;
+      object-fit:contain;
+      cursor:pointer;
     }
   </style>
 </head>
+
 <body>
   <!-- HERO -->
   <section class="hero" aria-label="Showreel">
@@ -179,6 +362,7 @@
       <source src="img/Showreel%2021.mp4" type="video/mp4" />
     </video>
     <div class="scrim" aria-hidden="true"></div>
+
     <header>
       <nav class="nav" aria-label="Primary">
         <a class="brand" href="/">NIKITA KOTRELEV</a>
@@ -190,71 +374,65 @@
           <a href="Store.html" aria-current="page">Store</a>
         </div>
       </nav>
+
       <div class="hero-copy" id="heroCopy">
         <div>
           <h1>Strong visuals for brands & stories</h1>
           <p>Cinematographer · Photographer — narrative, commercials, music videos.</p>
-    
         </div>
       </div>
     </header>
   </section>
 
-  <!-- FOR SALE -->
-  <section class="section" id="for-sale">
-    <div class="container">
-      <h2>Fine-art prints — for sale</h2>
-      <p class="lead">Museum-grade prints, numbered & signed. Worldwide shipping.</p>
-      <div class="grid" id="gallery">
-        <article class="card" data-src="img/Франция 2022 500 евро.jpeg" data-title="France, Beach Brittany (2022)" data-size="36×24 cm" data-price="€500">
-          <img loading="lazy" decoding="async" src="img/Франция 2022 500 евро.jpeg" alt="France, Beach Brittany, 2022" />
-          <div class="meta">
-            <span class="title">France, Brittany · 2022 · 36×24 cm</span>
-            <span class="price">€500</span>
-          </div>
-        </article>
+  <!-- UPDATES / NEWS -->
+  <section class="section" id="news">
+    <div class="container tabs-wrap">
+      <h2>Updates</h2>
+      <p class="lead">Exhibitions, nominations, releases, and announcements.</p>
 
-        <article class="card" data-src="img/Имя документа hf_29.jpg" data-title="Oléron Island (2022)" data-size="36×24 cm" data-price="€500">
-          <img loading="lazy" decoding="async" src="img/Имя документа hf_29.jpg" alt="France, Oléron Island, 2022" />
-          <div class="meta">
-            <span class="title">Oléron Island · 2022 · 36×24 cm</span>
-            <span class="price">€500</span>
-          </div>
-        </article>
-
-        <article class="card" data-src="img/грузия 2023 500.jpg" data-title="Tbilisi Sea (2023)" data-size="30×15.2 cm" data-price="€500">
-          <img loading="lazy" decoding="async" src="img/грузия 2023 500.jpg" alt="Georgia, Tbilisi Sea, 2023" />
-          <div class="meta">
-            <span class="title">Tbilisi Sea · 2023 · 30×15.2 cm</span>
-            <span class="price">€500</span>
-          </div>
-        </article>
-
-        <article class="card" data-src="img/грузия военная дорога 2024IMG_0285 54.jpg" data-title="Military Road (2023)" data-size="26×12.7 cm" data-price="€300">
-          <img loading="lazy" decoding="async" src="img/грузия военная дорога 2024IMG_0285 54.jpg" alt="Georgia, Military Road, 2023" />
-          <div class="meta">
-            <span class="title">Military Road · 2023 · 26×12.7 cm</span>
-            <span class="price">€300</span>
-          </div>
-        </article>
+      <!-- ✅ оставили только одну вкладку -->
+      <div class="tabs-head" role="tablist" aria-label="Updates tabs">
+        <button class="tabbtn" role="tab" id="tab-exh" aria-controls="panel-exh" aria-selected="true" type="button">
+          Exhibitions
+        </button>
       </div>
+
+      <!-- ✅ оставили только одну панель -->
+      <div id="panel-exh" class="tabpanel" role="tabpanel" aria-labelledby="tab-exh" aria-hidden="false">
+        <div class="news-grid" id="news-exh"></div>
+      </div>
+
     </div>
   </section>
 
-  <!-- FULLSCREEN LIGHTBOX -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="lb-title">
-    <button class="lightbox__close" id="lb-close" aria-label="Close">✕</button>
-    <div class="lightbox__inner">
-      <div class="lightbox__image-wrap">
-        <img id="lb-img" class="lightbox__img" alt="" />
-      </div>
-      <div class="lightbox__caption">
-        <h3 id="lb-title" class="lightbox__title"></h3>
-        <div class="lightbox__meta">
-          <span id="lb-size"></span> · <span id="lb-price"></span>
+  <!-- UPDATES LIGHTBOX -->
+  <div class="u-lb" id="uLb" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="uLbTitle">
+    <div class="u-lb__inner">
+      <div class="u-lb__panel">
+        <div class="u-lb__top">
+          <div class="u-lb__meta">
+            <div class="u-lb__kicker" id="uLbKicker"></div>
+            <h3 class="u-lb__h" id="uLbTitle"></h3>
+          </div>
+
+          <!-- ✅ NEW: Action button + Close -->
+          <div style="display:flex; gap:10px; align-items:center;">
+            <a class="u-lb__action" id="uLbAction" href="#" target="_self" rel="noopener" hidden>Open</a>
+            <button class="u-lb__close" id="uLbClose" type="button" aria-label="Close">✕ Close</button>
+          </div>
+        </div>
+
+        <div class="u-lb__content">
+          <p class="u-lb__text" id="uLbText"></p>
+          <div class="u-lb__gallery" id="uLbGallery"></div>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Zoom overlay -->
+  <div class="u-lb__zoom" id="uZoom" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image zoom">
+    <img id="uZoomImg" alt="Zoomed image">
   </div>
 
   <footer>
@@ -264,6 +442,291 @@
   </footer>
 
   <script>
+    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // видео: авто-пауза при потере фокуса
+    // ===== Reduced motion: stop autoplay if needed
+    (function(){
+      const v = document.getElementById('bg-video');
+      if (!v) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        v.removeAttribute('autoplay');
+        v.pause();
+      }
+    })();
+
+    // ===== Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach((entry)=>{
+        if(entry.isIntersecting){
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'none';
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    // =========================================================
+    // UPDATES DATA (one-line per news)
+    // =========================================================
+    const UPDATES = [
+      {
+        id: "site-store-launch",
+        type: "exhibition", // важно: иначе не покажется из-за filter(...)
+        title: "Store is live — prints available",
+        date: "Jan 2026",
+        location: "Online",
+        tag: "Store",
+        cover: "img/HrGgGNYNVDo (3).png",
+        photos: [
+          "img/HrGgGNYNVDo (3).png",
+          "img/Копия HrGgGNYNVDo (1).png",
+          "img/HrGgGNYNVDo (1).png"
+        ],
+        text: "My store is now live on the website — you can browse and buy my prints directly. Open Store in the menu to explore the collection.",
+        action: { label: "Open Store", href: "Store.html", target: "_self" }
+      },
+
+      {
+        id: "exh-city-rhythm",
+        type: "exhibition",
+        title: "Solo exhibition — “AU-DELÀ DE LA RUSSIE”",
+        date: "29 November - 24 December 2024",
+        location: "Paris",
+        tag: "Exhibition",
+        cover: "img/Имя документа hf_29.jpg",
+        photos: [
+          "img/Имя документа hf_29.jpg",
+          "img/Имя документа hf_26.jpg",
+          "img/Франция 2022 500 евро.jpeg",
+          "img/DSC07474.jpg",
+          "img/грузия 2024 400 .jpg",
+          "img/грузия военная дорога 2024IMG_0285 54.jpg",
+          "img/FullSizeRender.jpg",
+          "img/грузия военная дорога 2024IMG_0280 21.jpg",
+          "img/черногория 2024 300 е.JPG",
+          "img/грузия 2023 500.jpg"
+        ],
+        text: "As part of this project, I explored the themes of memory, loss and the restoration of identity with great sensitivity."
+      }
+    ];
+
+    // =========================================================
+    // Generate Updates HTML (теперь только Exhibitions)
+    // =========================================================
+    const GRID_EXH = document.getElementById('news-exh');
+
+    const TYPE_LABEL = { exhibition: "Exhibition", nomination: "Nomination", release: "Release" };
+
+    function escapeHtml(s){
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function cardHTML(item){
+      const chip = item.tag || TYPE_LABEL[item.type] || "Update";
+      const loc = item.location ? `<span>${escapeHtml(item.location)}</span><span>•</span>` : "";
+      const date = item.date ? `<span>${escapeHtml(item.date)}</span>` : "";
+      const desc = item.text ? escapeHtml(item.text).slice(0, 92) + (item.text.length > 92 ? "…" : "") : "";
+      return `
+        <article class="news-card" role="button" tabindex="0" data-open-update="${escapeHtml(item.id)}" aria-label="Open update: ${escapeHtml(item.title)}">
+          <div class="news-thumb">
+            <img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async">
+          </div>
+          <div class="news-body">
+            <div class="news-top">
+              <span class="chip">${escapeHtml(chip)}</span>
+              ${loc}
+              ${date}
+            </div>
+            <h3 class="news-title">${escapeHtml(item.title)}</h3>
+            <p class="news-text">${desc}</p>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderUpdates(){
+      if(!GRID_EXH) return;
+      GRID_EXH.innerHTML = "";
+
+      UPDATES
+        .filter(u => u.type === "exhibition")
+        .forEach((u)=>{
+          GRID_EXH.insertAdjacentHTML('beforeend', cardHTML(u));
+        });
+
+      // reveal animation for generated cards
+      document.querySelectorAll('.news-card').forEach((el)=>{
+        el.style.opacity = 0;
+        el.style.transform = 'translateY(12px)';
+        el.style.transition = 'opacity .25s ease, transform .25s ease';
+        io.observe(el);
+      });
+    }
+    renderUpdates();
+
+    // =========================================================
+    // Updates Lightbox (open/close)
+    // =========================================================
+    const uLb = document.getElementById('uLb');
+    const uLbClose = document.getElementById('uLbClose');
+    const uLbTitle = document.getElementById('uLbTitle');
+    const uLbKicker = document.getElementById('uLbKicker');
+    const uLbText = document.getElementById('uLbText');
+    const uLbGallery = document.getElementById('uLbGallery');
+
+    // ✅ NEW: action button ref
+    const uLbAction = document.getElementById('uLbAction');
+
+    const uZoom = document.getElementById('uZoom');
+    const uZoomImg = document.getElementById('uZoomImg');
+
+    function openUpdate(id){
+      const item = UPDATES.find(x => x.id === id);
+      if(!item) return;
+
+      const chip = item.tag || TYPE_LABEL[item.type] || "Update";
+      const parts = [];
+      parts.push(`<span class="chip">${escapeHtml(chip)}</span>`);
+      if(item.location) parts.push(`<span>${escapeHtml(item.location)}</span>`);
+      if(item.date) parts.push(`<span>•</span><span>${escapeHtml(item.date)}</span>`);
+
+      uLbKicker.innerHTML = parts.join("");
+      uLbTitle.textContent = item.title || "";
+      uLbText.textContent = item.text || "";
+
+      const photos = Array.isArray(item.photos) ? item.photos.slice(0,30) : [];
+      uLbGallery.innerHTML = photos.map((src, idx)=>{
+        return `<img src="${escapeHtml(src)}" alt="${escapeHtml(item.title)} — photo ${idx+1}" data-zoom-src="${escapeHtml(src)}" loading="lazy" decoding="async">`;
+      }).join("");
+
+      // ✅ NEW: action button logic (only if item.action exists)
+      if (uLbAction){
+        if (item.action && item.action.href){
+          uLbAction.hidden = false;
+          uLbAction.textContent = item.action.label || "Open";
+          uLbAction.href = item.action.href;
+          uLbAction.target = item.action.target || "_self";
+        } else {
+          uLbAction.hidden = true;
+          uLbAction.textContent = "Open";
+          uLbAction.href = "#";
+          uLbAction.target = "_self";
+        }
+      }
+
+      uLb.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      uLbClose.focus();
+    }
+
+    function closeUpdate(){
+      uLb.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      uLbGallery.innerHTML = "";
+      uLbTitle.textContent = "";
+      uLbText.textContent = "";
+      uLbKicker.innerHTML = "";
+
+      // ✅ NEW: reset action button
+      if (uLbAction){
+        uLbAction.hidden = true;
+        uLbAction.textContent = "Open";
+        uLbAction.href = "#";
+        uLbAction.target = "_self";
+      }
+    }
+
+    function openZoom(src){
+      if(!src) return;
+      uZoomImg.src = src;
+      uZoom.setAttribute('aria-hidden','false');
+    }
+    function closeZoom(){
+      uZoom.setAttribute('aria-hidden','true');
+      uZoomImg.src = "";
+    }
+
+    document.addEventListener('click', (e)=>{
+      const c = e.target.closest('[data-open-update]');
+      if(c){
+        openUpdate(c.getAttribute('data-open-update'));
+        return;
+      }
+      const z = e.target.closest('#uLbGallery img[data-zoom-src]');
+      if(z){
+        openZoom(z.getAttribute('data-zoom-src'));
+        return;
+      }
+    });
+
+    document.addEventListener('keydown', (e)=>{
+      const el = document.activeElement;
+      if(el && el.matches && el.matches('[data-open-update]')){
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          openUpdate(el.getAttribute('data-open-update'));
+        }
+      }
+      if(e.key === 'Escape'){
+        if(uZoom.getAttribute('aria-hidden') === 'false') closeZoom();
+        else if(uLb.getAttribute('aria-hidden') === 'false') closeUpdate();
+      }
+    });
+
+    uLbClose.addEventListener('click', closeUpdate);
+    uLb.addEventListener('click', (e)=>{ if(e.target === uLb) closeUpdate(); });
+
+    // Click on zoom overlay to close
+    uZoom.addEventListener('click', closeZoom);
+    uZoomImg.addEventListener('click', closeZoom);
+
+    // ===== Video pause/play on visibility
+    (function(){
+      const v = document.getElementById('bg-video');
+      if(!v) return;
+
+      function pauseIfPossible(){ try{ if(!v.paused) v.pause(); }catch{} }
+      function playIfPossible(){ try{ v.play().catch(()=>{}); }catch{} }
+
+      document.addEventListener('visibilitychange', ()=>{
+        if(document.hidden) pauseIfPossible();
+        else playIfPossible();
+      });
+      window.addEventListener('blur', pauseIfPossible);
+      window.addEventListener('focus', playIfPossible);
+      window.addEventListener('pagehide', pauseIfPossible);
+      window.addEventListener('pageshow', playIfPossible);
+    })();
+
+    // ===== Desktop parallax for hero text
+    (function(){
+      const copy = document.getElementById('heroCopy');
+      if(!copy) return;
+      const isDesktop = window.matchMedia('(min-width: 921px)').matches;
+      if(!isDesktop) return;
+
+      let ticking = false;
+      function onScroll(){
+        if(ticking) return;
+        ticking = true;
+        requestAnimationFrame(()=>{
+          const y = window.scrollY || 0;
+          const shift = Math.min(y * 0.12, 28);
+          const fade  = Math.max(1 - y / 600, 0.85);
+          copy.style.transform = `translateY(${shift}px)`;
+          copy.style.opacity = fade.toFixed(3);
+          ticking = false;
+        });
+      }
+      window.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+    })();
+  </script>
+</body>
+</html>
