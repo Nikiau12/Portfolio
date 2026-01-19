@@ -7,8 +7,8 @@
   <meta name="description" content="Showreel by Nikita Kotrelev — cinematographer & photographer." />
   <meta name="theme-color" content="#0b0b0b" />
   <link rel="icon" href="img/pag 5.png" type="image/png">
+
   <style>
-    /* ===== tokens (consistent with index) ===== */
     :root{
       --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa;
       --card:#111113; --border:#242428; --accent:#3d40f9;
@@ -29,7 +29,7 @@
       -webkit-tap-highlight-color:transparent;
     }
 
-    /* ===== header (like index) ===== */
+    /* ===== header ===== */
     header{
       position:sticky; top:0; z-index:50; padding-top:var(--safe-top);
       backdrop-filter:saturate(180%) blur(12px);
@@ -44,8 +44,7 @@
     }
     .brand{
       font-weight:600; letter-spacing:.08em; text-decoration:none; color:var(--fg);
-      white-space:nowrap;
-      flex:0 0 auto;
+      white-space:nowrap; flex:0 0 auto;
     }
     .links{
       display:flex; gap:8px; overflow-x:auto; overscroll-behavior-inline:contain; scrollbar-width:none;
@@ -60,30 +59,55 @@
     .links a:hover{ opacity:1; background:rgba(255,255,255,.06); }
     .links a[aria-current="page"]{ background:rgba(255,255,255,.08); }
 
-    /* ===== centered player ===== */
+    /* ===== layout ===== */
     .wrap{ padding:24px; }
     .container{ max-width:1200px; margin:0 auto; }
-    .player{
+
+    .videos{
+      display:grid;
+      gap:16px;
       margin: clamp(24px, 8vh, 96px) auto 48px;
-      background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;
+    }
+
+    .player{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      overflow:hidden;
     }
     .ratio{ position:relative; width:100%; aspect-ratio:16/9; background:#000; }
     .ratio iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
 
+    .caption{
+      padding:12px 14px;
+      border-top:1px solid rgba(255,255,255,.06);
+      color:var(--muted);
+      font-size:14px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .caption strong{ color:var(--fg); font-weight:600; }
+
     /* ===== footer ===== */
-    footer{ border-top:1px solid var(--border); color:var(--muted); padding:24px; }
+    footer{
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      padding:24px;
+      padding-bottom:calc(24px + var(--safe-bot));
+    }
     footer .row{
-      max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px;
+      max-width:1200px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
       flex-wrap:wrap;
     }
 
-    /* ===== responsive polish ===== */
+    /* ===== responsive ===== */
     @media (max-width: 1024px){
       .nav{ padding-inline:16px; }
       .wrap{ padding:16px; }
     }
-
-    /* ✅ MOBILE: menu always visible + wraps, no cropping */
     @media (max-width: 640px){
       .nav{
         flex-direction:column;
@@ -95,18 +119,16 @@
       .links{
         width:100%;
         flex-wrap:wrap;
-        overflow:visible;     /* важно: не режем ссылки */
+        overflow:visible;
       }
-      .links a{
-        padding:10px 12px;
-        font-size:14px;
-      }
+      .links a{ padding:10px 12px; font-size:14px; }
       .brand{ font-size:14px; }
 
       .wrap{ padding:14px 12px; }
-      .player{ margin: 16px auto 32px; border-radius:12px; }
+      .videos{ margin: 16px auto 32px; gap:12px; }
+      .player{ border-radius:12px; }
 
-      footer{ padding:20px 12px; }
+      footer{ padding:20px 12px; padding-bottom:calc(20px + var(--safe-bot)); }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -114,6 +136,7 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <nav class="nav" aria-label="Primary">
@@ -123,25 +146,71 @@
         <a href="Photos.html">Photos</a>
         <a href="Projects.html">Projects</a>
         <a href="About me.html">About</a>
-         <a href="Store.html">Store</a>
+        <a href="Store.html">Store</a>
       </div>
     </nav>
   </header>
 
   <main class="wrap">
     <div class="container">
-      <div class="player" role="region" aria-label="Showreel player">
-        <div class="ratio">
-          <iframe
-            id="yt"
-            src="https://www.youtube.com/embed/Ht9TyFItu58?autoplay=1&mute=1&playsinline=1"
-            title="Showreel — Nikita Kotrelev"
-            loading="lazy"
-            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen>
-          </iframe>
-        </div>
+      <div class="videos">
+
+<!-- VIDEO 1 -->
+        <section class="player" role="region" aria-label="Second video player">
+          <div class="ratio">
+            <iframe
+              id="yt2"
+              src="https://www.youtube.com/embed/mbNNm-6rX58?autoplay=0&mute=0&playsinline=1"
+              title="Video — Nikita Kotrelev"
+              loading="lazy"
+              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="caption">
+            
+          </div>
+        </section>
+        
+
+        <!-- VIDEO 2 -->
+        <section class="player" role="region" aria-label="Second video player">
+          <div class="ratio">
+            <iframe
+              id="yt2"
+              src="https://www.youtube.com/embed/uCZW-tvKaCM?autoplay=0&mute=0&playsinline=1"
+              title="Video — Nikita Kotrelev"
+              loading="lazy"
+              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="caption">
+            
+          </div>
+        </section>
+
+        <!-- VIDEO 3 -->
+        <section class="player" role="region" aria-label="Showreel player">
+          <div class="ratio">
+            <iframe
+              id="yt1"
+              src="https://www.youtube.com/embed/Ht9TyFItu58?autoplay=0&playsinline=1"
+              title="Showreel — Nikita Kotrelev"
+              loading="lazy"
+              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="caption">
+            <strong>Showreel</strong>
+            <span>YouTube</span>
+          </div>
+        </section>
+
       </div>
     </div>
   </main>
@@ -149,18 +218,17 @@
   <footer>
     <div class="row">
       <span>© <span id="year"></span> Nikita Kotrelev</span>
-      <span>Instagram · Vimeo · Email</span>
+      
     </div>
   </footer>
 
   <script>
-    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Уважение prefers-reduced-motion: убираем autoplay у YouTube
+    // prefers-reduced-motion: disable autoplay for VIDEO 1
     (function(){
       const mql = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
-      const iframe = document.getElementById('yt');
+      const iframe = document.getElementById('yt1');
       if (!iframe) return;
 
       function disableAutoplay(){
@@ -168,7 +236,7 @@
           const url = new URL(iframe.src);
           url.searchParams.set('autoplay', '0');
           iframe.src = url.toString();
-        }catch(e){ /* no-op */ }
+        }catch(e){}
       }
       if (mql && mql.matches) disableAutoplay();
       mql && mql.addEventListener && mql.addEventListener('change', e => { if (e.matches) disableAutoplay(); });
