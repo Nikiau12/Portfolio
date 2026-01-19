@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Island</title>
+  <title>Paris — 2024 · Nikita Kotrelev</title>
   <meta name="description" content="Paris 2024 — urban cinematography study by Nikita Kotrelev." />
-<link rel="icon" href="img/pag 5.png" type="image/png">
+  <link rel="icon" href="img/pag 5.png" type="image/png" />
   <style>
     :root{
       --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428;
       --radius:16px; --space:24px; --safe-top:max(env(safe-area-inset-top),0px); --header-h:64px;
+      --safe-bot:max(env(safe-area-inset-bottom),0px);
     }
     @font-face{
       font-family:'Afacad Flux';
@@ -35,17 +36,20 @@
       backdrop-filter:saturate(180%) blur(8px);
       background:linear-gradient(180deg, rgba(11,11,11,.76), rgba(11,11,11,.3) 60%, rgba(11,11,11,0));
       border-bottom:1px solid var(--border);
+      box-sizing:border-box;
     }
     .nav{
       max-width:1200px;margin:0 auto;
       padding:12px 24px;
       display:flex;align-items:center;justify-content:space-between;gap:12px;
+      box-sizing:border-box;
     }
-    .brand{font-weight:600;letter-spacing:.08em;text-decoration:none;color:var(--fg);}
-    .links{display:flex;gap:10px;align-items:center;overflow-x:auto;}
+    .brand{font-weight:600;letter-spacing:.08em;text-decoration:none;color:var(--fg); white-space:nowrap;}
+    .links{display:flex;gap:10px;align-items:center;overflow-x:auto; max-width:100%;}
     .links a{
       color:var(--fg);text-decoration:none;opacity:.9;
       padding:8px 12px;border-radius:999px;white-space:nowrap;font-size:14px;
+      flex:0 0 auto;
     }
     .links a:hover{opacity:1;background:rgba(255,255,255,.04);}
     .links a[aria-current="page"]{background:rgba(255,255,255,.06);}
@@ -56,6 +60,7 @@
       padding-bottom:30px;
       text-align:center;
       max-width:900px;margin:0 auto;padding-inline:24px;
+      box-sizing:border-box;
     }
     .hero h1{
       font-size:clamp(30px,6vw,56px);
@@ -73,6 +78,7 @@
       border:1px solid var(--border);
       border-radius:var(--radius);
       text-align:center;
+      box-sizing:border-box;
     }
     .about h3{margin-top:0;margin-bottom:10px;font-size:20px;}
     .about p{
@@ -88,6 +94,7 @@
       display:grid;
       grid-template-columns:repeat(3, minmax(0,1fr));
       gap:16px;
+      box-sizing:border-box;
     }
     .masonry figure{
       margin:0;
@@ -98,17 +105,16 @@
       cursor:pointer;
       transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
     }
-    .masonry figcaption {
-  padding: 8px 4px 0;
-  font-size: 14px;
-  font-weight: 600; /* жирный */
-  font-family: 'Afacad Flux', sans-serif; /* как заголовок Island */
-  color: var(--fg); /* белый (как h1 Island) */
-  text-align: center;
-  line-height: 1.4;
-  letter-spacing: 0.02em;
-}
-
+    .masonry figcaption{
+      padding: 8px 4px 0;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Afacad Flux', sans-serif;
+      color: var(--fg);
+      text-align: center;
+      line-height: 1.4;
+      letter-spacing: 0.02em;
+    }
     .masonry figure:hover{
       transform:translateY(-4px);
       box-shadow:0 12px 28px rgba(0,0,0,.5);
@@ -120,40 +126,55 @@
 
     /* ===== Lightbox ===== */
     .lightbox{
-      position:fixed;inset:0;
+      position:fixed; inset:0;
       background:rgba(0,0,0,.92);
-      display:none;z-index:80;
+      display:none; z-index:80;
+
+      /* ✅ центрируем контент всегда */
+      align-items:center;
+      justify-content:center;
+
+      /* ✅ чтобы на мобиле ничего не смещалось */
+      padding: calc(16px + var(--safe-top)) 16px calc(16px + var(--safe-bot));
+      box-sizing:border-box;
     }
-    .lightbox[aria-hidden="false"]{display:grid;}
+    .lightbox[aria-hidden="false"]{display:flex;}
+
     .lightbox__inner{
-      display:grid;grid-template-rows:1fr auto;
-      width:100%;height:100%;
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
     .lightbox__image-wrap{
-      display:grid;place-items:center;padding:24px;
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
     .lightbox__img{
-      max-width:96vw;max-height:86vh;
-      width:auto;height:auto;object-fit:contain;
+      max-width:96vw; max-height:86vh;
+      width:auto; height:auto;
+      object-fit:contain;
+      display:block;
+      cursor:pointer; /* ✅ кликаем по фото — закрываем */
     }
-    .lightbox__close{
-      position:fixed;top:16px;right:16px;
-      width:44px;height:44px;border-radius:50%;
-      background:rgba(255,255,255,.1);
-      border:1px solid var(--border);
-      display:grid;place-items:center;cursor:pointer;
-    }
-    .lightbox__close:hover{background:rgba(255,255,255,.18);}
+
+    /* ❌ убрали крестик */
+    .lightbox__close{ display:none !important; }
 
     /* ===== Footer ===== */
     footer{
       border-top:1px solid var(--border);
       color:var(--muted);padding:24px;
+      box-sizing:border-box;
     }
     footer .row{
       max-width:1200px;margin:0 auto;
       display:flex;align-items:center;justify-content:space-between;
       gap:12px;padding:0 24px;
+      box-sizing:border-box;
     }
 
     /* ===== Responsive ===== */
@@ -175,6 +196,52 @@
       .about{margin:24px 12px;padding:18px;}
       .nav{padding:10px 12px;}
     }
+
+    /* ✅ MOBILE NAV FIX (projects pages) */
+    @media (max-width: 640px){
+      :root{ --header-h:auto; }
+
+      header{
+        position: sticky;
+        top: 0;
+        height: auto;
+        padding-bottom: 10px;
+      }
+
+      .nav{
+        padding: 12px 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 10px;
+        box-sizing: border-box;
+      }
+
+      .brand{ font-size: 14px; }
+
+      .links{
+        width: 100%;
+        flex-wrap: wrap;
+        overflow: visible;
+        gap: 8px;
+        scrollbar-width: none;
+      }
+      .links::-webkit-scrollbar{ display:none; }
+
+      .links a{
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+
+      .hero{
+        padding-top: 18px;
+        padding-inline: 12px;
+        text-align: left;
+      }
+
+      .masonry{ padding: 0 12px; }
+      .about{ margin: 24px 12px; }
+    }
   </style>
 </head>
 <body>
@@ -193,7 +260,7 @@
 
   <!-- Hero -->
   <section class="hero">
-    <h1>Island</h1>
+    <h1>Island 2025</h1>
     <div class="meta"></div>
     <p></p>
   </section>
@@ -206,52 +273,53 @@
     </p>
   </section>
 
-  <!-- Gallery: порядок как в HTML (1–9) -->
+  <!-- Gallery -->
   <section class="masonry" id="gallery">
 
-  <figure>
-    <img src="img/исландлия маша.png" alt="">
-    <figcaption>Kodachrome 3x4</figcaption>
-  </figure>
-
-  <figure>
-    <img src="img/1.png" alt="">
-    <figcaption>Kodachrome 3x4</figcaption>
-  </figure>
-
-  <figure>
-    <img src="img/2.png" alt="">
-    <figcaption>Kodachrome 3x4</figcaption>
-  </figure>
-
-  <figure>
-    <img src="img/3.png" alt="">
-    <figcaption> Kodachrome 3x4 </figcaption> <!-- подпись можно оставить пустой -->
-  </figure>
-
-  <figure>
-    <img src="img/4.png" alt="">
-    <figcaption>Kodachrome 16x9</figcaption>
-  </figure>
-
-  <figure>
-    <img src="img/душь исландия .png" alt="">
-    <figcaption>Iphone 16 Pro</figcaption>
-  </figure>
-
+    <figure>
+      <img src="img/исландлия маша.png" alt="">
+      <figcaption>Kodachrome 3x4</figcaption>
+    </figure>
 
     <figure>
-    <img src="img/12.png" alt="">
-    <figcaption>Kodachrome 16x9</figcaption>
-  </figure>
+      <img src="img/1.png" alt="">
+      <figcaption>Kodachrome 3x4</figcaption>
+    </figure>
 
- 
+    <figure>
+      <img src="img/2.png" alt="">
+      <figcaption>Kodachrome 3x4</figcaption>
+    </figure>
 
-</section>
+    <figure>
+      <img src="img/3.png" alt="">
+      <figcaption>Kodachrome 3x4</figcaption>
+    </figure>
+
+    <figure>
+      <img src="img/4.png" alt="">
+      <figcaption>Kodachrome 16x9</figcaption>
+    </figure>
+
+    <figure>
+      <img src="img/душь исландия .png" alt="">
+      <figcaption>Iphone 16 Pro</figcaption>
+    </figure>
+
+    <figure>
+      <img src="img/11. 1 .png" alt="">
+      <figcaption>Kodachrome 16x9</figcaption>
+    </figure>
+
+    <figure>
+      <img src="img/12.png" alt="">
+      <figcaption>Kodachrome 16x9</figcaption>
+    </figure>
+
+  </section>
 
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
-    <button class="lightbox__close" id="lb-close" aria-label="Close">✕</button>
     <div class="lightbox__inner">
       <div class="lightbox__image-wrap">
         <img id="lb-img" class="lightbox__img" alt="">
@@ -268,21 +336,58 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Lightbox
+    // ✅ Lightbox toggle: click to open, click again (same img) to close
     (function(){
-      const lb=document.getElementById('lightbox');
-      const lbImg=document.getElementById('lb-img');
-      const lbClose=document.getElementById('lb-close');
-      document.getElementById('gallery').addEventListener('click',e=>{
-        const img=e.target.closest('img');
-        if(!img)return;
-        lbImg.src=img.src;
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lb-img');
+      const gallery = document.getElementById('gallery');
+      if(!lb || !lbImg || !gallery) return;
+
+      let isOpen = false;
+      let currentSrc = "";
+
+      function openLB(src){
+        currentSrc = src || "";
+        lbImg.src = currentSrc;
         lb.setAttribute('aria-hidden','false');
-        document.body.style.overflow='hidden';
+        document.body.style.overflow = 'hidden';
+        isOpen = true;
+      }
+
+      function closeLB(){
+        lb.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+        lbImg.src = "";
+        currentSrc = "";
+        isOpen = false;
+      }
+
+      function toggleLB(src){
+        if(isOpen && src && src === currentSrc){
+          closeLB();
+        } else {
+          openLB(src);
+        }
+      }
+
+      gallery.addEventListener('click', (e)=>{
+        const img = e.target.closest('img');
+        if(!img) return;
+        toggleLB(img.src);
       });
-      lbClose.onclick=()=>{lb.setAttribute('aria-hidden','true');document.body.style.overflow='';};
-      lb.onclick=e=>{if(e.target===lb){lb.setAttribute('aria-hidden','true');document.body.style.overflow='';}};
-      document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.setAttribute('aria-hidden','true');document.body.style.overflow='';}});
+
+      // close by clicking overlay background
+      lb.addEventListener('click', (e)=>{
+        if(e.target === lb) closeLB();
+      });
+
+      // ✅ close by clicking the big image
+      lbImg.addEventListener('click', closeLB);
+
+      // close on Esc
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape' && lb.getAttribute('aria-hidden') === 'false') closeLB();
+      });
     })();
   </script>
 </body>
