@@ -201,9 +201,32 @@
       display:none; z-index:80;
     }
     .lightbox[aria-hidden="false"]{display:grid}
-    .lightbox__inner{display:grid; grid-template-rows:1fr auto; width:100%; height:100%;}
-    .lightbox__image-wrap{display:grid; place-items:center; padding:24px;}
-    .lightbox__img{max-width:96vw; max-height:86vh; width:auto; height:auto; object-fit:contain;}
+    .lightbox__inner{
+      display:grid;
+      grid-template-rows:1fr auto;
+      width:100%;
+      height:100%;
+    }
+    .lightbox__image-wrap{
+      display:grid;
+      place-items:center;
+      padding:24px;
+      box-sizing:border-box;
+      width:100%;
+    }
+
+    /* ✅ FIX: true centering on mobile (no “shift to right”) */
+    .lightbox__img{
+      display:block;
+      margin:auto;
+      max-width:100%;
+      max-height:86vh;
+      width:auto;
+      height:auto;
+      object-fit:contain;
+      cursor:pointer; /* клик по фото = закрыть */
+    }
+
     .lightbox__caption{
       padding:12px 24px 24px;
       display:flex; gap:16px; align-items:center; justify-content:space-between;
@@ -212,21 +235,6 @@
       box-sizing:border-box;
     }
     .lightbox__caption strong{color:var(--fg); font-weight:600}
-    .lightbox__close{
-      position:fixed;
-      top: calc(12px + var(--safe-top));
-      right: 12px;
-      width:48px; height:48px;
-      border-radius:50%;
-      background:rgba(255,255,255,.1);
-      border:1px solid var(--border);
-      display:grid; place-items:center;
-      cursor:pointer;
-      color:var(--fg);
-      font-size:20px;
-      z-index:81;
-    }
-    .lightbox__close:hover{background:rgba(255,255,255,.18)}
 
     /* ===== Footer ===== */
     footer{
@@ -252,7 +260,6 @@
     @media(max-width:640px){
       :root{--header-h:auto;}
 
-      /* header не перекрывает контент */
       header{
         position: sticky;
         height:auto;
@@ -266,7 +273,6 @@
       }
       .brand{font-size:14px;}
 
-      /* меню переносится */
       .links{
         width:100%;
         flex-wrap:wrap;
@@ -290,13 +296,11 @@
         margin-bottom: 40px;
       }
 
-      /* кнопка Buy удобнее */
       .buyrow{align-items:stretch;}
       .buy{width:100%; text-align:center;}
 
       .lightbox__image-wrap{padding:16px;}
       .lightbox__img{max-height:78vh;}
-      .lightbox__close{width:54px;height:54px}
       footer .row{flex-direction:column; align-items:flex-start; padding:0 12px;}
       footer{padding:20px 12px calc(20px + var(--safe-bot));}
     }
@@ -328,21 +332,16 @@
     <p>Fine-art prints — printed by me, signed & numbered. Worldwide shipping.</p>
   </div>
 
-  <!-- ===== PRODUCTS ===== -->
   <section class="store" id="store" aria-label="Store products">
-
-    <!-- PRODUCT 1 -->
     <article class="product" data-product="brittany">
       <div class="thumb" data-lightbox="img/HrGgGNYNVDo (1).png" data-caption="France, Brittany">
         <img src="img/HrGgGNYNVDo (1).png" alt="France, Brittany print" loading="lazy" decoding="async">
       </div>
-
       <div class="content">
         <div class="titleline">
           <h3 class="title">France, Brittany</h3>
           <div class="sku"></div>
         </div>
-
         <div class="options">
           <div class="buyrow">
             <div class="price" data-price>
@@ -354,18 +353,15 @@
       </div>
     </article>
 
-    <!-- PRODUCT 2 -->
     <article class="product" data-product="oleron">
       <div class="thumb" data-lightbox="img/Копия HrGgGNYNVDo (1).png" data-caption="Oléron Island">
         <img src="img/Копия HrGgGNYNVDo (1).png" alt="Oléron Island print" loading="lazy" decoding="async">
       </div>
-
       <div class="content">
         <div class="titleline">
           <h3 class="title">Oléron, Island</h3>
           <div class="sku"></div>
         </div>
-
         <div class="options">
           <div class="buyrow">
             <div class="price" data-price>
@@ -377,18 +373,15 @@
       </div>
     </article>
 
-    <!-- PRODUCT 3 -->
     <article class="product" data-product="Morocco">
       <div class="thumb" data-lightbox="img/HrGgGNYNVDo (3).png" data-caption="Morocco, Road">
         <img src="img/HrGgGNYNVDo (3).png" alt="Morocco, Road print" loading="lazy" decoding="async">
       </div>
-
       <div class="content">
         <div class="titleline">
           <h3 class="title">Morocco, Road</h3>
           <div class="sku"></div>
         </div>
-
         <div class="options">
           <div class="buyrow">
             <div class="price" data-price>
@@ -399,12 +392,10 @@
         </div>
       </div>
     </article>
-
   </section>
 
-  <!-- ===== LIGHTBOX ===== -->
+  <!-- ===== LIGHTBOX (no close button) ===== -->
   <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
-    <button class="lightbox__close" id="lb-close" aria-label="Close">✕</button>
     <div class="lightbox__inner">
       <div class="lightbox__image-wrap">
         <img id="lb-img" class="lightbox__img" alt="">
@@ -426,11 +417,6 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    /**
-     * ВАЖНО:
-     * Вставь сюда реальные Stripe Payment Links (https://buy.stripe.com/...)
-     * Можно (по желанию) указать price, чтобы показывать цену на карточке.
-     */
     const PAYMENT_LINKS = {
       brittany: { price: 400, url: "https://buy.stripe.com/eVq4gsdvmcNfegR6ACasg01" },
       oleron:   { price: 500, url: "https://buy.stripe.com/dRm3co76Y7sV3Cd1giasg03" },
@@ -442,37 +428,31 @@
       return "€" + n.toFixed(0);
     }
 
-    // ===== Buy buttons + price UI (one size) =====
     document.querySelectorAll('.product').forEach((card)=>{
       const productId = card.dataset.product;
       const data = PAYMENT_LINKS?.[productId];
       const priceEl = card.querySelector('[data-price]');
       const buyBtn = card.querySelector('[data-buy]');
 
-      if (priceEl){
-        // keep the small text, replace the main number part
-        if (priceEl.childNodes && priceEl.childNodes[0]) {
-          priceEl.childNodes[0].nodeValue = (data?.price ? euro(data.price) : "€—") + " ";
-        }
+      if (priceEl && priceEl.childNodes && priceEl.childNodes[0]) {
+        priceEl.childNodes[0].nodeValue = (data?.price ? euro(data.price) : "€—") + " ";
       }
 
       if (buyBtn){
         buyBtn.disabled = !data?.url || String(data.url).includes("PASTE_YOUR");
         buyBtn.dataset.url = data?.url || "";
+        buyBtn.addEventListener('click', ()=>{
+          const url = buyBtn.dataset.url;
+          if (!url) return;
+          window.location.href = url;
+        });
       }
-
-      buyBtn?.addEventListener('click', ()=>{
-        const url = buyBtn.dataset.url;
-        if (!url) return;
-        window.location.href = url;
-      });
     });
 
-    // ===== Lightbox preview =====
+    // ===== Lightbox preview (open + close by clicking image/overlay) =====
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lb-img');
     const lbCap = document.getElementById('lb-cap');
-    const lbClose = document.getElementById('lb-close');
 
     function openLb(src, cap){
       lbImg.src = src;
@@ -480,21 +460,30 @@
       lbCap.textContent = cap || "";
       lb.setAttribute('aria-hidden','false');
       document.body.style.overflow = 'hidden';
-      lbClose.focus();
     }
     function closeLb(){
       lb.setAttribute('aria-hidden','true');
       document.body.style.overflow = '';
+      lbImg.src = "";
     }
 
+    // open by clicking product thumbs
     document.addEventListener('click', (e)=>{
       const t = e.target.closest('.thumb');
       if(!t) return;
       openLb(t.dataset.lightbox, t.dataset.caption || "");
     });
 
-    lbClose.addEventListener('click', closeLb);
+    // close by clicking the image itself
+    lbImg.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      closeLb();
+    });
+
+    // close by clicking overlay background
     lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLb(); });
+
+    // Esc
     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLb(); });
   </script>
 </body>
