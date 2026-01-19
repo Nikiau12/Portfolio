@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Paris — 2024 · Nikita Kotrelev</title>
   <meta name="description" content="Paris 2024 — urban cinematography study by Nikita Kotrelev." />
- <link rel="icon" href="img/pag 5.png" type="image/png">
+  <link rel="icon" href="img/pag 5.png" type="image/png">
   <style>
     :root{
       --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428;
       --radius:16px; --space:24px;
       --safe-top:max(env(safe-area-inset-top),0px);
+      --safe-bot:max(env(safe-area-inset-bottom),0px);
       --safe-left:max(env(safe-area-inset-left),0px);
       --safe-right:max(env(safe-area-inset-right),0px);
       --header-h:64px;
@@ -41,28 +42,30 @@
       border-bottom:1px solid var(--border);
       box-sizing:border-box;
     }
-    .nav{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
-    .brand{font-weight:600;letter-spacing:.08em;text-decoration:none;color:var(--fg);white-space:nowrap;}
-    .links{display:flex;gap:10px;align-items:center;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:none;}
+    .nav{
+      max-width:1200px;margin:0 auto;
+      padding:12px 24px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      box-sizing:border-box;
+      width:100%;
+    }
+    .brand{
+      font-weight:600;letter-spacing:.08em;text-decoration:none;color:var(--fg);
+      white-space:nowrap; flex:0 0 auto;
+    }
+    .links{
+      display:flex;gap:10px;align-items:center;
+      overflow-x:auto; overscroll-behavior-inline:contain;
+      scrollbar-width:none; max-width:100%;
+    }
     .links::-webkit-scrollbar{display:none;}
-    .links a{color:var(--fg);text-decoration:none;opacity:.9;padding:8px 12px;border-radius:999px;white-space:nowrap;font-size:14px;}
+    .links a{
+      color:var(--fg);text-decoration:none;opacity:.9;
+      padding:8px 12px;border-radius:999px;white-space:nowrap;font-size:14px;
+      flex:0 0 auto;
+    }
     .links a:hover{opacity:1;background:rgba(255,255,255,.04);}
     .links a[aria-current="page"]{background:rgba(255,255,255,.06);}
-
-    /* Навигация: все кнопки видны на мобилках */
-    @media (max-width: 780px){
-      .links{ scroll-snap-type:x mandatory; }
-      .links a{ scroll-snap-align:start; }
-    }
-    @media (max-width: 420px){
-      :root{ --header-h:56px; }
-      .nav{ padding:10px 12px; align-items:flex-start; }
-      .links{
-        overflow:visible; flex-wrap:wrap;
-        row-gap:8px; column-gap:8px; max-width:100%;
-      }
-      .links a{ padding:8px 10px; font-size:14px; }
-    }
 
     /* ===== Hero ===== */
     .hero{
@@ -70,6 +73,7 @@
       padding-bottom:30px;
       text-align:center;
       max-width:900px;margin:0 auto;padding-inline:24px;
+      box-sizing:border-box;
     }
     .hero h1{font-size:clamp(30px,6vw,56px);margin:0 0 10px;line-height:1.05;}
     .hero .meta{color:var(--muted);font-size:14px;margin-bottom:10px;}
@@ -84,59 +88,160 @@
       border:1px solid var(--border);
       border-radius:var(--radius);
       text-align:center;
+      box-sizing:border-box;
     }
     .about h3{margin-top:0;margin-bottom:10px;font-size:20px;}
     .about p{color:var(--muted);font-size:16px;line-height:1.7;margin:0 auto;max-width:600px;}
 
     /* ===== Gallery ===== */
-    .masonry{column-count:3;column-gap:16px;max-width:1320px;margin:0 auto 70px;padding:0 24px;}
-    .masonry figure{break-inside:avoid;margin:0 0 16px;border-radius:12px;overflow:hidden;background:#000;border:1px solid var(--border);cursor:pointer;transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;}
-    .masonry figure:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.5);border-color:rgba(255,255,255,.06);}
+    .masonry{
+      column-count:3;
+      column-gap:16px;
+      max-width:1320px;
+      margin:0 auto 70px;
+      padding:0 24px;
+      box-sizing:border-box;
+    }
+    .masonry figure{
+      break-inside:avoid;
+      margin:0 0 16px;
+      border-radius:0px;            /* ✅ без скругления как в остальных */
+      overflow:hidden;
+      background:#000;
+      border:1px solid var(--border);
+      cursor:pointer;
+      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .masonry figure:hover{
+      transform:translateY(-4px);
+      box-shadow:0 12px 28px rgba(0,0,0,.5);
+      border-color:rgba(255,255,255,.06);
+    }
     .masonry img{width:100%;height:auto;display:block;}
 
-    /* ===== Lightbox — строго по центру ===== */
+    /* ===== Lightbox (toggle + centered) ===== */
     .lightbox{
-      position:fixed; inset:0;
-      display:none; z-index:80;
+      position:fixed;
+      inset:0;
       background:rgba(0,0,0,.92);
-      padding-left:var(--safe-left);
-      padding-right:var(--safe-right);
+      display:none;
+      z-index:200;
+
+      /* ✅ строго по центру + safe-area */
+      align-items:center;
+      justify-content:center;
+      padding: calc(16px + var(--safe-top)) 16px calc(16px + var(--safe-bot));
+      padding-left: calc(16px + var(--safe-left));
+      padding-right: calc(16px + var(--safe-right));
+      box-sizing:border-box;
     }
-    .lightbox[aria-hidden="false"]{
-      display:flex; align-items:center; justify-content:center;
-    }
+    .lightbox[aria-hidden="false"]{display:flex;}
+
     .lightbox__inner{
-      width:100%; height:100%;
-      display:flex; align-items:center; justify-content:center;
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
     .lightbox__image-wrap{
-      width:100%; height:100%;
-      display:flex; align-items:center; justify-content:center;
-      padding:24px; box-sizing:border-box;
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
     .lightbox__img{
-      max-width:96vw; max-height:86vh;
-      width:auto; height:auto; object-fit:contain;
-      display:block; margin:0 auto;
+      max-width:96vw;
+      max-height:86vh;
+      width:auto;
+      height:auto;
+      object-fit:contain;
+      display:block;
+      cursor:pointer; /* ✅ клик по фото закрывает */
     }
-    .lightbox__close{
-      position:fixed; top:16px; right:16px;
-      width:44px; height:44px; border-radius:50%;
-      background:rgba(255,255,255,.1); border:1px solid var(--border);
-      display:grid; place-items:center; cursor:pointer;
-    }
-    .lightbox__close:hover{background:rgba(255,255,255,.18);}
+
+    /* ❌ крестик убрали */
+    .lightbox__close{ display:none !important; }
 
     /* ===== Footer ===== */
-    footer{border-top:1px solid var(--border);color:var(--muted);padding:24px;}
-    footer .row{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 24px;}
+    footer{
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      padding:24px;
+      padding-bottom: calc(24px + var(--safe-bot));
+      box-sizing:border-box;
+    }
+    footer .row{
+      max-width:1200px;margin:0 auto;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:0 24px;
+      box-sizing:border-box;
+    }
 
     /* ===== Responsive ===== */
-    @media(max-width:880px){.masonry{column-count:2;column-gap:12px;}}
+    @media(max-width:880px){
+      .masonry{column-count:2;column-gap:12px;}
+    }
     @media(max-width:560px){
       .hero{padding-top:calc(var(--header-h) + 50px);}
       .masonry{column-count:1;column-gap:0;padding:0 12px;}
       .about{margin:24px 12px;padding:18px;}
+      .nav{padding:10px 12px;}
+    }
+
+    /* ✅ MOBILE NAV FIX (как island/morocco) */
+    @media (max-width: 640px){
+      :root{ --header-h:auto; }
+
+      header{
+        position: sticky;
+        top: 0;
+        height: auto;
+        padding-bottom: 10px;
+      }
+
+      .nav{
+        padding: 12px 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 10px;
+      }
+
+      .brand{ font-size: 14px; }
+
+      .links{
+        width: 100%;
+        flex-wrap: wrap;
+        overflow: visible;
+        gap: 8px;
+      }
+
+      .links a{
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+
+      .hero{
+        padding-top: 18px;
+        padding-inline: 12px;
+        text-align: left;
+      }
+
+      .about{
+        margin:24px 12px;
+        padding:18px;
+        text-align:left;
+      }
+
+      footer{ padding:20px 12px calc(20px + var(--safe-bot)); }
+      footer .row{ padding:0 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .links a:hover{ background:none; }
+      .masonry figure:hover{ transform:none; }
     }
   </style>
 </head>
@@ -158,16 +263,14 @@
   <section class="hero">
     <h1>Fashion</h1>
     <div class="meta">Urban cinematography study</div>
-    <p>
-      
-    </p>
+    <p></p>
   </section>
 
   <!-- About -->
   <section class="about">
     <h3>About the project</h3>
     <p>
-      In 2025, I worked on a modelling shoot as a backstage photographer. 
+      In 2025, I worked on a modelling shoot as a backstage photographer.
     </p>
   </section>
 
@@ -176,13 +279,12 @@
     <figure><img src="img/IMG_1465.JPG" alt="Paris frame" loading="lazy" decoding="async"></figure>
     <figure><img src="img/FullSizeRender(2).jpg" alt="Oléron / Paris series" loading="lazy" decoding="async"></figure>
     <figure><img src="img/FullSizeRender(3).jpg" alt="France coast" loading="lazy" decoding="async"></figure>
-    <figure><img src="img/фотки с айфона 202532FullSizeRender 3-2.png" alt="France coast" loading="lazy" decoding="async"></figure>
-    <figure><img src="img/IMG_1601.JPG" alt="France coast" loading="lazy" decoding="async"></figure>
+    <figure><img src="img/фотки с айфона 202532FullSizeRender 3-2.png" alt="Backstage" loading="lazy" decoding="async"></figure>
+    <figure><img src="img/IMG_1601.JPG" alt="Backstage" loading="lazy" decoding="async"></figure>
   </section>
 
-  <!-- Lightbox -->
+  <!-- Lightbox (без крестика) -->
   <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
-    <button class="lightbox__close" id="lb-close" aria-label="Close">✕</button>
     <div class="lightbox__inner">
       <div class="lightbox__image-wrap">
         <img id="lb-img" class="lightbox__img" alt="">
@@ -199,30 +301,55 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Lightbox
+    // ✅ Lightbox TOGGLE (клик открыть / клик снова закрыть)
     (function(){
-      const lb=document.getElementById('lightbox');
-      const lbImg=document.getElementById('lb-img');
-      const lbClose=document.getElementById('lb-close');
-      const gallery=document.getElementById('gallery');
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lb-img');
+      const gallery = document.getElementById('gallery');
+      if(!lb || !lbImg || !gallery) return;
 
-      gallery.addEventListener('click',e=>{
-        const img=e.target.closest('img');
-        if(!img)return;
-        lbImg.src=img.src;
+      let isOpen = false;
+      let currentSrc = "";
+
+      function openLb(src){
+        currentSrc = src || "";
+        lbImg.src = currentSrc;
         lb.setAttribute('aria-hidden','false');
         document.body.style.overflow='hidden';
-      });
-
-      function closeLB(){
-        lb.setAttribute('aria-hidden','true');
-        document.body.style.overflow='';
-        lbImg.removeAttribute('style');
+        isOpen = true;
       }
 
-      lbClose.onclick=closeLB;
-      lb.onclick=e=>{ if(e.target===lb) closeLB(); };
-      document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLB(); });
+      function closeLb(){
+        lb.setAttribute('aria-hidden','true');
+        document.body.style.overflow='';
+        lbImg.src = '';
+        currentSrc = '';
+        isOpen = false;
+      }
+
+      function toggleLb(src){
+        if(isOpen && src && src === currentSrc) closeLb();
+        else openLb(src);
+      }
+
+      gallery.addEventListener('click', (e)=>{
+        const img = e.target.closest('img');
+        if(!img) return;
+        toggleLb(img.src);
+      });
+
+      // клик по фону — закрыть
+      lb.addEventListener('click', (e)=>{
+        if(e.target === lb) closeLb();
+      });
+
+      // клик по большому фото — закрыть
+      lbImg.addEventListener('click', closeLb);
+
+      // Esc — закрыть
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape' && lb.getAttribute('aria-hidden') === 'false') closeLb();
+      });
     })();
   </script>
 </body>
