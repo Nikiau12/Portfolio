@@ -2,10 +2,11 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>France</title>
   <meta name="description" content="France 2024 — urban cinematography study by Nikita Kotrelev." />
-<link rel="icon" href="img/pag 5.png" type="image/png">
+  <link rel="icon" href="img/pag 5.png" type="image/png">
+
   <style>
     :root{
       --bg:#0b0b0b;
@@ -16,6 +17,7 @@
       --radius:16px;
       --space:24px;
       --safe-top:max(env(safe-area-inset-top),0px);
+      --safe-bot:max(env(safe-area-inset-bottom),0px);
       --header-h:64px;
     }
 
@@ -39,6 +41,7 @@
       min-height:100dvh;
       display:grid;
       grid-template-rows:auto 1fr auto;
+      -webkit-tap-highlight-color:transparent;
     }
 
     /* ===== Header ===== */
@@ -51,6 +54,7 @@
       backdrop-filter:saturate(180%) blur(8px);
       background:linear-gradient(180deg, rgba(11,11,11,.76), rgba(11,11,11,.3), rgba(11,11,11,0));
       border-bottom:1px solid var(--border);
+      box-sizing:border-box;
     }
 
     .nav{
@@ -61,6 +65,8 @@
       align-items:center;
       justify-content:space-between;
       gap:12px;
+      box-sizing:border-box;
+      width:100%;
     }
 
     .brand{
@@ -68,14 +74,19 @@
       font-weight:600;
       text-decoration:none;
       letter-spacing:.08em;
+      white-space:nowrap;
+      flex:0 0 auto;
     }
 
     .links{
       display:flex;
       gap:10px;
       overflow-x:auto;
-      white-space:nowrap;
+      overscroll-behavior-inline:contain;
+      scrollbar-width:none;
+      max-width:100%;
     }
+    .links::-webkit-scrollbar{ display:none; }
 
     .links a{
       color:var(--fg);
@@ -84,6 +95,8 @@
       padding:8px 12px;
       border-radius:999px;
       font-size:14px;
+      white-space:nowrap;
+      flex:0 0 auto;
     }
 
     .links a:hover{opacity:1;background:rgba(255,255,255,.05);}
@@ -97,6 +110,7 @@
       max-width:900px;
       margin:0 auto;
       padding-inline:24px;
+      box-sizing:border-box;
     }
 
     .hero h1{
@@ -108,6 +122,7 @@
     .hero p{
       color:var(--muted);
       font-size:18px;
+      margin:0;
     }
 
     /* ===== About ===== */
@@ -119,6 +134,7 @@
       border:1px solid var(--border);
       border-radius:var(--radius);
       text-align:center;
+      box-sizing:border-box;
     }
 
     .about h3{
@@ -141,12 +157,13 @@
       max-width:1320px;
       margin:0 auto 80px;
       padding:0 24px;
+      box-sizing:border-box;
     }
 
     figure{
       break-inside:avoid;
       margin:0 0 18px;
-      border-radius:0; /* remove round corners */
+      border-radius:0;
       overflow:hidden;
       cursor:pointer;
       border:1px solid var(--border);
@@ -173,66 +190,124 @@
       letter-spacing:0.02em;
     }
 
-    /* DIFFERENT HEIGHTS FOR ORIENTATION */
-    figure.portrait img{
-      height:auto;
-    }
+    figure.portrait{ margin-bottom:26px; }
+    figure.landscape{ margin-bottom:18px; }
 
-    figure.landscape img{
-      height:auto;
-    }
-
-    figure.portrait{
-      /* vertical images taller = magazine feeling */
-      margin-bottom:26px;
-    }
-
-    figure.landscape{
-      /* horizontal images slightly shorter */
-      margin-bottom:18px;
-    }
-
-    /* ===== Lightbox ===== */
+    /* ===== Lightbox (toggle, centered) ===== */
     .lightbox{
       position:fixed;
       inset:0;
-      background:rgba(0,0,0,.9);
+      background:rgba(0,0,0,.92);
       display:none;
       z-index:200;
-    }
 
-    .lightbox[aria-hidden="false"]{display:grid;}
+      /* ✅ центрируем, как на island */
+      align-items:center;
+      justify-content:center;
+      padding: calc(16px + var(--safe-top)) 16px calc(16px + var(--safe-bot));
+      box-sizing:border-box;
+    }
+    .lightbox[aria-hidden="false"]{ display:flex; }
 
     .lightbox__inner{
-      display:grid;
-      place-items:center;
-      padding:24px;
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
     .lightbox__img{
       max-width:94vw;
       max-height:88vh;
+      width:auto;
+      height:auto;
       object-fit:contain;
+      display:block;
+      cursor:pointer; /* ✅ тап по картинке закрывает */
     }
 
-    .lightbox__close{
-      position:fixed;
-      top:16px;
-      right:16px;
-      width:44px;
-      height:44px;
-      border-radius:50%;
-      background:rgba(255,255,255,.1);
-      border:1px solid var(--border);
-      font-size:22px;
-      cursor:pointer;
+    /* ❌ убрали крестик */
+    .lightbox__close{ display:none !important; }
+
+    /* ===== Footer ===== */
+    footer{
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      padding:24px;
+      padding-bottom: calc(24px + var(--safe-bot));
+      box-sizing:border-box;
+    }
+    footer .row{
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:0 24px;
+      box-sizing:border-box;
     }
 
     @media(max-width:880px){
-      .masonry{column-count:2;}
+      .masonry{column-count:2; padding:0 16px;}
     }
     @media(max-width:560px){
-      .masonry{column-count:1;}
+      .masonry{column-count:1; padding:0 12px;}
+    }
+
+    /* ✅ MOBILE NAV FIX (как в island.html) */
+    @media (max-width: 640px){
+      :root{ --header-h:auto; }
+
+      header{
+        position: sticky;
+        top: 0;
+        height: auto;
+        padding-bottom: 10px;
+      }
+
+      .nav{
+        padding: 12px 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 10px;
+      }
+
+      .brand{ font-size: 14px; }
+
+      .links{
+        width: 100%;
+        flex-wrap: wrap;
+        overflow: visible;
+        gap: 8px;
+      }
+
+      .links a{
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+
+      .hero{
+        padding-top: 18px;
+        padding-inline: 12px;
+        text-align: left;
+      }
+
+      .about{
+        margin:24px 12px;
+        padding:18px;
+        text-align:left;
+      }
+      .about p{ font-size:15px; }
+
+      footer{ padding:20px 12px calc(20px + var(--safe-bot)); }
+      footer .row{ padding:0 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      figure:hover{ transform:none; }
     }
   </style>
 </head>
@@ -266,17 +341,16 @@
 
 <!-- ===== Gallery ===== -->
 <section class="masonry" id="gallery">
-  <figure><img src="img/FullSizeRender.jpg"><figcaption>Paris 2023</figcaption></figure>
-  <figure><img src="img/Имя документа hf_29.jpg"><figcaption>Oléron Island 2022</figcaption></figure>
-  <figure><img src="img/Франция 2022 500 евро.jpeg"><figcaption>Brittany 2023</figcaption></figure>
-  <figure><img src="img/Имя документа hf_26.jpg"><figcaption>Oléron Island 2022</figcaption></figure>
+  <figure><img src="img/FullSizeRender.jpg" alt=""><figcaption>Paris 2023</figcaption></figure>
+  <figure><img src="img/Имя документа hf_29.jpg" alt=""><figcaption>Oléron Island 2022</figcaption></figure>
+  <figure><img src="img/Франция 2022 500 евро.jpeg" alt=""><figcaption>Brittany 2023</figcaption></figure>
+  <figure><img src="img/Имя документа hf_26.jpg" alt=""><figcaption>Oléron Island 2022</figcaption></figure>
 </section>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <button class="lightbox__close" id="lb-close">✕</button>
+<!-- LIGHTBOX (без крестика) -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
   <div class="lightbox__inner">
-    <img id="lb-img" class="lightbox__img">
+    <img id="lb-img" class="lightbox__img" alt="">
   </div>
 </div>
 
@@ -293,38 +367,62 @@
   document.querySelectorAll(".masonry figure img").forEach(img => {
     img.onload = () => {
       const fig = img.closest("figure");
-      if (img.naturalWidth > img.naturalHeight){
-        fig.classList.add("landscape");
-      } else {
-        fig.classList.add("portrait");
-      }
+      if (!fig) return;
+      if (img.naturalWidth > img.naturalHeight) fig.classList.add("landscape");
+      else fig.classList.add("portrait");
     };
   });
 
-  // LIGHTBOX
-  const lb = document.getElementById("lightbox");
-  const lbImg = document.getElementById("lb-img");
-  const lbClose = document.getElementById("lb-close");
+  // ✅ LIGHTBOX TOGGLE (как в island.html)
+  (function(){
+    const lb = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lb-img");
+    const gallery = document.getElementById("gallery");
+    if(!lb || !lbImg || !gallery) return;
 
-  document.getElementById("gallery").addEventListener("click", e => {
-    const img = e.target.closest("img");
-    if (!img) return;
-    lbImg.src = img.src;
-    lb.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-  });
+    let isOpen = false;
+    let currentSrc = "";
 
-  lbClose.onclick = () => {
-    lb.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  };
-
-  lb.onclick = e => {
-    if (e.target === lb){
-      lb.setAttribute("aria-hidden","true");
-      document.body.style.overflow = "";
+    function openLB(src){
+      currentSrc = src || "";
+      lbImg.src = currentSrc;
+      lb.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      isOpen = true;
     }
-  };
+
+    function closeLB(){
+      lb.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      lbImg.src = "";
+      currentSrc = "";
+      isOpen = false;
+    }
+
+    function toggleLB(src){
+      if(isOpen && src && src === currentSrc) closeLB();
+      else openLB(src);
+    }
+
+    gallery.addEventListener("click", (e) => {
+      const img = e.target.closest("img");
+      if (!img) return;
+      toggleLB(img.src);
+    });
+
+    // close on overlay
+    lb.addEventListener("click", (e) => {
+      if (e.target === lb) closeLB();
+    });
+
+    // ✅ close on clicking the big image
+    lbImg.addEventListener("click", closeLB);
+
+    // close on Esc
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lb.getAttribute("aria-hidden") === "false") closeLB();
+    });
+  })();
 </script>
 
 </body>
