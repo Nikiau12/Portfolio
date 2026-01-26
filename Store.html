@@ -7,8 +7,8 @@
   <meta name="description" content="Fine-art prints by Nikita Kotrelev. Ships worldwide." />
   <link rel="icon" href="img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/img/favicon_180x180.png" sizes="180x180">
-<link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#0b0b0b">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0b0b0b">
 
   <style>
     :root{
@@ -173,28 +173,26 @@
     .mat{
       position:relative;
       width:min(92%, 420px);
-      background:transparent;  /* ✅ убрали белый лист */
-      border:0;                /* ✅ убрали рамку паспарту */
-      box-shadow:none;         /* ✅ убрали тень у паспарту */
-      padding:0;               /* ✅ убрали паспарту */
+      background:transparent;
+      border:0;
+      box-shadow:none;
+      padding:0;
       box-sizing:border-box;
       display:grid;
       place-items:center;
-      overflow:hidden;         /* оставляем, чтобы autotrim не вылезал */
+      overflow:hidden;
     }
 
     .mat::after{
       content:"";
       position:absolute;
       inset:0;
-      border:0px solid transparent;   /* ✅ тонкая рамка, не “паспарту” */
+      border:0px solid transparent;
       transition:border-color .18s ease;
       pointer-events:none;
       z-index:2;
     }
-    .thumb:hover .mat::after{
-      border-color:#0b0b0b;           /* ✅ появляется чёрная рамка при наведении */
-    }
+    .thumb:hover .mat::after{ border-color:#0b0b0b; }
 
     .thumb img{
       width:100%;
@@ -206,7 +204,6 @@
     }
     .thumb:hover img{ transform:scale(1.02); }
 
-    /* ✅ Auto-trim transforms */
     .autotrim{
       transform-origin:50% 50%;
       will-change:transform;
@@ -377,7 +374,6 @@
       position:relative;
     }
 
-    /* мини-превью скрыты */
     .qv__thumbs{ display:none !important; }
 
     .qv__mat{
@@ -396,14 +392,11 @@
       max-height:540px;
       object-fit:contain;
       display:block;
-
-      /* тень только у фото */
       filter:
         drop-shadow(0 10px 22px rgba(0,0,0,.22))
         drop-shadow(0 10px 16px rgba(0,0,0,.38));
     }
 
-    /* ✅ плавная смена картинки в quick view */
     #qv-img{
       opacity:1;
       transition: opacity .22s ease;
@@ -411,7 +404,6 @@
     }
     #qv-img.is-switching{ opacity:0; }
 
-    /* ✅ МЕНЬШЕ ТОЛЬКО ДЛЯ Unframed (работает через qv.dataset.finish) */
     #qv[data-finish="unframed"] .qv__mat img{
       width:65%;
       height:auto;
@@ -579,8 +571,19 @@
     @media(max-width:980px){
       .qv__title{font-size:32px;}
     }
+
+    /* ✅ MOB: allow scroll in Quick View + open QV on tap image */
     @media(max-width:820px){
-      .qv{padding:12px;}
+      .qv{
+        padding:12px;
+        overflow:auto;
+        -webkit-overflow-scrolling: touch;
+        place-items:start;
+      }
+      .qv__panel{
+        margin:12px auto;
+        width:min(1040px, 100%);
+      }
       .qv__grid{grid-template-columns:1fr; min-height:auto;}
       .qv__media{
         border-right:none;
@@ -776,8 +779,6 @@
     <div class="qv__panel" role="document">
       <button class="qv__close" type="button" id="qv-close" aria-label="Close">×</button>
 
-    
-
       <div class="qv__grid">
         <div class="qv__media">
           <div class="qv__thumbs" id="qv-thumbs" aria-label="Thumbnails"></div>
@@ -846,34 +847,15 @@
     // ==========================
     // PRODUCT DATA + STRIPE URLS
     // ==========================
-    // ВСТАВЬ ССЫЛКИ STRIPE В url ДЛЯ КАЖДОГО finish
     const PRODUCT_INFO = {
       brittany: {
         meta: "NIKITA KOTRELEV",
         title: "France, Brittany",
         detailsHref: "Store.html#brittany",
         finishes: [
-          {
-            key:"unframed",
-            label:"Unframed",
-            price:70,
-            url:"https://buy.stripe.com/dRm9AM2QI28B7St1giasg0b",
-            images:["img/Биританни без  рамы .png"]
-          },
-          {
-            key:"black",
-            label:"Custom Black Frame",
-            price:300,
-            url:"https://buy.stripe.com/8x26oA3UM5kNgoZ0ceasg0c",
-            images:["img/Биританни Черная  рама .png","img/Биританни Черная  рама .png"]
-          },
-          {
-            key:"white",
-            label:"Custom White Frame",
-            price:300,
-            url:"https://buy.stripe.com/14A6oAezq7sV7St8IKasg0d",
-            images:["img/Биританни белая рама .png","img/Биританни белая рама .png"]
-          }
+          { key:"unframed", label:"Unframed", price:70,  url:"https://buy.stripe.com/dRm9AM2QI28B7St1giasg0b", images:["img/Биританни без  рамы .png"] },
+          { key:"black",    label:"Custom Black Frame", price:300, url:"https://buy.stripe.com/8x26oA3UM5kNgoZ0ceasg0c", images:["img/Биританни Черная  рама .png","img/Биританни Черная  рама .png"] },
+          { key:"white",    label:"Custom White Frame", price:300, url:"https://buy.stripe.com/14A6oAezq7sV7St8IKasg0d", images:["img/Биританни белая рама .png","img/Биританни белая рама .png"] }
         ]
       },
 
@@ -882,27 +864,9 @@
         title: "Oléron Island",
         detailsHref: "Store.html#oleron",
         finishes: [
-          {
-            key:"unframed",
-            label:"Unframed",
-            price:70,
-            url:"https://buy.stripe.com/5kQ3co9f64gJ6Op9MOasg08",
-            images:["img/Олерон без рамы .png"]
-          },
-          {
-            key:"black",
-            label:"Custom Black Frame",
-            price:300,
-            url:"https://buy.stripe.com/28EcMY4YQ7sV7St1giasg09",
-            images:["img/Олерон черная рама .png","img/Олерон черная рама .png"]
-          },
-          {
-            key:"white",
-            label:"Custom White Frame",
-            price:300,
-            url:"https://buy.stripe.com/7sYeV6ezqeVn3Cd9MOasg0a",
-            images:["img/Олерон белая рама .png","img/Олерон белая рама .png"]
-          }
+          { key:"unframed", label:"Unframed", price:70,  url:"https://buy.stripe.com/5kQ3co9f64gJ6Op9MOasg08", images:["img/Олерон без рамы .png"] },
+          { key:"black",    label:"Custom Black Frame", price:300, url:"https://buy.stripe.com/28EcMY4YQ7sV7St1giasg09", images:["img/Олерон черная рама .png","img/Олерон черная рама .png"] },
+          { key:"white",    label:"Custom White Frame", price:300, url:"https://buy.stripe.com/7sYeV6ezqeVn3Cd9MOasg0a", images:["img/Олерон белая рама .png","img/Олерон белая рама .png"] }
         ]
       },
 
@@ -911,27 +875,9 @@
         title: "Morocco, Road",
         detailsHref: "Store.html#Morocco",
         finishes: [
-          {
-            key:"unframed",
-            label:"Unframed",
-            price:70,
-            url:"https://buy.stripe.com/9B6fZabne4gJc8J0ceasg05",
-            images:["img/Марроко без рамы .png"]
-          },
-          {
-            key:"black",
-            label:"Custom Black Frame",
-            price:300,
-            url:"https://buy.stripe.com/28EdR28b25kN1u51giasg06",
-            images:["img/Маррокочернаярама.png","img/Маррокочернаярама.png"]
-          },
-          {
-            key:"white",
-            label:"Custom White Frame",
-            price:300,
-            url:"https://buy.stripe.com/00w3co8b2eVngoZ6ACasg07",
-            images:["img/Маррокобелаярама.png","img/Маррокобелаярама.png"]
-          }
+          { key:"unframed", label:"Unframed", price:70,  url:"https://buy.stripe.com/9B6fZabne4gJc8J0ceasg05", images:["img/Марроко без рамы .png"] },
+          { key:"black",    label:"Custom Black Frame", price:300, url:"https://buy.stripe.com/28EdR28b25kN1u51giasg06", images:["img/Маррокочернаярама.png","img/Маррокочернаярама.png"] },
+          { key:"white",    label:"Custom White Frame", price:300, url:"https://buy.stripe.com/00w3co8b2eVngoZ6ACasg07", images:["img/Маррокобелаярама.png","img/Маррокобелаярама.png"] }
         ]
       }
     };
@@ -942,14 +888,10 @@
     document.querySelectorAll('.product').forEach((card)=>{
       const productId = card.dataset.product;
       const priceEl = card.querySelector('[data-price]');
-
-      // ✅ диапазон 70–300
-      if (priceEl){
-        priceEl.textContent = euroRangeFromFinishes(productId);
-      }
+      if (priceEl) priceEl.textContent = euroRangeFromFinishes(productId);
     });
 
-    // ===== Lightbox preview (клик по картинке) =====
+    // ===== Lightbox preview (desktop) / Quick View on mobile =====
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lb-img');
     const lbCap = document.getElementById('lb-cap');
@@ -970,6 +912,17 @@
     document.addEventListener('click', (e)=>{
       const t = e.target.closest('.thumb');
       if(!t) return;
+
+      const card = t.closest('.product');
+      const productId = card?.dataset?.product;
+
+      // ✅ MOBILE: tap image => open Quick View (instead of lightbox)
+      if (window.matchMedia("(max-width: 820px)").matches && productId){
+        openQVById(productId);
+        return;
+      }
+
+      // ✅ DESKTOP: keep lightbox
       openLb(t.dataset.lightbox || t.querySelector('img')?.src, t.dataset.caption || "");
     });
 
@@ -985,37 +938,32 @@
     const qvPrice = document.getElementById('qv-price');
     const qvBuy = document.getElementById('qv-buy');
     const qvClose = document.getElementById('qv-close');
-   
     const qvThumbs = document.getElementById('qv-thumbs');
     const qvDetails = document.getElementById('qv-details');
     const qvSwatches = document.getElementById('qv-swatches');
     const qvFinishLabel = document.getElementById('qv-finish-label');
 
-    // ✅ NEW: размер в Quick View
-    const qvSizeText = document.getElementById('qv-size-text'); // ✅ SIZE OUTPUT
+    const qvSizeText = document.getElementById('qv-size-text');
 
     const productOrder = Array.from(document.querySelectorAll('.product')).map(p => p.dataset.product);
     let currentProductIndex = 0;
     let currentImageIndex = 0;
     let currentFinishKey = "unframed";
 
-    function getCurrentId(){ return productOrder[currentProductIndex]; }
     function getInfo(id){ return PRODUCT_INFO?.[id] || {}; }
 
-    // ✅ получить size из карточки по productId
     function getSizeForProduct(productId){
       const card = document.querySelector(`.product[data-product="${CSS.escape(productId)}"]`);
       return card?.dataset?.size || "";
     }
 
-    // ✅ цена зависит только от finish
     function euroFromFinish(id){
       const info = getInfo(id);
       const fin = (info.finishes || []).find(f => f.key === currentFinishKey);
       return (typeof fin?.price === "number") ? fin.price : null;
     }
 
-    // ✅ плавная смена картинки (fade + preload)
+    // ✅ smooth image swap (fade + preload)
     let qvSwapToken = 0;
     function setQVImage(src){
       const token = ++qvSwapToken;
@@ -1039,7 +987,6 @@
         qvImg.src = src;
         qvImg.alt = qvTitle.textContent || "Preview";
 
-        // автотрим после подмены
         enableAutoTrimIn(qv);
 
         requestAnimationFrame(()=> {
@@ -1052,7 +999,6 @@
     }
 
     function renderThumbs(images){
-      // миниатюрки скрыты CSS-ом, но оставляем на будущее
       qvThumbs.innerHTML = "";
       images.forEach((src, i)=>{
         if(!src) return;
@@ -1103,9 +1049,7 @@
       const fin = (info.finishes || []).find(f => f.key === currentFinishKey) || info.finishes?.[0];
       const images = (fin?.images && fin.images.length) ? fin.images.filter(Boolean) : [];
 
-      // ✅ чтобы CSS уменьшал Unframed
       qv.dataset.finish = currentFinishKey;
-
       qvFinishLabel.textContent = fin?.label || "Unframed";
 
       renderThumbs(images);
@@ -1114,17 +1058,11 @@
       const p = euroFromFinish(id);
       qvPrice.textContent = (typeof p === "number") ? euro(p) : "€—";
 
-      // ✅ STRIPE URL ТОЛЬКО ДЛЯ ВЫБРАННОГО FINISH
       const url = fin?.url || "";
       qvBuy.disabled = !url || url.includes("PASTE_STRIPE_");
       qvBuy.dataset.url = url;
 
       enableAutoTrimIn(qv);
-    }
-
-    function updateArrows(){
-      qvPrev.disabled = (currentProductIndex <= 0);
-      qvNext.disabled = (currentProductIndex >= productOrder.length - 1);
     }
 
     function openQVById(productId){
@@ -1136,19 +1074,21 @@
       qvMeta.textContent = info.meta || "NIKITA KOTRELEV";
       qvTitle.textContent = info.title || productId;
 
-      // ✅ NEW: подставляем размер из data-size
       qvSizeText.textContent = getSizeForProduct(productId) || "—";
 
       renderSwatches(productId);
-
       qvDetails.href = info.detailsHref || `Store.html#${productId}`;
 
       qv.setAttribute('aria-hidden','false');
-      document.body.style.overflow = 'hidden';
+
+      // ✅ Desktop: lock scroll. Mobile: allow scroll
+      if (window.matchMedia("(min-width: 821px)").matches){
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
 
       applyFinish(productId);
-      updateArrows();
-
       enableAutoTrimIn(document);
     }
 
@@ -1161,18 +1101,7 @@
       delete qv.dataset.finish;
     }
 
-    function goPrev(){
-      if(currentProductIndex <= 0) return;
-      const id = productOrder[currentProductIndex - 1];
-      openQVById(id);
-    }
-    function goNext(){
-      if(currentProductIndex >= productOrder.length - 1) return;
-      const id = productOrder[currentProductIndex + 1];
-      openQVById(id);
-    }
-
-    // open quick view (кнопка QUICK VIEW)
+    // open quick view (button QUICK VIEW)
     document.addEventListener('click', (e)=>{
       const btn = e.target.closest('[data-qv]');
       if(!btn) return;
@@ -1180,10 +1109,6 @@
       if(!card) return;
       openQVById(card.dataset.product);
     });
-
-   
-
-    
 
     // close
     qvClose.addEventListener('click', closeQV);
