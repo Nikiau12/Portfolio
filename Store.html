@@ -328,7 +328,7 @@
       width:40px;
       height:40px;
       border:0px solid #111;
-     background:transparent;
+      background:transparent;
       border-radius:0;
       cursor:pointer;
       font-size:18px;
@@ -576,18 +576,18 @@
     @media (max-width:820px){
       .qv{
         padding:0;
-        place-items:stretch;     /* вместо центровки */
-        overflow:hidden;         /* фон не скроллим */
+        place-items:stretch;
+        overflow:hidden;
       }
       .qv[aria-hidden="false"]{
-        display:block;           /* вместо grid-центровки */
+        display:block;
       }
 
       .qv__panel{
         width:100%;
         height:100dvh;
         max-height:100dvh;
-        overflow:auto;           /* ✅ скроллим внутри */
+        overflow:auto;
         -webkit-overflow-scrolling: touch;
         border-left:0;
         border-right:0;
@@ -605,7 +605,7 @@
 
       .qv__grid{
         grid-template-columns:1fr;
-        min-height:0;            /* ✅ вместо 640px */
+        min-height:0;
       }
 
       .qv__media{
@@ -619,7 +619,7 @@
       .qv__mat img{
         width:92%;
         height:auto;
-        max-height:42vh;         /* ✅ фото не вылезает */
+        max-height:42vh;
       }
 
       .qv__info{ padding:18px 16px 24px; }
@@ -721,7 +721,7 @@
   <section class="store" id="store" aria-label="Store products">
 
     <!-- ✅ SIZE HERE (меняешь значение в data-size) -->
-    <article class="product" data-product="brittany" data-size="36×26 cm in (40 × 30 cm)"><!-- ✅ SIZE HERE -->
+    <article class="product" data-product="brittany" data-size="36×26 cm in (40 × 30 cm)">
       <div class="tile">
         <div class="meta">NIKITA KOTRELEV</div>
 
@@ -733,7 +733,7 @@
           </div>
         </div>
 
-        <button class="quick" type="button" data-qv>QUICK VIEW</button>
+        <button class="quick" type="button" data-qv> VIEW</button>
       </div>
 
       <div class="caption">
@@ -745,7 +745,7 @@
     </article>
 
     <!-- ✅ SIZE HERE (меняешь значение в data-size) -->
-    <article class="product" data-product="oleron" data-size="36×26 cm in (40 × 30 cm)"><!-- ✅ SIZE HERE -->
+    <article class="product" data-product="oleron" data-size="36×26 cm in (40 × 30 cm)">
       <div class="tile">
         <div class="meta">NIKITA KOTRELEV</div>
 
@@ -757,7 +757,7 @@
           </div>
         </div>
 
-        <button class="quick" type="button" data-qv>QUICK VIEW</button>
+        <button class="quick" type="button" data-qv> VIEW</button>
       </div>
 
       <div class="caption">
@@ -769,7 +769,7 @@
     </article>
 
     <!-- ✅ SIZE HERE (меняешь значение в data-size) -->
-    <article class="product" data-product="Morocco" data-size="36×24 cm in (40 × 30 cm)"><!-- ✅ SIZE HERE -->
+    <article class="product" data-product="Morocco" data-size="36×24 cm in (40 × 30 cm)">
       <div class="tile">
         <div class="meta">NIKITA KOTRELEV</div>
 
@@ -781,7 +781,7 @@
           </div>
         </div>
 
-        <button class="quick" type="button" data-qv>QUICK VIEW</button>
+        <button class="quick" type="button" data-qv> VIEW</button>
       </div>
 
       <div class="caption">
@@ -791,6 +791,42 @@
         </div>
       </div>
     </article>
+
+    
+
+
+ <!-- ✅ NEW (5th product) — ЗАМЕНИ файлы картинок + название + размер -->
+    <article class="product" data-product="new5" data-size="31,7 × 17 cm  (40 × 30 cm)">
+      <div class="tile">
+        <div class="meta">NIKITA KOTRELEV</div>
+
+        <div class="thumb"
+             data-lightbox="img/Кремль москва без рамы.png"
+             data-caption="Russia, Moscow Kremlin">
+          <div class="mat">
+            <img data-autotrim="1" src="img/Кремль москва без рамы.png" alt="New product print" loading="lazy" decoding="async">
+          </div>
+        </div>
+
+        <button class="quick" type="button" data-qv> VIEW</button>
+      </div>
+
+      <div class="caption">
+        <p class="name">Poster: Russia, Moscow Kremlin</p>
+        <div class="priceLine">
+          <span class="price" data-price>€—</span>
+        </div>
+      </div>
+    </article>
+
+
+
+
+
+
+
+
+
 
   </section>
 
@@ -827,10 +863,9 @@
 
           <p class="qv__note">Tax included. <u>Shipping</u> calculated at checkout.</p>
 
-          <!-- ✅ SIZE OUTPUT (сюда JS подставит data-size) -->
           <div class="qv__field">
             <div class="qv__label">Size:</div>
-            <div class="qv__size-fixed" id="qv-size-text">—</div><!-- ✅ SIZE OUTPUT -->
+            <div class="qv__size-fixed" id="qv-size-text">—</div>
           </div>
 
           <div class="qv__finish" id="qv-finish">
@@ -912,8 +947,24 @@
           { key:"black",    label:"Custom Black Frame", price:300, url:"https://buy.stripe.com/28EdR28b25kN1u51giasg06", images:["img/Маррокочернаярама.png","img/Маррокочернаярама.png"] },
           { key:"white",    label:"Custom White Frame", price:300, url:"https://buy.stripe.com/00w3co8b2eVngoZ6ACasg07", images:["img/Маррокобелаярама.png","img/Маррокобелаярама.png"] }
         ]
+      },
+
+    
+
+/* ✅ NEW (5th product) — заполни под себя: title, картинки и Stripe-ссылки */
+      new5: {
+        meta: "NIKITA KOTRELEV",
+        title: "Russia, Moscow Kremlin",
+        detailsHref: "Store.html#Russia, Moscow Kremlin",
+        finishes: [
+          { key:"unframed", label:"Unframed", price:70,  url:"https://buy.stripe.com/00w3co1ME5kN2y92kmasg0e", images:["img/Кремль москва без рамы.png"] },
+          { key:"black",    label:"Custom Black Frame", price:300, url:"https://buy.stripe.com/6oU3co62U00t6OpaQSasg0f",   images:["img/Кремль москва черная рама.png","img/Кремль москва черная рама.png"] },
+          { key:"white",    label:"Custom White Frame", price:300, url:"https://buy.stripe.com/3cI9AMezq14xb4F3oqasg0g",   images:["img/Кремль москва белая рама.png","img/Кремль москва белая рама.png"] }
+        ]
       }
     };
+
+
 
     // ==========================
     // CARD PRICES
@@ -1114,7 +1165,6 @@
 
       qv.setAttribute('aria-hidden','false');
 
-      /* ✅ FIX: always lock body scroll; Quick View scrolls inside qv__panel on mobile */
       document.body.style.overflow = 'hidden';
 
       applyFinish(productId);
