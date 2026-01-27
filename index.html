@@ -4,18 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-<title>Nikita Kotrelev — Cinematographer & Photographer</title>
+  <title>Nikita Kotrelev — Cinematographer & Photographer</title>
   <meta name="description" content="Cinematographer & photographer. Selected works, projects, and new releases." />
   <meta property="og:title" content="Nikita Kotrelev — Portfolio" />
   <meta property="og:description" content="Cinematographer & photographer. Selected works, projects, and new releases." />
   <meta property="og:type" content="website" />
-  <link rel="icon" href="img/favicon.png" type="image/png">
 
-<link rel="apple-touch-icon" href="/img/favicon_180x180.png" sizes="180x180">
-<link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#0b0b0b">
-  
-   <!-- GA4 (Google tag / gtag.js) -->
+  <link rel="icon" href="img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/img/favicon_180x180.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0b0b0b">
+
+  <!-- GA4 (Google tag / gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-H5VD0NFFWW"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -25,15 +25,18 @@
   </script>
 
   <!-- Cookie banner (Cookie-Script) -->
- <script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/0fadb6b0381b2e0bf3c5aaeb9fca7bec.js"></script>
-
-
-  
+  <script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/0fadb6b0381b2e0bf3c5aaeb9fca7bec.js"></script>
 
   <style>
     :root {
       --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428; --accent:#3d40f9;
-      --radius:16px; --space:24px; --safe-top:max(env(safe-area-inset-top),0px); --safe-bot:max(env(safe-area-inset-bottom),0px);
+      --radius:16px; --space:24px;
+      --safe-top:max(env(safe-area-inset-top),0px);
+      --safe-bot:max(env(safe-area-inset-bottom),0px);
+
+      /* ✅ better centering on phones with notches */
+      --safe-left:max(env(safe-area-inset-left),0px);
+      --safe-right:max(env(safe-area-inset-right),0px);
     }
 
     @font-face {
@@ -166,7 +169,7 @@
     footer .row { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 
     /* =========================================================
-       ===== Updates Tabs + Cards (generated) =====
+       ===== Updates Tabs + Cards (generated)
        ========================================================= */
     .tabs-wrap{ max-width:1320px; margin:0 auto; }
     .tabs-head{
@@ -198,7 +201,10 @@
     .news-card{
       border:1px solid var(--border);
       background:var(--card);
-      border-radius:var(--radius);
+
+      /* ✅ NO rounding in Updates boxes */
+      border-radius:0;
+
       overflow:hidden;
       display:grid;
       grid-template-columns: 140px 1fr;
@@ -218,7 +224,12 @@
       width:100%;
       height:100%;
       object-fit:cover;
+      object-position:center; /* ✅ keep centered */
       display:block;
+
+      /* ✅ NO rounding for image inside Updates card */
+      border-radius:0;
+
       transform:scale(1);
       transition:transform .6s ease;
     }
@@ -273,14 +284,12 @@
        ✅ MOBILE: make everything readable, no cropping
        ========================================================= */
     @media (max-width: 640px){
-      /* hero becomes flexible height */
       .hero{
         height: auto;
         min-height: 100svh;
         overflow: hidden;
       }
 
-      /* header not absolute on mobile (prevents cropping) */
       header{
         position: relative;
         inset: auto;
@@ -288,7 +297,6 @@
         padding-bottom: calc(20px + var(--safe-bot));
       }
 
-      /* nav stacks: brand top, buttons below */
       .nav{
         flex-direction: column;
         align-items: flex-start;
@@ -297,7 +305,6 @@
         gap: 10px;
       }
 
-      /* links wrap, no horizontal cutting */
       .links{
         width: 100%;
         flex-wrap: wrap;
@@ -313,7 +320,6 @@
         font-size: 14px;
       }
 
-      /* hero copy smaller and always visible */
       .hero-copy{
         padding: 14px 12px 0;
         place-items: end start;
@@ -349,7 +355,13 @@
     .u-lb__inner{
       width:min(1100px, 100%);
       margin:auto;
-      padding:24px;
+
+      /* ✅ centered with safe-areas so it doesn't "shift" on phones */
+      padding: calc(24px + var(--safe-top))
+               calc(24px + var(--safe-right))
+               calc(24px + var(--safe-bot))
+               calc(24px + var(--safe-left));
+
       box-sizing:border-box;
     }
     .u-lb__panel{
@@ -444,8 +456,12 @@
       width:100%;
       height:200px;
       object-fit:cover;
+      object-position:center;
       display:block;
-      border-radius:12px;
+
+      /* ✅ NO rounding for photos inside lightbox gallery */
+      border-radius:0;
+
       border:1px solid rgba(255,255,255,.06);
       cursor:pointer;
       background:#000;
@@ -455,12 +471,70 @@
       .u-lb__gallery{grid-template-columns: repeat(2, minmax(0,1fr));}
       .u-lb__gallery img{height:190px;}
     }
+
+    /* ✅ MOBILE: show images fully + centered in Updates preview */
     @media (max-width: 640px){
-      .u-lb__inner{padding:12px;}
-      .u-lb__panel{max-height:88vh;}
-      .u-lb__gallery{grid-template-columns: 1fr;}
-      .u-lb__gallery img{height:auto; aspect-ratio: 4/3;}
+      .u-lb__inner{
+        padding: calc(12px + var(--safe-top))
+                 calc(12px + var(--safe-right))
+                 calc(12px + var(--safe-bot))
+                 calc(12px + var(--safe-left));
+      }
+      .u-lb__panel{ max-height: 88vh; }
+      .u-lb__gallery{ grid-template-columns: 1fr; }
+
+      .u-lb__gallery img{
+        width:100%;
+        height:auto;
+        aspect-ratio: 4/3;      /* change to 3/4 if most photos are vertical */
+        object-fit: contain;    /* ✅ whole photo */
+        object-position: center;
+        background:#000;
+        display:block;
+        margin:0 auto;
+
+        /* ✅ keep no rounding on mobile too */
+        border-radius:0;
+      }
+
       .u-lb__h{font-size:18px;}
+    }
+
+    /* ✅ Bigger Store preview + more air (DESKTOP/TABLET ONLY) */
+    @media (min-width: 641px){
+      .u-lb__inner{
+        width:min(1320px, 100%);
+        padding: calc(28px + var(--safe-top))
+                 calc(28px + var(--safe-right))
+                 calc(28px + var(--safe-bot))
+                 calc(28px + var(--safe-left));
+      }
+
+      .u-lb__panel{
+        max-height:min(92vh, 980px);
+      }
+
+      .u-lb__content{
+        padding:24px;
+        gap:18px;
+      }
+
+      .u-lb__gallery{
+        gap:18px;
+      }
+
+      .u-lb__gallery img{
+        height:260px;
+
+        /* air around image */
+        padding:12px;
+        background:rgba(255,255,255,.03);
+        border:1px solid rgba(255,255,255,.08);
+
+        /* keep square corners */
+        border-radius:0;
+        box-sizing:border-box;
+      }
     }
 
     .u-lb__zoom{
@@ -469,7 +543,13 @@
       background:rgba(0,0,0,.92);
       display:none;
       z-index:95;
-      padding:24px;
+
+      /* ✅ safe-area padding so zoom never shifts */
+      padding: calc(24px + var(--safe-top))
+               calc(24px + var(--safe-right))
+               calc(24px + var(--safe-bot))
+               calc(24px + var(--safe-left));
+
       box-sizing:border-box;
     }
     .u-lb__zoom[aria-hidden="false"]{display:grid}
@@ -486,8 +566,6 @@
 </head>
 
 <body>
-
-
   <!-- HERO -->
   <section class="hero" aria-label="Showreel">
     <video id="bg-video" autoplay muted loop playsinline preload="auto" poster="img/Showreel-21.jpg">
@@ -601,15 +679,15 @@
       {
         id: "site-store-launch",
         type: "exhibition",
-        title: "Store is live — prints available",
+        title: "Posters are available",
         date: "Jan 2026",
         location: "Online",
         tag: "Store",
-        cover: "img/HrGgGNYNVDo (3).png",
+        cover: "img/Биританни без  рамы .png",
         photos: [
-          "img/HrGgGNYNVDo (3).png",
-          "img/Копия HrGgGNYNVDo (1).png",
-          "img/HrGgGNYNVDo (1).png"
+          "img/Биританни без  рамы .png",
+          "img/Марроко без рамы .png",
+          "img/Олерон без рамы .png"
         ],
         text: "My store is now live on the website — you can browse and buy my prints directly. Open Store in the menu to explore the collection.",
         action: { label: "Open Store", href: "Store.html", target: "_self" }
