@@ -715,7 +715,7 @@
 
   <div class="page-hero">
     <h1>Store</h1>
-    
+    <p>Fine-art prints — printed by me, signed & numbered. Worldwide shipping.</p>
   </div>
 
   <section class="store" id="store" aria-label="Store products">
@@ -751,7 +751,7 @@
 
         <div class="thumb"
              data-lightbox="img/Олерон без рамы .png"
-             data-caption="France, Oléron Island">
+             data-caption="Oléron Island">
           <div class="mat">
             <img data-autotrim="1" src="img/Олерон без рамы .png" alt="Oléron Island print" loading="lazy" decoding="async">
           </div>
@@ -761,7 +761,7 @@
       </div>
 
       <div class="caption">
-        <p class="name"> Poster: France, Oléron Island</p>
+        <p class="name"> Poster: Oléron Island</p>
         <div class="priceLine">
           <span class="price" data-price>€—</span>
         </div>
@@ -818,7 +818,29 @@
         </div>
       </div>
     </article>
+<!-- ✅ NEW (6th product) — ЗАМЕНИ файлы картинок + название + размер -->
+    <article class="product" data-product="new6" data-size="51 × 31 cm   (60 × 40 cm)">
+      <div class="tile">
+        <div class="meta">NIKITA KOTRELEV</div>
 
+        <div class="thumb"
+             data-lightbox="img/душ исландия без рамы .png"
+             data-caption="Russia, Moscow Kremlin">
+          <div class="mat">
+            <img data-autotrim="1" src="img/душ исландия без рамы .png" alt="New product print" loading="lazy" decoding="async">
+          </div>
+        </div>
+
+        <button class="quick" type="button" data-qv> VIEW</button>
+      </div>
+
+      <div class="caption">
+        <p class="name">Poster: Russia, Moscow Kremlin</p>
+        <div class="priceLine">
+          <span class="price" data-price>€—</span>
+        </div>
+      </div>
+    </article>
 
 
 
@@ -929,7 +951,7 @@
 
       oleron: {
         meta: "NIKITA KOTRELEV",
-        title: " France, Oléron Island",
+        title: "Oléron Island",
         detailsHref: "Store.html#oleron",
         finishes: [
           { key:"unframed", label:"Unframed", price:70,  url:"https://buy.stripe.com/5kQ3co9f64gJ6Op9MOasg08", images:["img/Олерон без рамы .png"] },
@@ -961,9 +983,20 @@
           { key:"black",    label:"Custom Black Frame", price:300, url:"https://buy.stripe.com/6oU3co62U00t6OpaQSasg0f",   images:["img/Кремль москва черная рама.png","img/Кремль москва черная рама.png"] },
           { key:"white",    label:"Custom White Frame", price:300, url:"https://buy.stripe.com/3cI9AMezq14xb4F3oqasg0g",   images:["img/Кремль москва белая рама.png","img/Кремль москва белая рама.png"] }
         ]
+      },
+
+    /* ✅ NEW (6th product) — заполни под себя: title, картинки и Stripe-ссылки */
+      new6: {
+        meta: "NIKITA KOTRELEV",
+        title: "Iceland, Shower",
+        detailsHref: "Store.html#Iceland, Shower",
+        finishes: [
+          { key:"unframed", label:"Unframed", price:100,  url:"https://buy.stripe.com/aFa9AM9f6bJb7St2kmasg0h", images:["img/душ исландия без рамы .png"] },
+          { key:"black",    label:"Custom Black Frame", price:350, url:"https://buy.stripe.com/14A9AM2QI7sVegR3oqasg0i",   images:["img/душ исландия черная рамы .png","img/душ исландия черная рамы .png"] },
+          { key:"white",    label:"Custom White Frame", price:350, url:"https://buy.stripe.com/8x25kw76Y3cFegR3oqasg0j",   images:["img/душ исландия белая рамы .png","img/душ исландия белая рамы .png"] }
+        ]
       }
     };
-
 
 
     // ==========================
