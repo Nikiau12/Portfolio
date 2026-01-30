@@ -103,12 +103,42 @@
     .section { padding: 28px 24px 56px; }
     .grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: start; }
     .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
-    .prose { font-size: 18px; line-height: 1.7; color: var(--fg); }
-    .prose p { margin: 0 0 16px; }
 
-    .h2 { font-size: clamp(22px, 2.8vw, 28px); margin: 0 0 12px; }
+    /* ✅ ABOUT: убрать рамки у текста (карточек) + сделать текст более "дорогим" */
+    .section .card{
+      border: 0;                 /* убрали рамку */
+      box-shadow: none;
+      background: transparent;   /* чтобы блок не выглядел "в рамке" */
+      padding: 0;                /* текст становится чище, как редакционный */
+    }
+    .prose {
+      font-size: 18px;
+      line-height: 1.8;
+      color: rgba(250,250,250,.92);
+      letter-spacing: .01em;
+      max-width: 68ch;
+    }
+    .prose p { margin: 0 0 16px; color: rgba(250,250,250,.78); }
+    .h2 {
+      font-size: clamp(22px, 2.8vw, 28px);
+      margin: 0 0 12px;
+      letter-spacing: .02em;
+    }
+
     ul { list-style: none; padding: 0; margin: 0; }
-    li { padding: 10px 12px; border: 1px solid var(--border); border-radius: 12px; background: #0f0f11; margin-bottom: 10px; }
+
+    /* ✅ оставляем список аккуратным, но без "рамок" */
+    li {
+      padding: 10px 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      margin-bottom: 8px;
+      color: rgba(250,250,250,.82);
+    }
+    li + li{
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
 
     li a { color: var(--accent); text-decoration: none; display: block; }
     li a:hover { opacity: 0.7; }
@@ -131,6 +161,7 @@
 
     @media (max-width: 960px) {
       .grid { grid-template-columns: 1fr; }
+      .prose{ max-width: 70ch; }
     }
 
     /* ✅ extra mobile polish so nothing gets cut */
@@ -158,8 +189,8 @@
       .hero p.lead{ font-size: 14px; line-height: 1.35; }
 
       .section{ padding: 18px 12px 40px; }
-      .card{ padding: 16px; }
-      .prose{ font-size: 15px; line-height: 1.65; }
+      .card{ padding: 0; } /* ✅ уже без рамки/фона */
+      .prose{ font-size: 15px; line-height: 1.75; }
 
       footer{ padding: 20px 12px calc(20px + var(--safe-bot)); }
       footer .row{ flex-direction: column; align-items: flex-start; }
@@ -183,7 +214,7 @@
   <section class="hero">
     <div class="container">
       <h1>About me</h1>
-      <p class="lead">Cinematographer & photographer — based in Paris.</p>
+      
     </div>
   </section>
 
@@ -206,10 +237,10 @@
 
       <aside class="card prose" aria-label="Contact">
         <h2 class="h2">Contact</h2>
-        <p>Available for narrative, commercial and music projects worldwide.</p>
+        
         <ul>
-          <li><a href="mailto:kotrelevnikita@gmail.com">Email</a></li>
-          <li><a href="https://www.instagram.com/stojal_znachit/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="mailto:kotrelevnikita@gmail.com">Email: kotrelevnikita@gmail.com</a></li>
+          <li><a href="https://www.instagram.com/stojal_znachit/" target="_blank" rel="noopener">Instagram: stojal_znachit</a></li>
           <li>Location: Paris, France</li>
         </ul>
       </aside>
