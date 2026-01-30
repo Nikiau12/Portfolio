@@ -143,6 +143,28 @@
     li a { color: var(--accent); text-decoration: none; display: block; }
     li a:hover { opacity: 0.7; }
 
+    /* ✅ hover ТОЛЬКО для двух ссылок (email + instagram) */
+   a.contact-link{
+  transition: color .18s ease, opacity .18s ease, transform .18s ease;
+  text-decoration: none; /* ✅ убрали подчеркивание */
+}
+
+a.contact-link:hover{
+  color: var(--contact-hover); /* или поставь свой #... */
+  opacity: 1;
+}
+
+a.contact-link:active{
+  transform: translateY(1px);
+}
+   a.contact-link:hover{
+  color: #32c0ef; /* <-- тут твой цвет */
+  opacity: 1;
+}
+    a.contact-link:active{
+      transform: translateY(1px);
+    }
+
     footer {
       border-top: 1px solid var(--border);
       color: var(--muted);
@@ -239,8 +261,8 @@
         <h2 class="h2">Contact</h2>
         
         <ul>
-          <li><a href="mailto:kotrelevnikita@gmail.com">Email: kotrelevnikita@gmail.com</a></li>
-          <li><a href="https://www.instagram.com/stojal_znachit/" target="_blank" rel="noopener">Instagram: stojal_znachit</a></li>
+          <li><a class="contact-link email" href="mailto:kotrelevnikita@gmail.com">Email: kotrelevnikita@gmail.com</a></li>
+          <li><a class="contact-link insta" href="https://www.instagram.com/stojal_znachit/" target="_blank" rel="noopener">Instagram: stojal_znachit</a></li>
           <li>Location: Paris, France</li>
         </ul>
       </aside>
