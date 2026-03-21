@@ -2,94 +2,149 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Paris — 2024 · Nikita Kotrelev</title>
-  <meta name="description" content="Paris 2024 — urban cinematography study by Nikita Kotrelev." />
-  <link rel="icon" href="img/favicon.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Island 2025 · Nikita Kotrelev</title>
+  <meta name="description" content="Island 2025 by Nikita Kotrelev." />
+  <link rel="icon" href="img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/img/favicon_180x180.png" sizes="180x180">
-<link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#0b0b0b">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0b0b0b">
+
   <style>
     :root{
-      --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428;
-      --radius:16px; --space:24px; --safe-top:max(env(safe-area-inset-top),0px); --header-h:64px;
+      --bg:#f5f5f5;
+      --fg:#0b0b0b;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --border:#e7e7e7;
+      --safe-top:max(env(safe-area-inset-top),0px);
       --safe-bot:max(env(safe-area-inset-bottom),0px);
+      --header-h:64px;
     }
+
     @font-face{
       font-family:'Afacad Flux';
       src: local('Afacad Flux Regular'),
            url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
            url('fonts/AfacadFlux-Regular.woff') format('woff');
-      font-weight:400; font-style:normal; font-display:swap;
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
     }
+
     html,body{height:100%}
-    html{color-scheme:dark}
+    html{color-scheme:light}
+
     body{
       margin:0;
       font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
-      background:var(--bg); color:var(--fg);
-      min-height:100dvh; display:grid; grid-template-rows:auto 1fr auto;
+      background:var(--bg);
+      color:var(--fg);
+      min-height:100dvh;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
       -webkit-tap-highlight-color:transparent;
     }
 
-    /* ===== Header ===== */
     header{
-      position:fixed; top:0; left:0; right:0; z-index:60;
-      padding-top:var(--safe-top); height:var(--header-h);
-      backdrop-filter:saturate(180%) blur(8px);
-      background:linear-gradient(180deg, rgba(11,11,11,.76), rgba(11,11,11,.3) 60%, rgba(11,11,11,0));
+      position:fixed;
+      top:0; left:0; right:0;
+      z-index:60;
+      padding-top:var(--safe-top);
+      height:var(--header-h);
+      backdrop-filter:saturate(180%) blur(10px);
+      background:rgba(245,245,245,.82);
       border-bottom:1px solid var(--border);
       box-sizing:border-box;
     }
+
     .nav{
-      max-width:1200px;margin:0 auto;
+      max-width:1200px;
+      margin:0 auto;
       padding:12px 24px;
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
       box-sizing:border-box;
     }
-    .brand{font-weight:600;letter-spacing:.08em;text-decoration:none;color:var(--fg); white-space:nowrap;}
-    .links{display:flex;gap:10px;align-items:center;overflow-x:auto; max-width:100%;}
+
+    .brand{
+      font-weight:700;
+      letter-spacing:.12em;
+      text-decoration:none;
+      color:var(--fg);
+      white-space:nowrap;
+      flex:0 0 auto;
+      font-size:13px;
+      text-transform:uppercase;
+    }
+
+    .links{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      overflow-x:auto;
+      max-width:100%;
+      scrollbar-width:none;
+    }
+    .links::-webkit-scrollbar{display:none}
+
     .links a{
-      color:var(--fg);text-decoration:none;opacity:.9;
-      padding:8px 12px;border-radius:999px;white-space:nowrap;font-size:14px;
+      color:var(--fg);
+      text-decoration:none;
+      opacity:.9;
+      padding:8px 12px;
+      border-radius:999px;
+      white-space:nowrap;
+      font-size:14px;
       flex:0 0 auto;
     }
-    .links a:hover{opacity:1;background:rgba(255,255,255,.04);}
-    .links a[aria-current="page"]{background:rgba(255,255,255,.06);}
+    .links a:hover{opacity:1;background:rgba(0,0,0,.04);}
+    .links a[aria-current="page"]{background:rgba(0,0,0,.06);}
 
-    /* ===== Hero ===== */
     .hero{
       padding-top:calc(var(--header-h) + 70px);
       padding-bottom:30px;
       text-align:center;
-      max-width:900px;margin:0 auto;padding-inline:24px;
+      max-width:900px;
+      margin:0 auto;
+      padding-inline:24px;
       box-sizing:border-box;
     }
     .hero h1{
       font-size:clamp(30px,6vw,56px);
-      margin:0 0 10px;line-height:1.05;
+      margin:0 0 10px;
+      line-height:1.05;
     }
-    .hero .meta{color:var(--muted);font-size:14px;margin-bottom:10px;}
-    .hero p{color:var(--muted);font-size:clamp(14px,2.2vw,18px);margin:0;}
+    .hero p{
+      color:var(--muted);
+      font-size:clamp(14px,2.2vw,18px);
+      margin:0;
+    }
 
-    /* ===== About block ===== */
     .about{
       max-width:800px;
       margin:40px auto;
       padding:24px;
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
+      background:transparent;
+      border:none;
+      border-radius:0;
       text-align:center;
       box-sizing:border-box;
     }
-    .about h3{margin-top:0;margin-bottom:10px;font-size:20px;}
+    .about h3{
+      margin:0 0 12px;
+      font-size:22px;
+    }
     .about p{
-      color:var(--muted);font-size:16px;line-height:1.7;
-      margin:0 auto;max-width:600px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.7;
+      margin:0 auto;
+      max-width:600px;
     }
 
-    /* ===== Gallery (row-by-row grid) ===== */
     .masonry{
       max-width:1320px;
       margin:0 auto 70px;
@@ -101,44 +156,37 @@
     }
     .masonry figure{
       margin:0;
-      border-radius:0px;
-      overflow:hidden;
-      background:#000;
-      border:1px solid var(--border);
+      border:none;
+      background:transparent;
+      overflow:visible;
       cursor:pointer;
-      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      transition:transform .25s ease;
+    }
+    .masonry figure:hover{ transform:translateY(-4px); }
+    .masonry img{
+      width:100%;
+      height:auto;
+      display:block;
     }
     .masonry figcaption{
-      padding: 8px 4px 0;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: 'Afacad Flux', sans-serif;
-      color: var(--fg);
-      text-align: center;
-      line-height: 1.4;
-      letter-spacing: 0.02em;
-    }
-    .masonry figure:hover{
-      transform:translateY(-4px);
-      box-shadow:0 12px 28px rgba(0,0,0,.5);
-      border-color:rgba(255,255,255,.06);
-    }
-    .masonry img{
-      width:100%;height:auto;display:block;
+      padding:8px 0 0;
+      font-size:14px;
+      font-weight:600;
+      color:var(--muted);
+      text-align:left;
+      line-height:1.4;
+      letter-spacing:.02em;
     }
 
-    /* ===== Lightbox ===== */
     .lightbox{
-      position:fixed; inset:0;
+      position:fixed;
+      inset:0;
       background:rgba(0,0,0,.92);
-      display:none; z-index:80;
-
-      /* ✅ центрируем контент всегда */
+      display:none;
+      z-index:200;
       align-items:center;
       justify-content:center;
-
-      /* ✅ чтобы на мобиле ничего не смещалось */
-      padding: calc(16px + var(--safe-top)) 16px calc(16px + var(--safe-bot));
+      padding:calc(16px + var(--safe-top)) 16px calc(16px + var(--safe-bot));
       box-sizing:border-box;
     }
     .lightbox[aria-hidden="false"]{display:flex;}
@@ -157,30 +205,33 @@
       justify-content:center;
     }
     .lightbox__img{
-      max-width:96vw; max-height:86vh;
-      width:auto; height:auto;
+      max-width:96vw;
+      max-height:86vh;
+      width:auto;
+      height:auto;
       object-fit:contain;
       display:block;
-      cursor:pointer; /* ✅ кликаем по фото — закрываем */
+      cursor:pointer;
     }
 
-    /* ❌ убрали крестик */
-    .lightbox__close{ display:none !important; }
-
-    /* ===== Footer ===== */
     footer{
       border-top:1px solid var(--border);
-      color:var(--muted);padding:24px;
+      color:var(--muted);
+      padding:24px;
+      padding-bottom:calc(24px + var(--safe-bot));
       box-sizing:border-box;
     }
     footer .row{
-      max-width:1200px;margin:0 auto;
-      display:flex;align-items:center;justify-content:space-between;
-      gap:12px;padding:0 24px;
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:0 24px;
       box-sizing:border-box;
     }
 
-    /* ===== Responsive ===== */
     @media(max-width:880px){
       .masonry{
         grid-template-columns:repeat(2, minmax(0,1fr));
@@ -188,62 +239,65 @@
         padding:0 16px;
       }
     }
-    @media(max-width:560px){
-      :root{--header-h:56px;}
-      .hero{padding-top:calc(var(--header-h) + 50px);}
+
+    @media (max-width:640px){
+      :root{ --header-h:auto; }
+
+      header{
+        position:sticky;
+        top:0;
+        height:auto;
+        padding-bottom:10px;
+      }
+
+      .nav{
+        padding:12px 12px;
+        flex-direction:column;
+        align-items:flex-start;
+        justify-content:flex-start;
+        gap:10px;
+      }
+
+      .brand{ font-size:14px; }
+
+      .links{
+        width:100%;
+        flex-wrap:wrap;
+        overflow:visible;
+        gap:8px;
+      }
+
+      .links a{
+        padding:10px 12px;
+        font-size:14px;
+      }
+
+      .hero{
+        padding-top:18px;
+        padding-inline:12px;
+        text-align:left;
+      }
+
+      .about{
+        margin:24px 12px;
+        padding:18px;
+        text-align:left;
+      }
+
       .masonry{
         grid-template-columns:1fr;
         gap:10px;
         padding:0 12px;
       }
-      .about{margin:24px 12px;padding:18px;}
-      .nav{padding:10px 12px;}
+
+      footer{
+        padding:20px 12px calc(20px + var(--safe-bot));
+      }
+      footer .row{ padding:0 12px; }
     }
 
-    /* ✅ MOBILE NAV FIX (projects pages) */
-    @media (max-width: 640px){
-      :root{ --header-h:auto; }
-
-      header{
-        position: sticky;
-        top: 0;
-        height: auto;
-        padding-bottom: 10px;
-      }
-
-      .nav{
-        padding: 12px 12px;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        gap: 10px;
-        box-sizing: border-box;
-      }
-
-      .brand{ font-size: 14px; }
-
-      .links{
-        width: 100%;
-        flex-wrap: wrap;
-        overflow: visible;
-        gap: 8px;
-        scrollbar-width: none;
-      }
-      .links::-webkit-scrollbar{ display:none; }
-
-      .links a{
-        padding: 10px 12px;
-        font-size: 14px;
-      }
-
-      .hero{
-        padding-top: 18px;
-        padding-inline: 12px;
-        text-align: left;
-      }
-
-      .masonry{ padding: 0 12px; }
-      .about{ margin: 24px 12px; }
+    @media (prefers-reduced-motion: reduce){
+      .masonry figure:hover{ transform:none; }
     }
   </style>
 </head>
@@ -260,67 +314,53 @@
     </nav>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
     <h1>Island 2025</h1>
-    <div class="meta"></div>
     <p></p>
   </section>
 
-  <!-- About -->
   <section class="about">
     <h3>About the project</h3>
     <p>
-       In the summer of 2025, I travelled to Iceland with my girlfriend, where I managed to capture incredible landscapes and stories from our trip together
+      In the summer of 2025, I travelled to Iceland with my girlfriend, where I managed to capture incredible landscapes and stories from our trip together.
     </p>
   </section>
 
-  <!-- Gallery -->
   <section class="masonry" id="gallery">
-
     <figure>
       <img src="img/исландлия маша.png" alt="">
       <figcaption>Kodachrome 3x4</figcaption>
     </figure>
-
     <figure>
       <img src="img/1.png" alt="">
       <figcaption>Kodachrome 3x4</figcaption>
     </figure>
-
     <figure>
       <img src="img/2.png" alt="">
       <figcaption>Kodachrome 3x4</figcaption>
     </figure>
-
     <figure>
       <img src="img/3.png" alt="">
       <figcaption>Kodachrome 3x4</figcaption>
     </figure>
-
     <figure>
       <img src="img/4.png" alt="">
       <figcaption>Kodachrome 16x9</figcaption>
     </figure>
-
     <figure>
       <img src="img/душь исландия .png" alt="">
       <figcaption>Iphone 16 Pro</figcaption>
     </figure>
-
     <figure>
       <img src="img/11. 1 .png" alt="">
       <figcaption>Kodachrome 16x9</figcaption>
     </figure>
-
     <figure>
       <img src="img/12.png" alt="">
       <figcaption>Kodachrome 16x9</figcaption>
     </figure>
-
   </section>
 
-  <!-- Lightbox -->
   <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="lightbox__inner">
       <div class="lightbox__image-wrap">
@@ -338,7 +378,6 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ✅ Lightbox toggle: click to open, click again (same img) to close
     (function(){
       const lb = document.getElementById('lightbox');
       const lbImg = document.getElementById('lb-img');
@@ -365,11 +404,8 @@
       }
 
       function toggleLB(src){
-        if(isOpen && src && src === currentSrc){
-          closeLB();
-        } else {
-          openLB(src);
-        }
+        if(isOpen && src && src === currentSrc) closeLB();
+        else openLB(src);
       }
 
       gallery.addEventListener('click', (e)=>{
@@ -378,15 +414,12 @@
         toggleLB(img.src);
       });
 
-      // close by clicking overlay background
       lb.addEventListener('click', (e)=>{
         if(e.target === lb) closeLB();
       });
 
-      // ✅ close by clicking the big image
       lbImg.addEventListener('click', closeLB);
 
-      // close on Esc
       document.addEventListener('keydown', (e)=>{
         if(e.key === 'Escape' && lb.getAttribute('aria-hidden') === 'false') closeLB();
       });
