@@ -7,284 +7,429 @@
   <meta name="description" content="Selected projects by Nikita Kotrelev — cinematography, installations, experimental rigs." />
   <link rel="icon" href="img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/img/favicon_180x180.png" sizes="180x180">
-<link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#0b0b0b">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0b0b0b">
 
   <style>
     :root{
-      --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428;
-      --radius:16px;
+      --bg:#f5f5f5;
+      --fg:#0b0b0b;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --border:#e7e7e7;
+      --shadow:0 18px 40px rgba(0,0,0,.08);
+
       --safe-top:max(env(safe-area-inset-top),0px);
       --safe-bot:max(env(safe-area-inset-bottom),0px);
-      --header-h:72px; /* будет обновлено JS под реальную высоту */
+      --header-h:64px;
     }
+
     @font-face{
       font-family:'Afacad Flux';
-      src:local('Afacad Flux Regular'),
+      src: local('Afacad Flux Regular'),
            url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
            url('fonts/AfacadFlux-Regular.woff') format('woff');
-      font-weight:400; font-style:normal; font-display:swap;
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
     }
+
     html,body{height:100%}
-    html{color-scheme:dark}
+    html{color-scheme:light}
+
     body{
       margin:0;
       font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
-      background:var(--bg); color:var(--fg);
-      display:grid; grid-template-rows:auto 1fr auto;
+      background:var(--bg);
+      color:var(--fg);
       min-height:100dvh;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
       -webkit-tap-highlight-color:transparent;
     }
 
     /* ===== Header ===== */
     header{
-      position:fixed; top:0; left:0; right:0; z-index:60;
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:60;
       padding-top:var(--safe-top);
-      /* ❗️важно: без фиксированной высоты, чтобы меню могло переноситься */
-      box-sizing:border-box;
-      backdrop-filter:saturate(180%) blur(8px);
-      background:linear-gradient(180deg, rgba(11,11,11,.76), rgba(11,11,11,.3) 60%, rgba(11,11,11,0));
+      height:var(--header-h);
+      backdrop-filter:saturate(180%) blur(10px);
+      background:rgba(245,245,245,.82);
       border-bottom:1px solid var(--border);
-    }
-    .nav{
-      max-width:1200px; margin:0 auto;
-      padding:12px 24px;
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
       box-sizing:border-box;
     }
+
+    .nav{
+      max-width:1320px;
+      margin:0 auto;
+      padding:12px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      box-sizing:border-box;
+    }
+
     .brand{
-      font-weight:600; letter-spacing:.08em; text-decoration:none; color:var(--fg);
+      font-weight:700;
+      letter-spacing:.12em;
+      text-decoration:none;
+      color:var(--fg);
       white-space:nowrap;
       flex:0 0 auto;
+      font-size:13px;
+      text-transform:uppercase;
     }
+
     .links{
-      display:flex; gap:10px; align-items:center;
+      display:flex;
+      gap:10px;
+      align-items:center;
       overflow-x:auto;
       overscroll-behavior-inline:contain;
       scrollbar-width:none;
       max-width:100%;
     }
-    .links::-webkit-scrollbar{ display:none; }
+    .links::-webkit-scrollbar{display:none}
+
     .links a{
-      color:var(--fg); text-decoration:none; opacity:.9;
-      padding:8px 12px; border-radius:999px; white-space:nowrap; font-size:14px;
-      flex:0 0 auto;
-    }
-    .links a:hover{opacity:1;background:rgba(255,255,255,.04);}
-    .links a[aria-current="page"]{background:rgba(255,255,255,.06); opacity:1;}
-
-    /* ===== Hero ===== */
-    .page-hero{
-      padding-top: calc(var(--header-h) + 56px);
-      padding-bottom: 28px;
-      text-align:center;
-      max-width:800px;
-      margin:0 auto;
-      padding-inline:24px;
-    }
-    .page-hero h2{
-      font-size:clamp(32px,5vw,60px);
-      margin:0 0 10px;
-      line-height:1.1;
-    }
-    .page-hero p{
-      color:var(--muted);
-      font-size:clamp(14px,2vw,18px);
-      margin:0;
-    }
-
-    /* ===== Projects Grid ===== */
-    .projects{
-      max-width:1320px;
-      margin:0 auto 64px;
-      padding:0 24px calc(24px + var(--safe-bot));
-      display:grid;
-      gap:20px;
-
-      /* ✅ 3 в ряд на десктопе */
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      align-items:start;
-    }
-
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:14px;
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
-      cursor:pointer;
-    }
-    .card:hover{
-      transform:translateY(-6px);
-      box-shadow:0 14px 40px rgba(0,0,0,.6);
-      border-color:rgba(255,255,255,.06);
-    }
-
-    .card a{
       color:var(--fg);
       text-decoration:none;
-      display:block;
-      height:100%;
+      opacity:.85;
+      padding:8px 12px;
+      border-radius:999px;
+      white-space:nowrap;
+      font-size:14px;
+      flex:0 0 auto;
     }
 
-    .card__thumb{width:100%;aspect-ratio:4/3;overflow:hidden;background:#000;}
-    .card__thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease;}
-    .card:hover .card__thumb img{transform:scale(1.05);}
+    .links a:hover{
+      opacity:1;
+      background:rgba(0,0,0,.04);
+    }
 
-    .card__meta{
+    .links a[aria-current="page"]{
+      background:rgba(0,0,0,.06);
+      opacity:1;
+    }
+
+    /* ===== Hero ===== */
+  .page-hero{
+  padding-top:calc(var(--header-h) + 64px);
+  padding-bottom:28px;
+  max-width:1320px;
+  margin:0 auto;
+  padding-inline:24px;
+  box-sizing:border-box;
+  text-align:center;
+}
+
+    .page-hero h1{
+  font-size:clamp(30px,4vw,52px);
+  margin:0;
+  line-height:1.05;
+  letter-spacing:-.02em;
+}
+
+    .page-hero p{
+      color:var(--muted);
+      font-size:clamp(14px,1.8vw,18px);
+      margin:0;
+      max-width:70ch;
+      line-height:1.5;
+    }
+
+    /* ===== Projects grid ===== */
+    .projects{
+      max-width:1320px;
+      margin:0 auto 72px;
+      padding:0 24px;
+      display:grid;
+      gap:26px;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      align-items:start;
+      box-sizing:border-box;
+    }
+
+    .project{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .project a{
+      color:inherit;
+      text-decoration:none;
+      display:block;
+    }
+
+    .tile{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:0;
+      padding:22px 22px 28px;
+      min-height:520px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
       position:relative;
-      padding:14px 16px;
+      box-shadow:0 10px 24px rgba(0,0,0,.06);
+      transition:transform .25s ease, box-shadow .25s ease;
+      overflow:hidden;
+    }
+
+    .tile:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--shadow);
+    }
+
+    .meta{
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:12px;
+      color:var(--fg);
+      opacity:.9;
+      margin-bottom:12px;
+    }
+
+    .thumb{
+      margin-top:10px;
+      flex:1;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      background:transparent;
+    }
+
+    .thumb img{
+      width:100%;
+      max-width:420px;
+      max-height:320px;
+      height:auto;
+      object-fit:contain;
+      display:block;
+      transition:transform .5s ease;
+    }
+
+    .tile:hover .thumb img{
+      transform:scale(1.02);
+    }
+
+    .caption{
+      padding:2px 2px 0;
+      display:grid;
+      gap:6px;
+    }
+
+    .name{
+      margin:0;
+      font-size:15px;
+      font-weight:600;
+      line-height:1.25;
+      color:var(--fg);
+    }
+
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    /* ===== Footer ===== */
+    footer{
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      padding:24px;
+      padding-bottom:calc(24px + var(--safe-bot));
+      box-sizing:border-box;
+      background:var(--bg);
+    }
+
+    footer .row{
+      max-width:1320px;
+      margin:0 auto;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      overflow:hidden;
-    }
-    .card__meta::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(90deg,rgba(255,255,255,.08),rgba(255,255,255,0));
-      opacity:0;
-      transition:opacity .35s ease;
-      z-index:0;
-    }
-    .card:hover .card__meta::before{opacity:1;}
-
-    .card__title{
-      font-size:16px;
-      font-weight:600;
-      margin:0;
-      color:var(--fg);
-      position:relative;
-      z-index:1;
-    }
-
-    /* ===== Footer ===== */
-    footer{border-top:1px solid var(--border);color:var(--muted);padding:24px;}
-    footer .row{
-      max-width:1200px;margin:0 auto;
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
       padding:0 24px;
       box-sizing:border-box;
     }
 
     /* ===== Responsive ===== */
     @media(max-width:1100px){
-      .projects{grid-template-columns:repeat(2, minmax(0, 1fr));gap:16px;}
-      .nav{ padding-inline:16px; }
-      .page-hero{ padding-inline:16px; }
+      .projects{
+        grid-template-columns:repeat(2, minmax(0,1fr));
+      }
+      .tile{
+        min-height:500px;
+      }
+    }
+
+    @media(max-width:740px){
+      .projects{
+        grid-template-columns:1fr;
+      }
+      .tile{
+        min-height:460px;
+      }
+      .thumb img{
+        max-height:300px;
+      }
     }
 
     @media(max-width:640px){
+      :root{--header-h:auto;}
+
+      header{
+        position:sticky;
+        height:auto;
+        padding-bottom:10px;
+      }
+
       .nav{
         padding:12px 12px;
         flex-direction:column;
         align-items:flex-start;
         gap:10px;
       }
-      .brand{ font-size:14px; }
+
+      .brand{
+        font-size:12px;
+      }
+
       .links{
         width:100%;
-        flex-wrap:wrap;     /* ✅ ключ: переносим ссылки */
-        overflow:visible;   /* ✅ ключ: ничего не обрезаем */
+        flex-wrap:wrap;
+        overflow:visible;
         gap:8px;
       }
+
       .links a{
-        padding:10px 12px;
         font-size:14px;
+        padding:10px 12px;
       }
 
       .page-hero{
-        padding-top: calc(var(--header-h) + 28px);
-        padding-inline:12px;
-        text-align:left;
+  padding-top:18px;
+  padding-inline:12px;
+  text-align:center;
+}
+
+      .page-hero h1{
+        font-size:34px;
+        line-height:1.05;
+      }
+
+      .page-hero p{
+        font-size:14px;
+        line-height:1.45;
       }
 
       .projects{
-        padding:0 12px calc(20px + var(--safe-bot));
-        gap:12px;
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* ✅ красиво на любых телефонах */
+        padding:0 12px;
+        margin-bottom:40px;
+      }
+
+      footer .row{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:0 12px;
+      }
+
+      footer{
+        padding:20px 12px calc(20px + var(--safe-bot));
       }
     }
 
-    @media(max-width:420px){
-      .projects{grid-template-columns:1fr;}
-    }
-
     @media (prefers-reduced-motion: reduce){
-      .card:hover{ transform:none; }
-      .card:hover .card__thumb img{ transform:none; }
+      .tile:hover{transform:none}
+      .tile:hover .thumb img{transform:none}
     }
   </style>
 </head>
 
 <body>
-  <header id="siteHeader">
+  <header>
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="index.html">NIKITA KOTRELEV</a>
       <div class="links" role="navigation" aria-label="Primary links">
         <a href="Video.html">Video</a>
         <a href="Projects.html" aria-current="page">Projects</a>
         <a href="About me.html">About</a>
-         <a href="Store.html">Store</a>
+        <a href="Store.html">Store</a>
       </div>
     </nav>
   </header>
 
   <div class="page-hero">
-    <h2>Projects</h2>
+    <h1>Projects</h1>
+    
   </div>
 
   <section class="projects" aria-label="Projects list">
 
-    <article class="card">
+    <article class="project">
       <a href="project2024_robotdog.html">
-        <div class="card__thumb">
-          <img src="img/FullSizeRender_1_.jpg" alt="France — project thumbnail" loading="lazy" decoding="async">
+        <div class="tile">
+          <div class="meta">NIKITA KOTRELEV</div>
+          <div class="thumb">
+            <img src="img/FullSizeRender_1_.jpg" alt="France — project thumbnail" loading="lazy" decoding="async">
+          </div>
         </div>
-        <div class="card__meta">
-          <h3 class="card__title">France</h3>
+        <div class="caption">
+          <p class="name">France</p>
         </div>
       </a>
     </article>
 
-    <article class="card">
+    <article class="project">
       <a href="island.html">
-        <div class="card__thumb">
-          <img src="img/исландлия маша.png" alt="Island 2025 — thumbnail" loading="lazy" decoding="async">
+        <div class="tile">
+          <div class="meta">NIKITA KOTRELEV</div>
+          <div class="thumb">
+            <img src="img/исландлия маша.png" alt="Island 2025 — thumbnail" loading="lazy" decoding="async">
+          </div>
         </div>
-        <div class="card__meta">
-          <h3 class="card__title">Island 2025</h3>
+        <div class="caption">
+          <p class="name">Island 2025</p>
         </div>
       </a>
     </article>
 
-    <article class="card">
+    <article class="project">
       <a href="Morocco.html">
-        <div class="card__thumb">
-          <img src="img/marocco 11.png" alt="Morocco — project thumbnail" loading="lazy" decoding="async">
+        <div class="tile">
+          <div class="meta">NIKITA KOTRELEV</div>
+          <div class="thumb">
+            <img src="img/marocco 11.png" alt="Morocco — project thumbnail" loading="lazy" decoding="async">
+          </div>
         </div>
-        <div class="card__meta">
-          <h3 class="card__title">Morocco</h3>
+        <div class="caption">
+          <p class="name">Morocco</p>
         </div>
       </a>
     </article>
 
-    <article class="card">
+    <article class="project">
       <a href="fashion.html">
-        <div class="card__thumb">
-          <img src="img/IMG_1601.JPG" alt="Fashion — thumbnail" loading="lazy" decoding="async">
+        <div class="tile">
+          <div class="meta">NIKITA KOTRELEV</div>
+          <div class="thumb">
+            <img src="img/IMG_1601.JPG" alt="Fashion — thumbnail" loading="lazy" decoding="async">
+          </div>
         </div>
-        <div class="card__meta">
-          <h3 class="card__title">Fashion</h3>
+        <div class="caption">
+          <p class="name">Fashion</p>
         </div>
       </a>
     </article>
-
-    <!-- add more projects below -->
 
   </section>
 
@@ -296,21 +441,6 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // ✅ always keep content below the REAL header height (mobile header can wrap)
-    (function(){
-      const header = document.getElementById('siteHeader');
-      if(!header) return;
-
-      function setHeaderH(){
-        const h = Math.ceil(header.getBoundingClientRect().height);
-        document.documentElement.style.setProperty('--header-h', h + 'px');
-      }
-
-      setHeaderH();
-      window.addEventListener('resize', setHeaderH, { passive:true });
-      window.addEventListener('orientationchange', setHeaderH, { passive:true });
-    })();
   </script>
 </body>
 </html>
