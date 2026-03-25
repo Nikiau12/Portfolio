@@ -214,20 +214,16 @@
       left:0; right:0;
       bottom:-56px;
       height:56px;
-
       display:flex;
       align-items:center;
       justify-content:center;
-
       font-weight:800;
       letter-spacing:.10em;
       text-transform:uppercase;
       font-size:13px;
-
       background:#ffffff;
       border:0;
       border-top:1px solid var(--border);
-
       transition:bottom .22s ease;
       cursor:pointer;
       pointer-events:auto;
@@ -336,26 +332,6 @@
       z-index:2;
     }
 
-    .qv__nav{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      width:44px;
-      height:44px;
-      border:1px solid rgba(0,0,0,.25);
-      background:#fff;
-      border-radius:0;
-      cursor:pointer;
-      z-index:2;
-      display:grid;
-      place-items:center;
-      font-size:22px;
-      line-height:1;
-    }
-    .qv__nav--prev{left:14px;}
-    .qv__nav--next{right:14px;}
-    .qv__nav[disabled]{opacity:.35; cursor:not-allowed;}
-
     .qv__grid{
       display:grid;
       grid-template-columns: 1.15fr .85fr;
@@ -456,7 +432,41 @@
       font-weight:600;
       color:#111;
     }
-    .qv__size-fixed{
+
+    .qv__sizes{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .qv__size-btn{
+      appearance:none;
+      border:2px solid rgba(0,0,0,.14);
+      background:#fff;
+      color:#111;
+      padding:12px 14px;
+      min-width:120px;
+      border-radius:0;
+      cursor:pointer;
+      text-align:left;
+      display:grid;
+      gap:2px;
+      font:inherit;
+    }
+    .qv__size-btn strong{
+      font-size:15px;
+      line-height:1.1;
+      font-weight:700;
+    }
+    .qv__size-btn span{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.2;
+    }
+    .qv__size-btn[aria-current="true"]{
+      border-color:#111;
+      box-shadow:0 10px 18px rgba(0,0,0,.08);
+    }
+    .qv__size-note{
       width:fit-content;
       max-width:100%;
       padding:14px 16px;
@@ -465,6 +475,7 @@
       background:#fff;
       font:inherit;
       min-width:280px;
+      box-sizing:border-box;
     }
 
     .qv__finish{
@@ -572,7 +583,6 @@
       .qv__title{font-size:32px;}
     }
 
-    /* ✅ MOB FIX: Quick View fullscreen + scroll INSIDE (iPhone-safe) */
     @media (max-width:820px){
       .qv{
         padding:0;
@@ -623,9 +633,10 @@
       }
 
       .qv__info{ padding:18px 16px 24px; }
-
       .qv__title{font-size:28px;}
       .qv__btn{font-size:16px;}
+      .qv__size-btn{min-width:unset; flex:1 1 calc(50% - 10px);}
+      .qv__size-note{min-width:unset; width:100%;}
     }
 
     /* ===== Footer ===== */
@@ -718,24 +729,38 @@
 
   <section class="store" id="store" aria-label="Store products">
 
-    <!-- ✅ NEWEST FIRST -->
-
-    <!-- ✅ NEW (9th product) -->
-    <article class="product" data-product="new9" data-size="70 x 100 cm (71.8 × 101.8 cm)">
+    <article class="product" data-product="new10">
       <div class="tile">
         <div class="meta">NIKITA KOTRELEV</div>
+        <div class="thumb"
+             data-lightbox="img/грузия стена белье ьез рама .jpg"
+             data-caption="Georgia, Batumi, 2025">
+          <div class="mat">
+            <img data-autotrim="1" src="img/грузия стена белье ьез рама .jpg" alt="Georgia, Batumi, 2025 print" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <button class="quick" type="button" data-qv>VIEW</button>
+      </div>
+      <div class="caption">
+        <p class="name">Poster: Georgia, Batumi, 2025</p>
+        <div class="priceLine">
+          <span class="price" data-price>€—</span>
+        </div>
+      </div>
+    </article>
 
+    <article class="product" data-product="new9">
+      <div class="tile">
+        <div class="meta">NIKITA KOTRELEV</div>
         <div class="thumb"
              data-lightbox="img/варанаси кирпичи без рамы .jpg"
              data-caption="Builders balancing bricks on their heads. Varanasi, India, 2026">
           <div class="mat">
-            <img data-autotrim="1" src="img/варанаси кирпичи без рамы .jpg" alt="New product print" loading="lazy" decoding="async">
+            <img data-autotrim="1" src="img/варанаси кирпичи без рамы .jpg" alt="Builders balancing bricks on their heads. Varanasi, India, 2026" loading="lazy" decoding="async">
           </div>
         </div>
-
-        <button class="quick" type="button" data-qv> VIEW</button>
+        <button class="quick" type="button" data-qv>VIEW</button>
       </div>
-
       <div class="caption">
         <p class="name">Poster: Builders balancing bricks on their heads. Varanasi, India, 2026</p>
         <div class="priceLine">
@@ -744,46 +769,38 @@
       </div>
     </article>
 
-    <!-- ✅ NEW (8th product) -->
-    <article class="product" data-product="new8" data-size="70 x 100 cm (71.8 × 101.8 cm)">
+    <article class="product" data-product="new8">
       <div class="tile">
         <div class="meta">NIKITA KOTRELEV</div>
-
         <div class="thumb"
              data-lightbox="img/катманду непал монах без  рама .jpg"
-             data-caption="A Buddhist monk with a rug. Kathmandu, Nepal, 2026 ">
+             data-caption="A Buddhist monk with a rug. Kathmandu, Nepal, 2026">
           <div class="mat">
-            <img data-autotrim="1" src="img/катманду непал монах без  рама .jpg" alt="New product print" loading="lazy" decoding="async">
+            <img data-autotrim="1" src="img/катманду непал монах без  рама .jpg" alt="A Buddhist monk with a rug. Kathmandu, Nepal, 2026" loading="lazy" decoding="async">
           </div>
         </div>
-
-        <button class="quick" type="button" data-qv> VIEW</button>
+        <button class="quick" type="button" data-qv>VIEW</button>
       </div>
-
       <div class="caption">
-        <p class="name">Poster: A Buddhist monk with a rug. Kathmandu, Nepal, 2026 </p>
+        <p class="name">Poster: A Buddhist monk with a rug. Kathmandu, Nepal, 2026</p>
         <div class="priceLine">
           <span class="price" data-price>€—</span>
         </div>
       </div>
     </article>
 
-    <!-- ✅ NEW (7th product) -->
-    <article class="product" data-product="new7" data-size="100 x 70 cm (101.8 × 71.8 cm)">
+    <article class="product" data-product="new7">
       <div class="tile">
         <div class="meta">NIKITA KOTRELEV</div>
-
         <div class="thumb"
              data-lightbox="img/футбольное поле без рама .jpg"
              data-caption="Football pitch. Kathmandu, Nepal, 2026">
           <div class="mat">
-            <img data-autotrim="1" src="img/футбольное поле без рама .jpg" alt="New product print" loading="lazy" decoding="async">
+            <img data-autotrim="1" src="img/футбольное поле без рама .jpg" alt="Football pitch. Kathmandu, Nepal, 2026" loading="lazy" decoding="async">
           </div>
         </div>
-
-        <button class="quick" type="button" data-qv> VIEW</button>
+        <button class="quick" type="button" data-qv>VIEW</button>
       </div>
-
       <div class="caption">
         <p class="name">Poster: Football pitch. Kathmandu, Nepal, 2026</p>
         <div class="priceLine">
@@ -792,46 +809,18 @@
       </div>
     </article>
 
-    <!-- ✅ NEW (6th product) -->
-    <article class="product" data-product="new6" data-size="51 × 31 cm   (60 × 40 cm)">
+    <article class="product" data-product="new5">
       <div class="tile">
         <div class="meta">NIKITA KOTRELEV</div>
-
         <div class="thumb"
-             data-lightbox="img/душ исландия без рамы .png"
-             data-caption="Iceland, Shower">
-          <div class="mat">
-            <img data-autotrim="1" src="img/душ исландия без рамы .png" alt="New product print" loading="lazy" decoding="async">
-          </div>
-        </div>
-
-        <button class="quick" type="button" data-qv> VIEW</button>
-      </div>
-
-      <div class="caption">
-        <p class="name">Poster: Iceland, Shower</p>
-        <div class="priceLine">
-          <span class="price" data-price>€—</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- ✅ NEW (5th product) -->
-    <article class="product" data-product="new5" data-size="31,7 × 17 cm  (40 × 30 cm)">
-      <div class="tile">
-        <div class="meta">NIKITA KOTRELEV</div>
-
-        <div class="thumb"
-             data-lightbox="img/Кремль москва без рамы.png"
+             data-lightbox="img/Кремль москва без рамы.jpg"
              data-caption="Russia, Moscow Kremlin">
           <div class="mat">
-            <img data-autotrim="1" src="img/Кремль москва без рамы.png" alt="New product print" loading="lazy" decoding="async">
+            <img data-autotrim="1" src="img/Кремль москва без рамы.jpg" alt="Russia, Moscow Kremlin" loading="lazy" decoding="async">
           </div>
         </div>
-
-        <button class="quick" type="button" data-qv> VIEW</button>
+        <button class="quick" type="button" data-qv>VIEW</button>
       </div>
-
       <div class="caption">
         <p class="name">Poster: Russia, Moscow Kremlin</p>
         <div class="priceLine">
@@ -840,69 +829,18 @@
       </div>
     </article>
 
-    <!-- ✅ Oldest after -->
-
-    <article class="product" data-product="Morocco" data-size="36×24 cm in (40 × 30 cm)">
+    <article class="product" data-product="brittany">
       <div class="tile">
         <div class="meta">NIKITA KOTRELEV</div>
-
-        <div class="thumb"
-             data-lightbox="img/Марроко без рамы .png"
-             data-caption="Morocco, Road">
-          <div class="mat">
-            <img data-autotrim="1" src="img/Марроко без рамы .png" alt="Morocco, Road print" loading="lazy" decoding="async">
-          </div>
-        </div>
-
-        <button class="quick" type="button" data-qv> VIEW</button>
-      </div>
-
-      <div class="caption">
-        <p class="name"> Poster: Morocco, Road</p>
-        <div class="priceLine">
-          <span class="price" data-price>€—</span>
-        </div>
-      </div>
-    </article>
-
-    <article class="product" data-product="oleron" data-size="34 × 21,8 cm cm in (40 × 30 cm)">
-      <div class="tile">
-        <div class="meta">NIKITA KOTRELEV</div>
-
-        <div class="thumb"
-             data-lightbox="img/Олерон без рамы .png"
-             data-caption="Oléron Island">
-          <div class="mat">
-            <img data-autotrim="1" src="img/Олерон без рамы .png" alt="Oléron Island print" loading="lazy" decoding="async">
-          </div>
-        </div>
-
-        <button class="quick" type="button" data-qv> VIEW</button>
-      </div>
-
-      <div class="caption">
-        <p class="name"> Poster: Oléron Island</p>
-        <div class="priceLine">
-          <span class="price" data-price>€—</span>
-        </div>
-      </div>
-    </article>
-
-    <article class="product" data-product="brittany" data-size="34 × 22,2 cm in (40 × 30 cm)">
-      <div class="tile">
-        <div class="meta">NIKITA KOTRELEV</div>
-
         <div class="thumb"
              data-lightbox="img/Биританни без  рамы .png"
              data-caption="France, Brittany">
           <div class="mat">
-            <img data-autotrim="1" src="img/Биританни без  рамы .png" alt="France, Brittany print" loading="lazy" decoding="async">
+            <img data-autotrim="1" src="img/Биританни без  рамы .png" alt="France, Brittany" loading="lazy" decoding="async">
           </div>
         </div>
-
-        <button class="quick" type="button" data-qv> VIEW</button>
+        <button class="quick" type="button" data-qv>VIEW</button>
       </div>
-
       <div class="caption">
         <p class="name">Poster: France, Brittany</p>
         <div class="priceLine">
@@ -948,7 +886,8 @@
 
           <div class="qv__field">
             <div class="qv__label">Size:</div>
-            <div class="qv__size-fixed" id="qv-size-text">—</div>
+            <div class="qv__sizes" id="qv-size-options"></div>
+            <div class="qv__size-note" id="qv-size-text">—</div>
           </div>
 
           <div class="qv__finish" id="qv-finish">
@@ -983,108 +922,245 @@
       return "€" + n.toFixed(0);
     }
 
-    function euroRangeFromFinishes(productId){
+    function cloneImages(arr){
+      return Array.isArray(arr) ? [...arr] : [];
+    }
+
+    function withUrl(finish, url){
+      return {
+        key: finish.key,
+        label: finish.label,
+        price: finish.price,
+        url,
+        images: cloneImages(finish.images)
+      };
+    }
+
+    function createSizeConfig({ label, sizeText, finishes }){
+      return { label, sizeText, finishes };
+    }
+
+    function createProductSizes(largeConfig, mediumConfig, postcardConfig){
+      return {
+        postcard: createSizeConfig(postcardConfig),
+        medium: createSizeConfig(mediumConfig),
+        large: createSizeConfig(largeConfig)
+      };
+    }
+
+    function getAllPricesFromProduct(productId){
       const info = PRODUCT_INFO?.[productId];
-      const prices = (info?.finishes || [])
+      const sizes = info?.sizes || {};
+      return Object.values(sizes)
+        .flatMap(size => Array.isArray(size.finishes) ? size.finishes : [])
         .map(f => Number(f.price))
         .filter(n => Number.isFinite(n));
+    }
 
+    function euroRangeFromProduct(productId){
+      const prices = getAllPricesFromProduct(productId);
       if (!prices.length) return "€—";
       const min = Math.min(...prices);
       const max = Math.max(...prices);
-      return (min === max) ? euro(min) : `${euro(min)}–${euro(max)}`;
+      return min === max ? euro(min) : `${euro(min)}–${euro(max)}`;
     }
 
     // ==========================
-    // PRODUCT DATA + STRIPE URLS
+    // BASE FINISHES (current = LARGE)
+    // ==========================
+    const LARGE_FINISHES = {
+      brittany: [
+        { key:"unframed", label:"Unframed", price:70,  url:"https://buy.stripe.com/dRmaEQ9f6aF7dcNbUWasg0O", images:["img/Биританни без  рамы .png"] },
+        { key:"black",    label:"Custom Black Frame", price:300, url:"https://buy.stripe.com/8x26oA3UM5kNgoZ0ceasg0c", images:["img/Биританни Черная  рама .png"] },
+        { key:"white",    label:"Custom White Frame", price:300, url:"https://buy.stripe.com/14A6oAezq7sV7St8IKasg0d", images:["img/Биританни белая рама .png"] }
+      ],
+
+      new5: [
+        { key:"unframed", label:"Unframed", price:70,  url:"https://buy.stripe.com/00w3co1ME5kN2y92kmasg0e", images:["img/Кремль москва без рамы.jpg"] }
+      ],
+
+      new7: [
+        { key:"unframed", label:"Unframed", price:100, url:"https://buy.stripe.com/28E14g8b2dRjfkV8IKasg0k", images:["img/футбольное поле без рама .jpg"] },
+        { key:"black",    label:"Custom Black Frame", price:400, url:"https://buy.stripe.com/9B69AMajaeVn1u58IKasg0l", images:["img/футбольное поле черная рама .jpg"] },
+        { key:"white",    label:"Custom White Frame", price:400, url:"https://buy.stripe.com/bJe00c1MEbJb0q14suasg0m", images:["img/футбольное поле белая рама .jpg"] }
+      ],
+      new8: [
+        { key:"unframed", label:"Unframed", price:100, url:"https://buy.stripe.com/aFa14g2QI3cFgoZbUWasg0n", images:["img/катманду непал монах без  рама .jpg"] },
+        { key:"black",    label:"Custom Black Frame", price:400, url:"https://buy.stripe.com/cNiaEQ4YQ00tegR6ACasg0o", images:["img/катманду непал монах черная рама .jpg"] },
+        { key:"white",    label:"Custom White Frame", price:400, url:"https://buy.stripe.com/4gM28k2QI4gJ2y91giasg0p", images:["img/катманду непал монах белая рама .jpg"] }
+      ],
+      new9: [
+        { key:"unframed", label:"Unframed", price:100, url:"https://buy.stripe.com/bJe14gbnefZrfkV0ceasg0q", images:["img/варанаси кирпичи без рамы .jpg"] },
+        { key:"black",    label:"Custom Black Frame", price:400, url:"https://buy.stripe.com/3cIbIU3UM7sV0q11giasg0r", images:["img/варанаси кирпичи черная рамы .jpg"] },
+        { key:"white",    label:"Custom White Frame", price:400, url:"https://buy.stripe.com/00wcMY76Y14x6Opf78asg0s", images:["img/варанаси кирпичи белая рамы .jpg"] }
+      ],
+      new10: [
+        { key:"unframed", label:"Unframed", price:100, url:"https://buy.stripe.com/7sYaEQcricNf2y91giasg0t", images:["img/грузия стена белье ьез рама .jpg"] },
+        { key:"black",    label:"Custom Black Frame", price:400, url:"https://buy.stripe.com/14A00c8b29B36Op5wyasg0u", images:["img/грузия стена белье черная рама .jpg"] },
+        { key:"white",    label:"Custom White Frame", price:400, url:"https://buy.stripe.com/aFa6oAdvmeVna0BbUWasg0v", images:["img/грузия стена белье белая рама .jpg"] }
+      ]
+    };
+
+    // ==========================
+    // PRODUCT DATA
     // ==========================
     const PRODUCT_INFO = {
       brittany: {
         meta: "NIKITA KOTRELEV",
         title: "France, Brittany",
         detailsHref: "Store.html#brittany",
-        finishes: [
-          { key:"unframed", label:"Unframed", price:70,  url:"https://buy.stripe.com/dRm9AM2QI28B7St1giasg0b", images:["img/Биританни без  рамы .png"] },
-          { key:"black",    label:"Custom Black Frame", price:300, url:"https://buy.stripe.com/8x26oA3UM5kNgoZ0ceasg0c", images:["img/Биританни Черная  рама .png","img/Биританни Черная  рама .png"] },
-          { key:"white",    label:"Custom White Frame", price:300, url:"https://buy.stripe.com/14A6oAezq7sV7St8IKasg0d", images:["img/Биританни белая рама .png","img/Биританни белая рама .png"] }
-        ]
-      },
-
-      oleron: {
-        meta: "NIKITA KOTRELEV",
-        title: "Oléron Island",
-        detailsHref: "Store.html#oleron",
-        finishes: [
-          { key:"unframed", label:"Unframed", price:70,  url:"https://buy.stripe.com/5kQ3co9f64gJ6Op9MOasg08", images:["img/Олерон без рамы .png"] },
-          { key:"black",    label:"Custom Black Frame", price:300, url:"https://buy.stripe.com/28EcMY4YQ7sV7St1giasg09", images:["img/Олерон черная рама .png","img/Олерон черная рама .png"] },
-          { key:"white",    label:"Custom White Frame", price:300, url:"https://buy.stripe.com/7sYeV6ezqeVn3Cd9MOasg0a", images:["img/Олерон белая рама .png","img/Олерон белая рама .png"] }
-        ]
-      },
-
-      Morocco: {
-        meta: "NIKITA KOTRELEV",
-        title: "Morocco, Road",
-        detailsHref: "Store.html#Morocco",
-        finishes: [
-          { key:"unframed", label:"Unframed", price:70,  url:"https://buy.stripe.com/9B6fZabne4gJc8J0ceasg05", images:["img/Марроко без рамы .png"] },
-          { key:"black",    label:"Custom Black Frame", price:300, url:"https://buy.stripe.com/28EdR28b25kN1u51giasg06", images:["img/Маррокочернаярама.png","img/Маррокочернаярама.png"] },
-          { key:"white",    label:"Custom White Frame", price:300, url:"https://buy.stripe.com/00w3co8b2eVngoZ6ACasg07", images:["img/Маррокобелаярама.png","img/Маррокобелаярама.png"] }
-        ]
+        sizes: createProductSizes(
+          {
+            label: "Large",
+            sizeText: "74 × 51,3 cm image size (80 × 60 cm paper/frame)",
+            finishes: LARGE_FINISHES.brittany
+          },
+          {
+            label: "Medium",
+            sizeText: "38 × 24,1 cm image size (40 × 30 cm)",
+            finishes: [
+              withUrl({ ...LARGE_FINISHES.brittany[0], price:55 }, "https://buy.stripe.com/dRmcMYfDu9B3b4F0ceasg0P"),
+              withUrl({ ...LARGE_FINISHES.brittany[1], price:220 }, "https://buy.stripe.com/6oU9AMbne28BgoZ4suasg0M"),
+              withUrl({ ...LARGE_FINISHES.brittany[2], price:220 }, "https://buy.stripe.com/cNi8wI76Y3cF0q14suasg0N")
+            ]
+          },
+          {
+            label: "Postcard",
+            sizeText: "11,1 × 7,3 cm",
+            finishes: [
+              withUrl({ ...LARGE_FINISHES.brittany[0], label:"Postcard", price:20 }, "https://buy.stripe.com/3cI7sE2QI9B3dcNcZ0asg0Q")
+            ]
+          }
+        )
       },
 
       new5: {
         meta: "NIKITA KOTRELEV",
         title: "Russia, Moscow Kremlin",
-        detailsHref: "Store.html#Russia, Moscow Kremlin",
-        finishes: [
-          { key:"unframed", label:"Unframed", price:70,  url:"https://buy.stripe.com/00w3co1ME5kN2y92kmasg0e", images:["img/Кремль москва без рамы.png"] },
-          { key:"black",    label:"Custom Black Frame", price:300, url:"https://buy.stripe.com/6oU3co62U00t6OpaQSasg0f",   images:["img/Кремль москва черная рама.png","img/Кремль москва черная рама.png"] },
-          { key:"white",    label:"Custom White Frame", price:300, url:"https://buy.stripe.com/3cI9AMezq14xb4F3oqasg0g",   images:["img/Кремль москва белая рама.png","img/Кремль москва белая рама.png"] }
-        ]
-      },
-
-      new6: {
-        meta: "NIKITA KOTRELEV",
-        title: "Iceland, Shower",
-        detailsHref: "Store.html#Iceland, Shower",
-        finishes: [
-          { key:"unframed", label:"Unframed", price:100,  url:"https://buy.stripe.com/aFa9AM9f6bJb7St2kmasg0h", images:["img/душ исландия без рамы .png"] },
-          { key:"black",    label:"Custom Black Frame", price:350, url:"https://buy.stripe.com/14A9AM2QI7sVegR3oqasg0i",   images:["img/душ исландия черная рамы .png","img/душ исландия черная рамы .png"] },
-          { key:"white",    label:"Custom White Frame", price:350, url:"https://buy.stripe.com/8x25kw76Y3cFegR3oqasg0j",   images:["img/душ исландия белая рамы .png","img/душ исландия белая рамы .png"] }
-        ]
+        detailsHref: "Store.html#new5",
+        sizes: {
+          large: {
+            label: "Large",
+            sizeText: "31,7 × 16,9 cm image size (33,7 × 21,9 cm paper/frame)",
+            finishes: LARGE_FINISHES.new5
+          }
+        }
       },
 
       new7: {
         meta: "NIKITA KOTRELEV",
         title: "Football pitch. Kathmandu, Nepal, 2026",
         detailsHref: "Store.html#new7",
-        finishes: [
-          { key:"unframed", label:"Unframed", price:100,  url:"https://buy.stripe.com/28E14g8b2dRjfkV8IKasg0k", images:["img/футбольное поле без рама .png"] },
-          { key:"black",    label:"Custom Black Frame", price:400, url:"https://buy.stripe.com/9B69AMajaeVn1u58IKasg0l",   images:["img/футбольное поле черная рама .jpg","img/футбольное поле черная рама .jpg"] },
-          { key:"white",    label:"Custom White Frame", price:400, url:"https://buy.stripe.com/bJe00c1MEbJb0q14suasg0m",   images:["img/футбольное поле белая рама .jpg","img/футбольное поле белая рама .jpg"] }
-        ]
+        sizes: createProductSizes(
+          {
+            label: "Large",
+            sizeText: "100 × 70 cm (101.8 × 71.8 cm framed)",
+            finishes: LARGE_FINISHES.new7
+          },
+          {
+            label: "Medium",
+            sizeText: "70 × 50 cm (71.8 × 51.8 cm framed)",
+            finishes: [
+              withUrl({ ...LARGE_FINISHES.new7[0], price:70 }, "https://buy.stripe.com/5kQ4gs9f6cNf4Gh1giasg0I"),
+              withUrl({ ...LARGE_FINISHES.new7[1], price:260 }, "https://buy.stripe.com/28E9AMezq7sVdcN4suasg0K"),
+              withUrl({ ...LARGE_FINISHES.new7[2], price:260 }, "https://buy.stripe.com/fZu8wI1ME6oR7St4suasg0L")
+            ]
+          },
+          {
+            label: "Postcard",
+            sizeText: "10 × 15 cm",
+            finishes: [
+              withUrl({ ...LARGE_FINISHES.new7[0], label:"Postcard", price:20 }, "https://buy.stripe.com/dRmbIUfDueVn4Gh6ACasg0J")
+            ]
+          }
+        )
       },
 
       new8: {
         meta: "NIKITA KOTRELEV",
         title: "A Buddhist monk with a rug. Kathmandu, Nepal, 2026",
         detailsHref: "Store.html#new8",
-        finishes: [
-          { key:"unframed", label:"Unframed", price:100,  url:"https://buy.stripe.com/aFa14g2QI3cFgoZbUWasg0n", images:["img/катманду непал монах без  рама .jpg"] },
-          { key:"black",    label:"Custom Black Frame", price:400, url:"https://buy.stripe.com/cNiaEQ4YQ00tegR6ACasg0o",   images:["img/катманду непал монах черная рама .jpg","img/катманду непал монах черная рама .jpg"] },
-          { key:"white",    label:"Custom White Frame", price:400, url:"https://buy.stripe.com/4gM28k2QI4gJ2y91giasg0p",   images:["img/катманду непал монах белая рама .jpg","img/катманду непал монах белая рама .jpg"] }
-        ]
+        sizes: createProductSizes(
+          {
+            label: "Large",
+            sizeText: "70 × 100 cm (71.8 × 101.8 cm framed)",
+            finishes: LARGE_FINISHES.new8
+          },
+          {
+            label: "Medium",
+            sizeText: "50 × 70 cm (51.8 × 71.8 cm framed)",
+            finishes: [
+              withUrl({ ...LARGE_FINISHES.new8[0], price:70 }, "https://buy.stripe.com/dRmfZa1MEaF78Wx6ACasg0F"),
+              withUrl({ ...LARGE_FINISHES.new8[1], price:260 }, "https://buy.stripe.com/5kQ00c0IAbJbgoZ6ACasg0G"),
+              withUrl({ ...LARGE_FINISHES.new8[2], price:260 }, "https://buy.stripe.com/aFa5kwfDu3cFb4FaQSasg0H")
+            ]
+          },
+          {
+            label: "Postcard",
+            sizeText: "10 × 15 cm",
+            finishes: [
+              withUrl({ ...LARGE_FINISHES.new8[0], label:"Postcard", price:20 }, "https://buy.stripe.com/00w6oAbnecNf1u55wyasg0E")
+            ]
+          }
+        )
       },
 
       new9: {
         meta: "NIKITA KOTRELEV",
         title: "Builders balancing bricks on their heads. Varanasi, India, 2026",
         detailsHref: "Store.html#new9",
-        finishes: [
-          { key:"unframed", label:"Unframed", price:100,  url:"https://buy.stripe.com/bJe14gbnefZrfkV0ceasg0q", images:["img/варанаси кирпичи без рамы .jpg"] },
-          { key:"black",    label:"Custom Black Frame", price:400, url:"https://buy.stripe.com/3cIbIU3UM7sV0q11giasg0r",   images:["img/варанаси кирпичи черная рамы .jpg","img/варанаси кирпичи черная рамы .jpg"] },
-          { key:"white",    label:"Custom White Frame", price:400, url:"https://buy.stripe.com/00wcMY76Y14x6Opf78asg0s",   images:["img/варанаси кирпичи белая рамы .jpg","img/варанаси кирпичи белая рамы .jpg"] }
-        ]
+        sizes: createProductSizes(
+          {
+            label: "Large",
+            sizeText: "70 × 100 cm (71.8 × 101.8 cm framed)",
+            finishes: LARGE_FINISHES.new9
+          },
+          {
+            label: "Medium",
+            sizeText: "50 × 70 cm (51.8 × 71.8 cm framed)",
+            finishes: [
+              withUrl({ ...LARGE_FINISHES.new9[0], price:70 }, "https://buy.stripe.com/28EbIU76Y7sVegR9MOasg0A"),
+              withUrl({ ...LARGE_FINISHES.new9[1], price:260 }, "https://buy.stripe.com/4gMaEQ3UM3cF4Ghgbcasg0C"),
+              withUrl({ ...LARGE_FINISHES.new9[2], price:260 }, "https://buy.stripe.com/3cI9AMfDu6oRa0B5wyasg0D")
+            ]
+          },
+          {
+            label: "Postcard",
+            sizeText: "10 × 15 cm",
+            finishes: [
+              withUrl({ ...LARGE_FINISHES.new9[0], label:"Postcard", price:20 }, "https://buy.stripe.com/6oUbIU4YQ00t6Ope34asg0B")
+            ]
+          }
+        )
+      },
+
+      new10: {
+        meta: "NIKITA KOTRELEV",
+        title: "Georgia, Batumi, 2025",
+        detailsHref: "Store.html#new10",
+        sizes: createProductSizes(
+          {
+            label: "Large",
+            sizeText: "70 × 100 cm (71.8 × 101.8 cm framed)",
+            finishes: LARGE_FINISHES.new10
+          },
+          {
+            label: "Medium",
+            sizeText: "50 × 70 cm (51.8 × 71.8 cm framed)",
+            finishes: [
+              withUrl({ ...LARGE_FINISHES.new10[0], price:70 }, "https://buy.stripe.com/eVq5kw1MEbJbc8J6ACasg0x"),
+              withUrl({ ...LARGE_FINISHES.new10[1], price:260 }, "https://buy.stripe.com/4gM7sE62U4gJ0q1cZ0asg0y"),
+              withUrl({ ...LARGE_FINISHES.new10[2], price:260 }, "https://buy.stripe.com/28E3cofDudRjb4FbUWasg0z")
+            ]
+          },
+          {
+            label: "Postcard",
+            sizeText: "10 × 15 cm",
+            finishes: [
+              withUrl({ ...LARGE_FINISHES.new10[0], label:"Postcard", price:20 }, "https://buy.stripe.com/7sY4gs8b29B3b4F6ACasg0w")
+            ]
+          }
+        )
       }
     };
 
@@ -1094,10 +1170,10 @@
     document.querySelectorAll('.product').forEach((card)=>{
       const productId = card.dataset.product;
       const priceEl = card.querySelector('[data-price]');
-      if (priceEl) priceEl.textContent = euroRangeFromFinishes(productId);
+      if (priceEl) priceEl.textContent = euroRangeFromProduct(productId);
     });
 
-    // ===== Lightbox preview (desktop) / Quick View on mobile =====
+    // ===== Lightbox preview =====
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lb-img');
     const lbCap = document.getElementById('lb-cap');
@@ -1132,7 +1208,6 @@
 
     lbImg.addEventListener('click', (e)=>{ e.stopPropagation(); closeLb(); });
     lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLb(); });
-    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLb(); });
 
     // ===== Quick View Modal =====
     const qv = document.getElementById('qv');
@@ -1146,24 +1221,34 @@
     const qvDetails = document.getElementById('qv-details');
     const qvSwatches = document.getElementById('qv-swatches');
     const qvFinishLabel = document.getElementById('qv-finish-label');
-
     const qvSizeText = document.getElementById('qv-size-text');
+    const qvSizeOptions = document.getElementById('qv-size-options');
 
     const productOrder = Array.from(document.querySelectorAll('.product')).map(p => p.dataset.product);
     let currentProductIndex = 0;
     let currentImageIndex = 0;
     let currentFinishKey = "unframed";
+    let currentSizeKey = "large";
 
-    function getInfo(id){ return PRODUCT_INFO?.[id] || {}; }
-
-    function getSizeForProduct(productId){
-      const card = document.querySelector(`.product[data-product="${CSS.escape(productId)}"]`);
-      return card?.dataset?.size || "";
+    function getInfo(id){
+      return PRODUCT_INFO?.[id] || {};
     }
 
-    function euroFromFinish(id){
-      const info = getInfo(id);
-      const fin = (info.finishes || []).find(f => f.key === currentFinishKey);
+    function getSizes(id){
+      return getInfo(id).sizes || {};
+    }
+
+    function getCurrentSize(id){
+      return getSizes(id)[currentSizeKey] || null;
+    }
+
+    function getCurrentFinish(id){
+      const size = getCurrentSize(id);
+      return (size?.finishes || []).find(f => f.key === currentFinishKey) || size?.finishes?.[0] || null;
+    }
+
+    function euroFromSelection(id){
+      const fin = getCurrentFinish(id);
       return (typeof fin?.price === "number") ? fin.price : null;
     }
 
@@ -1192,7 +1277,7 @@
 
         enableAutoTrimIn(qv);
 
-        requestAnimationFrame(()=> {
+        requestAnimationFrame(()=>{
           requestAnimationFrame(()=> qvImg.classList.remove("is-switching"));
         });
       };
@@ -1221,8 +1306,8 @@
     }
 
     function renderSwatches(id){
-      const info = getInfo(id);
-      const finishes = info.finishes || [];
+      const size = getCurrentSize(id);
+      const finishes = size?.finishes || [];
 
       qvSwatches.innerHTML = "";
       finishes.forEach((f)=>{
@@ -1232,7 +1317,7 @@
         let cls = "qv__sw";
         if (f.key === "white") cls += " qv__sw--white";
         if (f.key === "black") cls += " qv__sw--black";
-        if (f.key === "unframed") cls += " qv__sw--unframed";
+        if (f.key === "unframed" || f.label === "Postcard") cls += " qv__sw--unframed";
         b.className = cls;
 
         b.setAttribute('aria-current', f.key === currentFinishKey ? "true" : "false");
@@ -1240,25 +1325,60 @@
         b.addEventListener('click', ()=>{
           currentFinishKey = f.key;
           currentImageIndex = 0;
-          applyFinish(id);
+          applySelection(id);
           renderSwatches(id);
         });
         qvSwatches.appendChild(b);
       });
     }
 
-    function applyFinish(id){
-      const info = getInfo(id);
-      const fin = (info.finishes || []).find(f => f.key === currentFinishKey) || info.finishes?.[0];
+    function renderSizeOptions(id){
+      const sizes = getSizes(id);
+      qvSizeOptions.innerHTML = "";
+
+      ["postcard", "medium", "large"].forEach((sizeKey)=>{
+        const size = sizes[sizeKey];
+        if(!size) return;
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "qv__size-btn";
+        btn.setAttribute("aria-current", sizeKey === currentSizeKey ? "true" : "false");
+        btn.innerHTML = `<strong>${size.label}</strong><span>${size.sizeText}</span>`;
+        btn.addEventListener("click", ()=>{
+          currentSizeKey = sizeKey;
+          currentImageIndex = 0;
+
+          const currentSize = getCurrentSize(id);
+          const finishExists = (currentSize?.finishes || []).some(f => f.key === currentFinishKey);
+          if (!finishExists){
+            currentFinishKey = currentSize?.finishes?.[0]?.key || "unframed";
+          }
+
+          applySelection(id);
+          renderSizeOptions(id);
+          renderSwatches(id);
+        });
+
+        qvSizeOptions.appendChild(btn);
+      });
+    }
+
+    function applySelection(id){
+      const size = getCurrentSize(id);
+      const fin = getCurrentFinish(id);
       const images = (fin?.images && fin.images.length) ? fin.images.filter(Boolean) : [];
 
       qv.dataset.finish = currentFinishKey;
-      qvFinishLabel.textContent = fin?.label || "Unframed";
+      qv.dataset.size = currentSizeKey;
+
+      qvFinishLabel.textContent = fin?.label || "—";
+      qvSizeText.textContent = size?.sizeText || "—";
 
       renderThumbs(images);
       setQVImage(images[currentImageIndex] || "");
 
-      const p = euroFromFinish(id);
+      const p = euroFromSelection(id);
       qvPrice.textContent = (typeof p === "number") ? euro(p) : "€—";
 
       const url = fin?.url || "";
@@ -1272,20 +1392,19 @@
       currentProductIndex = Math.max(0, productOrder.indexOf(productId));
       currentImageIndex = 0;
       currentFinishKey = "unframed";
+      currentSizeKey = "large";
 
       const info = getInfo(productId);
       qvMeta.textContent = info.meta || "NIKITA KOTRELEV";
       qvTitle.textContent = info.title || productId;
-
-      qvSizeText.textContent = getSizeForProduct(productId) || "—";
-
-      renderSwatches(productId);
       qvDetails.href = info.detailsHref || `Store.html#${productId}`;
 
       qv.setAttribute('aria-hidden','false');
       document.body.style.overflow = 'hidden';
 
-      applyFinish(productId);
+      renderSizeOptions(productId);
+      renderSwatches(productId);
+      applySelection(productId);
       enableAutoTrimIn(document);
     }
 
@@ -1295,7 +1414,9 @@
       qvImg.src = "";
       qvThumbs.innerHTML = "";
       qvSwatches.innerHTML = "";
+      qvSizeOptions.innerHTML = "";
       delete qv.dataset.finish;
+      delete qv.dataset.size;
     }
 
     document.addEventListener('click', (e)=>{
@@ -1313,6 +1434,13 @@
       const url = qvBuy.dataset.url;
       if(!url) return;
       window.location.href = url;
+    });
+
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){
+        if (qv.getAttribute('aria-hidden') === 'false') closeQV();
+        else closeLb();
+      }
     });
 
     // =======================
