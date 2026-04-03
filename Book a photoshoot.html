@@ -4,670 +4,523 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-  <title>Nikita Kotrelev — Cinematographer & Photographer</title>
-  <meta name="description" content="Cinematographer & photographer. Portraits, projects, and commissioned work worldwide." />
-  <meta property="og:title" content="Nikita Kotrelev — Portfolio" />
-  <meta property="og:description" content="Cinematographer & photographer. Portraits, projects, and commissioned work worldwide." />
-  <meta property="og:type" content="website" />
+  <title>Book a Session — Nikita Kotrelev</title>
+  <meta name="description" content="Book a portrait session or documentary report with Nikita Kotrelev." />
 
   <link rel="icon" href="img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/img/favicon_180x180.png" sizes="180x180">
   <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0b0b0b">
-
-  <!-- GA4 (Google tag / gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H5VD0NFFWW"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-H5VD0NFFWW');
-  </script>
-
-  <!-- Cookie banner (Cookie-Script) -->
-  <script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/0fadb6b0381b2e0bf3c5aaeb9fca7bec.js"></script>
+  <meta name="theme-color" content="#efefef">
 
   <style>
-    :root {
-      --bg:#0b0b0b;
-      --fg:#fafafa;
-      --muted:#a1a1aa;
-      --border:#242428;
+    :root{
+      --bg:#efefef;
+      --fg:#111111;
+      --muted:#5f5f5f;
+      --card:#ffffff;
+      --border:#dcdcdc;
       --safe-top:max(env(safe-area-inset-top),0px);
       --safe-bot:max(env(safe-area-inset-bottom),0px);
-      --safe-left:max(env(safe-area-inset-left),0px);
-      --safe-right:max(env(safe-area-inset-right),0px);
     }
 
-    @font-face {
-      font-family: 'Afacad Flux';
+    @font-face{
+      font-family:'Afacad Flux';
       src: local('Afacad Flux Regular'),
            url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
            url('fonts/AfacadFlux-Regular.woff') format('woff');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
     }
 
-    html, body { height: 100%; }
-    html { color-scheme: dark; scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      font-family: 'Afacad Flux', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      min-height: 100dvh;
-      -webkit-tap-highlight-color: transparent;
+    html,body{height:100%}
+    html{
+      color-scheme:light;
+      scroll-behavior:smooth;
     }
 
-    img { max-width: 100%; }
-
-    /* ===== HERO ===== */
-    .hero {
-      position: relative;
-      height: 92dvh;
-      min-height: 560px;
-      overflow: clip;
-      isolation: isolate;
+    body{
+      margin:0;
+      font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
+      background:var(--bg);
+      color:var(--fg);
+      min-height:100dvh;
+      -webkit-tap-highlight-color:transparent;
     }
 
-    @supports (height: 100svh) {
-      .hero {
-        height: 88svh;
-        min-height: 68svh;
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:20;
+      padding-top:var(--safe-top);
+      backdrop-filter:saturate(180%) blur(10px);
+      background:rgba(239,239,239,.85);
+      border-bottom:1px solid var(--border);
+    }
+
+    .nav{
+      max-width:1200px;
+      margin:0 auto;
+      padding:16px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      box-sizing:border-box;
+      width:100%;
+    }
+
+    .brand{
+      font-weight:600;
+      letter-spacing:.08em;
+      text-decoration:none;
+      color:var(--fg);
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
+
+    .links{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      overflow-x:auto;
+      scrollbar-width:none;
+      max-width:100%;
+    }
+
+    .links::-webkit-scrollbar{display:none;}
+
+    .nav a{
+      color:var(--fg);
+      text-decoration:none;
+      opacity:.88;
+      padding:10px 12px;
+      border-radius:999px;
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
+
+    .nav a:hover{
+      opacity:1;
+      background:rgba(0,0,0,.05);
+    }
+
+    main{
+      max-width:1200px;
+      margin:0 auto;
+      padding:64px 24px 96px;
+      box-sizing:border-box;
+    }
+
+    .hero{
+      text-align:center;
+      max-width:900px;
+      margin:0 auto 52px;
+    }
+
+    .hero h1{
+      margin:0 0 8px;
+      font-size:clamp(34px,4vw,56px);
+      line-height:1.06;
+      font-weight:400;
+      letter-spacing:.01em;
+      color:var(--fg);
+    }
+
+    .hero p{
+      margin:0;
+      color:var(--muted);
+      font-size:clamp(16px,1.5vw,20px);
+      line-height:1.45;
+    }
+
+    .booking-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 420px));
+      gap:24px;
+      align-items:start;
+      justify-content:center;
+    }
+
+    .booking-option{
+      width:100%;
+      max-width:420px;
+    }
+
+    .booking-card{
+      color:inherit;
+      display:block;
+      transition:transform .22s ease, opacity .22s ease;
+    }
+
+    .booking-card:hover{
+      transform:translateY(-4px);
+      opacity:.98;
+    }
+
+    .booking-card__image{
+      aspect-ratio:4/4.5;
+      overflow:hidden;
+      background:#ddd;
+      margin-bottom:18px;
+    }
+
+    .booking-card__image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .5s ease;
+    }
+
+    .booking-card:hover .booking-card__image img{
+      transform:scale(1.02);
+    }
+
+    .booking-card__title{
+      margin:0 0 8px;
+      text-align:center;
+      font-size:clamp(20px,2vw,30px);
+      line-height:1.12;
+      font-weight:400;
+      color:#7a7a7a;
+    }
+
+    .booking-card__text{
+      margin:0;
+      text-align:center;
+      color:#111111;
+      font-size:20px;
+      line-height:1.5;
+      max-width:30ch;
+      margin-inline:auto;
+      font-weight:600;
+    }
+
+    .booking-details{
+      margin-top:42px;
+      max-width:38ch;
+    }
+
+    .booking-details__title{
+      margin:0 0 18px;
+      font-size:clamp(18px,1.6vw,24px);
+      line-height:1.25;
+      font-weight:400;
+      color:var(--fg);
+    }
+
+    .booking-details__list{
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+
+    .booking-details__list li{
+      position:relative;
+      padding-left:24px;
+      margin:0 0 12px;
+      color:var(--fg);
+      font-size:clamp(15px,1.3vw,18px);
+      line-height:1.55;
+    }
+
+    .booking-details__list li::before{
+      content:"—";
+      position:absolute;
+      left:0;
+      top:0;
+      color:var(--fg);
+    }
+
+    .booking-info{
+      margin-top:72px;
+      padding:64px 24px;
+      background:rgba(255,255,255,.26);
+    }
+
+    .booking-info__inner{
+      max-width:900px;
+      margin:0 auto;
+      text-align:center;
+    }
+
+    .booking-info__title{
+      margin:0 0 24px;
+      font-size:clamp(28px,3vw,46px);
+      line-height:1.08;
+      font-weight:400;
+      color:#7a7a7a;
+    }
+
+    .booking-info__text{
+      margin:0 auto 24px;
+      max-width:900px;
+      font-size:clamp(17px,1.5vw,24px);
+      line-height:1.6;
+      color:#111111;
+    }
+
+    .booking-info__deadline{
+      margin:0;
+      font-size:clamp(18px,1.6vw,26px);
+      line-height:1.45;
+      color:#111111;
+      font-weight:700;
+    }
+
+    .booking-contacts{
+      padding:64px 24px 24px;
+    }
+
+    .booking-contacts__inner{
+      max-width:900px;
+      margin:0 auto;
+      text-align:center;
+    }
+
+    .booking-contacts__title{
+      margin:0 0 24px;
+      font-size:clamp(34px,3.2vw,56px);
+      line-height:1.08;
+      font-weight:400;
+      color:#111111;
+    }
+
+    .booking-contacts__item{
+      margin:0 0 16px;
+      font-size:clamp(20px,1.8vw,28px);
+      line-height:1.45;
+      color:#111111;
+    }
+
+    .booking-contacts__item:last-child{
+      margin-bottom:0;
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      padding:24px;
+      padding-bottom:calc(24px + var(--safe-bot));
+      background:var(--bg);
+    }
+
+    footer .row{
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    @media (max-width: 900px){
+      .booking-grid{
+        grid-template-columns:1fr;
+        gap:36px;
+        justify-items:center;
+      }
+
+      .booking-option{
+        width:min(100%, 420px);
+        max-width:420px;
       }
     }
 
-    @supports (height: 100lvh) {
-      .hero { height: 88lvh; }
-    }
-
-    .hero video {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .scrim {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 35%, rgba(0,0,0,.6) 100%);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* ===== HEADER inside hero ===== */
-    header {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      display: grid;
-      grid-template-rows: auto 1fr;
-      padding-top: var(--safe-top);
-      padding-bottom: var(--safe-bot);
-      min-height: 100%;
-      box-sizing: border-box;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-      gap: 16px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .brand {
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-decoration: none;
-      color: var(--fg);
-      white-space: nowrap;
-      flex: 0 0 auto;
-    }
-
-    .links {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      justify-content: flex-end;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      overscroll-behavior-inline: contain;
-      scrollbar-width: none;
-      max-width: 100%;
-    }
-
-    .links::-webkit-scrollbar { display: none; }
-
-    .nav a {
-      color: var(--fg);
-      text-decoration: none;
-      opacity: .85;
-      padding: 10px 12px;
-      border-radius: 999px;
-      white-space: nowrap;
-      flex: 0 0 auto;
-    }
-
-    .nav a:hover {
-      opacity: 1;
-      background: rgba(255,255,255,.06);
-    }
-
-    .hero-copy {
-      display: grid;
-      place-items: center;
-      padding: 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-      box-sizing: border-box;
-      min-width: 0;
-      padding-bottom: calc(24px + var(--safe-bot));
-      text-align: center;
-      will-change: transform, opacity;
-    }
-
-    .hero-copy > div {
-      max-width: 900px;
-    }
-
-    .hero-role {
-      font-size: clamp(24px, 4vw, 48px);
-      line-height: 1.08;
-      margin: 0 0 14px;
-      color: #fff;
-      font-weight: 400;
-      letter-spacing: .01em;
-      white-space: nowrap;
-    }
-
-    .hero h1 {
-      font-size: clamp(42px, 6vw, 74px);
-      line-height: 1.02;
-      margin: 0 0 10px;
-      max-width: none;
-      color: #fff;
-      font-weight: 400;
-      letter-spacing: .01em;
-    }
-
-    .hero p {
-      font-size: clamp(16px, 2vw, 24px);
-      color: rgba(255,255,255,.88);
-      margin: 0;
-      line-height: 1.25;
-      max-width: none;
-    }
-
-    /* ===== ABOUT HOME ===== */
-    .about-home {
-      background: #efefef;
-      color: #111;
-      padding: 72px 24px 84px;
-    }
-
-    .about-home__top,
-    .about-home__bottom {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1.4fr;
-      gap: 48px;
-      align-items: start;
-    }
-
-    .about-home__top {
-      margin-bottom: 72px;
-    }
-
-    .about-home__title h2 {
-      margin: 0;
-      font-size: clamp(28px, 3.2vw, 46px);
-      line-height: 1.05;
-      font-weight: 400;
-      letter-spacing: .01em;
-      color: #111;
-    }
-
-    .about-home__text p,
-    .about-home__details p {
-      margin: 0 0 18px;
-      font-size: 16px;
-      line-height: 1.65;
-      color: #333;
-      max-width: 760px;
-    }
-
-    .about-home__text p:last-child,
-    .about-home__details p:last-child {
-      margin-bottom: 0;
-    }
-
-    .about-home__image img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .about-home__cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 18px;
-      padding: 14px 22px;
-      background: #111;
-      color: #fff;
-      text-decoration: none;
-      font-size: 14px;
-      line-height: 1;
-      border: 1px solid #111;
-      transition: opacity .2s ease, transform .2s ease;
-    }
-
-    .about-home__cta:hover {
-      opacity: .9;
-      transform: translateY(-1px);
-    }
-
-    /* ===== WORKS SLIDER ===== */
-    .works-slider {
-      background: #efefef;
-      color: #111;
-      padding: 0 0 88px;
-      overflow: hidden;
-    }
-
-    .works-slider__head {
-      max-width: 1200px;
-      margin: 0 auto 28px;
-      padding: 0 24px;
-      box-sizing: border-box;
-      text-align: center;
-    }
-
-    .works-slider__head h2 {
-      margin: 0 0 8px;
-      font-size: clamp(28px, 3vw, 42px);
-      line-height: 1.08;
-      font-weight: 400;
-      color: #111;
-    }
-
-    .works-slider__head p {
-      margin: 0;
-      font-size: 15px;
-      line-height: 1.5;
-      color: #5d5d5d;
-    }
-
-    .works-slider__wrap {
-      position: relative;
-      width: 100%;
-    }
-
-    .works-slider__track {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(320px, 30vw);
-      gap: 2px;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-behavior: smooth;
-      scrollbar-width: none;
-      padding: 0 24px;
-      box-sizing: border-box;
-      cursor: grab;
-    }
-
-    .works-slider__track::-webkit-scrollbar {
-      display: none;
-    }
-
-    .works-slider__track.is-dragging {
-      cursor: grabbing;
-      scroll-behavior: auto;
-    }
-
-    .works-slide {
-      position: relative;
-      aspect-ratio: 4 / 5;
-      overflow: hidden;
-      background: #ddd;
-      flex: 0 0 auto;
-    }
-
-    .works-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform .5s ease;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-
-    .works-slide:hover img {
-      transform: scale(1.03);
-    }
-
-    .works-slider__arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 3;
-      width: 46px;
-      height: 46px;
-      border: 0;
-      border-radius: 999px;
-      background: rgba(17,17,17,.82);
-      color: #fff;
-      font-size: 28px;
-      line-height: 1;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      transition: opacity .2s ease, transform .2s ease, background .2s ease;
-    }
-
-    .works-slider__arrow:hover {
-      background: rgba(17,17,17,.95);
-    }
-
-    .works-slider__arrow--prev { left: 14px; }
-    .works-slider__arrow--next { right: 14px; }
-
-    /* ===== FOOTER ===== */
-    footer {
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      padding: 24px;
-      background: var(--bg);
-    }
-
-    footer .row {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    /* ===== MOBILE ===== */
-    @media (max-width: 640px) {
-      .hero {
-        height: auto;
-        min-height: 100svh;
-        overflow: hidden;
+    @media (max-width: 640px){
+      .nav{
+        padding:12px;
+        flex-direction:column;
+        align-items:flex-start;
       }
 
-      header {
-        position: relative;
-        inset: auto;
-        min-height: 100svh;
-        padding-bottom: calc(20px + var(--safe-bot));
+      .links{
+        width:100%;
+        flex-wrap:wrap;
       }
 
-      .nav {
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        padding: 12px 12px;
-        gap: 10px;
+      main{
+        padding:48px 12px 72px;
       }
 
-      .links {
-        width: 100%;
-        flex-wrap: wrap;
-        overflow: visible;
-        justify-content: flex-start;
+      .hero{
+        margin-bottom:36px;
       }
 
-      .nav a {
-        padding: 10px 12px;
-        font-size: 14px;
+      .hero h1{
+        font-size:36px;
       }
 
-      .brand {
-        font-size: 14px;
+      .hero p{
+        font-size:15px;
       }
 
-      .hero-copy {
-        padding: 14px 12px 0;
-        place-items: center;
-        text-align: center;
+      .booking-grid{
+        gap:28px;
       }
 
-      .hero-role {
-        font-size: 20px;
-        line-height: 1.2;
-        margin: 0 0 10px;
-        white-space: nowrap;
+      .booking-option{
+        width:100%;
+        max-width:100%;
       }
 
-      .hero h1 {
-        font-size: 34px;
-        line-height: 1.08;
-        margin: 0 0 8px;
-        max-width: none;
+      .booking-card__image{
+        aspect-ratio:4/4.7;
+        margin-bottom:16px;
       }
 
-      .hero p {
-        font-size: 14px;
-        line-height: 1.3;
-        margin: 0;
-        max-width: none;
+      .booking-card__title{
+        font-size:24px;
       }
 
-      .hero video {
-        object-position: 50% 28%;
+      .booking-card__text{
+        font-size:13px;
       }
 
-      .about-home {
-        padding: 48px 12px 56px;
+      .booking-details{
+        margin-top:24px;
+        max-width:100%;
       }
 
-      .about-home__top,
-      .about-home__bottom {
-        grid-template-columns: 1fr;
-        gap: 24px;
+      .booking-details__title{
+        font-size:20px;
+        margin-bottom:14px;
       }
 
-      .about-home__top {
-        margin-bottom: 36px;
+      .booking-details__list li{
+        font-size:15px;
+        margin-bottom:10px;
       }
 
-      .about-home__title h2 {
-        font-size: 32px;
+      .booking-info{
+        margin-top:48px;
+        padding:42px 12px;
       }
 
-      .about-home__text p,
-      .about-home__details p {
-        font-size: 15px;
-        line-height: 1.6;
+      .booking-info__title{
+        font-size:30px;
+        margin-bottom:18px;
       }
 
-      .about-home__cta {
-        width: 100%;
-        justify-content: center;
+      .booking-info__text{
+        font-size:16px;
+        margin-bottom:18px;
       }
 
-      .works-slider {
-        padding: 0 0 56px;
+      .booking-info__deadline{
+        font-size:18px;
       }
 
-      .works-slider__head {
-        padding: 0 12px;
-        margin-bottom: 18px;
+      .booking-contacts{
+        padding:42px 12px 12px;
       }
 
-      .works-slider__head h2 {
-        font-size: 32px;
+      .booking-contacts__title{
+        font-size:34px;
+        margin-bottom:18px;
       }
 
-      .works-slider__track {
-        grid-auto-columns: 78vw;
-        padding: 0 12px;
-      }
-
-      .works-slider__arrow {
-        display: none;
-      }
-    }
-
-    @media (max-width: 980px) and (min-width: 641px) {
-      .works-slider__track {
-        grid-auto-columns: minmax(320px, 42vw);
+      .booking-contacts__item{
+        font-size:18px;
+        margin-bottom:12px;
       }
     }
   </style>
 </head>
-
 <body>
-  <!-- HERO -->
-  <section class="hero" aria-label="Showreel">
-    <video id="bg-video" autoplay muted loop playsinline preload="auto" poster="img/Showreel-21.jpg">
-      <source src="img/GEORGIAN.mp4" type="video/mp4" />
-    </video>
-    <div class="scrim" aria-hidden="true"></div>
-
-    <header>
-      <nav class="nav" aria-label="Primary">
-        <a class="brand" href="/">NIKITA KOTRELEV</a>
-        <div class="links">
+  <header>
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="/">NIKITA KOTRELEV</a>
+      <div class="links">
           <a href="/Book a photoshoot.html">Book a photoshoot</a>
           <a href="/Video.html">Video</a>
           <a href="/Projects.html">Projects</a>
           <a href="/About me.html">About</a>
           <a href="Store.html">Store</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Prices and terms and conditions</h1>
+    </section>
+
+    <section class="booking-grid" aria-label="Booking options">
+      <div class="booking-option">
+        <div class="booking-card">
+          <div class="booking-card__image">
+            <img src="img/IMG_3630 2.jpg" alt="Individual session" loading="lazy" decoding="async">
+          </div>
+          <h2 class="booking-card__title">Individual session</h2>
+          <p class="booking-card__text">
+            150€
+          </p>
         </div>
-      </nav>
 
-      <div class="hero-copy" id="heroCopy">
-        <div>
-          <div class="hero-role">Photographer & Cinematographer</div>
-          <h1>Nikita Kotrelev</h1>
-          <p>Based in Paris · Available worldwide</p>
+        <div class="booking-details">
+          <h3 class="booking-details__title">What’s included</h3>
+          <ul class="booking-details__list">
+            <li>Take photos on film</li>
+            <li>2-hour private photoshoot</li>
+            <li>Full styling for the shoot</li>
+            <li>20 photographs delivered within 4 weeks of the shoot (raw files are not provided for use)</li>
+            <li>Choice of location or interior for the shoot</li>
+            <li>Venue hire</li>
+            <li>All necessary equipment for creative techniques</li>
+          </ul>
         </div>
       </div>
-    </header>
-  </section>
 
-  <!-- ABOUT -->
-  <section class="about-home" id="about">
-    <div class="about-home__top">
-      <div class="about-home__title">
-        <h2>Nikita Kotrelev</h2>
+      <div class="booking-option">
+        <div class="booking-card">
+          <div class="booking-card__image">
+            <img src="img/A130342-R1-30-31.jpg" alt="Order a report" loading="lazy" decoding="async">
+          </div>
+          <h2 class="booking-card__title">Order a report</h2>
+          <p class="booking-card__text">
+            Documentary and reportage shooting for events, projects, and organizations.
+          </p>
+        </div>
+
+        <div class="booking-details">
+          <ul class="booking-details__list">
+            <li>To book an event coverage, please contact me by email or phone</li>
+          </ul>
+        </div>
       </div>
+    </section>
 
-      <div class="about-home__text">
-        <p>
-          I photograph people in different cities around the world the way memories feel.
-          Not as staged photo shoots, but as living moments shaped by light, movement,
-          space, and presence.
+    <section class="booking-info" aria-label="Booking information">
+      <div class="booking-info__inner">
+        <h2 class="booking-info__title">Information before booking a photoshoot</h2>
+
+        <p class="booking-info__text">
+          Information before booking a photoshoot
+Preparation for the photoshoot proceeds as follows: once the date has been agreed and the client has paid a deposit (30%), I will send you some reference images and suggestions for clothing styles.
+
+Delivery time for the photographs: 3–4 weeks
         </p>
 
-        <p>
-          My work moves between portrait and cinematic storytelling. I work with travelers,
-          couples, and creative people, building each session around atmosphere, honesty,
-          and the feeling of a particular place.
+        <p class="booking-info__deadline">
+          Delivery time for photographs: 3–4 weeks
         </p>
       </div>
-    </div>
+    </section>
 
-    <div class="about-home__bottom">
-      <div class="about-home__image">
-        <img src="img/IMG_4058.jpeg" alt="Nikita Kotrelev work" loading="lazy" decoding="async">
+    <section class="booking-contacts" aria-label="Contacts">
+      <div class="booking-contacts__inner">
+        <h2 class="booking-contacts__title">Contact details</h2>
+        <p class="booking-contacts__item">+33766525039</p>
+        <p class="booking-contacts__item">Kotrelevnikita@gmail.com</p>
       </div>
-
-      <div class="about-home__details">
-        <p>
-          Over the course of my seven-year career, I have worked in 42 countries.  My projects have included documentary films, short films, feature films, advertising and photo reports.
-        </p>
-
- <p>
-        I have collaborated with UN agencies and UNESCO
-        </p>
-
-
-        <p>
-        I organised my own photography exhibition, ‘AU-DELA DE LA RUSSIE’, in Paris.
-        </p>
-        <p>
-         I was a prize-winner in the ‘Street Photo of Russia’ competition.
-        </p>
-
-       <a class="about-home__cta" href="Book a photoshoot.html">Book a photoshoot</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- WORKS SLIDER -->
-  <section class="works-slider" id="works">
-    <div class="works-slider__head">
-      <h2>Examples of portrait and documentary sessions</h2>
-      
-    </div>
-
-    <div class="works-slider__wrap">
-      <button class="works-slider__arrow works-slider__arrow--prev" type="button" aria-label="Previous">
-        ‹
-      </button>
-
-      <div class="works-slider__track" id="worksTrack">
-        <article class="works-slide">
-          <img src="img/21969622-7F6D-4A92-9F4C-4BEBB7B520F1.JPEG" alt="Portrait example 1" loading="lazy" decoding="async" draggable="false">
-        </article>
-
-        <article class="works-slide">
-          <img src="img/D81E4FB8-C458-47EB-8240-F394E598B7FB.JPEG" alt="Portrait example 2" loading="lazy" decoding="async" draggable="false">
-        </article>
-
-        <article class="works-slide">
-          <img src="img/IMG_8328.jpg" alt="Portrait example 3" loading="lazy" decoding="async" draggable="false">
-        </article>
-
-        <article class="works-slide">
-          <img src="img/A130343-R1-05-6.JPG" alt="Portrait example 4" loading="lazy" decoding="async" draggable="false">
-        </article>
-
-        <article class="works-slide">
-          <img src="img/A130343-R1-06-7.JPG" alt="Portrait example 5" loading="lazy" decoding="async" draggable="false">
-        </article>
-
-
-
-        
-        <article class="works-slide">
-          <img src="img/IMG_3630 2.jpg" alt="Portrait example 6" loading="lazy" decoding="async" draggable="false">
-        </article>
-
-         <article class="works-slide">
-          <img src="img/IMG_1601.JPG" alt="Portrait example 7" loading="lazy" decoding="async" draggable="false">
-        </article>
-
- <article class="works-slide">
-          <img src="img/IMG_9702.jpg" alt="Portrait example 8" loading="lazy" decoding="async" draggable="false">
-        </article>
- 
-
-
-      </div>
-
-      <button class="works-slider__arrow works-slider__arrow--next" type="button" aria-label="Next">
-        ›
-      </button>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer>
     <div class="row">
@@ -677,120 +530,6 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    (function(){
-      const v = document.getElementById('bg-video');
-      if (!v) return;
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        v.removeAttribute('autoplay');
-        v.pause();
-      }
-    })();
-
-    (function(){
-      const v = document.getElementById('bg-video');
-      if(!v) return;
-
-      function pauseIfPossible(){
-        try { if(!v.paused) v.pause(); } catch(e) {}
-      }
-
-      function playIfPossible(){
-        try { v.play().catch(()=>{}); } catch(e) {}
-      }
-
-      document.addEventListener('visibilitychange', ()=>{
-        if(document.hidden) pauseIfPossible();
-        else playIfPossible();
-      });
-
-      window.addEventListener('blur', pauseIfPossible);
-      window.addEventListener('focus', playIfPossible);
-      window.addEventListener('pagehide', pauseIfPossible);
-      window.addEventListener('pageshow', playIfPossible);
-    })();
-
-    (function(){
-      const copy = document.getElementById('heroCopy');
-      if(!copy) return;
-      const isDesktop = window.matchMedia('(min-width: 921px)').matches;
-      if(!isDesktop) return;
-
-      let ticking = false;
-
-      function onScroll(){
-        if(ticking) return;
-        ticking = true;
-
-        requestAnimationFrame(()=>{
-          const y = window.scrollY || 0;
-          const shift = Math.min(y * 0.12, 28);
-          const fade = Math.max(1 - y / 600, 0.85);
-          copy.style.transform = `translateY(${shift}px)`;
-          copy.style.opacity = fade.toFixed(3);
-          ticking = false;
-        });
-      }
-
-      window.addEventListener('scroll', onScroll, { passive:true });
-      onScroll();
-    })();
-
-    (function(){
-      const track = document.getElementById('worksTrack');
-      const prev = document.querySelector('.works-slider__arrow--prev');
-      const next = document.querySelector('.works-slider__arrow--next');
-      if(!track) return;
-
-      function getStep(){
-        const firstSlide = track.querySelector('.works-slide');
-        if(!firstSlide) return 400;
-        const styles = window.getComputedStyle(track);
-        const gap = parseFloat(styles.columnGap || styles.gap || 0);
-        return firstSlide.getBoundingClientRect().width + gap;
-      }
-
-      if(prev){
-        prev.addEventListener('click', ()=>{
-          track.scrollBy({ left: -getStep(), behavior: 'smooth' });
-        });
-      }
-
-      if(next){
-        next.addEventListener('click', ()=>{
-          track.scrollBy({ left: getStep(), behavior: 'smooth' });
-        });
-      }
-
-      let isDown = false;
-      let startX = 0;
-      let scrollLeft = 0;
-
-      track.addEventListener('mousedown', (e)=>{
-        isDown = true;
-        track.classList.add('is-dragging');
-        startX = e.pageX - track.offsetLeft;
-        scrollLeft = track.scrollLeft;
-      });
-
-      track.addEventListener('mouseleave', ()=>{
-        isDown = false;
-        track.classList.remove('is-dragging');
-      });
-
-      track.addEventListener('mouseup', ()=>{
-        isDown = false;
-        track.classList.remove('is-dragging');
-      });
-
-      track.addEventListener('mousemove', (e)=>{
-        if(!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - track.offsetLeft;
-        const walk = (x - startX) * 1.2;
-        track.scrollLeft = scrollLeft - walk;
-      });
-    })();
   </script>
 </body>
 </html>
