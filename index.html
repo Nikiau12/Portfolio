@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
   <title>Nikita Kotrelev — Cinematographer & Photographer</title>
-  <meta name="description" content="Cinematographer & photographer. Selected works, projects, and new releases." />
+  <meta name="description" content="Cinematographer & photographer. Portraits, projects, and commissioned work worldwide." />
   <meta property="og:title" content="Nikita Kotrelev — Portfolio" />
-  <meta property="og:description" content="Cinematographer & photographer. Selected works, projects, and new releases." />
+  <meta property="og:description" content="Cinematographer & photographer. Portraits, projects, and commissioned work worldwide." />
   <meta property="og:type" content="website" />
 
   <link rel="icon" href="img/favicon.png" type="image/png">
@@ -29,12 +29,12 @@
 
   <style>
     :root {
-      --bg:#0b0b0b; --fg:#fafafa; --muted:#a1a1aa; --card:#111113; --border:#242428; --accent:#3d40f9;
-      --radius:16px; --space:24px;
+      --bg:#0b0b0b;
+      --fg:#fafafa;
+      --muted:#a1a1aa;
+      --border:#242428;
       --safe-top:max(env(safe-area-inset-top),0px);
       --safe-bot:max(env(safe-area-inset-bottom),0px);
-
-      /* ✅ better centering on phones with notches */
       --safe-left:max(env(safe-area-inset-left),0px);
       --safe-right:max(env(safe-area-inset-right),0px);
     }
@@ -44,21 +44,24 @@
       src: local('Afacad Flux Regular'),
            url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
            url('fonts/AfacadFlux-Regular.woff') format('woff');
-      font-weight: 400; font-style: normal; font-display: swap;
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
     }
 
     html, body { height: 100%; }
-    html { color-scheme: dark; }
+    html { color-scheme: dark; scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: 'Afacad Flux', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
       background: var(--bg);
       color: var(--fg);
-      display: grid;
-      grid-template-rows: auto 1fr auto;
       min-height: 100dvh;
       -webkit-tap-highlight-color: transparent;
     }
+
+    img { max-width: 100%; }
 
     /* ===== HERO ===== */
     .hero {
@@ -68,24 +71,41 @@
       overflow: clip;
       isolation: isolate;
     }
-    @supports (height: 100svh) { .hero { height: 88svh; min-height: 68svh; } }
-    @supports (height: 100lvh) { .hero { height: 88lvh; } }
+
+    @supports (height: 100svh) {
+      .hero {
+        height: 88svh;
+        min-height: 68svh;
+      }
+    }
+
+    @supports (height: 100lvh) {
+      .hero { height: 88lvh; }
+    }
 
     .hero video {
-      position: absolute; inset: 0; width: 100%; height: 100%;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
 
     .scrim {
-      position: absolute; inset: 0;
+      position: absolute;
+      inset: 0;
       background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 35%, rgba(0,0,0,.6) 100%);
-      z-index: 0; pointer-events: none;
+      z-index: 0;
+      pointer-events: none;
     }
 
     /* ===== HEADER inside hero ===== */
     header {
-      position: absolute; inset: 0; z-index: 1;
-      display: grid; grid-template-rows: auto 1fr;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: grid;
+      grid-template-rows: auto 1fr;
       padding-top: var(--safe-top);
       padding-bottom: var(--safe-bot);
       min-height: 100%;
@@ -93,7 +113,9 @@
     }
 
     .nav {
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 16px 24px;
       max-width: 1200px;
       margin: 0 auto;
@@ -101,6 +123,7 @@
       width: 100%;
       box-sizing: border-box;
     }
+
     .brand {
       font-weight: 600;
       letter-spacing: .08em;
@@ -109,6 +132,7 @@
       white-space: nowrap;
       flex: 0 0 auto;
     }
+
     .links {
       display: flex;
       gap: 8px;
@@ -120,7 +144,9 @@
       scrollbar-width: none;
       max-width: 100%;
     }
+
     .links::-webkit-scrollbar { display: none; }
+
     .nav a {
       color: var(--fg);
       text-decoration: none;
@@ -130,11 +156,15 @@
       white-space: nowrap;
       flex: 0 0 auto;
     }
-    .nav a:hover { opacity: 1; background: rgba(255,255,255,.06); }
+
+    .nav a:hover {
+      opacity: 1;
+      background: rgba(255,255,255,.06);
+    }
 
     .hero-copy {
       display: grid;
-      place-items: end start;
+      place-items: center;
       padding: 24px;
       max-width: 1200px;
       margin: 0 auto;
@@ -142,162 +172,252 @@
       box-sizing: border-box;
       min-width: 0;
       padding-bottom: calc(24px + var(--safe-bot));
+      text-align: center;
       will-change: transform, opacity;
     }
+
+    .hero-copy > div {
+      max-width: 900px;
+    }
+
+    .hero-role {
+      font-size: clamp(24px, 4vw, 48px);
+      line-height: 1.08;
+      margin: 0 0 14px;
+      color: #fff;
+      font-weight: 400;
+      letter-spacing: .01em;
+      white-space: nowrap;
+    }
+
     .hero h1 {
-      font-size: clamp(36px, 7vw, 80px);
-      line-height: .98;
-      margin: 0 0 12px;
-      max-width: 22ch;
+      font-size: clamp(42px, 6vw, 74px);
+      line-height: 1.02;
+      margin: 0 0 10px;
+      max-width: none;
+      color: #fff;
+      font-weight: 400;
+      letter-spacing: .01em;
     }
-    .hero p  {
-      font-size: clamp(15px, 2.5vw, 20px);
-      color: var(--muted);
+
+    .hero p {
+      font-size: clamp(16px, 2vw, 24px);
+      color: rgba(255,255,255,.88);
       margin: 0;
-      line-height: 1.4;
-      max-width: 60ch;
+      line-height: 1.25;
+      max-width: none;
     }
 
-    /* ===== Sections ===== */
-    .section { padding: 56px 24px; }
-    .container { max-width: 1320px; margin: 0 auto; }
-    .section h2 { font-size: clamp(26px, 3.6vw, 42px); margin: 0 0 8px; }
-    .section .lead { color: var(--muted); margin: 0 0 24px; font-size: 18px; }
-
-    /* ===== Footer ===== */
-    footer { border-top: 1px solid var(--border); color: var(--muted); padding: 24px; }
-    footer .row { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-
-    /* =========================================================
-       ===== Updates Tabs + Cards (generated)
-       ========================================================= */
-    .tabs-wrap{ max-width:1320px; margin:0 auto; }
-    .tabs-head{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin:16px 0 18px;
-    }
-    .tabbtn{
-      appearance:none;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.03);
-      color:var(--fg);
-      opacity:1;
-      padding:10px 14px;
-      border-radius:999px;
-      cursor:default;
-      font-family:inherit;
-      font-size:14px;
-      white-space:nowrap;
+    /* ===== ABOUT HOME ===== */
+    .about-home {
+      background: #efefef;
+      color: #111;
+      padding: 72px 24px 84px;
     }
 
-    .news-grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap:16px;
-    }
-    .news-card{
-      border:1px solid var(--border);
-      background:var(--card);
-
-      /* ✅ NO rounding in Updates boxes */
-      border-radius:0;
-
-      overflow:hidden;
-      display:grid;
-      grid-template-columns: 140px 1fr;
-      min-height:120px;
-      text-decoration:none;
-      color:inherit;
-      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-      cursor:pointer;
-    }
-    .news-card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 14px 40px rgba(0,0,0,.55);
-      border-color:rgba(255,255,255,.08);
-    }
-    .news-thumb{   background: transparent !important; }
-    .news-thumb img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center; /* ✅ keep centered */
-      display:block;
-
-      /* ✅ NO rounding for image inside Updates card */
-      border-radius:0;
-
-      transform:scale(1);
-      transition:transform .6s ease;
-    }
-    .news-card:hover .news-thumb img{transform:scale(1.06);}
-
-    .news-body{
-      padding:14px 14px 14px 16px;
-      display:grid;
-      gap:8px;
-      align-content:start;
-    }
-    .news-top{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .chip{
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.03);
-      border-radius:999px;
-      padding:6px 10px;
-      font-size:12px;
-      color:var(--muted);
-      line-height:1;
-    }
-    .news-title{
-      margin:0;
-      font-size:16px;
-      font-weight:600;
-      line-height:1.2;
-    }
-    .news-text{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.45;
+    .about-home__top,
+    .about-home__bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 48px;
+      align-items: start;
     }
 
-    @media (max-width: 920px){
-      .news-grid{grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));}
-    }
-    @media (max-width: 640px){
-      .news-grid{grid-template-columns: 1fr;}
-      .news-card{grid-template-columns: 1fr;}
-      .news-thumb{aspect-ratio: 16/9;}
+    .about-home__top {
+      margin-bottom: 72px;
     }
 
-    /* =========================================================
-       ✅ MOBILE: make everything readable, no cropping
-       ========================================================= */
-    @media (max-width: 640px){
-      .hero{
+    .about-home__title h2 {
+      margin: 0;
+      font-size: clamp(28px, 3.2vw, 46px);
+      line-height: 1.05;
+      font-weight: 400;
+      letter-spacing: .01em;
+      color: #111;
+    }
+
+    .about-home__text p,
+    .about-home__details p {
+      margin: 0 0 18px;
+      font-size: 16px;
+      line-height: 1.65;
+      color: #333;
+      max-width: 760px;
+    }
+
+    .about-home__text p:last-child,
+    .about-home__details p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-home__image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .about-home__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 18px;
+      padding: 14px 22px;
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      line-height: 1;
+      border: 1px solid #111;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .about-home__cta:hover {
+      opacity: .9;
+      transform: translateY(-1px);
+    }
+
+    /* ===== WORKS SLIDER ===== */
+    .works-slider {
+      background: #efefef;
+      color: #111;
+      padding: 0 0 88px;
+      overflow: hidden;
+    }
+
+    .works-slider__head {
+      max-width: 1200px;
+      margin: 0 auto 28px;
+      padding: 0 24px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .works-slider__head h2 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 3vw, 42px);
+      line-height: 1.08;
+      font-weight: 400;
+      color: #111;
+    }
+
+    .works-slider__head p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #5d5d5d;
+    }
+
+    .works-slider__wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .works-slider__track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(320px, 30vw);
+      gap: 2px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      padding: 0 24px;
+      box-sizing: border-box;
+      cursor: grab;
+    }
+
+    .works-slider__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .works-slider__track.is-dragging {
+      cursor: grabbing;
+      scroll-behavior: auto;
+    }
+
+    .works-slide {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #ddd;
+      flex: 0 0 auto;
+    }
+
+    .works-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .works-slide:hover img {
+      transform: scale(1.03);
+    }
+
+    .works-slider__arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3;
+      width: 46px;
+      height: 46px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(17,17,17,.82);
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: opacity .2s ease, transform .2s ease, background .2s ease;
+    }
+
+    .works-slider__arrow:hover {
+      background: rgba(17,17,17,.95);
+    }
+
+    .works-slider__arrow--prev { left: 14px; }
+    .works-slider__arrow--next { right: 14px; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      padding: 24px;
+      background: var(--bg);
+    }
+
+    footer .row {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 640px) {
+      .hero {
         height: auto;
         min-height: 100svh;
         overflow: hidden;
       }
 
-      header{
+      header {
         position: relative;
         inset: auto;
         min-height: 100svh;
         padding-bottom: calc(20px + var(--safe-bot));
       }
 
-      .nav{
+      .nav {
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
@@ -305,262 +425,109 @@
         gap: 10px;
       }
 
-      .links{
+      .links {
         width: 100%;
         flex-wrap: wrap;
         overflow: visible;
         justify-content: flex-start;
       }
 
-      .nav a{
+      .nav a {
         padding: 10px 12px;
         font-size: 14px;
       }
-      .brand{
+
+      .brand {
         font-size: 14px;
       }
 
-      .hero-copy{
+      .hero-copy {
         padding: 14px 12px 0;
-        place-items: end start;
-      }
-      .hero h1{
-        font-size: 34px;
-        line-height: 1.05;
-        margin: 0 0 10px;
-        max-width: 22ch;
-      }
-      .hero p{
-        font-size: 14px;
-        line-height: 1.38;
-        margin: 0;
-        max-width: 46ch;
+        place-items: center;
+        text-align: center;
       }
 
-      .hero video{
+      .hero-role {
+        font-size: 20px;
+        line-height: 1.2;
+        margin: 0 0 10px;
+        white-space: nowrap;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+        line-height: 1.08;
+        margin: 0 0 8px;
+        max-width: none;
+      }
+
+      .hero p {
+        font-size: 14px;
+        line-height: 1.3;
+        margin: 0;
+        max-width: none;
+      }
+
+      .hero video {
         object-position: 50% 28%;
       }
-    }
 
-    /* =========================================================
-       ===== Updates Lightbox (text + photos)
-       ========================================================= */
-    .u-lb{
-      position:fixed; inset:0;
-      background:rgba(0,0,0,.92);
-      display:none;
-      z-index:90;
-    }
-    .u-lb[aria-hidden="false"]{display:grid}
-    .u-lb__inner{
-      width:min(1100px, 100%);
-      margin:auto;
-
-      /* ✅ centered with safe-areas so it doesn't "shift" on phones */
-      padding: calc(24px + var(--safe-top))
-               calc(24px + var(--safe-right))
-               calc(24px + var(--safe-bot))
-               calc(24px + var(--safe-left));
-
-      box-sizing:border-box;
-    }
-    .u-lb__panel{
-      border:1px solid var(--border);
-      background:rgba(17,17,19,.92);
-      border-radius:var(--radius);
-      overflow:hidden;
-      box-shadow:0 20px 60px rgba(0,0,0,.65);
-      display:grid;
-      grid-template-rows:auto 1fr;
-      max-height:min(86vh, 900px);
-    }
-
-    .u-lb__top{
-      padding:16px 16px 14px;
-      border-bottom:1px solid rgba(255,255,255,.06);
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .u-lb__meta{
-      display:grid;
-      gap:8px;
-      min-width:0;
-    }
-    .u-lb__kicker{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .u-lb__h{
-      margin:0;
-      font-size:20px;
-      font-weight:600;
-      line-height:1.2;
-    }
-
-    .u-lb__action{
-      appearance:none;
-      border:1px solid rgba(255,255,255,.14);
-      background:var(--fg);
-      color:#0a0a0a;
-      border-radius:999px;
-      padding:10px 12px;
-      cursor:pointer;
-      font-size:14px;
-      line-height:1;
-      text-decoration:none;
-      white-space:nowrap;
-      transition:transform .15s ease, opacity .15s ease;
-    }
-    .u-lb__action:hover{transform:translateY(-1px)}
-    .u-lb__action[hidden]{display:none !important;}
-
-    .u-lb__close{
-      appearance:none;
-      border:0px solid var(--border);
-      background:rgba(255,255,255,.08);
-      color:var(--fg);
-      border-radius:999px;
-      padding:10px 12px;
-      cursor:pointer;
-      font-size:14px;
-      line-height:1;
-      white-space:nowrap;
-    }
-    .u-lb__close:hover{background:rgba(255,255,255,.12)}
-
-    .u-lb__content{
-      padding:16px;
-      display:grid;
-      gap:14px;
-      overflow:auto;
-    }
-    .u-lb__text{
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.55;
-      margin:0;
-    }
-
-    .u-lb__gallery{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:10px;
-    }
-    .u-lb__gallery img{
-      width:100%;
-      height:200px;
-      object-fit:cover;
-      object-position:center;
-      display:block;
-
-      /* ✅ NO rounding for photos inside lightbox gallery */
-      border-radius:0;
-
-      border:0px solid rgba(255,255,255,.06);
-      cursor:pointer;
-       background: transparent !important;
-    }
-
-    @media (max-width: 980px){
-      .u-lb__gallery{grid-template-columns: repeat(2, minmax(0,1fr));}
-      .u-lb__gallery img{height:190px;}
-    }
-
-    /* ✅ MOBILE: show images fully + centered in Updates preview */
-    @media (max-width: 640px){
-      .u-lb__inner{
-        padding: calc(12px + var(--safe-top))
-                 calc(12px + var(--safe-right))
-                 calc(12px + var(--safe-bot))
-                 calc(12px + var(--safe-left));
-      }
-      .u-lb__panel{ max-height: 88vh; }
-      .u-lb__gallery{ grid-template-columns: 1fr; }
-
-      .u-lb__gallery img{
-        width:100%;
-        height:auto;
-        aspect-ratio: 4/3;      /* change to 3/4 if most photos are vertical */
-        object-fit: contain;    /* ✅ whole photo */
-        object-position: center;
-         background: transparent !important;
-        display:block;
-        margin:0 auto;
-
-        /* ✅ keep no rounding on mobile too */
-        border-radius:0;
+      .about-home {
+        padding: 48px 12px 56px;
       }
 
-      .u-lb__h{font-size:18px;}
-    }
-
-    /* ✅ Bigger Store preview + more air (DESKTOP/TABLET ONLY) */
-    @media (min-width: 641px){
-      .u-lb__inner{
-        width:min(1320px, 100%);
-        padding: calc(28px + var(--safe-top))
-                 calc(28px + var(--safe-right))
-                 calc(28px + var(--safe-bot))
-                 calc(28px + var(--safe-left));
+      .about-home__top,
+      .about-home__bottom {
+        grid-template-columns: 1fr;
+        gap: 24px;
       }
 
-      .u-lb__panel{
-        max-height:min(92vh, 980px);
+      .about-home__top {
+        margin-bottom: 36px;
       }
 
-      .u-lb__content{
-        padding:24px;
-        gap:18px;
+      .about-home__title h2 {
+        font-size: 32px;
       }
 
-      .u-lb__gallery{
-        gap:18px;
+      .about-home__text p,
+      .about-home__details p {
+        font-size: 15px;
+        line-height: 1.6;
       }
 
-      .u-lb__gallery img{
-        height:260px;
+      .about-home__cta {
+        width: 100%;
+        justify-content: center;
+      }
 
-        /* air around image */
-        padding:12px;
-        background:rgba(255,255,255,.03);
-        border:0px solid rgba(255,255,255,.08);
+      .works-slider {
+        padding: 0 0 56px;
+      }
 
-        /* keep square corners */
-        border-radius:0;
-        box-sizing:border-box;
+      .works-slider__head {
+        padding: 0 12px;
+        margin-bottom: 18px;
+      }
+
+      .works-slider__head h2 {
+        font-size: 32px;
+      }
+
+      .works-slider__track {
+        grid-auto-columns: 78vw;
+        padding: 0 12px;
+      }
+
+      .works-slider__arrow {
+        display: none;
       }
     }
 
-    .u-lb__zoom{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.92);
-      display:none;
-      z-index:95;
-
-      /* ✅ safe-area padding so zoom never shifts */
-      padding: calc(24px + var(--safe-top))
-               calc(24px + var(--safe-right))
-               calc(24px + var(--safe-bot))
-               calc(24px + var(--safe-left));
-
-      box-sizing:border-box;
-    }
-    .u-lb__zoom[aria-hidden="false"]{display:grid}
-    .u-lb__zoom img{
-      max-width:96vw;
-      max-height:86vh;
-      width:auto;
-      height:auto;
-      margin:auto;
-      object-fit:contain;
-      cursor:pointer;
+    @media (max-width: 980px) and (min-width: 641px) {
+      .works-slider__track {
+        grid-auto-columns: minmax(320px, 42vw);
+      }
     }
   </style>
 </head>
@@ -577,6 +544,7 @@
       <nav class="nav" aria-label="Primary">
         <a class="brand" href="/">NIKITA KOTRELEV</a>
         <div class="links">
+          <a href="/Book a photoshoot.html">Book a photoshoot</a>
           <a href="/Video.html">Video</a>
           <a href="/Projects.html">Projects</a>
           <a href="/About me.html">About</a>
@@ -586,58 +554,122 @@
 
       <div class="hero-copy" id="heroCopy">
         <div>
-          
+          <div class="hero-role">Photographer & Cinematographer</div>
+          <h1>Nikita Kotrelev</h1>
+          <p>Based in Paris · Available worldwide</p>
         </div>
       </div>
     </header>
   </section>
 
-  <!-- UPDATES / NEWS -->
-  <section class="section" id="news">
-    <div class="container tabs-wrap">
-      <h2>Updates</h2>
-      <p class="lead">Exhibitions, nominations, releases, and announcements.</p>
-
-      <div class="tabs-head" role="tablist" aria-label="Updates tabs">
-        <button class="tabbtn" role="tab" id="tab-exh" aria-controls="panel-exh" aria-selected="true" type="button">
-          Exhibitions
-        </button>
+  <!-- ABOUT -->
+  <section class="about-home" id="about">
+    <div class="about-home__top">
+      <div class="about-home__title">
+        <h2>Nikita Kotrelev</h2>
       </div>
 
-      <div id="panel-exh" class="tabpanel" role="tabpanel" aria-labelledby="tab-exh" aria-hidden="false">
-        <div class="news-grid" id="news-exh"></div>
+      <div class="about-home__text">
+        <p>
+          I photograph people in different cities around the world the way memories feel.
+          Not as staged photo shoots, but as living moments shaped by light, movement,
+          space, and presence.
+        </p>
+
+        <p>
+          My work moves between portrait and cinematic storytelling. I work with travelers,
+          couples, and creative people, building each session around atmosphere, honesty,
+          and the feeling of a particular place.
+        </p>
+      </div>
+    </div>
+
+    <div class="about-home__bottom">
+      <div class="about-home__image">
+        <img src="img/IMG_4058.jpeg" alt="Nikita Kotrelev work" loading="lazy" decoding="async">
+      </div>
+
+      <div class="about-home__details">
+        <p>
+          Over the course of my seven-year career, I have worked in 42 countries.  My projects have included documentary films, short films, feature films, advertising and photo reports.
+          I organised my own photography exhibition, ‘AU-DELA DE LA RUSSIE’, in Paris.
+          I was a prize-winner in the ‘Street Photo of Russia’ competition. 
+        </p>
+
+ <p>
+        I have collaborated with UN agencies and UNESCO
+        </p>
+
+
+        <p>
+        I organised my own photography exhibition, ‘AU-DELA DE LA RUSSIE’, in Paris.
+        </p>
+        <p>
+         I was a prize-winner in the ‘Street Photo of Russia’ competition.
+        </p>
+
+       <a class="about-home__cta" href="Book-session.html">Book a photoshoot</a>
       </div>
     </div>
   </section>
 
-  <!-- UPDATES LIGHTBOX -->
-  <div class="u-lb" id="uLb" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="uLbTitle">
-    <div class="u-lb__inner">
-      <div class="u-lb__panel">
-        <div class="u-lb__top">
-          <div class="u-lb__meta">
-            <div class="u-lb__kicker" id="uLbKicker"></div>
-            <h3 class="u-lb__h" id="uLbTitle"></h3>
-          </div>
-
-          <div style="display:flex; gap:10px; align-items:center;">
-            <a class="u-lb__action" id="uLbAction" href="#" target="_self" rel="noopener" hidden>Open</a>
-            <button class="u-lb__close" id="uLbClose" type="button" aria-label="Close">✕ Close</button>
-          </div>
-        </div>
-
-        <div class="u-lb__content">
-          <p class="u-lb__text" id="uLbText"></p>
-          <div class="u-lb__gallery" id="uLbGallery"></div>
-        </div>
-      </div>
+  <!-- WORKS SLIDER -->
+  <section class="works-slider" id="works">
+    <div class="works-slider__head">
+      <h2>Examples of portrait and documentary sessions</h2>
+      
     </div>
-  </div>
 
-  <!-- Zoom overlay -->
-  <div class="u-lb__zoom" id="uZoom" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image zoom">
-    <img id="uZoomImg" alt="Zoomed image">
-  </div>
+    <div class="works-slider__wrap">
+      <button class="works-slider__arrow works-slider__arrow--prev" type="button" aria-label="Previous">
+        ‹
+      </button>
+
+      <div class="works-slider__track" id="worksTrack">
+        <article class="works-slide">
+          <img src="img/21969622-7F6D-4A92-9F4C-4BEBB7B520F1.JPEG" alt="Portrait example 1" loading="lazy" decoding="async" draggable="false">
+        </article>
+
+        <article class="works-slide">
+          <img src="img/D81E4FB8-C458-47EB-8240-F394E598B7FB.JPEG" alt="Portrait example 2" loading="lazy" decoding="async" draggable="false">
+        </article>
+
+        <article class="works-slide">
+          <img src="img/IMG_8328.jpg" alt="Portrait example 3" loading="lazy" decoding="async" draggable="false">
+        </article>
+
+        <article class="works-slide">
+          <img src="img/A130343-R1-05-6.JPG" alt="Portrait example 4" loading="lazy" decoding="async" draggable="false">
+        </article>
+
+        <article class="works-slide">
+          <img src="img/A130343-R1-06-7.JPG" alt="Portrait example 5" loading="lazy" decoding="async" draggable="false">
+        </article>
+
+
+
+        
+        <article class="works-slide">
+          <img src="img/IMG_3630 2.jpg" alt="Portrait example 6" loading="lazy" decoding="async" draggable="false">
+        </article>
+
+         <article class="works-slide">
+          <img src="img/IMG_1601.JPG" alt="Portrait example 7" loading="lazy" decoding="async" draggable="false">
+        </article>
+
+ <article class="works-slide">
+          <img src="img/IMG_9702.jpg" alt="Portrait example 8" loading="lazy" decoding="async" draggable="false">
+        </article>
+ 
+
+
+      </div>
+
+      <button class="works-slider__arrow works-slider__arrow--next" type="button" aria-label="Next">
+        ›
+      </button>
+    </div>
+  </section>
 
   <footer>
     <div class="row">
@@ -646,10 +678,8 @@
   </footer>
 
   <script>
-    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ===== Reduced motion: stop autoplay if needed
     (function(){
       const v = document.getElementById('bg-video');
       if (!v) return;
@@ -659,248 +689,29 @@
       }
     })();
 
-    // ===== Reveal on scroll
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach((entry)=>{
-        if(entry.isIntersecting){
-          entry.target.style.opacity = 1;
-          entry.target.style.transform = 'none';
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-
-    // =========================================================
-    // UPDATES DATA (one-line per news)
-    // =========================================================
-    const UPDATES = [
-      {
-        id: "site-store-launch",
-        type: "exhibition",
-        title: "Posters are available",
-        date: "Jan 2026",
-        location: "Online",
-        tag: "Store",
-        cover: "img/Биританни без  рамы .png",
-        photos: [
-          "img/Биританни без  рамы .png",
-          "img/Марроко без рамы .png",
-          "img/Олерон без рамы .png"
-        ],
-        text: "My store is now live on the website — you can browse and buy my prints directly. Open Store in the menu to explore the collection.",
-        action: { label: "Open Store", href: "Store.html", target: "_self" }
-      },
-      {
-        id: "exh-city-rhythm",
-        type: "exhibition",
-        title: "Solo exhibition — “AU-DELÀ DE LA RUSSIE”",
-        date: "29 November - 24 December 2024",
-        location: "Paris",
-        tag: "Exhibition",
-        cover: "img/Имя документа hf_29.jpg",
-        photos: [
-          "img/Имя документа hf_29.jpg",
-          "img/Имя документа hf_26.jpg",
-          "img/Франция 2022 500 евро.jpeg",
-          "img/DSC07474.jpg",
-          "img/грузия 2024 400 .jpg",
-          "img/грузия военная дорога 2024IMG_0285 54.jpg",
-          "img/FullSizeRender.jpg",
-          "img/грузия военная дорога 2024IMG_0280 21.jpg",
-          "img/черногория 2024 300 е.JPG",
-          "img/грузия 2023 500.jpg"
-        ],
-        text: "As part of this project, I explored the themes of memory, loss and the restoration of identity with great sensitivity."
-      }
-    ];
-
-    // =========================================================
-    // Generate Updates HTML
-    // =========================================================
-    const GRID_EXH = document.getElementById('news-exh');
-    const TYPE_LABEL = { exhibition: "Exhibition", nomination: "Nomination", release: "Release" };
-
-    function escapeHtml(s){
-      return String(s ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
-
-    function cardHTML(item){
-      const chip = item.tag || TYPE_LABEL[item.type] || "Update";
-      const loc = item.location ? `<span>${escapeHtml(item.location)}</span><span>•</span>` : "";
-      const date = item.date ? `<span>${escapeHtml(item.date)}</span>` : "";
-      const desc = item.text ? escapeHtml(item.text).slice(0, 92) + (item.text.length > 92 ? "…" : "") : "";
-      return `
-        <article class="news-card" role="button" tabindex="0" data-open-update="${escapeHtml(item.id)}" aria-label="Open update: ${escapeHtml(item.title)}">
-          <div class="news-thumb">
-            <img src="${escapeHtml(item.cover)}" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async">
-          </div>
-          <div class="news-body">
-            <div class="news-top">
-              <span class="chip">${escapeHtml(chip)}</span>
-              ${loc}
-              ${date}
-            </div>
-            <h3 class="news-title">${escapeHtml(item.title)}</h3>
-            <p class="news-text">${desc}</p>
-          </div>
-        </article>
-      `;
-    }
-
-    function renderUpdates(){
-      if(!GRID_EXH) return;
-      GRID_EXH.innerHTML = "";
-
-      UPDATES
-        .filter(u => u.type === "exhibition")
-        .forEach((u)=>{
-          GRID_EXH.insertAdjacentHTML('beforeend', cardHTML(u));
-        });
-
-      document.querySelectorAll('.news-card').forEach((el)=>{
-        el.style.opacity = 0;
-        el.style.transform = 'translateY(12px)';
-        el.style.transition = 'opacity .25s ease, transform .25s ease';
-        io.observe(el);
-      });
-    }
-    renderUpdates();
-
-    // =========================================================
-    // Updates Lightbox (open/close)
-    // =========================================================
-    const uLb = document.getElementById('uLb');
-    const uLbClose = document.getElementById('uLbClose');
-    const uLbTitle = document.getElementById('uLbTitle');
-    const uLbKicker = document.getElementById('uLbKicker');
-    const uLbText = document.getElementById('uLbText');
-    const uLbGallery = document.getElementById('uLbGallery');
-    const uLbAction = document.getElementById('uLbAction');
-
-    const uZoom = document.getElementById('uZoom');
-    const uZoomImg = document.getElementById('uZoomImg');
-
-    function openUpdate(id){
-      const item = UPDATES.find(x => x.id === id);
-      if(!item) return;
-
-      const chip = item.tag || TYPE_LABEL[item.type] || "Update";
-      const parts = [];
-      parts.push(`<span class="chip">${escapeHtml(chip)}</span>`);
-      if(item.location) parts.push(`<span>${escapeHtml(item.location)}</span>`);
-      if(item.date) parts.push(`<span>•</span><span>${escapeHtml(item.date)}</span>`);
-
-      uLbKicker.innerHTML = parts.join("");
-      uLbTitle.textContent = item.title || "";
-      uLbText.textContent = item.text || "";
-
-      const photos = Array.isArray(item.photos) ? item.photos.slice(0,30) : [];
-      uLbGallery.innerHTML = photos.map((src, idx)=>{
-        return `<img src="${escapeHtml(src)}" alt="${escapeHtml(item.title)} — photo ${idx+1}" data-zoom-src="${escapeHtml(src)}" loading="lazy" decoding="async">`;
-      }).join("");
-
-      if (uLbAction){
-        if (item.action && item.action.href){
-          uLbAction.hidden = false;
-          uLbAction.textContent = item.action.label || "Open";
-          uLbAction.href = item.action.href;
-          uLbAction.target = item.action.target || "_self";
-        } else {
-          uLbAction.hidden = true;
-          uLbAction.textContent = "Open";
-          uLbAction.href = "#";
-          uLbAction.target = "_self";
-        }
-      }
-
-      uLb.setAttribute('aria-hidden','false');
-      document.body.style.overflow = 'hidden';
-      uLbClose.focus();
-    }
-
-    function closeUpdate(){
-      uLb.setAttribute('aria-hidden','true');
-      document.body.style.overflow = '';
-      uLbGallery.innerHTML = "";
-      uLbTitle.textContent = "";
-      uLbText.textContent = "";
-      uLbKicker.innerHTML = "";
-
-      if (uLbAction){
-        uLbAction.hidden = true;
-        uLbAction.textContent = "Open";
-        uLbAction.href = "#";
-        uLbAction.target = "_self";
-      }
-    }
-
-    function openZoom(src){
-      if(!src) return;
-      uZoomImg.src = src;
-      uZoom.setAttribute('aria-hidden','false');
-    }
-    function closeZoom(){
-      uZoom.setAttribute('aria-hidden','true');
-      uZoomImg.src = "";
-    }
-
-    document.addEventListener('click', (e)=>{
-      const c = e.target.closest('[data-open-update]');
-      if(c){
-        openUpdate(c.getAttribute('data-open-update'));
-        return;
-      }
-      const z = e.target.closest('#uLbGallery img[data-zoom-src]');
-      if(z){
-        openZoom(z.getAttribute('data-zoom-src'));
-        return;
-      }
-    });
-
-    document.addEventListener('keydown', (e)=>{
-      const el = document.activeElement;
-      if(el && el.matches && el.matches('[data-open-update]')){
-        if(e.key === 'Enter' || e.key === ' '){
-          e.preventDefault();
-          openUpdate(el.getAttribute('data-open-update'));
-        }
-      }
-      if(e.key === 'Escape'){
-        if(uZoom.getAttribute('aria-hidden') === 'false') closeZoom();
-        else if(uLb.getAttribute('aria-hidden') === 'false') closeUpdate();
-      }
-    });
-
-    uLbClose.addEventListener('click', closeUpdate);
-    uLb.addEventListener('click', (e)=>{ if(e.target === uLb) closeUpdate(); });
-
-    uZoom.addEventListener('click', closeZoom);
-    uZoomImg.addEventListener('click', closeZoom);
-
-    // ===== Video pause/play on visibility
     (function(){
       const v = document.getElementById('bg-video');
       if(!v) return;
 
-      function pauseIfPossible(){ try{ if(!v.paused) v.pause(); }catch{} }
-      function playIfPossible(){ try{ v.play().catch(()=>{}); }catch{} }
+      function pauseIfPossible(){
+        try { if(!v.paused) v.pause(); } catch(e) {}
+      }
+
+      function playIfPossible(){
+        try { v.play().catch(()=>{}); } catch(e) {}
+      }
 
       document.addEventListener('visibilitychange', ()=>{
         if(document.hidden) pauseIfPossible();
         else playIfPossible();
       });
+
       window.addEventListener('blur', pauseIfPossible);
       window.addEventListener('focus', playIfPossible);
       window.addEventListener('pagehide', pauseIfPossible);
       window.addEventListener('pageshow', playIfPossible);
     })();
 
-    // ===== Desktop parallax for hero text
     (function(){
       const copy = document.getElementById('heroCopy');
       if(!copy) return;
@@ -908,20 +719,79 @@
       if(!isDesktop) return;
 
       let ticking = false;
+
       function onScroll(){
         if(ticking) return;
         ticking = true;
+
         requestAnimationFrame(()=>{
           const y = window.scrollY || 0;
           const shift = Math.min(y * 0.12, 28);
-          const fade  = Math.max(1 - y / 600, 0.85);
+          const fade = Math.max(1 - y / 600, 0.85);
           copy.style.transform = `translateY(${shift}px)`;
           copy.style.opacity = fade.toFixed(3);
           ticking = false;
         });
       }
-      window.addEventListener('scroll', onScroll, {passive:true});
+
+      window.addEventListener('scroll', onScroll, { passive:true });
       onScroll();
+    })();
+
+    (function(){
+      const track = document.getElementById('worksTrack');
+      const prev = document.querySelector('.works-slider__arrow--prev');
+      const next = document.querySelector('.works-slider__arrow--next');
+      if(!track) return;
+
+      function getStep(){
+        const firstSlide = track.querySelector('.works-slide');
+        if(!firstSlide) return 400;
+        const styles = window.getComputedStyle(track);
+        const gap = parseFloat(styles.columnGap || styles.gap || 0);
+        return firstSlide.getBoundingClientRect().width + gap;
+      }
+
+      if(prev){
+        prev.addEventListener('click', ()=>{
+          track.scrollBy({ left: -getStep(), behavior: 'smooth' });
+        });
+      }
+
+      if(next){
+        next.addEventListener('click', ()=>{
+          track.scrollBy({ left: getStep(), behavior: 'smooth' });
+        });
+      }
+
+      let isDown = false;
+      let startX = 0;
+      let scrollLeft = 0;
+
+      track.addEventListener('mousedown', (e)=>{
+        isDown = true;
+        track.classList.add('is-dragging');
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+      });
+
+      track.addEventListener('mouseleave', ()=>{
+        isDown = false;
+        track.classList.remove('is-dragging');
+      });
+
+      track.addEventListener('mouseup', ()=>{
+        isDown = false;
+        track.classList.remove('is-dragging');
+      });
+
+      track.addEventListener('mousemove', (e)=>{
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 1.2;
+        track.scrollLeft = scrollLeft - walk;
+      });
     })();
   </script>
 </body>
