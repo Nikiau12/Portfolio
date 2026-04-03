@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>Book a Session — Nikita Kotrelev</title>
+  <meta name="description" content="Book a portrait session or documentary report with Nikita Kotrelev." />
+
+  <link rel="icon" href="img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/img/favicon_180x180.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#efefef">
+
+  <style>
+    :root{
+      --bg:#efefef;
+      --fg:#111111;
+      --muted:#5f5f5f;
+      --card:#ffffff;
+      --border:#dcdcdc;
+      --safe-top:max(env(safe-area-inset-top),0px);
+      --safe-bot:max(env(safe-area-inset-bottom),0px);
+    }
+
+    @font-face{
+      font-family:'Afacad Flux';
+      src: local('Afacad Flux Regular'),
+           url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
+           url('fonts/AfacadFlux-Regular.woff') format('woff');
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
+    }
+
+    html,body{height:100%}
+    html{
+      color-scheme:light;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
+      background:var(--bg);
+      color:var(--fg);
+      min-height:100dvh;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:20;
+      padding-top:var(--safe-top);
+      backdrop-filter:saturate(180%) blur(10px);
+      background:rgba(239,239,239,.85);
+      border-bottom:1px solid var(--border);
+    }
+
+    .nav{
+      max-width:1200px;
+      margin:0 auto;
+      padding:16px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      box-sizing:border-box;
+      width:100%;
+    }
+
+    .brand{
+      font-weight:600;
+      letter-spacing:.08em;
+      text-decoration:none;
+      color:var(--fg);
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
+
+    .links{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      overflow-x:auto;
+      scrollbar-width:none;
+      max-width:100%;
+    }
+
+    .links::-webkit-scrollbar{display:none;}
+
+    .nav a{
+      color:var(--fg);
+      text-decoration:none;
+      opacity:.88;
+      padding:10px 12px;
+      border-radius:999px;
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
+
+    .nav a:hover{
+      opacity:1;
+      background:rgba(0,0,0,.05);
+    }
+
+    main{
+      max-width:1200px;
+      margin:0 auto;
+      padding:64px 24px 96px;
+      box-sizing:border-box;
+    }
+
+    .hero{
+      text-align:center;
+      max-width:900px;
+      margin:0 auto 52px;
+    }
+
+    .hero h1{
+      margin:0 0 8px;
+      font-size:clamp(34px,4vw,56px);
+      line-height:1.06;
+      font-weight:400;
+      letter-spacing:.01em;
+      color:var(--fg);
+    }
+
+    .hero p{
+      margin:0;
+      color:var(--muted);
+      font-size:clamp(16px,1.5vw,20px);
+      line-height:1.45;
+    }
+
+    .booking-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 420px));
+      gap:24px;
+      align-items:start;
+      justify-content:center;
+    }
+
+    .booking-option{
+      width:100%;
+      max-width:420px;
+    }
+
+    .booking-card{
+      color:inherit;
+      display:block;
+      transition:transform .22s ease, opacity .22s ease;
+    }
+
+    .booking-card:hover{
+      transform:translateY(-4px);
+      opacity:.98;
+    }
+
+    .booking-card__image{
+      aspect-ratio:4/4.5;
+      overflow:hidden;
+      background:#ddd;
+      margin-bottom:18px;
+    }
+
+    .booking-card__image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .5s ease;
+    }
+
+    .booking-card:hover .booking-card__image img{
+      transform:scale(1.02);
+    }
+
+    .booking-card__title{
+      margin:0 0 8px;
+      text-align:center;
+      font-size:clamp(20px,2vw,30px);
+      line-height:1.12;
+      font-weight:400;
+      color:#7a7a7a;
+    }
+
+    .booking-card__text{
+      margin:0;
+      text-align:center;
+      color:#111111;
+      font-size:20px;
+      line-height:1.5;
+      max-width:30ch;
+      margin-inline:auto;
+      font-weight:600;
+    }
+
+    .booking-details{
+      margin-top:42px;
+      max-width:38ch;
+    }
+
+    .booking-details__title{
+      margin:0 0 18px;
+      font-size:clamp(18px,1.6vw,24px);
+      line-height:1.25;
+      font-weight:400;
+      color:var(--fg);
+    }
+
+    .booking-details__list{
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+
+    .booking-details__list li{
+      position:relative;
+      padding-left:24px;
+      margin:0 0 12px;
+      color:var(--fg);
+      font-size:clamp(15px,1.3vw,18px);
+      line-height:1.55;
+    }
+
+    .booking-details__list li::before{
+      content:"—";
+      position:absolute;
+      left:0;
+      top:0;
+      color:var(--fg);
+    }
+
+    .booking-info{
+      margin-top:72px;
+      padding:64px 24px;
+      background:rgba(255,255,255,.26);
+    }
+
+    .booking-info__inner{
+      max-width:900px;
+      margin:0 auto;
+      text-align:center;
+    }
+
+    .booking-info__title{
+      margin:0 0 24px;
+      font-size:clamp(28px,3vw,46px);
+      line-height:1.08;
+      font-weight:400;
+      color:#7a7a7a;
+    }
+
+    .booking-info__text{
+      margin:0 auto 24px;
+      max-width:900px;
+      font-size:clamp(17px,1.5vw,24px);
+      line-height:1.6;
+      color:#111111;
+    }
+
+    .booking-info__deadline{
+      margin:0;
+      font-size:clamp(18px,1.6vw,26px);
+      line-height:1.45;
+      color:#111111;
+      font-weight:700;
+    }
+
+    .booking-contacts{
+      padding:64px 24px 24px;
+    }
+
+    .booking-contacts__inner{
+      max-width:900px;
+      margin:0 auto;
+      text-align:center;
+    }
+
+    .booking-contacts__title{
+      margin:0 0 24px;
+      font-size:clamp(34px,3.2vw,56px);
+      line-height:1.08;
+      font-weight:400;
+      color:#111111;
+    }
+
+    .booking-contacts__item{
+      margin:0 0 16px;
+      font-size:clamp(20px,1.8vw,28px);
+      line-height:1.45;
+      color:#111111;
+    }
+
+    .booking-contacts__item:last-child{
+      margin-bottom:0;
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      padding:24px;
+      padding-bottom:calc(24px + var(--safe-bot));
+      background:var(--bg);
+    }
+
+    footer .row{
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    @media (max-width: 900px){
+      .booking-grid{
+        grid-template-columns:1fr;
+        gap:36px;
+        justify-items:center;
+      }
+
+      .booking-option{
+        width:min(100%, 420px);
+        max-width:420px;
+      }
+    }
+
+    @media (max-width: 640px){
+      .nav{
+        padding:12px;
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .links{
+        width:100%;
+        flex-wrap:wrap;
+      }
+
+      main{
+        padding:48px 12px 72px;
+      }
+
+      .hero{
+        margin-bottom:36px;
+      }
+
+      .hero h1{
+        font-size:36px;
+      }
+
+      .hero p{
+        font-size:15px;
+      }
+
+      .booking-grid{
+        gap:28px;
+      }
+
+      .booking-option{
+        width:100%;
+        max-width:100%;
+      }
+
+      .booking-card__image{
+        aspect-ratio:4/4.7;
+        margin-bottom:16px;
+      }
+
+      .booking-card__title{
+        font-size:24px;
+      }
+
+      .booking-card__text{
+        font-size:13px;
+      }
+
+      .booking-details{
+        margin-top:24px;
+        max-width:100%;
+      }
+
+      .booking-details__title{
+        font-size:20px;
+        margin-bottom:14px;
+      }
+
+      .booking-details__list li{
+        font-size:15px;
+        margin-bottom:10px;
+      }
+
+      .booking-info{
+        margin-top:48px;
+        padding:42px 12px;
+      }
+
+      .booking-info__title{
+        font-size:30px;
+        margin-bottom:18px;
+      }
+
+      .booking-info__text{
+        font-size:16px;
+        margin-bottom:18px;
+      }
+
+      .booking-info__deadline{
+        font-size:18px;
+      }
+
+      .booking-contacts{
+        padding:42px 12px 12px;
+      }
+
+      .booking-contacts__title{
+        font-size:34px;
+        margin-bottom:18px;
+      }
+
+      .booking-contacts__item{
+        font-size:18px;
+        margin-bottom:12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="/">NIKITA KOTRELEV</a>
+      <div class="links">
+          <a href="/Book a photoshoot.html">Book a photoshoot</a>
+          <a href="/Video.html">Video</a>
+          <a href="/Projects.html">Projects</a>
+          <a href="/About me.html">About</a>
+          <a href="Store.html">Store</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Prices and terms and conditions</h1>
+    </section>
+
+    <section class="booking-grid" aria-label="Booking options">
+      <div class="booking-option">
+        <div class="booking-card">
+          <div class="booking-card__image">
+            <img src="img/IMG_3630 2.jpg" alt="Individual session" loading="lazy" decoding="async">
+          </div>
+          <h2 class="booking-card__title">Individual session</h2>
+          <p class="booking-card__text">
+            150€
+          </p>
+        </div>
+
+        <div class="booking-details">
+          <h3 class="booking-details__title">What’s included</h3>
+          <ul class="booking-details__list">
+            <li>Take photos on film</li>
+            <li>2-hour private photoshoot</li>
+            <li>Full styling for the shoot</li>
+            <li>20 photographs delivered within 4 weeks of the shoot (raw files are not provided for use)</li>
+            <li>Choice of location or interior for the shoot</li>
+            <li>Venue hire</li>
+            <li>All necessary equipment for creative techniques</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="booking-option">
+        <div class="booking-card">
+          <div class="booking-card__image">
+            <img src="img/A130342-R1-30-31.jpg" alt="Order a report" loading="lazy" decoding="async">
+          </div>
+          <h2 class="booking-card__title">Order a report</h2>
+          <p class="booking-card__text">
+            Documentary and reportage shooting for events, projects, and organizations.
+          </p>
+        </div>
+
+        <div class="booking-details">
+          <ul class="booking-details__list">
+            <li>To book an event coverage, please contact me by email or phone</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="booking-info" aria-label="Booking information">
+      <div class="booking-info__inner">
+        <h2 class="booking-info__title">Information before booking a photoshoot</h2>
+
+        <p class="booking-info__text">
+          Information before booking a photoshoot
+Preparation for the photoshoot proceeds as follows: once the date has been agreed and the client has paid a deposit (30%), I will send you some reference images and suggestions for clothing styles.
+
+Delivery time for the photographs: 3–4 weeks
+        </p>
+
+        <p class="booking-info__deadline">
+          Delivery time for photographs: 3–4 weeks
+        </p>
+      </div>
+    </section>
+
+    <section class="booking-contacts" aria-label="Contacts">
+      <div class="booking-contacts__inner">
+        <h2 class="booking-contacts__title">Contact details</h2>
+        <p class="booking-contacts__item">+33766525039</p>
+        <p class="booking-contacts__item">Kotrelevnikita@gmail.com</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="row">
+      <span>© <span id="year"></span> Nikita Kotrelev</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
