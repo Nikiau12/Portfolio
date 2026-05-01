@@ -254,6 +254,7 @@
       aspect-ratio: 9 / 16;
       overflow: hidden;
       background: #000;
+      position: relative;
     }
 
     .about-home__image img,
@@ -264,6 +265,54 @@
       object-fit: cover;
       display: block;
       background: #000;
+    }
+
+    .about-home__video {
+      cursor: pointer;
+    }
+
+    .about-home__sound {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      z-index: 2;
+      width: 34px;
+      height: 34px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(0,0,0,.64);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      opacity: .92;
+      transition: background .2s ease, opacity .2s ease, transform .2s ease;
+    }
+
+    .about-home__sound:hover {
+      background: rgba(0,0,0,.82);
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+
+    .about-home__sound svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .about-home__sound .icon-sound-on,
+    .about-home__sound[data-muted="false"] .icon-sound-off {
+      display: none;
+    }
+
+    .about-home__sound[data-muted="false"] .icon-sound-on {
+      display: block;
     }
 
     .about-home__cta {
@@ -591,13 +640,29 @@
 
         <div class="about-home__image">
           <video
+            class="about-home__video"
+            id="aboutVideo"
             src="/img/About me video.mp4"
             poster="/img/IMG_4058.jpeg"
             aria-label="Nikita Kotrelev work"
-            controls
+            autoplay
+            muted
+            loop
             playsinline
             preload="metadata">
           </video>
+          <button class="about-home__sound" type="button" data-muted="true" aria-label="Turn sound on" aria-controls="aboutVideo">
+            <svg class="icon-sound-off" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 9v6h4l5 4V5L8 9H4Z"></path>
+              <path d="M16 9l5 5"></path>
+              <path d="M21 9l-5 5"></path>
+            </svg>
+            <svg class="icon-sound-on" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 9v6h4l5 4V5L8 9H4Z"></path>
+              <path d="M16 8c1.4 1.2 2 2.5 2 4s-.6 2.8-2 4"></path>
+              <path d="M18.5 5.5A8.7 8.7 0 0 1 21 12a8.7 8.7 0 0 1-2.5 6.5"></path>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -747,6 +812,28 @@
       window.addEventListener('focus', playIfPossible);
       window.addEventListener('pagehide', pauseIfPossible);
       window.addEventListener('pageshow', playIfPossible);
+    })();
+
+    (function(){
+      const video = document.getElementById('aboutVideo');
+      const sound = document.querySelector('.about-home__sound');
+      if(!video || !sound) return;
+
+      function setMuted(nextMuted){
+        video.muted = nextMuted;
+        sound.dataset.muted = String(nextMuted);
+        sound.setAttribute('aria-label', nextMuted ? 'Turn sound on' : 'Turn sound off');
+      }
+
+      function toggleSound(){
+        setMuted(!video.muted);
+        video.play().catch(()=>{});
+      }
+
+      setMuted(video.muted);
+      video.play().catch(()=>{});
+      video.addEventListener('click', toggleSound);
+      sound.addEventListener('click', toggleSound);
     })();
 
     (function(){
