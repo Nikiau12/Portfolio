@@ -93,11 +93,12 @@
     /* ===== Hero ===== */
     .page-hero{
       padding-top:calc(var(--header-h) + 64px);
-      padding-bottom:28px;
+      padding-bottom:24px;
       max-width:1320px;
       margin:0 auto;
       padding-inline:24px;
       box-sizing:border-box;
+      text-align:center;
     }
     .page-hero h1{
       font-size:clamp(30px,4vw,52px);
@@ -108,9 +109,48 @@
     .page-hero p{
       color:var(--muted);
       font-size:clamp(14px,1.8vw,18px);
-      margin:0;
-      max-width:70ch;
+      margin:0 auto;
+      max-width:58ch;
       line-height:1.5;
+    }
+
+    .store-note{
+      max-width:1320px;
+      margin:0 auto 28px;
+      padding:0 24px;
+      box-sizing:border-box;
+    }
+
+    .store-note__grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      border:1px solid var(--border);
+      background:var(--border);
+      gap:1px;
+    }
+
+    .store-note__item{
+      background:#fff;
+      padding:18px 20px;
+      min-height:86px;
+      box-sizing:border-box;
+    }
+
+    .store-note__label{
+      margin:0 0 6px;
+      color:var(--muted);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-weight:700;
+    }
+
+    .store-note__value{
+      margin:0;
+      color:var(--fg);
+      font-size:17px;
+      line-height:1.35;
+      font-weight:600;
     }
 
     /* ===== Store grid ===== */
@@ -210,10 +250,10 @@
     }
 
     .quick{
-      position:absolute;
-      left:0; right:0;
-      bottom:-56px;
-      height:56px;
+      position:relative;
+      width:100%;
+      min-height:48px;
+      margin-top:18px;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -221,14 +261,17 @@
       letter-spacing:.10em;
       text-transform:uppercase;
       font-size:13px;
-      background:#ffffff;
-      border:0;
-      border-top:1px solid var(--border);
-      transition:bottom .22s ease;
+      background:#0b0b0b;
+      color:#fff;
+      border:1px solid #0b0b0b;
+      transition:background .18s ease, color .18s ease;
       cursor:pointer;
       pointer-events:auto;
     }
-    .tile:hover .quick{ bottom:0; }
+    .quick:hover{
+      background:#fff;
+      color:#0b0b0b;
+    }
 
     .caption{
       padding:2px 2px 0;
@@ -696,6 +739,8 @@
       .page-hero h1{font-size:34px; line-height:1.05;}
       .page-hero p{font-size:14px; line-height:1.45;}
       .store{padding:0 12px; margin-bottom:40px;}
+      .store-note{padding:0 12px; margin-bottom:22px;}
+      .store-note__grid{grid-template-columns:1fr;}
       footer .row{flex-direction:column; align-items:flex-start; padding:0 12px;}
       footer{padding:20px 12px calc(20px + var(--safe-bot));}
     }
@@ -708,6 +753,8 @@
       #qv-img{transition:none}
     }
   </style>
+  <link rel="stylesheet" href="site-nav.css">
+  <link rel="stylesheet" href="cookie-consent.css">
 </head>
 
 <body>
@@ -719,14 +766,32 @@
           <a href="/Video.html">Video</a>
           <a href="/Projects.html">Projects</a>
           <a href="/About me.html">About</a>
-          <a href="Store.html">Store</a>
+          <a href="Store.html" aria-current="page">Store</a>
       </div>
     </nav>
   </header>
 
   <div class="page-hero">
     <h1>Store</h1>
+    <p>Fine-art prints from travel, documentary, and street photography. Choose the size, finish, and frame directly inside each work.</p>
   </div>
+
+  <section class="store-note" aria-label="Store information">
+    <div class="store-note__grid">
+      <div class="store-note__item">
+        <p class="store-note__label">Formats</p>
+        <p class="store-note__value">Postcard, medium, and large print options</p>
+      </div>
+      <div class="store-note__item">
+        <p class="store-note__label">Finish</p>
+        <p class="store-note__value">Unframed, black frame, or white frame when available</p>
+      </div>
+      <div class="store-note__item">
+        <p class="store-note__label">Payment</p>
+        <p class="store-note__value">Secure checkout through Stripe</p>
+      </div>
+    </div>
+  </section>
 
   <section class="store" id="store" aria-label="Store products">
 
@@ -1396,6 +1461,12 @@
       currentSizeKey = "large";
 
       const info = getInfo(productId);
+      if (typeof window.trackPortfolioEvent === "function") {
+        window.trackPortfolioEvent("store_view_click", {
+          product_id: productId,
+          product_name: info.title || productId
+        });
+      }
       qvMeta.textContent = info.meta || "NIKITA KOTRELEV";
       qvTitle.textContent = info.title || productId;
       qvDetails.href = info.detailsHref || `Store.html#${productId}`;
@@ -1434,6 +1505,13 @@
     qvBuy.addEventListener('click', ()=>{
       const url = qvBuy.dataset.url;
       if(!url) return;
+      if (typeof window.trackPortfolioEvent === "function") {
+        window.trackPortfolioEvent("stripe_checkout_click", {
+          product_id: productOrder[currentProductIndex] || "",
+          product_name: qvTitle.textContent || "",
+          link_url: url
+        });
+      }
       window.location.href = url;
     });
 
@@ -1541,5 +1619,6 @@
 
     enableAutoTrimIn(document);
   </script>
+  <script src="cookie-consent.js?v=4"></script>
 </body>
 </html>

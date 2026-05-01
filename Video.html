@@ -38,22 +38,23 @@
     }
     .nav{
       display:flex; align-items:center; justify-content:space-between; gap:16px;
-      max-width:1200px; margin:0 auto; padding:16px 24px;
+      max-width:1320px; margin:0 auto; padding:12px 24px;
       width:100%;
       box-sizing:border-box;
     }
     .brand{
-      font-weight:600; letter-spacing:.08em; text-decoration:none; color:var(--fg);
-      white-space:nowrap; flex:0 0 auto;
+      font-weight:700; letter-spacing:.12em; text-decoration:none; color:var(--fg);
+      white-space:nowrap; flex:0 0 auto; font-size:13px; text-transform:uppercase;
     }
     .links{
-      display:flex; gap:8px; overflow-x:auto; overscroll-behavior-inline:contain; scrollbar-width:none;
+      display:flex; gap:10px; overflow-x:auto; overscroll-behavior-inline:contain; scrollbar-width:none;
       max-width:100%;
     }
     .links::-webkit-scrollbar{ display:none; }
     .links a{
       color:var(--fg); text-decoration:none; opacity:.85;
-      padding:10px 12px; border-radius:999px; white-space:nowrap;
+      padding:8px 12px; border-radius:999px; white-space:nowrap;
+      font-size:14px;
       flex:0 0 auto;
     }
     .links a:hover{ opacity:1; background:rgba(255,255,255,.06); }
@@ -135,15 +136,17 @@
       .links a:hover{ background:none; }
     }
   </style>
+  <link rel="stylesheet" href="site-nav.css">
+  <link rel="stylesheet" href="cookie-consent.css">
 </head>
 
-<body>
+<body class="nav-dark">
   <header>
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="index.html">NIKITA KOTRELEV</a>
       <div class="links">
         <a href="/Book a photoshoot.html">Book a photoshoot</a>
-          <a href="/Video.html">Video</a>
+          <a href="/Video.html" aria-current="page">Video</a>
           <a href="/Projects.html">Projects</a>
           <a href="/About me.html">About</a>
           <a href="Store.html">Store</a>
@@ -242,5 +245,6 @@
       mql && mql.addEventListener && mql.addEventListener('change', e => { if (e.matches) disableAutoplay(); });
     })();
   </script>
+  <script src="cookie-consent.js?v=4"></script>
 </body>
 </html>

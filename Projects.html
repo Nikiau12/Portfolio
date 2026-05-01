@@ -353,6 +353,8 @@
       .tile:hover .thumb img{transform:none}
     }
   </style>
+  <link rel="stylesheet" href="site-nav.css">
+  <link rel="stylesheet" href="cookie-consent.css">
 </head>
 
 <body>
@@ -362,7 +364,7 @@
       <div class="links" role="navigation" aria-label="Primary links">
         <a href="/Book a photoshoot.html">Book a photoshoot</a>
           <a href="/Video.html">Video</a>
-          <a href="/Projects.html">Projects</a>
+          <a href="/Projects.html" aria-current="page">Projects</a>
           <a href="/About me.html">About</a>
           <a href="Store.html">Store</a>
       </div>
@@ -443,5 +445,6 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+  <script src="cookie-consent.js?v=4"></script>
 </body>
 </html>

@@ -15,18 +15,6 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0b0b0b">
 
-  <!-- GA4 (Google tag / gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H5VD0NFFWW"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-H5VD0NFFWW');
-  </script>
-
-  <!-- Cookie banner (Cookie-Script) -->
-  <script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/0fadb6b0381b2e0bf3c5aaeb9fca7bec.js"></script>
-
   <style>
     :root {
       --bg:#0b0b0b;
@@ -531,9 +519,11 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="site-nav.css">
+  <link rel="stylesheet" href="cookie-consent.css">
 </head>
 
-<body>
+<body class="nav-dark nav-hero">
   <!-- HERO -->
   <section class="hero" aria-label="Showreel">
     <video id="bg-video" autoplay muted loop playsinline preload="auto" poster="img/Showreel-21.jpg">
@@ -619,7 +609,7 @@
       
     </div>
 
-     <div class="works-slider__wrap">
+    <div class="works-slider__wrap">
       <button class="works-slider__arrow works-slider__arrow--prev" type="button" aria-label="Previous">
         ‹
       </button>
@@ -675,6 +665,17 @@
       <span>© <span id="year"></span> Nikita Kotrelev</span>
     </div>
   </footer>
+
+  <section class="cookie-consent" id="cookie-consent" aria-label="Cookie notice" hidden>
+    <div class="cookie-consent__text">
+      <h2>Cookies</h2>
+      <p>I use analytics cookies only to understand how the site is visited. The site works normally if you decline.</p>
+    </div>
+    <div class="cookie-consent__actions">
+      <button class="cookie-consent__btn cookie-consent__btn--ghost" type="button" data-cookie-choice="declined">Decline</button>
+      <button class="cookie-consent__btn" type="button" data-cookie-choice="accepted">Accept analytics</button>
+    </div>
+  </section>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -793,5 +794,6 @@
       });
     })();
   </script>
+  <script src="cookie-consent.js?v=4"></script>
 </body>
 </html>

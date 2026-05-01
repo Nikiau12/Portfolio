@@ -1,0 +1,114 @@
+/* Shared site navigation. Keep button/header sizing here instead of per page. */
+:root{
+  --site-nav-max:1320px;
+  --site-nav-pad-y:12px;
+  --site-nav-pad-x:24px;
+  --site-nav-gap:10px;
+  --site-nav-link-y:8px;
+  --site-nav-link-x:12px;
+  --site-nav-link-size:14px;
+  --site-nav-brand-size:13px;
+}
+
+header .nav{
+  max-width:var(--site-nav-max) !important;
+  margin:0 auto;
+  padding:var(--site-nav-pad-y) var(--site-nav-pad-x) !important;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px !important;
+  width:100%;
+  box-sizing:border-box;
+}
+
+header .brand{
+  color:var(--fg,#111);
+  text-decoration:none;
+  font-weight:700 !important;
+  letter-spacing:.12em !important;
+  font-size:var(--site-nav-brand-size) !important;
+  line-height:1.2;
+  text-transform:uppercase;
+  white-space:nowrap;
+  flex:0 0 auto;
+}
+
+header .links{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:var(--site-nav-gap) !important;
+  overflow-x:auto;
+  overscroll-behavior-inline:contain;
+  scrollbar-width:none;
+  max-width:100%;
+}
+
+header .links::-webkit-scrollbar{display:none;}
+
+header .nav a{
+  color:var(--fg,#111);
+  text-decoration:none;
+}
+
+header .links a{
+  opacity:.85;
+  padding:var(--site-nav-link-y) var(--site-nav-link-x) !important;
+  border-radius:999px;
+  white-space:nowrap;
+  flex:0 0 auto;
+  font-size:var(--site-nav-link-size) !important;
+  line-height:1.2;
+}
+
+header .links a:hover{
+  opacity:1;
+  background:rgba(0,0,0,.04);
+}
+
+header .links a[aria-current="page"]{
+  opacity:1;
+  background:rgba(0,0,0,.06);
+}
+
+body.nav-dark header .brand,
+body.nav-dark header .nav a{
+  color:var(--fg,#fafafa);
+}
+
+body.nav-dark header .links a:hover{
+  background:rgba(255,255,255,.08);
+}
+
+body.nav-dark header .links a[aria-current="page"]{
+  background:rgba(255,255,255,.12);
+}
+
+body.nav-hero header .nav{
+  color:#fff;
+}
+
+@media (max-width:640px){
+  :root{
+    --site-nav-pad-y:12px;
+    --site-nav-pad-x:12px;
+    --site-nav-gap:8px;
+    --site-nav-link-y:10px;
+    --site-nav-link-x:12px;
+    --site-nav-link-size:14px;
+  }
+
+  header .nav{
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-start;
+  }
+
+  header .links{
+    width:100%;
+    justify-content:flex-start;
+    flex-wrap:wrap;
+    overflow:visible;
+  }
+}

@@ -64,31 +64,34 @@
     }
 
     .nav{
-      max-width:1200px;
+      max-width:1320px;
       margin:0 auto;
-      padding:16px 24px;
+      padding:12px 24px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:16px;
+      gap:12px;
       box-sizing:border-box;
       width:100%;
     }
 
     .brand{
-      font-weight:600;
-      letter-spacing:.08em;
+      font-weight:700;
+      letter-spacing:.12em;
       text-decoration:none;
       color:var(--fg);
       white-space:nowrap;
       flex:0 0 auto;
+      font-size:13px;
+      text-transform:uppercase;
     }
 
     .links{
       display:flex;
-      gap:8px;
+      gap:10px;
       align-items:center;
       overflow-x:auto;
+      overscroll-behavior-inline:contain;
       scrollbar-width:none;
       max-width:100%;
     }
@@ -98,16 +101,22 @@
     .nav a{
       color:var(--fg);
       text-decoration:none;
-      opacity:.88;
-      padding:10px 12px;
+      opacity:.85;
+      padding:8px 12px;
       border-radius:999px;
       white-space:nowrap;
       flex:0 0 auto;
+      font-size:14px;
     }
 
     .nav a:hover{
       opacity:1;
-      background:rgba(0,0,0,.05);
+      background:rgba(0,0,0,.04);
+    }
+
+    .links a[aria-current="page"]{
+      background:rgba(0,0,0,.06);
+      opacity:1;
     }
 
     main{
@@ -133,10 +142,43 @@
     }
 
     .hero p{
-      margin:0;
+      margin:0 auto;
       color:var(--muted);
       font-size:clamp(16px,1.5vw,20px);
       line-height:1.45;
+      max-width:56ch;
+    }
+
+    .booking-intro{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:1px;
+      margin:0 auto 44px;
+      max-width:900px;
+      border:1px solid var(--border);
+      background:var(--border);
+    }
+
+    .booking-intro__item{
+      background:rgba(255,255,255,.42);
+      padding:18px 20px;
+      text-align:center;
+    }
+
+    .booking-intro__label{
+      margin:0 0 6px;
+      color:var(--muted);
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .booking-intro__value{
+      margin:0;
+      color:var(--fg);
+      font-size:18px;
+      line-height:1.25;
+      font-weight:600;
     }
 
     .booking-grid{
@@ -201,6 +243,49 @@
       font-weight:600;
     }
 
+    .booking-card__note{
+      margin:8px auto 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.35;
+      max-width:30ch;
+    }
+
+    .booking-actions{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .booking-action{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      padding:0 18px;
+      border:1px solid #111;
+      color:#111;
+      text-decoration:none;
+      border-radius:999px;
+      font-size:15px;
+      line-height:1;
+      background:transparent;
+      transition:background .18s ease, color .18s ease, opacity .18s ease;
+    }
+
+    .booking-action:hover{
+      background:#111;
+      color:#fff;
+    }
+
+    .booking-action--secondary{
+      border-color:var(--border);
+      color:var(--muted);
+    }
+
     .booking-details{
       margin-top:42px;
       max-width:38ch;
@@ -240,7 +325,9 @@
     .booking-info{
       margin-top:72px;
       padding:64px 24px;
-      background:rgba(255,255,255,.26);
+      background:rgba(255,255,255,.42);
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
     }
 
     .booking-info__inner{
@@ -259,7 +346,7 @@
 
     .booking-info__text{
       margin:0 auto 24px;
-      max-width:900px;
+      max-width:62ch;
       font-size:clamp(17px,1.5vw,24px);
       line-height:1.6;
       color:#111111;
@@ -360,6 +447,11 @@
         font-size:15px;
       }
 
+      .booking-intro{
+        grid-template-columns:1fr;
+        margin-bottom:32px;
+      }
+
       .booking-grid{
         gap:28px;
       }
@@ -379,7 +471,11 @@
       }
 
       .booking-card__text{
-        font-size:13px;
+        font-size:20px;
+      }
+
+      .booking-card__note{
+        font-size:15px;
       }
 
       .booking-details{
@@ -431,13 +527,15 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="site-nav.css">
+  <link rel="stylesheet" href="cookie-consent.css">
 </head>
 <body>
   <header>
     <nav class="nav" aria-label="Primary">
       <a class="brand" href="/">NIKITA KOTRELEV</a>
       <div class="links">
-          <a href="/Book a photoshoot.html">Book a photoshoot</a>
+          <a href="/Book a photoshoot.html" aria-current="page">Book a photoshoot</a>
           <a href="/Video.html">Video</a>
           <a href="/Projects.html">Projects</a>
           <a href="/About me.html">About</a>
@@ -448,7 +546,23 @@
 
   <main>
     <section class="hero">
-      <h1>Prices and terms and conditions</h1>
+      <h1>Book a photoshoot</h1>
+      <p>Portrait sessions and documentary reports on film, built around place, light, and a calm preparation process.</p>
+    </section>
+
+    <section class="booking-intro" aria-label="Session highlights">
+      <div class="booking-intro__item">
+        <p class="booking-intro__label">Format</p>
+        <p class="booking-intro__value">Film photography</p>
+      </div>
+      <div class="booking-intro__item">
+        <p class="booking-intro__label">Delivery</p>
+        <p class="booking-intro__value">3-4 weeks</p>
+      </div>
+      <div class="booking-intro__item">
+        <p class="booking-intro__label">Deposit</p>
+        <p class="booking-intro__value">30% after date approval</p>
+      </div>
     </section>
 
     <section class="booking-grid" aria-label="Booking options">
@@ -461,6 +575,11 @@
           <p class="booking-card__text">
             150€
           </p>
+          <p class="booking-card__note">Private 2-hour portrait session</p>
+          <div class="booking-actions">
+            <a class="booking-action" href="mailto:kotrelevnikita@gmail.com?subject=Individual%20photoshoot%20booking">Book by email</a>
+            <a class="booking-action booking-action--secondary" href="tel:+33766525039">Call</a>
+          </div>
         </div>
 
         <div class="booking-details">
@@ -484,13 +603,22 @@
           </div>
           <h2 class="booking-card__title">Order a report</h2>
           <p class="booking-card__text">
-            Documentary and reportage shooting for events, projects, and organizations.
+            Price on request
           </p>
+          <p class="booking-card__note">Documentary and reportage shooting for events, projects, and organizations</p>
+          <div class="booking-actions">
+            <a class="booking-action" href="mailto:kotrelevnikita@gmail.com?subject=Reportage%20shooting%20request">Request a quote</a>
+            <a class="booking-action booking-action--secondary" href="tel:+33766525039">Call</a>
+          </div>
         </div>
 
         <div class="booking-details">
+          <h3 class="booking-details__title">What’s included</h3>
           <ul class="booking-details__list">
-            <li>To book an event coverage, please contact me by email or phone</li>
+            <li>Event, project, or organization coverage</li>
+            <li>Visual approach agreed before the shoot</li>
+            <li>Final edited photographs delivered after selection</li>
+            <li>Contact me by email or phone to estimate timing and price</li>
           </ul>
         </div>
       </div>
@@ -498,17 +626,14 @@
 
     <section class="booking-info" aria-label="Booking information">
       <div class="booking-info__inner">
-        <h2 class="booking-info__title">Information before booking a photoshoot</h2>
+        <h2 class="booking-info__title">Before the shoot</h2>
 
         <p class="booking-info__text">
-          Information before booking a photoshoot
-Preparation for the photoshoot proceeds as follows: once the date has been agreed and the client has paid a deposit (30%), I will send you some reference images and suggestions for clothing styles.
-
-Delivery time for the photographs: 3–4 weeks
+          Once the date is agreed and the 30% deposit is paid, I send reference images and clothing suggestions so the session has a clear mood before we meet.
         </p>
 
         <p class="booking-info__deadline">
-          Delivery time for photographs: 3–4 weeks
+          Final photographs are delivered in 3-4 weeks.
         </p>
       </div>
     </section>
@@ -531,5 +656,6 @@ Delivery time for the photographs: 3–4 weeks
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+  <script src="cookie-consent.js?v=4"></script>
 </body>
 </html>

@@ -63,25 +63,27 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 24px;
-      max-width: var(--maxw);
+      padding: 12px 24px;
+      max-width: 1320px;
       margin: 0 auto;
-      gap: 16px;
+      gap: 12px;
       box-sizing: border-box;
     }
 
     .brand {
-      font-weight: 600;
-      letter-spacing: .08em;
+      font-weight: 700;
+      letter-spacing: .12em;
       text-decoration: none;
       color: var(--fg);
       white-space: nowrap;
       flex: 0 0 auto;
+      font-size: 13px;
+      text-transform: uppercase;
     }
 
     .links{
       display:flex;
-      gap:8px;
+      gap:10px;
       align-items:center;
       overflow-x:auto;
       overscroll-behavior-inline:contain;
@@ -94,14 +96,15 @@
     .nav a {
       color: var(--fg);
       text-decoration: none;
-      opacity: .88;
-      padding: 10px 12px;
+      opacity: .85;
+      padding: 8px 12px;
       border-radius: 999px;
       white-space: nowrap;
       flex: 0 0 auto;
+      font-size: 14px;
     }
 
-    .nav a:hover { opacity: 1; background: rgba(0,0,0,.05); }
+    .nav a:hover { opacity: 1; background: rgba(0,0,0,.04); }
     .links a[aria-current="page"]{ background: rgba(0,0,0,.06); opacity:1; }
 
     .hero { padding: 80px 24px 28px; }
@@ -248,6 +251,8 @@
       footer .row{ flex-direction: column; align-items: flex-start; }
     }
   </style>
+  <link rel="stylesheet" href="site-nav.css">
+  <link rel="stylesheet" href="cookie-consent.css">
 </head>
 <body>
   <header>
@@ -307,5 +312,6 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+  <script src="cookie-consent.js?v=4"></script>
 </body>
 </html>

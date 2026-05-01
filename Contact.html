@@ -7,15 +7,6 @@
     <link rel="icon" href="img/pag 5.png" type="image/png">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        @font-face {
-    font-family: 'Afacad Flux';
-    src: local('fonts/Afacad Flux Regular'), local('Afacad-Flux-Regular'),
-        url('fonts/AfacadFlux-Regular.woff2') format('woff2'),
-        url('fonts/AfacadFlux-Regular.woff') format('woff'),
-        url('fonts/AfacadFlux-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-  }
         html, body {
             margin: 0;
             padding: 0;
@@ -79,7 +70,7 @@
         }
 
         .header-nav a:hover {
-            color: #3d40f9; /* Цвет при наведении */
+            color: #ff6347; /* Цвет при наведении */
         }
 
         .header-text-container h1 {
@@ -140,7 +131,6 @@
                     "footer";
                 grid-template-columns: 1fr;
                 grid-template-rows: auto 1fr auto;
-                overflow-x: hidden;
             }
 
             .header-text-container h1 {
@@ -214,6 +204,8 @@
         }
         }
     </style>
+  <link rel="stylesheet" href="site-nav.css">
+  <link rel="stylesheet" href="cookie-consent.css">
 </head>
 <body>
 
@@ -250,5 +242,6 @@
         </div>
     </main>
     
-    </body>
+      <script src="cookie-consent.js?v=4"></script>
+</body>
     </html>
