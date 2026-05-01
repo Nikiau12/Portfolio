@@ -203,8 +203,7 @@
       padding: 72px 24px 84px;
     }
 
-    .about-home__top,
-    .about-home__bottom {
+    .about-home__layout {
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
@@ -213,8 +212,18 @@
       align-items: start;
     }
 
-    .about-home__top {
-      margin-bottom: 72px;
+    .about-home__side,
+    .about-home__content {
+      display: grid;
+      align-items: start;
+    }
+
+    .about-home__side {
+      gap: 48px;
+    }
+
+    .about-home__content {
+      gap: 112px;
     }
 
     .about-home__title h2 {
@@ -242,16 +251,19 @@
 
     .about-home__image {
       width: min(100%, 420px);
+      aspect-ratio: 9 / 16;
+      overflow: hidden;
+      background: #000;
     }
 
     .about-home__image img,
     .about-home__image video {
       width: 100%;
       aspect-ratio: 9 / 16;
-      height: auto;
+      height: 100%;
       object-fit: cover;
       display: block;
-      background: #ddd;
+      background: #000;
     }
 
     .about-home__cta {
@@ -472,19 +484,22 @@
         padding: 48px 12px 56px;
       }
 
-      .about-home__top,
-      .about-home__bottom {
+      .about-home__layout {
         grid-template-columns: 1fr;
         gap: 24px;
+      }
+
+      .about-home__side {
+        gap: 24px;
+      }
+
+      .about-home__content {
+        gap: 36px;
       }
 
       .about-home__image {
         width: min(100%, 420px);
         margin: 0 auto;
-      }
-
-      .about-home__top {
-        margin-bottom: 36px;
       }
 
       .about-home__title h2 {
@@ -568,58 +583,60 @@
 
   <!-- ABOUT -->
   <section class="about-home" id="about">
-    <div class="about-home__top">
-      <div class="about-home__title">
-        <h2>Nikita Kotrelev</h2>
+    <div class="about-home__layout">
+      <div class="about-home__side">
+        <div class="about-home__title">
+          <h2>Nikita Kotrelev</h2>
+        </div>
+
+        <div class="about-home__image">
+          <video
+            src="/img/About me video.mp4"
+            poster="/img/IMG_4058.jpeg"
+            aria-label="Nikita Kotrelev work"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata">
+          </video>
+        </div>
       </div>
 
-      <div class="about-home__text">
-        <p>
-          I photograph people in different cities around the world the way memories feel.
-          Not as staged photo shoots, but as living moments shaped by light, movement,
-          space, and presence.
-        </p>
+      <div class="about-home__content">
+        <div class="about-home__text">
+          <p>
+            I photograph people in different cities around the world the way memories feel.
+            Not as staged photo shoots, but as living moments shaped by light, movement,
+            space, and presence.
+          </p>
 
-        <p>
-          My work moves between portrait and cinematic storytelling. I work with travelers,
-          couples, and creative people, building each session around atmosphere, honesty,
-          and the feeling of a particular place.
-        </p>
-      </div>
-    </div>
+          <p>
+            My work moves between portrait and cinematic storytelling. I work with travelers,
+            couples, and creative people, building each session around atmosphere, honesty,
+            and the feeling of a particular place.
+          </p>
+        </div>
 
-    <div class="about-home__bottom">
-      <div class="about-home__image">
-        <video
-          src="/img/About me video.mp4"
-          poster="/img/IMG_4058.jpeg"
-          aria-label="Nikita Kotrelev work"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata">
-        </video>
-      </div>
+        <div class="about-home__details">
+          <p>
+            Over the course of my seven-year career, I have worked in 42 countries. My projects have included documentary films, short films, feature films, advertising and photo reports.
+          </p>
 
-      <div class="about-home__details">
-        <p>
-          Over the course of my seven-year career, I have worked in 42 countries.  My projects have included documentary films, short films, feature films, advertising and photo reports.
-        </p>
+          <p>
+            I have collaborated with UN agencies and UNESCO
+          </p>
 
- <p>
-        I have collaborated with UN agencies and UNESCO
-        </p>
+          <p>
+            I organised my own photography exhibition, ‘AU-DELA DE LA RUSSIE’, in Paris.
+          </p>
 
+          <p>
+            I was a prize-winner in the ‘Street Photo of Russia’ competition.
+          </p>
 
-        <p>
-        I organised my own photography exhibition, ‘AU-DELA DE LA RUSSIE’, in Paris.
-        </p>
-        <p>
-         I was a prize-winner in the ‘Street Photo of Russia’ competition.
-        </p>
-
-       <a class="about-home__cta" href="/book/">Book a photoshoot</a>
+          <a class="about-home__cta" href="/book/">Book a photoshoot</a>
+        </div>
       </div>
     </div>
   </section>

@@ -71,13 +71,13 @@
     }
 
     .player{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
+      background:#000;
+      border:0;
+      border-radius:0;
       overflow:hidden;
     }
-    .ratio{ position:relative; width:100%; aspect-ratio:16/9; background:#000; }
-    .ratio iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+    .ratio{ position:relative; width:100%; aspect-ratio:16/9; background:#000; overflow:hidden; }
+    .ratio iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; display:block; background:#000; color-scheme:dark; }
 
     /* ===== footer ===== */
     footer{
@@ -151,7 +151,7 @@
           <div class="ratio">
             <iframe
               id="vimeo1"
-              src="https://player.vimeo.com/video/1188453151?dnt=1&badge=0&autopause=0&player_id=vimeo1"
+              src="https://player.vimeo.com/video/1188453151?dnt=1&badge=0&autopause=0&transparent=0&player_id=vimeo1"
               title="Video — Nikita Kotrelev"
               loading="lazy"
               allow="autoplay; fullscreen; picture-in-picture"
@@ -166,7 +166,7 @@
           <div class="ratio">
             <iframe
               id="vimeo2"
-              src="https://player.vimeo.com/video/1188455881?dnt=1&badge=0&autopause=0&player_id=vimeo2"
+              src="https://player.vimeo.com/video/1188455881?dnt=1&badge=0&autopause=0&transparent=0&player_id=vimeo2"
               title="Video — Nikita Kotrelev"
               loading="lazy"
               allow="autoplay; fullscreen; picture-in-picture"
@@ -181,7 +181,7 @@
           <div class="ratio">
             <iframe
               id="vimeo3"
-              src="https://player.vimeo.com/video/1188457536?dnt=1&badge=0&autopause=0&player_id=vimeo3"
+              src="https://player.vimeo.com/video/1188457536?dnt=1&badge=0&autopause=0&transparent=0&player_id=vimeo3"
               title="Video — Nikita Kotrelev"
               loading="lazy"
               allow="autoplay; fullscreen; picture-in-picture"
