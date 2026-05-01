@@ -158,59 +158,60 @@
     <div class="container">
       <div class="videos">
 
-<!-- VIDEO 1 -->
-        <section class="player" role="region" aria-label="Second video player">
+        <!-- VIDEO 1 -->
+        <section class="player" role="region" aria-label="Vimeo video player 1">
           <div class="ratio">
             <iframe
-              id="yt2"
-              src="https://www.youtube.com/embed/mbNNm-6rX58?autoplay=0&mute=0&playsinline=1"
+              id="vimeo1"
+              src="https://player.vimeo.com/video/1188453151?dnt=1&badge=0&autopause=0&player_id=vimeo1"
               title="Video — Nikita Kotrelev"
               loading="lazy"
-              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+              allow="autoplay; fullscreen; picture-in-picture"
               referrerpolicy="strict-origin-when-cross-origin"
               allowfullscreen>
             </iframe>
           </div>
           <div class="caption">
-
+            <strong>Video</strong>
+            <span>Vimeo</span>
           </div>
         </section>
 
-
         <!-- VIDEO 2 -->
-        <section class="player" role="region" aria-label="Second video player">
+        <section class="player" role="region" aria-label="Vimeo video player 2">
           <div class="ratio">
             <iframe
-              id="yt2"
-              src="https://www.youtube.com/embed/uCZW-tvKaCM?autoplay=0&mute=0&playsinline=1"
+              id="vimeo2"
+              src="https://player.vimeo.com/video/1188455881?dnt=1&badge=0&autopause=0&player_id=vimeo2"
               title="Video — Nikita Kotrelev"
               loading="lazy"
-              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+              allow="autoplay; fullscreen; picture-in-picture"
               referrerpolicy="strict-origin-when-cross-origin"
               allowfullscreen>
             </iframe>
           </div>
           <div class="caption">
-
+            <strong>Video</strong>
+            <span>Vimeo</span>
           </div>
         </section>
 
         <!-- VIDEO 3 -->
-        <section class="player" role="region" aria-label="Showreel player">
+        <section class="player" role="region" aria-label="Vimeo video player 3">
           <div class="ratio">
             <iframe
-              id="yt1"
-              src="https://www.youtube.com/embed/Ht9TyFItu58?autoplay=0&playsinline=1"
-              title="Showreel — Nikita Kotrelev"
+              id="vimeo3"
+              src="https://player.vimeo.com/video/1188457536?dnt=1&badge=0&autopause=0&player_id=vimeo3"
+              title="Video — Nikita Kotrelev"
               loading="lazy"
-              allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+              allow="autoplay; fullscreen; picture-in-picture"
               referrerpolicy="strict-origin-when-cross-origin"
               allowfullscreen>
             </iframe>
           </div>
           <div class="caption">
-            <strong>Showreel</strong>
-            <span>YouTube</span>
+            <strong>Video</strong>
+            <span>Vimeo</span>
           </div>
         </section>
 
@@ -228,18 +229,20 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // prefers-reduced-motion: disable autoplay for VIDEO 1
+    // prefers-reduced-motion: keep embedded players from requesting autoplay.
     (function(){
       const mql = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
-      const iframe = document.getElementById('yt1');
-      if (!iframe) return;
+      const iframes = document.querySelectorAll('.ratio iframe');
+      if (!iframes.length) return;
 
       function disableAutoplay(){
-        try{
-          const url = new URL(iframe.src);
-          url.searchParams.set('autoplay', '0');
-          iframe.src = url.toString();
-        }catch(e){}
+        iframes.forEach((iframe)=>{
+          try{
+            const url = new URL(iframe.src);
+            url.searchParams.set('autoplay', '0');
+            iframe.src = url.toString();
+          }catch(e){}
+        });
       }
       if (mql && mql.matches) disableAutoplay();
       mql && mql.addEventListener && mql.addEventListener('change', e => { if (e.matches) disableAutoplay(); });
