@@ -81,11 +81,6 @@
         return;
       }
 
-      if (href.startsWith("tel:")) {
-        trackEvent("contact_phone_click", { link_text: text, link_url: href });
-        return;
-      }
-
       if (href.includes("buy.stripe.com")) {
         trackEvent("stripe_checkout_click", { link_text: text, link_url: href });
         return;

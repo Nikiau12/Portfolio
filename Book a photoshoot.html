@@ -223,6 +223,68 @@
       transform:scale(1.02);
     }
 
+    .booking-carousel{
+      position:relative;
+      overflow:hidden;
+      background:#e7e7e7;
+      margin-bottom:18px;
+      transition:height .34s ease;
+    }
+
+    .booking-carousel__track{
+      height:100%;
+      display:flex;
+      transition:transform .34s ease;
+    }
+
+    .booking-carousel__slide{
+      min-width:100%;
+      height:100%;
+      margin:0;
+      display:grid;
+      place-items:center;
+    }
+
+    .booking-carousel__slide img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      background:#e2e2e2;
+    }
+
+    .booking-carousel__button{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:44px;
+      height:44px;
+      border:1px solid rgba(255,255,255,.42);
+      border-radius:999px;
+      background:rgba(17,17,17,.18);
+      color:#fff;
+      display:grid;
+      place-items:center;
+      font:inherit;
+      font-size:30px;
+      line-height:1;
+      cursor:pointer;
+      backdrop-filter:blur(14px);
+      transition:background .18s ease, border-color .18s ease, opacity .18s ease;
+    }
+
+    .booking-carousel__button:hover{
+      background:rgba(17,17,17,.42);
+      border-color:rgba(255,255,255,.78);
+    }
+
+    .booking-carousel__button--prev{ left:14px; }
+    .booking-carousel__button--next{ right:14px; }
+
+    .booking-carousel[data-single="true"] .booking-carousel__button{
+      display:none;
+    }
+
     .booking-card__title{
       margin:0 0 8px;
       text-align:center;
@@ -466,6 +528,10 @@
         margin-bottom:16px;
       }
 
+      .booking-carousel{
+        margin-bottom:16px;
+      }
+
       .booking-card__title{
         font-size:24px;
       }
@@ -553,7 +619,7 @@
     <section class="booking-intro" aria-label="Session highlights">
       <div class="booking-intro__item">
         <p class="booking-intro__label">Format</p>
-        <p class="booking-intro__value">Film photography</p>
+        <p class="booking-intro__value">Film, phone and digital camera</p>
       </div>
       <div class="booking-intro__item">
         <p class="booking-intro__label">Delivery</p>
@@ -568,8 +634,23 @@
     <section class="booking-grid" aria-label="Booking options">
       <div class="booking-option">
         <div class="booking-card">
-          <div class="booking-card__image">
-            <img src="img/IMG_3630 2.jpg" alt="Individual session" loading="lazy" decoding="async">
+          <div class="booking-carousel" data-carousel aria-label="Individual session photos">
+            <div class="booking-carousel__track">
+              <figure class="booking-carousel__slide">
+                <img src="img/IMG_3630 2.jpg" alt="Individual session" loading="lazy" decoding="async">
+              </figure>
+              <figure class="booking-carousel__slide">
+                <img src="img/маша лестница_1.JPG" alt="Individual portrait session example 1" loading="lazy" decoding="async">
+              </figure>
+              <figure class="booking-carousel__slide">
+                <img src="img/IMG_3407.jpg" alt="Individual portrait session example 2" loading="lazy" decoding="async">
+              </figure>
+              <figure class="booking-carousel__slide">
+                <img src="img/IMG_3796 2.jpg" alt="Individual portrait session example 3" loading="lazy" decoding="async">
+              </figure>
+            </div>
+            <button class="booking-carousel__button booking-carousel__button--prev" type="button" aria-label="Previous individual session photo">‹</button>
+            <button class="booking-carousel__button booking-carousel__button--next" type="button" aria-label="Next individual session photo">›</button>
           </div>
           <h2 class="booking-card__title">Individual session</h2>
           <p class="booking-card__text">
@@ -578,7 +659,6 @@
           <p class="booking-card__note">Private 2-hour portrait session</p>
           <div class="booking-actions">
             <a class="booking-action" href="mailto:kotrelevnikita@gmail.com?subject=Individual%20photoshoot%20booking">Book by email</a>
-            <a class="booking-action booking-action--secondary" href="tel:+33766525039">Call</a>
           </div>
         </div>
 
@@ -598,8 +678,14 @@
 
       <div class="booking-option">
         <div class="booking-card">
-          <div class="booking-card__image">
-            <img src="img/A130342-R1-30-31.jpg" alt="Order a report" loading="lazy" decoding="async">
+          <div class="booking-carousel" data-carousel aria-label="Reportage photos">
+            <div class="booking-carousel__track">
+              <figure class="booking-carousel__slide">
+                <img src="img/A130342-R1-30-31.jpg" alt="Reportage shooting example" loading="lazy" decoding="async">
+              </figure>
+            </div>
+            <button class="booking-carousel__button booking-carousel__button--prev" type="button" aria-label="Previous reportage photo">‹</button>
+            <button class="booking-carousel__button booking-carousel__button--next" type="button" aria-label="Next reportage photo">›</button>
           </div>
           <h2 class="booking-card__title">Order a report</h2>
           <p class="booking-card__text">
@@ -608,7 +694,6 @@
           <p class="booking-card__note">Documentary and reportage shooting for events, projects, and organizations</p>
           <div class="booking-actions">
             <a class="booking-action" href="mailto:kotrelevnikita@gmail.com?subject=Reportage%20shooting%20request">Request a quote</a>
-            <a class="booking-action booking-action--secondary" href="tel:+33766525039">Call</a>
           </div>
         </div>
 
@@ -618,7 +703,7 @@
             <li>Event, project, or organization coverage</li>
             <li>Visual approach agreed before the shoot</li>
             <li>Final edited photographs delivered after selection</li>
-            <li>Contact me by email or phone to estimate timing and price</li>
+            <li>Contact me by email to estimate timing and price</li>
           </ul>
         </div>
       </div>
@@ -641,7 +726,6 @@
     <section class="booking-contacts" aria-label="Contacts">
       <div class="booking-contacts__inner">
         <h2 class="booking-contacts__title">Contact details</h2>
-        <p class="booking-contacts__item">+33766525039</p>
         <p class="booking-contacts__item">Kotrelevnikita@gmail.com</p>
       </div>
     </section>
@@ -655,6 +739,60 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    document.querySelectorAll('[data-carousel]').forEach((carousel)=>{
+      const track = carousel.querySelector('.booking-carousel__track');
+      const slides = Array.from(carousel.querySelectorAll('.booking-carousel__slide'));
+      const prev = carousel.querySelector('.booking-carousel__button--prev');
+      const next = carousel.querySelector('.booking-carousel__button--next');
+      let index = 0;
+
+      if (!track || !slides.length) return;
+      if (slides.length <= 1) carousel.dataset.single = "true";
+
+      function setCarouselHeight(){
+        const image = slides[index].querySelector('img');
+        const width = carousel.clientWidth || carousel.getBoundingClientRect().width;
+        if (!image || !width) return;
+
+        const naturalWidth = image.naturalWidth || 5;
+        const naturalHeight = image.naturalHeight || 7;
+        const ratio = naturalHeight / naturalWidth;
+        const minHeight = width * 0.92;
+        const maxHeight = width * 1.42;
+        const nextHeight = Math.min(Math.max(width * ratio, minHeight), maxHeight);
+        carousel.style.height = `${nextHeight}px`;
+      }
+
+      function render(){
+        setCarouselHeight();
+        track.style.transform = `translateX(${-index * 100}%)`;
+      }
+
+      function goTo(nextIndex){
+        index = (nextIndex + slides.length) % slides.length;
+        render();
+      }
+
+      slides.forEach((slide)=>{
+        const image = slide.querySelector('img');
+        if (!image) return;
+        if (image.complete) setCarouselHeight();
+        else image.addEventListener('load', render, { once:true });
+      });
+
+      if (prev) prev.addEventListener('click', ()=>goTo(index - 1));
+      if (next) next.addEventListener('click', ()=>goTo(index + 1));
+
+      carousel.tabIndex = 0;
+      carousel.addEventListener('keydown', (event)=>{
+        if (event.key === 'ArrowLeft') goTo(index - 1);
+        if (event.key === 'ArrowRight') goTo(index + 1);
+      });
+      window.addEventListener('resize', render);
+
+      render();
+    });
   </script>
   <script src="cookie-consent.js?v=4"></script>
 </body>
