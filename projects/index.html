@@ -143,6 +143,54 @@
       line-height:1.5;
     }
 
+    .project-tabs{
+      max-width:1320px;
+      margin:0 auto 28px;
+      padding:0 24px;
+      box-sizing:border-box;
+      display:flex;
+      justify-content:center;
+    }
+
+    .project-tabs__list{
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      padding:4px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.52);
+    }
+
+    .project-tabs__button{
+      appearance:none;
+      border:0;
+      background:transparent;
+      color:var(--fg);
+      min-width:96px;
+      padding:10px 18px;
+      font:inherit;
+      font-size:15px;
+      line-height:1;
+      cursor:pointer;
+      opacity:.62;
+      transition:background .2s ease, opacity .2s ease;
+    }
+
+    .project-tabs__button:hover{
+      opacity:1;
+      background:rgba(0,0,0,.04);
+    }
+
+    .project-tabs__button[aria-selected="true"]{
+      background:#111;
+      color:#fff;
+      opacity:1;
+    }
+
+    .project-panel[hidden]{
+      display:none;
+    }
+
     /* ===== Projects grid ===== */
     .projects{
       max-width:1320px;
@@ -241,6 +289,39 @@
       line-height:1.45;
     }
 
+    .empty-panel{
+      max-width:1320px;
+      margin:0 auto 72px;
+      padding:0 24px;
+      box-sizing:border-box;
+    }
+
+    .empty-panel__inner{
+      min-height:360px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.46);
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:48px 24px;
+      box-sizing:border-box;
+    }
+
+    .empty-panel__inner p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.5;
+    }
+
+    .empty-panel__inner strong{
+      display:block;
+      margin-bottom:6px;
+      color:var(--fg);
+      font-size:18px;
+      font-weight:600;
+    }
+
     /* ===== Footer ===== */
     footer{
       border-top:1px solid var(--border);
@@ -332,7 +413,28 @@
         line-height:1.45;
       }
 
+      .project-tabs{
+        padding:0 12px;
+        justify-content:flex-start;
+        overflow-x:auto;
+      }
+
+      .project-tabs__list{
+        width:100%;
+      }
+
+      .project-tabs__button{
+        flex:1 1 0;
+        min-width:0;
+        padding:11px 12px;
+      }
+
       .projects{
+        padding:0 12px;
+        margin-bottom:40px;
+      }
+
+      .empty-panel{
         padding:0 12px;
         margin-bottom:40px;
       }
@@ -376,64 +478,79 @@
 
   </div>
 
-  <section class="projects" aria-label="Projects list">
+  <div class="project-tabs" aria-label="Project categories">
+    <div class="project-tabs__list" role="tablist" aria-label="Project categories">
+      <button class="project-tabs__button" id="tab-photos" type="button" role="tab" aria-selected="true" aria-controls="panel-photos" data-project-tab="photos">Photos</button>
+      <button class="project-tabs__button" id="tab-design" type="button" role="tab" aria-selected="false" aria-controls="panel-design" data-project-tab="design">Design</button>
+    </div>
+  </div>
 
-    <article class="project">
-      <a href="/projects/robotdog/">
-        <div class="tile">
-          <div class="meta">NIKITA KOTRELEV</div>
-          <div class="thumb">
-            <img src="/img/FullSizeRender_1_.jpg" alt="France — project thumbnail" loading="lazy" decoding="async">
+  <section class="project-panel" id="panel-photos" role="tabpanel" aria-labelledby="tab-photos" data-project-panel="photos">
+    <div class="projects" aria-label="Photo projects list">
+
+      <article class="project">
+        <a href="/projects/robotdog/">
+          <div class="tile">
+            <div class="meta">NIKITA KOTRELEV</div>
+            <div class="thumb">
+              <img src="/img/FullSizeRender_1_.jpg" alt="France — project thumbnail" loading="lazy" decoding="async">
+            </div>
           </div>
-        </div>
-        <div class="caption">
-          <p class="name">France</p>
-        </div>
-      </a>
-    </article>
-
-    <article class="project">
-      <a href="/projects/island/">
-        <div class="tile">
-          <div class="meta">NIKITA KOTRELEV</div>
-          <div class="thumb">
-            <img src="/img/исландлия маша.png" alt="Island 2025 — thumbnail" loading="lazy" decoding="async">
+          <div class="caption">
+            <p class="name">France</p>
           </div>
-        </div>
-        <div class="caption">
-          <p class="name">Iceland 2025</p>
-        </div>
-      </a>
-    </article>
+        </a>
+      </article>
 
-    <article class="project">
-      <a href="/projects/morocco/">
-        <div class="tile">
-          <div class="meta">NIKITA KOTRELEV</div>
-          <div class="thumb">
-            <img src="/img/marocco 11.png" alt="Morocco — project thumbnail" loading="lazy" decoding="async">
+      <article class="project">
+        <a href="/projects/island/">
+          <div class="tile">
+            <div class="meta">NIKITA KOTRELEV</div>
+            <div class="thumb">
+              <img src="/img/исландлия маша.png" alt="Island 2025 — thumbnail" loading="lazy" decoding="async">
+            </div>
           </div>
-        </div>
-        <div class="caption">
-          <p class="name">Morocco</p>
-        </div>
-      </a>
-    </article>
-
-    <article class="project">
-      <a href="/projects/fashion/">
-        <div class="tile">
-          <div class="meta">NIKITA KOTRELEV</div>
-          <div class="thumb">
-            <img src="/img/IMG_1601.JPG" alt="Fashion — thumbnail" loading="lazy" decoding="async">
+          <div class="caption">
+            <p class="name">Iceland 2025</p>
           </div>
-        </div>
-        <div class="caption">
-          <p class="name">Fashion</p>
-        </div>
-      </a>
-    </article>
+        </a>
+      </article>
 
+      <article class="project">
+        <a href="/projects/morocco/">
+          <div class="tile">
+            <div class="meta">NIKITA KOTRELEV</div>
+            <div class="thumb">
+              <img src="/img/marocco 11.png" alt="Morocco — project thumbnail" loading="lazy" decoding="async">
+            </div>
+          </div>
+          <div class="caption">
+            <p class="name">Morocco</p>
+          </div>
+        </a>
+      </article>
+
+      <article class="project">
+        <a href="/projects/fashion/">
+          <div class="tile">
+            <div class="meta">NIKITA KOTRELEV</div>
+            <div class="thumb">
+              <img src="/img/IMG_1601.JPG" alt="Fashion — thumbnail" loading="lazy" decoding="async">
+            </div>
+          </div>
+          <div class="caption">
+            <p class="name">Fashion</p>
+          </div>
+        </a>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="project-panel empty-panel" id="panel-design" role="tabpanel" aria-labelledby="tab-design" data-project-panel="design" hidden>
+    <div class="empty-panel__inner">
+      <p><strong>Design</strong>Projects will be added here.</p>
+    </div>
   </section>
 
   <footer>
@@ -444,6 +561,38 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function(){
+      const tabs = Array.from(document.querySelectorAll('[data-project-tab]'));
+      const panels = Array.from(document.querySelectorAll('[data-project-panel]'));
+      if(!tabs.length || !panels.length) return;
+
+      function activate(tabName){
+        tabs.forEach((tab)=>{
+          const active = tab.dataset.projectTab === tabName;
+          tab.setAttribute('aria-selected', String(active));
+          tab.tabIndex = active ? 0 : -1;
+        });
+
+        panels.forEach((panel)=>{
+          panel.hidden = panel.dataset.projectPanel !== tabName;
+        });
+      }
+
+      tabs.forEach((tab, index)=>{
+        tab.addEventListener('click', ()=>activate(tab.dataset.projectTab));
+        tab.addEventListener('keydown', (event)=>{
+          if(event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+          event.preventDefault();
+          const dir = event.key === 'ArrowRight' ? 1 : -1;
+          const next = tabs[(index + dir + tabs.length) % tabs.length];
+          next.focus();
+          activate(next.dataset.projectTab);
+        });
+      });
+
+      activate('photos');
+    })();
   </script>
   <script src="/cookie-consent.js?v=4"></script>
 </body>
