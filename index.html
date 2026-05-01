@@ -209,7 +209,7 @@
       display: grid;
       grid-template-columns: 1fr 1.4fr;
       gap: 48px;
-      align-items: start;
+      align-items: stretch;
     }
 
     .about-home__side,
@@ -223,8 +223,13 @@
     }
 
     .about-home__content {
-      gap: 112px;
-      padding-top: 118px;
+      grid-template-rows: auto 1fr;
+      gap: 0;
+      padding-top: calc(clamp(28px, 3.2vw, 46px) * 1.05 + 48px);
+    }
+
+    .about-home__details {
+      align-self: end;
     }
 
     .about-home__title h2 {
@@ -545,7 +550,12 @@
 
       .about-home__content {
         gap: 36px;
+        grid-template-rows: auto;
         padding-top: 0;
+      }
+
+      .about-home__details {
+        align-self: start;
       }
 
       .about-home__image {
