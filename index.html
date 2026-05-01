@@ -240,10 +240,18 @@
       margin-bottom: 0;
     }
 
-    .about-home__image img {
+    .about-home__image {
+      width: min(100%, 420px);
+    }
+
+    .about-home__image img,
+    .about-home__image video {
       width: 100%;
+      aspect-ratio: 9 / 16;
       height: auto;
+      object-fit: cover;
       display: block;
+      background: #ddd;
     }
 
     .about-home__cta {
@@ -470,6 +478,11 @@
         gap: 24px;
       }
 
+      .about-home__image {
+        width: min(100%, 420px);
+        margin: 0 auto;
+      }
+
       .about-home__top {
         margin-bottom: 36px;
       }
@@ -577,7 +590,16 @@
 
     <div class="about-home__bottom">
       <div class="about-home__image">
-        <img src="/img/IMG_4058.jpeg" alt="Nikita Kotrelev work" loading="lazy" decoding="async">
+        <video
+          src="/img/About me video.mp4"
+          poster="/img/IMG_4058.jpeg"
+          aria-label="Nikita Kotrelev work"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata">
+        </video>
       </div>
 
       <div class="about-home__details">
