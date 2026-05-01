@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Fashion · Nikita Kotrelev</title>
+  <meta name="description" content="Fashion project by Nikita Kotrelev." />
+  <link rel="icon" href="/img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/img/favicon_180x180.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0b0b0b">
+
+  <style>
+    :root{
+      --bg:#f5f5f5;
+      --fg:#0b0b0b;
+      --muted:#000000;
+      --border:#e7e7e7;
+      --safe-top:max(env(safe-area-inset-top),0px);
+      --safe-bot:max(env(safe-area-inset-bottom),0px);
+      --header-h:64px;
+    }
+
+    @font-face{
+      font-family:'Afacad Flux';
+      src: local('Afacad Flux Regular'),
+           url('/fonts/AfacadFlux-Regular.woff2') format('woff2'),
+           url('/fonts/AfacadFlux-Regular.woff') format('woff');
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
+    }
+
+    html,body{height:100%}
+    html{color-scheme:light}
+
+    body{
+      margin:0;
+      font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
+      background:var(--bg);
+      color:var(--fg);
+      min-height:100dvh;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    header{
+      position:fixed;
+      top:0; left:0; right:0;
+      z-index:60;
+      padding-top:var(--safe-top);
+      height:var(--header-h);
+      backdrop-filter:saturate(180%) blur(10px);
+      background:rgba(245,245,245,.82);
+      border-bottom:1px solid var(--border);
+      box-sizing:border-box;
+    }
+
+    .nav{
+      max-width:1200px;
+      margin:0 auto;
+      padding:12px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      box-sizing:border-box;
+      width:100%;
+    }
+
+    .brand{
+      font-weight:700;
+      letter-spacing:.12em;
+      text-decoration:none;
+      color:var(--fg);
+      white-space:nowrap;
+      flex:0 0 auto;
+      font-size:13px;
+      text-transform:uppercase;
+    }
+
+    .links{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      overflow-x:auto;
+      max-width:100%;
+      scrollbar-width:none;
+    }
+    .links::-webkit-scrollbar{display:none;}
+
+    .links a{
+      color:var(--fg);
+      text-decoration:none;
+      opacity:.9;
+      padding:8px 12px;
+      border-radius:999px;
+      white-space:nowrap;
+      font-size:14px;
+      flex:0 0 auto;
+    }
+    .links a:hover{opacity:1;background:rgba(0,0,0,.04);}
+    .links a[aria-current="page"]{background:rgba(0,0,0,.06);}
+
+    .hero{
+      padding-top:calc(var(--header-h) + 70px);
+      padding-bottom:30px;
+      text-align:center;
+      max-width:900px;
+      margin:0 auto;
+      padding-inline:24px;
+      box-sizing:border-box;
+    }
+    .hero h1{
+      font-size:clamp(30px,6vw,56px);
+      margin:0 0 10px;
+      line-height:1.05;
+    }
+    .hero .meta,
+    .hero p{
+      color:var(--muted);
+      font-size:clamp(14px,2.2vw,18px);
+      margin:0;
+    }
+
+    .about{
+      max-width:800px;
+      margin:40px auto;
+      padding:24px;
+      background:transparent;
+      border:none;
+      text-align:center;
+      box-sizing:border-box;
+    }
+    .about h3{
+      margin:0 0 12px;
+      font-size:22px;
+    }
+    .about p{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.7;
+      margin:0 auto;
+      max-width:600px;
+    }
+
+    .masonry{
+      column-count:3;
+      column-gap:16px;
+      max-width:1320px;
+      margin:0 auto 70px;
+      padding:0 24px;
+      box-sizing:border-box;
+    }
+    .masonry figure{
+      break-inside:avoid;
+      margin:0 0 16px;
+      border:none;
+      overflow:visible;
+      background:transparent;
+      cursor:pointer;
+      transition:transform .25s ease;
+    }
+    .masonry figure:hover{ transform:translateY(-4px); }
+    .masonry img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.92);
+      display:none;
+      z-index:200;
+      align-items:center;
+      justify-content:center;
+      padding:calc(16px + var(--safe-top)) 16px calc(16px + var(--safe-bot));
+      box-sizing:border-box;
+    }
+    .lightbox[aria-hidden="false"]{display:flex;}
+
+    .lightbox__inner,
+    .lightbox__image-wrap{
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .lightbox__img{
+      max-width:96vw;
+      max-height:86vh;
+      width:auto;
+      height:auto;
+      object-fit:contain;
+      display:block;
+      cursor:pointer;
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      padding:24px;
+      padding-bottom:calc(24px + var(--safe-bot));
+      box-sizing:border-box;
+    }
+    footer .row{
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:0 24px;
+      box-sizing:border-box;
+    }
+
+    @media(max-width:880px){
+      .masonry{ column-count:2; column-gap:12px; }
+    }
+
+    @media (max-width:640px){
+      :root{ --header-h:auto; }
+
+      header{
+        position:sticky;
+        top:0;
+        height:auto;
+        padding-bottom:10px;
+      }
+
+      .nav{
+        padding:12px 12px;
+        flex-direction:column;
+        align-items:flex-start;
+        justify-content:flex-start;
+        gap:10px;
+      }
+
+      .brand{ font-size:14px; }
+
+      .links{
+        width:100%;
+        flex-wrap:wrap;
+        overflow:visible;
+        gap:8px;
+      }
+
+      .links a{
+        padding:10px 12px;
+        font-size:14px;
+      }
+
+      .hero{
+        padding-top:18px;
+        padding-inline:12px;
+        text-align:left;
+      }
+
+      .about{
+        margin:24px 12px;
+        padding:18px;
+        text-align:left;
+      }
+
+      .masonry{
+        column-count:1;
+        column-gap:0;
+        padding:0 12px;
+      }
+
+      footer{ padding:20px 12px calc(20px + var(--safe-bot)); }
+      footer .row{ padding:0 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .masonry figure:hover{ transform:none; }
+    }
+  </style>
+  <link rel="stylesheet" href="/site-nav.css">
+  <link rel="stylesheet" href="/cookie-consent.css">
+</head>
+<body class="nav-dark">
+  <header>
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="/">NIKITA KOTRELEV</a>
+      <div class="links" role="navigation" aria-label="Primary links">
+        <a href="/video/">Video</a>
+        <a href="/projects/" aria-current="page">Projects</a>
+        <a href="/about/">About</a>
+        <a href="/store/">Store</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Fashion</h1>
+    <div class="meta"></div>
+    <p></p>
+  </section>
+
+  <section class="about">
+    <h3>About the project</h3>
+    <p>
+      In 2025, I worked on a modelling shoot as a backstage photographer.
+    </p>
+  </section>
+
+  <section class="masonry" id="gallery">
+    <figure><img src="/img/IMG_1465.JPG" alt="Paris frame" loading="lazy" decoding="async"></figure>
+    <figure><img src="/img/FullSizeRender(2).jpg" alt="Oléron / Paris series" loading="lazy" decoding="async"></figure>
+    <figure><img src="/img/FullSizeRender(3).jpg" alt="France coast" loading="lazy" decoding="async"></figure>
+    <figure><img src="/img/фотки с айфона 202532FullSizeRender 3-2.png" alt="Backstage" loading="lazy" decoding="async"></figure>
+    <figure><img src="/img/IMG_1601.JPG" alt="Backstage" loading="lazy" decoding="async"></figure>
+  </section>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="lightbox__inner">
+      <div class="lightbox__image-wrap">
+        <img id="lb-img" class="lightbox__img" alt="">
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="row">
+      <span>© <span id="year"></span> Nikita Kotrelev</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function(){
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lb-img');
+      const gallery = document.getElementById('gallery');
+      if(!lb || !lbImg || !gallery) return;
+
+      let isOpen = false;
+      let currentSrc = "";
+
+      function openLb(src){
+        currentSrc = src || "";
+        lbImg.src = currentSrc;
+        lb.setAttribute('aria-hidden','false');
+        document.body.style.overflow='hidden';
+        isOpen = true;
+      }
+
+      function closeLb(){
+        lb.setAttribute('aria-hidden','true');
+        document.body.style.overflow='';
+        lbImg.src = '';
+        currentSrc = '';
+        isOpen = false;
+      }
+
+      function toggleLb(src){
+        if(isOpen && src && src === currentSrc) closeLb();
+        else openLb(src);
+      }
+
+      gallery.addEventListener('click', (e)=>{
+        const img = e.target.closest('img');
+        if(!img) return;
+        toggleLb(img.src);
+      });
+
+      lb.addEventListener('click', (e)=>{
+        if(e.target === lb) closeLb();
+      });
+
+      lbImg.addEventListener('click', closeLb);
+
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape' && lb.getAttribute('aria-hidden') === 'false') closeLb();
+      });
+    })();
+  </script>
+  <script src="/cookie-consent.js?v=4"></script>
+</body>
+</html>
