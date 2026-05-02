@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>The New Passport of Russia — Nikita Kotrelev</title>
+  <meta name="description" content="The New Passport of Russia — a design concept by Nikita Kotrelev." />
+  <link rel="icon" href="/img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/img/favicon_180x180.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#e4e5e8">
+
+  <style>
+    :root{
+      --bg:#e4e5e8;
+      --fg:#111;
+      --muted:#5f6268;
+      --line:#cfd1d6;
+      --paper:#f3f3f1;
+      --blue:#1f314b;
+      --red:#7a1f2a;
+      --gold:#d6b15e;
+      --safe-top:max(env(safe-area-inset-top),0px);
+      --safe-bot:max(env(safe-area-inset-bottom),0px);
+      --header-h:64px;
+    }
+
+    @font-face{
+      font-family:'Afacad Flux';
+      src: local('Afacad Flux Regular'),
+           url('/fonts/AfacadFlux-Regular.woff2') format('woff2'),
+           url('/fonts/AfacadFlux-Regular.woff') format('woff');
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
+    }
+
+    html,body{height:100%}
+    html{color-scheme:light}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font-family:'Afacad Flux',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;
+      min-height:100dvh;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      padding-top:var(--safe-top);
+      backdrop-filter:saturate(180%) blur(10px);
+      background:rgba(228,229,232,.82);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      max-width:1320px;
+      margin:0 auto;
+      padding:12px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      box-sizing:border-box;
+    }
+
+    .brand{
+      color:var(--fg);
+      text-decoration:none;
+      font-weight:700;
+      letter-spacing:.12em;
+      font-size:13px;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
+    .links{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      overflow-x:auto;
+      scrollbar-width:none;
+    }
+
+    .links::-webkit-scrollbar{display:none}
+    .links a{
+      color:var(--fg);
+      text-decoration:none;
+      opacity:.78;
+      padding:8px 12px;
+      border-radius:999px;
+      white-space:nowrap;
+      font-size:14px;
+    }
+
+    .links a:hover,
+    .links a[aria-current="page"]{
+      opacity:1;
+      background:rgba(0,0,0,.05);
+    }
+
+    main{
+      padding:72px 24px 96px;
+      box-sizing:border-box;
+    }
+
+    .case{
+      max-width:1200px;
+      margin:0 auto;
+    }
+
+    .case-hero{
+      min-height:58vh;
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) minmax(260px, 420px);
+      gap:64px;
+      align-items:center;
+      padding-bottom:72px;
+    }
+
+    .case-kicker{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:13px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    h1{
+      margin:0;
+      font-family:Georgia, 'Times New Roman', serif;
+      font-size:clamp(52px, 8vw, 118px);
+      line-height:.92;
+      font-weight:400;
+      letter-spacing:-.03em;
+    }
+
+    .case-intro{
+      margin:28px 0 0;
+      max-width:760px;
+      color:#202124;
+      font-family:Georgia, 'Times New Roman', serif;
+      font-size:clamp(18px, 2vw, 28px);
+      line-height:1.32;
+    }
+
+    .passport-stack{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:18px;
+      align-items:center;
+    }
+
+    .passport-cover{
+      aspect-ratio:3/4.2;
+      color:var(--gold);
+      padding:22px 18px;
+      box-sizing:border-box;
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 24px 48px rgba(0,0,0,.12);
+    }
+
+    .passport-cover--blue{background:var(--blue)}
+    .passport-cover--red{background:var(--red)}
+
+    .passport-cover::before{
+      content:"";
+      position:absolute;
+      width:102%;
+      aspect-ratio:1;
+      left:-44%;
+      top:26%;
+      border-radius:50%;
+      border:28px solid rgba(187,82,61,.88);
+    }
+
+    .passport-cover--red::before{
+      left:30%;
+      top:27%;
+      border-color:rgba(214,177,94,.7);
+    }
+
+    .passport-cover::after{
+      content:"";
+      position:absolute;
+      right:12px;
+      bottom:12px;
+      width:22px;
+      height:14px;
+      border:1px solid currentColor;
+    }
+
+    .passport-cover__title{
+      position:relative;
+      z-index:1;
+      text-align:right;
+      font-family:Georgia, 'Times New Roman', serif;
+      font-size:22px;
+      line-height:.9;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .passport-cover__title small{
+      display:block;
+      margin-top:5px;
+      font-size:8px;
+      line-height:1.05;
+      letter-spacing:.1em;
+    }
+
+    .case-section{
+      border-top:1px solid var(--line);
+      padding:56px 0;
+      display:grid;
+      grid-template-columns:260px minmax(0, 1fr);
+      gap:64px;
+    }
+
+    .case-section h2{
+      margin:0;
+      font-family:Georgia, 'Times New Roman', serif;
+      font-size:22px;
+      line-height:1.1;
+      font-weight:400;
+      text-transform:uppercase;
+    }
+
+    .case-copy{
+      display:grid;
+      gap:18px;
+      max-width:860px;
+    }
+
+    .case-copy p{
+      margin:0;
+      font-family:Georgia, 'Times New Roman', serif;
+      font-size:18px;
+      line-height:1.45;
+      color:#171717;
+    }
+
+    .media-placeholder{
+      min-height:360px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.32);
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:32px;
+      box-sizing:border-box;
+      color:var(--muted);
+    }
+
+    .media-placeholder strong{
+      display:block;
+      margin-bottom:6px;
+      color:var(--fg);
+      font-weight:500;
+    }
+
+    .cover-row{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:24px;
+      margin-top:28px;
+      max-width:760px;
+    }
+
+    .spread-placeholder{
+      aspect-ratio:16/9;
+      border:1px solid var(--line);
+      background:linear-gradient(90deg, rgba(255,255,255,.52), rgba(255,255,255,.28));
+      display:grid;
+      place-items:center;
+      color:var(--muted);
+      margin-top:28px;
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      padding:24px;
+      padding-bottom:calc(24px + var(--safe-bot));
+      box-sizing:border-box;
+    }
+
+    footer .row{
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    @media(max-width:900px){
+      .case-hero,
+      .case-section{
+        grid-template-columns:1fr;
+        gap:32px;
+      }
+
+      .case-hero{
+        min-height:auto;
+        padding-bottom:48px;
+      }
+
+      .passport-stack{
+        max-width:560px;
+      }
+
+      .cover-row{
+        grid-template-columns:1fr;
+        max-width:320px;
+      }
+    }
+
+    @media(max-width:640px){
+      main{
+        padding:42px 12px 64px;
+      }
+
+      .nav{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:12px;
+      }
+
+      .links{
+        width:100%;
+        flex-wrap:wrap;
+      }
+
+      .links a{
+        padding:10px 12px;
+      }
+
+      h1{
+        font-size:52px;
+      }
+
+      .case-copy p{
+        font-size:16px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="/site-nav.css">
+  <link rel="stylesheet" href="/cookie-consent.css">
+</head>
+
+<body>
+  <header>
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="/">NIKITA KOTRELEV</a>
+      <div class="links" role="navigation" aria-label="Primary links">
+        <a href="/book/">Book a photoshoot</a>
+        <a href="/video/">Video</a>
+        <a href="/projects/" aria-current="page">Projects</a>
+        <a href="/about/">About</a>
+        <a href="/store/">Store</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <article class="case">
+      <section class="case-hero">
+        <div>
+          <p class="case-kicker">Design concept</p>
+          <h1>The New Passport of Russia</h1>
+          <p class="case-intro">A design study for a renewed passport system, built around national symbols, migration, folklore, regional landscapes, and the multilingual structure of Russia.</p>
+        </div>
+
+        <div class="passport-stack" aria-label="Temporary cover preview">
+          <div class="passport-cover passport-cover--blue">
+            <div class="passport-cover__title">Russia<small>Passport<br>Passport</small></div>
+          </div>
+          <div class="passport-cover passport-cover--red">
+            <div class="passport-cover__title">Russia<small>Passport<br>Passport</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <h2>Project</h2>
+        <div>
+          <div class="media-placeholder">
+            <p><strong>Video / hero media</strong>Placeholder for the project video or first presentation image.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <h2>Cover(s)</h2>
+        <div>
+          <div class="case-copy">
+            <p>There are a few ideas for the cover design. All of them have captions in Russian and English and the biometric passport symbol in the bottom right corner.</p>
+            <p>The first version of the cover shows constellations that are visible from Russia on July 22.</p>
+            <p>The second version features a flock of geese in flight. This species of geese annually migrates from the south to the north of Russia.</p>
+            <p>The third version depicts St. George the Victorious, which is also one of the strongest symbols of Russia. St. George is on horseback piercing a serpent with a spear. There is also a sun around him.</p>
+          </div>
+
+          <div class="cover-row" aria-label="Temporary cover placeholders">
+            <div class="passport-cover passport-cover--blue">
+              <div class="passport-cover__title">Russia<small>Passport<br>Passport</small></div>
+            </div>
+            <div class="passport-cover" style="background:#070707">
+              <div class="passport-cover__title">Russia<small>Passport<br>Passport</small></div>
+            </div>
+            <div class="passport-cover passport-cover--red">
+              <div class="passport-cover__title">Russia<small>Passport<br>Passport</small></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <h2>Pages and Layout</h2>
+        <div>
+          <div class="case-copy">
+            <p>The first page contains all the basic information about the passport holder. This page also contains all the necessary security features that comply with international standards.</p>
+            <p>The layout of other pages is focused on the multinational component of Russia. There are more than 160 nationalities that reside in the country. Each speaks its own language and has customized traditions and folklore.</p>
+            <p>The illustrations are inspired by folk tales, landscapes of different regions of Russia, and history. All illustrations are made in watercolor style and by AI.</p>
+          </div>
+
+          <div class="spread-placeholder">Placeholder for passport spreads</div>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <h2>Credits</h2>
+        <div class="case-copy">
+          <p>Nikita Kotrelev</p>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <div class="row">
+      <span>© <span id="year"></span> Nikita Kotrelev</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="/cookie-consent.js?v=4"></script>
+</body>
+</html>

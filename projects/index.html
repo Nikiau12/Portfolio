@@ -289,6 +289,62 @@
       line-height:1.45;
     }
 
+    .design-cover{
+      width:min(76%, 260px);
+      aspect-ratio:3/4.2;
+      background:#1f314b;
+      color:#d6b15e;
+      display:grid;
+      align-content:start;
+      justify-items:end;
+      padding:22px 18px;
+      box-sizing:border-box;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .design-cover::before{
+      content:"";
+      position:absolute;
+      left:-34%;
+      top:24%;
+      width:96%;
+      aspect-ratio:1;
+      border-radius:50%;
+      border:26px solid #b7543e;
+      opacity:.9;
+    }
+
+    .design-cover::after{
+      content:"";
+      position:absolute;
+      right:12px;
+      bottom:12px;
+      width:22px;
+      height:14px;
+      border:1px solid currentColor;
+      box-sizing:border-box;
+    }
+
+    .design-cover__title{
+      position:relative;
+      z-index:1;
+      text-align:right;
+      font-family:Georgia, 'Times New Roman', serif;
+      font-size:20px;
+      line-height:.92;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .design-cover__title small{
+      display:block;
+      margin-top:4px;
+      font-size:8px;
+      line-height:1.05;
+      letter-spacing:.08em;
+    }
+
     .empty-panel{
       max-width:1320px;
       margin:0 auto 72px;
@@ -547,9 +603,25 @@
     </div>
   </section>
 
-  <section class="project-panel empty-panel" id="panel-design" role="tabpanel" aria-labelledby="tab-design" data-project-panel="design" hidden>
-    <div class="empty-panel__inner">
-      <p><strong>Design</strong>Projects will be added here.</p>
+  <section class="project-panel" id="panel-design" role="tabpanel" aria-labelledby="tab-design" data-project-panel="design" hidden>
+    <div class="projects" aria-label="Design projects list">
+
+      <article class="project">
+        <a href="/projects/passport/">
+          <div class="tile">
+            <div class="meta">DESIGN CASE</div>
+            <div class="thumb">
+              <div class="design-cover" aria-hidden="true">
+                <div class="design-cover__title">Russia<small>Passport<br>Passport</small></div>
+              </div>
+            </div>
+          </div>
+          <div class="caption">
+            <p class="name">The New Passport of Russia</p>
+          </div>
+        </a>
+      </article>
+
     </div>
   </section>
 
