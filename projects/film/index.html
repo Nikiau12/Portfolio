@@ -94,8 +94,9 @@
       .nav{padding:10px 12px;}
     }
   </style>
-  <link rel="stylesheet" href="/site-nav.css">
+  <link rel="stylesheet" href="/site-nav.css?v=theme2">
   <link rel="stylesheet" href="/cookie-consent.css">
+  <script src="/theme.js?v=theme2"></script>
 </head>
 <body class="nav-dark">
   <header>
@@ -106,8 +107,11 @@
         <a href="/photos/">Photos</a>
         <a href="/projects/" aria-current="page">Projects</a>
         <a href="/about/">About</a>
-
       </div>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A7.7 7.7 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.5v2"></path><path d="M12 19.5v2"></path><path d="m4.6 4.6 1.4 1.4"></path><path d="m18 18 1.4 1.4"></path><path d="M2.5 12h2"></path><path d="M19.5 12h2"></path><path d="m4.6 19.4 1.4-1.4"></path><path d="m18 6 1.4-1.4"></path></svg>
+      </button>
     </nav>
   </header>
 
